@@ -201,15 +201,14 @@
                 //*** 0 Ожидать прохода одного цикла анимации ***//
                 svgAnim.addEventListener("webkitanimationiteration", handlerFinishLoader);
                 svgAnim.addEventListener("mozanimationiteration", handlerFinishLoader);
-                svgAnim.addEventListener("animationiteration",       handlerFinishLoader);
-				
-                //*** 2 После загрузки видео убрать прелоадер ***//
-				video.addEventListener('canplaythrough',videoLoad);
-				
+                svgAnim.addEventListener("animationiteration",       handlerFinishLoader);				
 				
                 //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
                 checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
                 
+				//*** 2 После загрузки видео убрать прелоадер ***//
+				video.addEventListener('canplaythrough',videoLoad);
+				
                 function handlerFinishLoader(e) {
                     isFinishLoaderOneCicle = true;
                     if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
@@ -446,7 +445,7 @@
 			
 			<section class="b-title">
 				<div class="video-wrapp">
-					<video class="b-title__video" loop="loop" preload="metadata" >
+					<video class="b-title__video" loop="loop" preload >
 						<source src="video/velur.mp4" type="video/mp4" />
 						<source src="video/velur.webm" type="video/webm" />
 						<source src="video/velur.ogg" type="video/ogg" />
