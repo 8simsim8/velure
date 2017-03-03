@@ -175,6 +175,230 @@
 		<link rel="stylesheet" href="css/styles-main.css">
 		<link rel="stylesheet" href="css/overall-style.css">
 	
+		<script defer>
+			document.addEventListener('DOMContentLoaded', function(){
+				var prelaoder = document.getElementsByClassName('preloader')[0];
+				var nav = document.getElementsByClassName('l-navigation')[0];
+				var poster = document.getElementsByClassName('b-title__poster')[0];
+
+                var video = document.getElementsByTagName('video')[0];
+                var buttonPlay = document.getElementById('play');
+                var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+				
+				var isFullScreen = false;
+				var isFinishLoaderOneCicle = false,
+					isFinishLoadPoster = false,
+					isFinishLoadVideo = false;
+				
+                var transitionEnd = whichTransitionEvent();
+
+                var svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
+
+                disableScroll();
+                
+                document.body.classList.add('start');
+                
+                //*** 0 Ожидать прохода одного цикла анимации ***//
+                svgAnim.addEventListener("webkitanimationiteration", handlerFinishLoader);
+                svgAnim.addEventListener("mozanimationiteration", handlerFinishLoader);
+                svgAnim.addEventListener("animationiteration",       handlerFinishLoader);
+				
+                //*** 2 После загрузки видео убрать прелоадер ***//
+				video.addEventListener('canplaythrough',videoLoad);
+				
+				
+                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
+                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
+                
+                function handlerFinishLoader(e) {
+                    isFinishLoaderOneCicle = true;
+                    if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
+                        videoLoad();
+                    }
+                }
+                
+                function checkLoadBg(el) {
+                    
+                    willChangeSwitch(prelaoder, 'opacity');
+	                
+                    var image = document.createElement('img');
+                    image.src = getBgUrl(el);
+                    image.addEventListener('load', loadImg);
+
+                    function loadImg() {
+                        isFinishLoadPoster = true;
+                        image.remove();
+                        image.removeEventListener('load', loadImg);
+                        if(isFinishLoaderOneCicle) {
+                            document.body.classList.add('load-poster');
+                            prelaoder.addEventListener(transitionEnd, removeWillChange);
+                        }
+                    }
+
+                    function getBgUrl(el) {
+                        var bg = "";
+                        if (el.currentStyle) { // IE
+                            bg = el.currentStyle.backgroundImage;
+                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
+                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
+                        } else { // try and get inline style
+                            bg = el.style.backgroundImage;
+                        }
+                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                    }
+                }
+
+                function videoLoad(e) {
+                    isFinishLoadVideo = true;
+                    if(isFinishLoaderOneCicle) {
+                        // Если видео загрузилось быстро и постер не успел загрузиться
+                        willChangeSwitch(prelaoder, 'opacity');
+						setTimeout(function(){
+							willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
+							document.body.classList.add('load-poster');
+							poster.classList.add('hidden');
+							titleLogo.classList.add('transition');
+							document.body.classList.add('finish-load');
+							document.body.classList.remove('no-scroll');
+							enableScroll();
+						},500);
+                        startPlayBg();
+                        video.removeEventListener('canplaythrough', videoLoad);
+                    }
+                    poster.remove();
+                }
+                
+                var animLogo = document.querySelectorAll(".b-title__logo-inner p");
+                animLogo[animLogo.length-1].addEventListener(transitionEnd, handlerAnimLogo);
+                
+                function handlerAnimLogo(){
+                    prelaoder.remove();
+                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
+                    buttonPlay.addEventListener('click', handlerPlay);
+                    this.removeEventListener(transitionEnd, handlerAnimLogo);
+                }
+
+                function handlerPlay(){
+                    video.currentTime = 0;
+                    video.muted = false;
+                    titleLogo.style.opacity = '0';
+                    nav.style.opacity = '0';
+                    buttonPlay.style.opacity = '0';
+                    setTimeout(function(){
+                        launchFullScreen(video);
+                        setTimeout(function(){
+                            video.play();
+                        },200);
+                        video.addEventListener("webkitfullscreenchange", onfullscreenchange);
+                        video.addEventListener("mozfullscreenchange",    onfullscreenchange);
+                        video.addEventListener("fullscreenchange",       onfullscreenchange);
+                    },200);
+                }
+                
+                function onfullscreenchange(e) {
+                    isFullScreen = !isFullScreen;
+                    if(!isFullScreen) {
+                        startPlayBg();
+                        titleLogo.style.opacity = '';
+                        nav.style.opacity = '';
+                        buttonPlay.style.opacity = '';
+                    }
+                }
+
+                function startPlayBg() {
+                    video.currentTime = 0;
+                    video.muted = true;
+                    video.play();
+                }
+                
+                function whichTransitionEvent(){
+                    var t;
+                    var el = document.createElement('fakeelement');
+
+                    var transitionsEnd = {
+                        'OTransition':'oTransitionEnd',
+                        'MozTransition':'transitionend',
+                        'WebkitTransition':'webkitTransitionEnd',
+                        'transition':'transitionend'
+                    };
+
+                    for(t in transitionsEnd){
+                        if( el.style[t] !== undefined ){
+                            transitionEnd = transitionsEnd[t];
+                        }
+                    }
+
+                    return transitionEnd;
+                }
+
+                //*** Work with property will-change ***//
+                function willChangeSwitch(elem, prop) {
+                    if(elem.length) {
+                        for(var i=0; i < elem.length; i++) {
+                            elem[i].style.willChange = prop;
+                        }
+                    } else {
+                        elem.style.willChange = prop;
+                    }
+                }
+                
+                //*** Delete composition layer ***//
+                function removeWillChange(e){
+                    willChangeSwitch(this, 'auto');
+                    this.removeEventListener(transitionEnd, removeWillChange);
+                }
+
+                //Запустить отображение в полноэкранном режиме
+                function launchFullScreen(element) {
+                    if(element.requestFullScreen) {
+                        element.requestFullScreen();
+                    } else if(element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                    } else if(element.webkitRequestFullScreen) {
+                        element.webkitRequestFullScreen();
+                    }
+                }
+
+                // *** Disable scroll ***//
+                // left: 37, up: 38, right: 39, down: 40,
+                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+                var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+                function preventDefault(e) {
+                    e = e || window.event;
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    e.returnValue = false;
+                }
+
+                function preventDefaultForScrollKeys(e) {
+                    if (keys[e.keyCode]) {
+                        preventDefault(e);
+                        return false;
+                    }
+                }
+
+                function disableScroll() {
+                    if (window.addEventListener) // older FF
+                        window.addEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onwheel = preventDefault; // modern standard
+                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+                    window.ontouchmove  = preventDefault; // mobile
+                    document.onkeydown  = preventDefaultForScrollKeys;
+                }
+
+                function enableScroll() {
+                    if (window.removeEventListener)
+                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onmousewheel = document.onmousewheel = null;
+                    window.onwheel = null;
+                    window.ontouchmove = null;
+                    document.onkeydown = null;
+                }
+                // *** /Disable scroll ***
+			});
+		</script>
+	
 	</head>
 
 	<body class="no-scroll">
@@ -426,226 +650,6 @@
 			
 			<script>
 				
-				var prelaoder = document.getElementsByClassName('preloader')[0];
-				var nav = document.getElementsByClassName('l-navigation')[0];
-				var poster = document.getElementsByClassName('b-title__poster')[0];
-
-                var video = document.getElementsByTagName('video')[0];
-                var buttonPlay = document.getElementById('play');
-                var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
-				
-				var isFullScreen = false;
-				var isFinishLoaderOneCicle = false;
-				
-				var isFinishLoadPoster = false,
-					isFinishLoadVideo = false;
-				
-                var transitionEnd = whichTransitionEvent();
-
-                var svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
-
-                disableScroll();
-                
-                document.body.classList.add('start');
-                
-                //*** 0 Ожидать прохода одного цикла анимации ***//
-                svgAnim.addEventListener("webkitanimationiteration", handlerFinishLoader);
-                svgAnim.addEventListener("mozanimationiteration", handlerFinishLoader);
-                svgAnim.addEventListener("animationiteration",       handlerFinishLoader);
-				
-                //*** 2 После загрузки видео убрать прелоадер ***//
-//                video.addEventListener('canplaythrough', videoLoad);
-				
-                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
-                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
-
-                //  firefox problem
-                videoLoad();
-                
-                function handlerFinishLoader(e) {
-                    isFinishLoaderOneCicle = true;
-                    if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
-                        videoLoad(e);
-                    }
-                }
-                
-                function checkLoadBg(el) {
-                    
-                    willChangeSwitch(prelaoder, 'opacity');
-	                
-                    var image = document.createElement('img');
-                    image.src = getBgUrl(el);
-                    image.addEventListener('load', loadImg);
-
-                    function loadImg() {
-                        isFinishLoadPoster = true;
-                        image.remove();
-                        image.removeEventListener('load', loadImg);
-                        if(isFinishLoaderOneCicle) {
-                            document.body.classList.add('load-poster');
-                            prelaoder.addEventListener(transitionEnd, removeWillChange);
-                        }
-                    }
-
-                    function getBgUrl(el) {
-                        var bg = "";
-                        if (el.currentStyle) { // IE
-                            bg = el.currentStyle.backgroundImage;
-                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
-                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
-                        } else { // try and get inline style
-                            bg = el.style.backgroundImage;
-                        }
-                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
-                    }
-                }
-
-                function videoLoad(e) {
-                    isFinishLoadVideo = true;
-                    if(isFinishLoaderOneCicle) {
-                        // Если видео загрузилось быстро и постер не успел загрузиться
-                        willChangeSwitch(prelaoder, 'opacity');
-                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-                        document.body.classList.add('load-poster');
-                        poster.classList.add('hidden');
-                        titleLogo.classList.add('transition');
-                        document.body.classList.add('finish-load');
-                        document.body.classList.remove('no-scroll');
-                        enableScroll();
-                        startPlayBg();
-                        video.removeEventListener('canplaythrough', videoLoad);
-                    }
-                    poster.remove();
-                }
-                
-                var animLogo = document.querySelectorAll(".b-title__logo-inner p");
-                animLogo[animLogo.length-1].addEventListener(transitionEnd, handlerAnimLogo);
-                
-                function handlerAnimLogo(){
-                    prelaoder.remove();
-                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-                    buttonPlay.addEventListener('click', handlerPlay);
-                    this.removeEventListener(transitionEnd, handlerAnimLogo);
-                }
-
-                function handlerPlay(){
-                    video.currentTime = 0;
-                    video.muted = false;
-                    titleLogo.style.opacity = '0';
-                    nav.style.opacity = '0';
-                    buttonPlay.style.opacity = '0';
-                    setTimeout(function(){
-                        launchFullScreen(video);
-                        setTimeout(function(){
-                            video.play();
-                        },200);
-                        video.addEventListener("webkitfullscreenchange", onfullscreenchange);
-                        video.addEventListener("mozfullscreenchange",    onfullscreenchange);
-                        video.addEventListener("fullscreenchange",       onfullscreenchange);
-                    },200);
-                }
-                
-                function onfullscreenchange(e) {
-                    isFullScreen = !isFullScreen;
-                    if(!isFullScreen) {
-                        startPlayBg();
-                        titleLogo.style.opacity = '';
-                        nav.style.opacity = '';
-                        buttonPlay.style.opacity = '';
-                    }
-                }
-
-                function startPlayBg() {
-                    video.currentTime = 0;
-                    video.muted = true;
-                    video.play();
-                }
-                
-                function whichTransitionEvent(){
-                    var t;
-                    var el = document.createElement('fakeelement');
-
-                    var transitionsEnd = {
-                        'OTransition':'oTransitionEnd',
-                        'MozTransition':'transitionend',
-                        'WebkitTransition':'webkitTransitionEnd',
-                        'transition':'transitionend'
-                    };
-
-                    for(t in transitionsEnd){
-                        if( el.style[t] !== undefined ){
-                            transitionEnd = transitionsEnd[t];
-                        }
-                    }
-
-                    return transitionEnd;
-                }
-
-                //*** Work with property will-change ***//
-                function willChangeSwitch(elem, prop) {
-                    if(elem.length) {
-                        for(var i=0; i < elem.length; i++) {
-                            elem[i].style.willChange = prop;
-                        }
-                    } else {
-                        elem.style.willChange = prop;
-                    }
-                }
-                
-                //*** Delete composition layer ***//
-                function removeWillChange(e){
-                    willChangeSwitch(this, 'auto');
-                    this.removeEventListener(transitionEnd, removeWillChange);
-                }
-
-                //Запустить отображение в полноэкранном режиме
-                function launchFullScreen(element) {
-                    if(element.requestFullScreen) {
-                        element.requestFullScreen();
-                    } else if(element.mozRequestFullScreen) {
-                        element.mozRequestFullScreen();
-                    } else if(element.webkitRequestFullScreen) {
-                        element.webkitRequestFullScreen();
-                    }
-                }
-
-                // *** Disable scroll ***//
-                // left: 37, up: 38, right: 39, down: 40,
-                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-                var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-                function preventDefault(e) {
-                    e = e || window.event;
-                    if (e.preventDefault)
-                        e.preventDefault();
-                    e.returnValue = false;
-                }
-
-                function preventDefaultForScrollKeys(e) {
-                    if (keys[e.keyCode]) {
-                        preventDefault(e);
-                        return false;
-                    }
-                }
-
-                function disableScroll() {
-                    if (window.addEventListener) // older FF
-                        window.addEventListener('DOMMouseScroll', preventDefault, false);
-                    window.onwheel = preventDefault; // modern standard
-                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-                    window.ontouchmove  = preventDefault; // mobile
-                    document.onkeydown  = preventDefaultForScrollKeys;
-                }
-
-                function enableScroll() {
-                    if (window.removeEventListener)
-                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
-                    window.onmousewheel = document.onmousewheel = null;
-                    window.onwheel = null;
-                    window.ontouchmove = null;
-                    document.onkeydown = null;
-                }
-                // *** /Disable scroll ***
 			</script>
 			
 		</main>
