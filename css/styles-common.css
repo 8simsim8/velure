@@ -1,3 +1,4 @@
+@import url("images.css");
 @import url("general.css");
 .b-navigation {
   position: fixed;
@@ -63,11 +64,11 @@
 }
 .b-navigation__header-links a {
   position: relative;
-  margin-right: 20px;
+  margin-right: 50px;
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
-  font-size: 13px;
-  letter-spacing: 0.14em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #000;
 }
@@ -229,6 +230,13 @@
 .b-navigation__side-right a.current:hover {
   color: #373737;
 }
+.l-content {
+  padding: 0 80px;
+}
+.wrap {
+  max-width: 1415px;
+  margin: 0 auto;
+}
 .video-wrapp {
   height: calc(100vh - 80px);
   margin-bottom: 80px;
@@ -247,7 +255,25 @@ video::-webkit-media-controls-enclosure {
 video::-webkit-media-controls-panel {
   width: calc(100% + 30px); /* Adjust as needed */
 }
-@media all and (max-width: 1416px) {
+.center {
+  text-align: center;
+}
+@media all and (max-width: 1620px) {
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .b-navigation__header-links a {
+    margin-right: 30px;
+  }
+}
+@media all and (max-width: 1440px) {
+  main {
+    padding: 0 5vw;
+  }
+  .wrap {
+    max-width: calc(1280px - 10vw);
+  }
   .b-navigation__header {
     height: 5vw;
   }
@@ -262,6 +288,10 @@ video::-webkit-media-controls-panel {
     height: 5vw;
     margin-right: 5vw;
   }
+  .b-navigation__header-links a {
+    margin-right: 25px;
+    font-size: 12px;
+  }
   .b-navigation__side-left,
   .b-navigation__side-right {
     height: calc(100vh - 5vw);
@@ -273,8 +303,14 @@ video::-webkit-media-controls-panel {
   }
 }
 @media all and (max-width: 1350px) {
+  main {
+    padding: 0 60px;
+  }
+  .wrap {
+    max-width: calc(1133px - 120px);
+  }
   .b-navigation__header-links a {
-    margin-right: 0.8em;
+    margin-right: 15px;
     letter-spacing: 0.12em;
   }
 }

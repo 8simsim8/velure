@@ -1,6 +1,6 @@
 @import 'nib'
 
-//@import url('icons.css');
+@import url('images.css');
 @import url('general.css');
 
 .b-navigation {
@@ -45,11 +45,11 @@
 			}
 			a {
 				position: relative;
-				margin-right: 20px;
+				margin-right: 50px;
 				font-family: 'Raleway', sans-serif;
 				font-weight: bold;
-				font-size : 13px;
-				letter-spacing: 0.14em;
+				font-size : 14px;
+				letter-spacing: 0.1em;
 				text-transform : uppercase;
 				color : #000000;
 			}
@@ -180,6 +180,16 @@
 	}
 }
 
+
+.l-content {
+	padding: 0 80px;
+}
+
+.wrap {
+	max-width: 1415px;
+	margin: 0 auto;
+}
+
 .video-wrapp {
 	height: calc(100vh - 80px);
 	margin-bottom: 80px;
@@ -209,7 +219,36 @@ video {
 	&::-webkit-media-controls-volume-slider {}
 }
 
-@media all and (max-width: 1416px) {
+
+.center {
+	text-align: center;
+}
+
+@media all and (max-width: 1620px) {
+	.wrap {
+		max-width: 1180px;
+		margin: 0 auto;
+	}
+	.b-navigation {
+		&__header {
+			&-links {
+				& {
+				}
+				a {
+					margin-right: 30px;
+				}
+			}
+		}
+	}
+}
+
+@media all and (max-width: 1440px) {
+	main {
+		padding: 0 5vw;
+	}
+	.wrap {
+		max-width: calc(1280px - 10vw);
+	}
 	.b-navigation {
 		&__header {
 			& {
@@ -228,6 +267,8 @@ video {
 					margin-right : 5vw;
 				}
 				a {
+					margin-right: 25px;
+					font-size: 12px;
 				}
 			}
 		}
@@ -246,13 +287,19 @@ video {
 }
 
 @media all and (max-width: 1350px) {
+	main {
+		padding: 0 60px;
+	}
+	.wrap {
+		max-width: calc(1133px - 120px);
+	}
 	.b-navigation {
 		&__header{
 			&-links {
 				& {
 				}
 				a {
-					margin-right: 0.8em;
+					margin-right: 15px;
 					letter-spacing: 0.12em;
 				}
 			}
@@ -263,6 +310,9 @@ video {
 @media all and (max-width: 1230px) {
 	body {
 		min-width: 1210px;
+	}
+	.wrap {
+		//max-width: calc(1280px - 120px);
 	}
 	.b-navigation {
 		& {
