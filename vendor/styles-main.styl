@@ -1,5 +1,35 @@
 @import 'nib'
 
+:-webkit-full-screen {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+:-moz-full-screen {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+:-ms-fullscreen {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+:full-screen { /*pre-spec */
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+:fullscreen { /* spec */
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
 .b-programs {
 	& {
 		padding : 120px 0;
@@ -58,7 +88,7 @@
 					& {
 						margin-bottom : 10px;
 					}
-					p {
+					li {
 						display: inline-flex;
 						width: 100%;
 						height: 40px;
@@ -105,7 +135,6 @@
 	}
 }
 
-
 p.action-programs {
 	& {
 	}
@@ -129,6 +158,7 @@ p.action-programs {
 		font-size: 9px;
 	}
 }
+
 
 .b-parallax {
 	& {
@@ -215,8 +245,12 @@ p.action-programs {
 		&-block {
 			& {
 			}
+			&-wrap {
+				position:relative;
+			}
 			form {
 				& {
+					overflow:hidden;
 					padding: 65px 17% 33px;
 					border: 1px solid #e5e5e5;
 				}

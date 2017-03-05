@@ -258,6 +258,45 @@ video::-webkit-media-controls-panel {
 .center {
   text-align: center;
 }
+.half-circle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 10px;
+}
+.half-circle:before,
+.half-circle:after {
+  position: absolute;
+  display: inline-block;
+  content: '';
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+}
+.half-circle:before {
+  left: -8px;
+}
+.half-circle:after {
+  right: -8px;
+}
+.half-circle_top {
+  top: 0;
+}
+.half-circle_top:before,
+.half-circle_top:after {
+  top: -8px;
+}
+.half-circle_bottom {
+  bottom: 0;
+}
+.half-circle_bottom:before,
+.half-circle_bottom:after {
+  bottom: -8px;
+}
 @media all and (max-width: 1620px) {
   .wrap {
     max-width: 1180px;
