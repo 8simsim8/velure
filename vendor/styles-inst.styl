@@ -1,0 +1,67 @@
+@import 'nib';
+
+html {
+	font-family: Arial, sans-serif;
+}
+
+#instafeed {
+	& {
+		display : flex;
+		flex-wrap: wrap;
+	}
+	.item-insta {
+		& {
+			position: relative;
+		}
+		.insta-header {
+			& {
+				position : absolute;
+				bottom: 10px;
+				left: 24px;
+				right: 24px;
+				height: 40px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-weight: bold;
+				font-size: 14px;
+			}
+			.insta-logo {
+				& {
+					font-size: 13px;
+					color: #FFFFFF;
+				}
+				&:before {
+					position: relative;
+					display: inline-block;
+					height: 20px;
+					width: 20px;
+					line-height: 20px;
+					font-size: 12px;
+					border-radius: 50%;
+					background-color: #a24f96;
+					margin-right: 5px;
+				}
+			}
+			.insta-date-create {
+				color: #ababab;
+			}
+		}
+		img {
+			max-width: 100%;
+		}
+		.insta-caption {
+			& {
+				padding-top: 20px;
+				font-size: 16px;
+				line-height: 1.65em;
+			}
+			&__text {
+				color: #5d4f5c;
+			}
+			&__tags {
+				color: #396ca6;
+			}
+		}
+	}
+}

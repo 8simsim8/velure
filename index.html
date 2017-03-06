@@ -38,7 +38,7 @@
 				left: 0;
 				right: 0;
 				bottom: 0;
-				transition: opacity 1s ease;
+				transition: opacity 0.4s ease;
 				z-index: 10000;
 			}
 				.finish-load .preloader {
@@ -48,7 +48,7 @@
 					height: 100%;
 					width: 100%;
 					background-color: #FFFFFF;
-					transition: opacity 1s ease;
+					transition: opacity 0.5s ease;
 				}
 				.preloader p {
 					position: absolute;
@@ -171,243 +171,245 @@
 		
 		<link rel="stylesheet" href="css/reset-min.css">
 		<link rel="stylesheet" href="css/gird-column.css">
+		<link rel="stylesheet" href="css/select.min.css">
 		<link rel="stylesheet" href="css/styles-common.css">
+		<link rel="stylesheet" href="css/styles-inst.css">
 		<link rel="stylesheet" href="css/styles-main.css">
 		<link rel="stylesheet" href="css/overall-style.css">
-	
-		<script defer>
-			document.addEventListener('DOMContentLoaded', function(){
-				var prelaoder = document.getElementsByClassName('preloader')[0];
-				var nav = document.getElementsByClassName('l-navigation')[0];
-				var poster = document.getElementsByClassName('b-title__poster')[0];
+		
+		<!--<script defer>-->
+			<!--document.addEventListener('DOMContentLoaded', function(){-->
+				<!--var prelaoder = document.getElementsByClassName('preloader')[0];-->
+				<!--var nav = document.getElementsByClassName('l-navigation')[0];-->
+				<!--var poster = document.getElementsByClassName('b-title__poster')[0];-->
 
-                var video = document.getElementsByTagName('video')[0];
-                var buttonPlay = document.getElementById('play');
-                var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
-				
-				var isFullScreen = false;
-				var isFinishLoaderOneCicle = false,
-					isFinishLoadPoster = false,
-					isFinishLoadVideo = false;
-				
-                var transitionEnd = whichTransitionEvent();
+                <!--var video = document.getElementsByTagName('video')[0];-->
+                <!--var buttonPlay = document.getElementById('play');-->
+                <!--var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];-->
+				<!---->
+				<!--var isFullScreen = false;-->
+				<!--var isFinishLoaderOneCicle = false,-->
+					<!--isFinishLoadPoster = false,-->
+					<!--isFinishLoadVideo = false;-->
+				<!---->
+                <!--var transitionEnd = whichTransitionEvent();-->
 
-                var svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
+                <!--var svgAnim = document.querySelector('.preloader svg').querySelector('[class]');-->
 
-                disableScroll();
-                
-                document.body.classList.add('start');
-                
-                //*** 0 Ожидать прохода одного цикла анимации ***//
-                svgAnim.addEventListener("webkitanimationiteration", handlerFinishLoader);
-                svgAnim.addEventListener("mozanimationiteration", handlerFinishLoader);
-                svgAnim.addEventListener("animationiteration",       handlerFinishLoader);				
-				
-                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
-                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
-                
-				//*** 2 После загрузки видео убрать прелоадер ***//
-				video.addEventListener('canplaythrough',videoLoad);
-				
-                function handlerFinishLoader(e) {
-                    isFinishLoaderOneCicle = true;
-                    if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
-                        videoLoad();
-                    }
-                }
-                
-                function checkLoadBg(el) {
-                    
-                    willChangeSwitch(prelaoder, 'opacity');
-	                
-                    var image = document.createElement('img');
-                    image.src = getBgUrl(el);
-                    image.addEventListener('load', loadImg);
+                <!--disableScroll();-->
+                <!---->
+                <!--document.body.classList.add('start');-->
+                <!---->
+                <!--//*** 0 Ожидать прохода одного цикла анимации ***//-->
+                <!--svgAnim.addEventListener("webkitanimationiteration", handlerFinishLoader);-->
+                <!--svgAnim.addEventListener("mozanimationiteration", handlerFinishLoader);-->
+                <!--svgAnim.addEventListener("animationiteration",       handlerFinishLoader);-->
+				<!---->
+                <!--//*** 1 По загрузке показать poster и прозрачность прелоадеру ***//-->
+                <!--checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);-->
+                <!---->
+				<!--//*** 2 После загрузки видео убрать прелоадер ***//-->
+				<!--video.addEventListener('canplaythrough',videoLoad);-->
+				<!---->
+                <!--function handlerFinishLoader(e) {-->
+                    <!--isFinishLoaderOneCicle = true;-->
+                    <!--if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {-->
+                        <!--videoLoad();-->
+                    <!--}-->
+                <!--}-->
+                <!---->
+                <!--function checkLoadBg(el) {-->
+                    <!---->
+                    <!--willChangeSwitch(prelaoder, 'opacity');-->
+	                <!---->
+                    <!--var image = document.createElement('img');-->
+                    <!--image.src = getBgUrl(el);-->
+                    <!--image.addEventListener('load', loadImg);-->
 
-                    function loadImg() {
-                        isFinishLoadPoster = true;
-                        image.remove();
-                        image.removeEventListener('load', loadImg);
-                        if(isFinishLoaderOneCicle) {
-                            document.body.classList.add('load-poster');
-                            prelaoder.addEventListener(transitionEnd, removeWillChange);
-                        }
-                    }
+                    <!--function loadImg() {-->
+                        <!--isFinishLoadPoster = true;-->
+                        <!--image.remove();-->
+                        <!--image.removeEventListener('load', loadImg);-->
+                        <!--if(isFinishLoaderOneCicle) {-->
+                            <!--document.body.classList.add('load-poster');-->
+                            <!--prelaoder.addEventListener(transitionEnd, removeWillChange);-->
+                        <!--}-->
+                    <!--}-->
 
-                    function getBgUrl(el) {
-                        var bg = "";
-                        if (el.currentStyle) { // IE
-                            bg = el.currentStyle.backgroundImage;
-                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
-                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
-                        } else { // try and get inline style
-                            bg = el.style.backgroundImage;
-                        }
-                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
-                    }
-                }
+                    <!--function getBgUrl(el) {-->
+                        <!--var bg = "";-->
+                        <!--if (el.currentStyle) { // IE-->
+                            <!--bg = el.currentStyle.backgroundImage;-->
+                        <!--} else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox-->
+                            <!--bg = document.defaultView.getComputedStyle(el, "").backgroundImage;-->
+                        <!--} else { // try and get inline style-->
+                            <!--bg = el.style.backgroundImage;-->
+                        <!--}-->
+                        <!--return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");-->
+                    <!--}-->
+                <!--}-->
 
-                function videoLoad(e) {
-                    isFinishLoadVideo = true;
-                    if(isFinishLoaderOneCicle) {
-                        // Если видео загрузилось быстро и постер не успел загрузиться
-                        willChangeSwitch(prelaoder, 'opacity');
-						setTimeout(function(){
-							willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-							document.body.classList.add('load-poster');
-							poster.classList.add('hidden');
-							titleLogo.classList.add('transition');
-							document.body.classList.add('finish-load');
-							document.body.classList.remove('no-scroll');
-							enableScroll();
-						},500);
-                        startPlayBg();
-                        video.removeEventListener('canplaythrough', videoLoad);
-                    }
-                    poster.remove();
-                }
-                
-                var animLogo = document.querySelectorAll(".b-title__logo-inner p");
-                animLogo[animLogo.length-1].addEventListener(transitionEnd, handlerAnimLogo);
-                
-                function handlerAnimLogo(){
-                    prelaoder.remove();
-                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-                    buttonPlay.addEventListener('click', handlerPlay);
-                    this.removeEventListener(transitionEnd, handlerAnimLogo);
-                }
+                <!--function videoLoad(e) {-->
+                    <!--isFinishLoadVideo = true;-->
+                    <!--if(isFinishLoaderOneCicle) {-->
+                        <!--// Если видео загрузилось быстро и постер не успел загрузиться-->
+                        <!--willChangeSwitch(prelaoder, 'opacity');-->
+						<!--setTimeout(function(){-->
+							<!--willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');-->
+							<!--document.body.classList.add('load-poster');-->
+							<!--poster.classList.add('hidden');-->
+							<!--titleLogo.classList.add('transition');-->
+							<!--document.body.classList.add('finish-load');-->
+							<!--document.body.classList.remove('no-scroll');-->
+							<!--enableScroll();-->
+						<!--},500);-->
+                        <!--startPlayBg();-->
+                        <!--video.removeEventListener('canplaythrough', videoLoad);-->
+                    <!--}-->
+                    <!--poster.remove();-->
+                <!--}-->
+                <!---->
+                <!--var animLogo = document.querySelectorAll(".b-title__logo-inner p");-->
+                <!--animLogo[animLogo.length-1].addEventListener(transitionEnd, handlerAnimLogo);-->
+                <!---->
+                <!--function handlerAnimLogo(){-->
+                    <!--prelaoder.remove();-->
+                    <!--willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');-->
+                    <!--buttonPlay.addEventListener('click', handlerPlay);-->
+                    <!--this.removeEventListener(transitionEnd, handlerAnimLogo);-->
+                <!--}-->
 
-                function handlerPlay(){
-                    video.currentTime = 0;
-                    video.muted = false;
-                    titleLogo.style.opacity = '0';
-                    nav.style.opacity = '0';
-                    buttonPlay.style.opacity = '0';
-                    setTimeout(function(){
-                        launchFullScreen(video);
-                        setTimeout(function(){
-                            video.play();
-                        },200);
-                        video.addEventListener("webkitfullscreenchange", onfullscreenchange);
-                        video.addEventListener("mozfullscreenchange",    onfullscreenchange);
-                        video.addEventListener("fullscreenchange",       onfullscreenchange);
-                    },200);
-                }
-                
-                function onfullscreenchange(e) {
-                    isFullScreen = !isFullScreen;
-                    if(!isFullScreen) {
-                        startPlayBg();
-                        titleLogo.style.opacity = '';
-                        nav.style.opacity = '';
-                        buttonPlay.style.opacity = '';
-                    }
-                }
+                <!--function handlerPlay(){-->
+                    <!--video.currentTime = 0;-->
+                    <!--video.muted = false;-->
+                    <!--titleLogo.style.opacity = '0';-->
+                    <!--nav.style.opacity = '0';-->
+                    <!--buttonPlay.style.opacity = '0';-->
+                    <!--setTimeout(function(){-->
+                        <!--launchFullScreen(video);-->
+                        <!--setTimeout(function(){-->
+                            <!--video.play();-->
+                        <!--},200);-->
+                        <!--video.addEventListener("webkitfullscreenchange", onfullscreenchange);-->
+                        <!--video.addEventListener("mozfullscreenchange",    onfullscreenchange);-->
+                        <!--video.addEventListener("fullscreenchange",       onfullscreenchange);-->
+                    <!--},200);-->
+                <!--}-->
+                <!---->
+                <!--function onfullscreenchange(e) {-->
+                    <!--isFullScreen = !isFullScreen;-->
+                    <!--if(!isFullScreen) {-->
+                        <!--startPlayBg();-->
+                        <!--titleLogo.style.opacity = '';-->
+                        <!--nav.style.opacity = '';-->
+                        <!--buttonPlay.style.opacity = '';-->
+                    <!--}-->
+                <!--}-->
 
-                function startPlayBg() {
-                    video.currentTime = 0;
-                    video.muted = true;
-                    video.play();
-                }
-                
-                function whichTransitionEvent(){
-                    var t;
-                    var el = document.createElement('fakeelement');
+                <!--function startPlayBg() {-->
+                    <!--video.currentTime = 0;-->
+                    <!--video.muted = true;-->
+                    <!--video.play();-->
+                <!--}-->
+                <!---->
+                <!--function whichTransitionEvent(){-->
+                    <!--var t;-->
+                    <!--var el = document.createElement('fakeelement');-->
 
-                    var transitionsEnd = {
-                        'OTransition':'oTransitionEnd',
-                        'MozTransition':'transitionend',
-                        'WebkitTransition':'webkitTransitionEnd',
-                        'transition':'transitionend'
-                    };
+                    <!--var transitionsEnd = {-->
+                        <!--'OTransition':'oTransitionEnd',-->
+                        <!--'MozTransition':'transitionend',-->
+                        <!--'WebkitTransition':'webkitTransitionEnd',-->
+                        <!--'transition':'transitionend'-->
+                    <!--};-->
 
-                    for(t in transitionsEnd){
-                        if( el.style[t] !== undefined ){
-                            transitionEnd = transitionsEnd[t];
-                        }
-                    }
+                    <!--for(t in transitionsEnd){-->
+                        <!--if( el.style[t] !== undefined ){-->
+                            <!--transitionEnd = transitionsEnd[t];-->
+                        <!--}-->
+                    <!--}-->
 
-                    return transitionEnd;
-                }
+                    <!--return transitionEnd;-->
+                <!--}-->
 
-                //*** Work with property will-change ***//
-                function willChangeSwitch(elem, prop) {
-                    if(elem.length) {
-                        for(var i=0; i < elem.length; i++) {
-                            elem[i].style.willChange = prop;
-                        }
-                    } else {
-                        elem.style.willChange = prop;
-                    }
-                }
-                
-                //*** Delete composition layer ***//
-                function removeWillChange(e){
-                    willChangeSwitch(this, 'auto');
-                    this.removeEventListener(transitionEnd, removeWillChange);
-                }
+                <!--//*** Work with property will-change ***//-->
+                <!--function willChangeSwitch(elem, prop) {-->
+                    <!--if(elem.length) {-->
+                        <!--for(var i=0; i < elem.length; i++) {-->
+                            <!--elem[i].style.willChange = prop;-->
+                        <!--}-->
+                    <!--} else {-->
+                        <!--elem.style.willChange = prop;-->
+                    <!--}-->
+                <!--}-->
+                <!---->
+                <!--//*** Delete composition layer ***//-->
+                <!--function removeWillChange(e){-->
+                    <!--willChangeSwitch(this, 'auto');-->
+                    <!--this.removeEventListener(transitionEnd, removeWillChange);-->
+                <!--}-->
 
-                //Запустить отображение в полноэкранном режиме
-                function launchFullScreen(element) {
-                    if(element.requestFullScreen) {
-                        element.requestFullScreen();
-                    } else if(element.mozRequestFullScreen) {
-                        element.mozRequestFullScreen();
-                    } else if(element.webkitRequestFullScreen) {
-                        element.webkitRequestFullScreen();
-                    }
-                }
+                <!--//Запустить отображение в полноэкранном режиме-->
+                <!--function launchFullScreen(element) {-->
+                    <!--if(element.requestFullScreen) {-->
+                        <!--element.requestFullScreen();-->
+                    <!--} else if(element.mozRequestFullScreen) {-->
+                        <!--element.mozRequestFullScreen();-->
+                    <!--} else if(element.webkitRequestFullScreen) {-->
+                        <!--element.webkitRequestFullScreen();-->
+                    <!--}-->
+                <!--}-->
 
-                // *** Disable scroll ***//
-                // left: 37, up: 38, right: 39, down: 40,
-                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-                var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+                <!--// *** Disable scroll ***//-->
+                <!--// left: 37, up: 38, right: 39, down: 40,-->
+                <!--// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36-->
+                <!--var keys = {37: 1, 38: 1, 39: 1, 40: 1};-->
 
-                function preventDefault(e) {
-                    e = e || window.event;
-                    if (e.preventDefault)
-                        e.preventDefault();
-                    e.returnValue = false;
-                }
+                <!--function preventDefault(e) {-->
+                    <!--e = e || window.event;-->
+                    <!--if (e.preventDefault)-->
+                        <!--e.preventDefault();-->
+                    <!--e.returnValue = false;-->
+                <!--}-->
 
-                function preventDefaultForScrollKeys(e) {
-                    if (keys[e.keyCode]) {
-                        preventDefault(e);
-                        return false;
-                    }
-                }
+                <!--function preventDefaultForScrollKeys(e) {-->
+                    <!--if (keys[e.keyCode]) {-->
+                        <!--preventDefault(e);-->
+                        <!--return false;-->
+                    <!--}-->
+                <!--}-->
 
-                function disableScroll() {
-                    if (window.addEventListener) // older FF
-                        window.addEventListener('DOMMouseScroll', preventDefault, false);
-                    window.onwheel = preventDefault; // modern standard
-                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-                    window.ontouchmove  = preventDefault; // mobile
-                    document.onkeydown  = preventDefaultForScrollKeys;
-                }
+                <!--function disableScroll() {-->
+                    <!--if (window.addEventListener) // older FF-->
+                        <!--window.addEventListener('DOMMouseScroll', preventDefault, false);-->
+                    <!--window.onwheel = preventDefault; // modern standard-->
+                    <!--window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE-->
+                    <!--window.ontouchmove  = preventDefault; // mobile-->
+                    <!--document.onkeydown  = preventDefaultForScrollKeys;-->
+                <!--}-->
 
-                function enableScroll() {
-                    if (window.removeEventListener)
-                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
-                    window.onmousewheel = document.onmousewheel = null;
-                    window.onwheel = null;
-                    window.ontouchmove = null;
-                    document.onkeydown = null;
-                }
-                // *** /Disable scroll ***
-			});
-		</script>
+                <!--function enableScroll() {-->
+                    <!--if (window.removeEventListener)-->
+                        <!--window.removeEventListener('DOMMouseScroll', preventDefault, false);-->
+                    <!--window.onmousewheel = document.onmousewheel = null;-->
+                    <!--window.onwheel = null;-->
+                    <!--window.ontouchmove = null;-->
+                    <!--document.onkeydown = null;-->
+                <!--}-->
+                <!--// *** /Disable scroll ***-->
+			<!--});-->
+		<!--</script>-->
 	
 	</head>
 
-	<body class="no-scroll">
-	<!--<body>-->
+	<!--<body class="no-scroll">-->
+	<body>
 
-		<!--<div class="preloader" hidden>-->
-		<div class="preloader">
+		<div class="preloader" hidden>
+		<!--<div class="preloader">-->
 			<div class="preloader__bg"></div>
 			<p>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 147.9"><g stroke="#000" stroke-miterlimit="10" opacity=".3"><path fill="none" d="M69.3 58.8c.2-.2.4-.3.6-.5.2-.2.4-.3.6-.5.1-.1.3-.2.4-.3-.2 0-.4-.1-.6-.1-.5 0-1.1-.1-1.8-.1-2.4 0-5.1.3-7.8.8-1.4.3-2.8.6-4.2 1-1.4.4-2.8.8-4.2 1.3-1.4.5-2.8 1.1-4.3 1.7-1.4.6-2.8 1.3-4.2 2.1-1.4.8-2.7 1.6-4.1 2.5-1.3.9-2.6 1.8-3.8 2.9-2.5 2.1-4.6 4.2-6.2 6.4-.8 1.1-1.5 2.1-2.1 3.2-.6 1-1.1 2-1.6 3-.4 1-.8 1.9-1.1 2.9-.3.9-.5 1.8-.6 2.6-.1.8-.2 1.6-.2 2.4 0 .7 0 1.4.1 2.1v.1c.1 1 .3 1.8.7 2.6.3.8.8 1.4 1.4 2 .6.6 1.3 1 2.1 1.3.8.3 1.8.4 2.9.4 2.3 0 4.4-.5 6.2-1.6.9-.5 1.8-1.2 2.7-1.9.9-.7 1.7-1.5 2.5-2.4.8-.9 1.6-1.9 2.4-2.9.8-1 1.6-2.1 2.4-3.3.9-1.4 1.7-2.6 2.4-3.7s1.6-2.4 2.5-3.8c1.4-2.2 2.9-4.3 4.4-6.3 1.5-2 3-3.8 4.5-5.6 1.5-1.7 3-3.3 4.3-4.7 1.4-1.4 2.6-2.6 3.7-3.6zM33.1 96.6c-1.6-.2-3.6-.4-5.3 0-.2-.2-.5-.3-.7-.5-.5-.5-.9-1.1-1.2-1.8-.3-.6-.4-1.3-.5-2v-.1c-.1-.7-.1-1.4-.1-2.1 0-.5.1-.9.1-1.4 2.8 1.8 5.7 4.6 7.9 7.4.4.4.1.6-.2.5zm.5-2.5c-2.1-2.5-4.8-5-7.9-7 .1-.6.3-1.3.5-1.9.3-.9.6-1.7 1-2.6.1-.3.3-.6.4-.8 2.7 2.4 5.1 6.5 6.4 11.9.1.5 0 .8-.4.4zm3.8 1.5l-.1.1-.2.1c-1.3-2.9-2.4-6-3-9.3 0 0-.1-.1-.1-.2-.6-2.2-1.1-2.8-2.5-4.9-.6-.9-1.4-1.6-2.1-2.1l.1-.1c.6-1 1.3-2 1.9-2.9.4-.6.9-1.1 1.3-1.6.2.4.4.8.5 1.3 0-.7.1-1.3.1-2 .1-.1.2-.3.4-.4.3-.4.7-.7 1.1-1-.2 1.9-.4 3.8-.4 5.7 0 6.2 1.3 12.1 3.7 17.2-.2-.2-.4 0-.7.1zM74.5 58.6l-.3.3-.6.6c-.2.2-.3.4-.5.6-.2.2-.3.4-.4.6-.8 1-1.7 2-2.5 3.1s-1.7 2.3-2.5 3.6c-.8 1.2-1.7 2.6-2.7 4.2-.5.8-1.1 1.7-1.7 2.6.1 0 .2-.1.2-.1.3-.1.6-.1.9-.1h.9c.7 0 1.3 0 1.8.1l.7.1.7.1c1-.2 2-.5 2.9-1 1-.5 1.9-1.2 2.8-2 .9-.8 1.6-1.7 2.1-2.7.5-1 .8-2.1.9-3.2.2-1.6.1-3-.4-4.2-.5-1.1-1.3-2-2.3-2.6zM53 16.2c-.3-.2-.7 0-.4.3.5.8 1.2 2.5 1.6 3.4.2.4 0 .7-.3.4-1.9-2.5-5.1-3.7-6.3-3.7-.4.1-.3.3-.1.4 3.6 1.7 7 5.1 10.1 9.7.2.3.4.1.2-.3-1.4-4.5-2.6-8.6-4.8-10.2z" class="hCiqLFjR_0 tLTJVgfd_0"></path><path fill="#FFF" d="M48.2 11.7c-.2 0-.6.1-.5.4.2.5.4 1 .7 1.5.2.3 0 .6-.5.5-2.9-.7-8.5 1.5-7.4 5.2.1.4.4.5 1.2-.3 1.5-1.5 5.9.5 8.9 3.1 3.2 2.9 6.9 7.3 9.5 11.7.2.3.5.1.5-.2-.1-4.2-.3-6-1.2-9.1-1.4-5-4.5-12.1-11.2-12.8zm9.3 15.2c-3.1-4.7-6.6-8-10.1-9.7-.2-.1-.3-.3.1-.4 1.3 0 4.5 1.1 6.3 3.7.3.3.5 0 .3-.4-.4-.9-1.1-2.6-1.6-3.4-.2-.3.1-.6.4-.3 2.3 1.6 3.4 5.6 4.8 10.3.2.3 0 .5-.2.2zM80 14.1c-.4.1-.6-.2-.5-.5.3-.5.6-1 .7-1.5.2-.3-.2-.5-.5-.4-6.7.7-9.8 7.8-11.2 12.8-.9 3.1-1 5-1.2 9.1 0 .3.3.5.5.2 2.6-4.4 6.2-8.9 9.5-11.7 3-2.6 7.4-4.6 8.9-3.1.8.8 1.1.7 1.2.3 1.1-3.7-4.5-5.9-7.4-5.2zm.5 3.1c-3.6 1.7-7 5.1-10.1 9.7-.2.3-.4.1-.2-.3 1.4-4.7 2.5-8.8 4.8-10.3.3-.2.7 0 .4.3-.5.8-1.2 2.5-1.6 3.4-.2.4 0 .7.3.4 1.9-2.5 5.1-3.7 6.3-3.7.4.2.3.4.1.5zM83.3 52c.7-.4 1.5-.7 2.2-1 .8-.3 1.6-.5 2.4-.7.8-.2 1.6-.3 2.4-.4.8-.1 1.5-.1 2.3-.1 1.5 0 2.9.2 4 .6.6.2 1.1.5 1.5.7.4.3.8.6 1.1.9l.3.3c.1.2.3.3.4.3h.5c.3-.2.4-.4.4-.8 0-.2-.1-.5-.3-.8-.4-.5-.8-.9-1.4-1.3-.5-.4-1.2-.7-2-.9-.7-.3-1.5-.4-2.3-.6-.8-.1-1.6-.2-2.5-.2-.9 0-1.8.1-2.7.2-.9.1-1.8.3-2.6.5-.9.2-1.7.4-2.5.7-.8.3-1.6.5-2.3.9-.7.3-1.4.6-2.2 1-.7.4-1.5.8-2.3 1.3l-2.4 1.5c-.7.5-1.5 1.1-2.3 1.7-.6-.1-1.2-.2-1.8-.2-.7 0-1.4-.1-2.1-.1-2.7 0-5.6.3-8.6.8-1.5.3-3 .6-4.6 1-1.5.4-3 .8-4.6 1.4-3.1 1-6.2 2.3-9.1 3.9-1.5.8-3 1.7-4.4 2.6-1.4.9-2.8 1.9-4.2 3-2.8 2.2-5.2 4.5-7.1 6.6-2 2.2-3.5 4.3-4.6 6.4-1.1 2.1-1.8 4.1-2.3 5.9-.5 1.8-.6 3.6-.4 5.1.2 1.5.6 2.8 1.2 3.9.7 1.1 1.6 1.9 2.7 2.6 1.1.6 2.4 1 3.8 1.3 1.4.3 2.9.5 4.5.5 1.5 0 3-.2 4.5-.5s2.9-.8 4.3-1.5 2.7-1.4 4.1-2.3c1.3-.9 2.6-1.9 3.9-2.9 1.2-1.1 2.4-2.3 3.7-3.5 1.2-1.3 2.4-2.6 3.5-4.1 1.1-1.4 2.2-2.9 3.3-4.4 1.1-1.5 2.1-3.1 3.1-4.7l.5-.8.3.3c.2.2.5.3.9.4.3.1.7.1 1 .1h2.3c.2 0 .4 0 .6-.1.2 0 .5-.1.8-.2h.7c.3 0 .6.1.9.2.3.1.7.2 1 .4.3.2.7.4 1 .6.3.2.6.5.9.8.3.3.6.7.8 1.1.2.4.4.8.6 1.3.1.5.2 1 .3 1.6.1 1 .1 2-.1 3-.1 1-.4 1.9-.7 2.8s-.8 1.8-1.3 2.6-1 1.6-1.6 2.3c-.6.7-1.2 1.3-1.9 1.9-.7.6-1.4 1-2.2 1.5-.8.4-1.6.7-2.3.9-.8.2-1.6.3-2.3.3-.4 0-.9 0-1.3-.1s-.9-.2-1.3-.4-.7-.4-.8-.6c-.2-.2-.2-.5-.2-.9 0-.2.1-.4.2-.5.1-.2.2-.3.4-.4.2-.1.4-.3.7-.4.2-.1.5-.2.7-.3.3-.1.6-.3.9-.5l.9-.6c.3-.3.6-.6.7-1 .1-.4.2-.8.1-1.3s-.2-.9-.4-1.3-.5-.7-.9-.9c-.7-.5-1.6-.7-2.6-.7-.8 0-1.6.2-2.4.4-.7.3-1.4.7-2.1 1.3-.7.6-1.1 1.3-1.4 2-.3.8-.4 1.6-.3 2.5.1 1.1.5 1.9 1.2 2.7.3.3.7.7 1.1.9.4.3.8.5 1.2.7.4.2.9.4 1.4.5.5.1 1 .3 1.5.3 1 .2 2 .3 3 .3H62c1.3 0 2.6-.1 3.9-.3 1.2-.2 2.4-.5 3.6-.8 1.2-.4 2.3-.8 3.3-1.3s2-1.1 2.8-1.8c.9-.7 1.7-1.4 2.3-2.2.7-.8 1.3-1.7 1.8-2.6 1-1.9 1.4-4 1.2-6.2-.1-2.2-1.1-4.2-2.8-5.9-.9-.8-2-1.5-3.2-2.1-.8-.4-1.7-.6-2.6-.9h.1c.7-.2 1.3-.4 2-.7 1.4-.5 2.7-1.2 3.9-2.1.6-.4 1.2-.9 1.7-1.4s1-1 1.4-1.6c.4-.6.7-1.2 1-1.9.2-.7.3-1.4.4-2.1.1-1.1 0-2.1-.3-3.1-.3-.9-.8-1.8-1.5-2.5-1.2-1.3-2.7-2.3-4.5-3 1.1-1 2.2-1.9 3.3-2.6 1.2-1 2.4-1.7 3.5-2.2zM61.4 67c-1.5 1.7-3.1 3.6-4.5 5.6-1.5 2-2.9 4.1-4.4 6.3-.9 1.4-1.7 2.7-2.5 3.8-.7 1.1-1.5 2.3-2.4 3.7-.8 1.2-1.6 2.3-2.4 3.3-.8 1-1.6 2-2.4 2.9-.8.9-1.7 1.7-2.5 2.4-.9.7-1.8 1.3-2.7 1.9-1.8 1.1-3.9 1.6-6.2 1.6-1.1 0-2-.2-2.9-.4-.8-.3-1.5-.7-2.1-1.3-.6-.6-1.1-1.2-1.4-2-.3-.8-.6-1.6-.7-2.6v-.1c-.1-.7-.1-1.4-.1-2.1 0-.8.1-1.6.2-2.4.1-.8.3-1.7.6-2.6.3-.9.6-1.9 1.1-2.9.4-1 1-2 1.6-3 .6-1 1.3-2.1 2.1-3.2 1.6-2.1 3.6-4.3 6.2-6.4 1.2-1 2.5-2 3.8-2.9 1.3-.9 2.7-1.7 4.1-2.5 1.4-.8 2.8-1.5 4.2-2.1 1.4-.6 2.8-1.2 4.3-1.7 1.4-.5 2.8-1 4.2-1.3 1.4-.4 2.8-.7 4.2-1 2.8-.5 5.4-.8 7.8-.8.7 0 1.2 0 1.8.1.2 0 .4 0 .6.1-.1.1-.3.2-.4.3-.2.2-.4.3-.6.5-.2.2-.4.3-.6.5-1.1 1-2.3 2.2-3.6 3.6-1.4 1.4-2.8 3-4.4 4.7zm15.3-5.9c.5 1.1.6 2.5.4 4.2-.1 1.1-.4 2.2-.9 3.2s-1.2 1.9-2.1 2.7c-.9.9-1.8 1.5-2.8 2-.9.5-1.9.8-2.9 1l-.7-.1-.6-.1c-.5-.1-1.1-.1-1.8-.1h-.9c-.3 0-.6.1-.9.1-.1 0-.2 0-.2.1.6-.9 1.1-1.8 1.7-2.6 1-1.6 1.9-3 2.7-4.2.8-1.3 1.6-2.4 2.5-3.6.8-1.1 1.7-2.1 2.5-3.1.1-.2.3-.4.4-.6.2-.2.3-.4.5-.6l.6-.6.3-.3c1 .7 1.8 1.6 2.2 2.6zM62.9 28.3c0 .6.2 1.1.5 1.5.1.1.5.3.6.3.1 0 .5-.2.6-.3.3-.3.5-.9.5-1.5 0-5.5.9-8 3-10.8 2.7-3.4 7-8.3 3.2-11.4-.2-.1-.3.2-.4.3-.2 2-2.2 2.7-4.2 5.5-.2.2-.3.1-.2-.2.8-3.3.2-5.8 0-6.6-.4-1.8-1.2-3.4-2-4.3-.1-.2-.4-.4-.5-.4-.1 0-.3.2-.5.4-.8.9-1.6 2.5-2 4.3-.2.9-.8 3.3 0 6.6.1.3-.1.4-.2.2-1.9-2.8-4-3.5-4.2-5.5 0-.2-.2-.4-.4-.3-3.8 3.1.4 7.9 3.2 11.4 2.1 2.8 3 5.3 3 10.8zm-5-17.5c1.1 1.2 2.7 2.8 4.8 5.4.2.3.6.1.6-.2 0-3.3-.1-8.2.3-10 .1-.3.2-.7.3-.7.2 0 .3.4.3.7.4 1.8.3 6.7.3 10 0 .3.4.5.6.2 2-2.6 3.7-4.2 4.8-5.4.1-.2.3 0 .2.2-.3 3.2-4 4.3-5.9 9.7-.1.4-.3.5-.4.5-.1 0-.2 0-.4-.5-1.9-5.4-5.6-6.5-5.9-9.7.2-.2.3-.4.4-.2zM127.4 92.6c-.4-8.9-8.1-11.9-12-12.7-2-.4-.1-1.6-1.3-2.6s-4.7-.1-7.3 2.6c-3.2 3.3-1.1-1.1-4 .3-3.6 1.7-7.2 6.5-8.9 13.6-.1.4.1.7.5.3 2.9-3.4 6.9-7 11.5-8.9 1.2-.5 2.5-4.3 4.9-5.3.2-.1.6 0 .3.4-.8 1-1.6 2.2-2.2 3.2-.2.4.1.7.3.6 2.9-.5 7.7-.7 10.1 1.2.5.4.1.7-.2.6-4.8-1.3-8.5-1.2-13 .7 2.3.7 4.4 1.7 5.6 3 .2.2.1.6-.2.5-3.4-1.3-6.2-3-8.1-2-3.1 1.7-6.3 4.9-8.7 7.9-.3.4 0 .6.2.5 1.9-.3 4.4-.5 6.4.3.3.1.3.4 0 .5-2.1.2-7.5.2-8.7 1.5-.6.8-.9 1.5-1.2 2.1-.1.2.1.3.3.2 4.4-2.7 11 .1 14.2-1.8 3.3-2-5.9-3.1-2.6-6.7 3.3-3.6 11.9 2 12.8 1.6.9-.3-.4-2.7-1.7-4.5-.2-.3-.1-.5.2-.6 7.4-1.7 10.2 2.3 10.2 5.4 0 2.1-.9 3.6-1.9 3.3-1.7-.3.1-3.1-1.9-2.4-2.3.8-1.8 3.9.4 4.8 1.6 1.2 6.4-.1 6-7.6z" class="hCiqLFjR_1 tLTJVgfd_1"></path><path fill="#FFF" d="M34.9 72.2c-.4.3-.7.7-1.1 1l-.4.4c0 .6-.1 1.3-.1 2-.2-.4-.3-.9-.5-1.3-.5.5-.9 1.1-1.3 1.6-.7.9-1.3 1.9-1.9 2.9l-.1.1c.7.5 1.5 1.1 2.1 2.1 1.4 2 1.9 2.7 2.5 4.9 0 .1.1.1.1.2.7 3.3 1.7 6.4 3 9.3l.2-.1c.3-.2.5-.3.8-.5-2.3-5.1-3.7-11-3.7-17.2 0-1.6.1-3.5.4-5.4zM110.5 96c-.9.7 2.3 2.6.1 6.2-1.2 1.9-4.4 1.9-7.7 1.4-.7-.1-.5.2-.1.5 1.1.6 2.1 1.3 3.7 1.7 3.5 1 7-1.5 7.4-5.3 0-.3.3-.2.4 0 1.3 4-2.9 6.6-5.3 7-.8.1-.9.3-.7.7.6.9 1.1 2.2 1 4 0 .3-.3.3-.4 0-2.4-6.8-10.3-8.3-12-8.6-1.7-.3-5.5-.8-8.5 1.7-.3.3-.1.6.2.6 6 .2 11.7 4 11.8 8.8 0 .4-.2.5-.3.1-1.7-6.3-9.7-7.8-13.2-7.6-.2 0-.6.1-.9.3-.7.5-2.2 1.5-3.6 2.4-.3.2-.2.5.1.5 13.9 0 15.7 7.1 16.2 13.7 0 .6.5.6.9.3 6.1-3.8 4.5-10.1 2.8-13.6-.2-.4.1-.5.3-.5 1.7.6 3.1 2 3.9 3.5 1.3 2.5 0 4.5 1.7 4.7 1.7.2 5.1-4.8 3.1-7.6-.2-.3.3-.6.5-.7 6.6-2.1 6.8-7.6 5.1-10.7-1.6-2.9-5-4.6-6.5-3.5zM45.7 109.8c-1.4-.9-2.9-1.9-3.6-2.4-.2-.2-.6-.2-.9-.3-3.5-.1-11.5 1.3-13.2 7.6-.1.4-.3.3-.3-.1.1-4.8 5.8-8.6 11.8-8.8.3 0 .5-.3.2-.6-3-2.5-6.7-2-8.5-1.7-1.7.3-9.6 1.8-12 8.6-.1.3-.4.3-.4 0-.1-1.8.5-3.2 1-4 .2-.3.1-.6-.7-.7-2.4-.4-6.6-3.1-5.4-7 .1-.3.4-.3.4 0 .4 3.9 4 6.3 7.4 5.3 1.6-.5 2.5-1.1 3.7-1.7.4-.2.6-.6-.1-.5-3.4.5-6.5.5-7.7-1.4-2.2-3.6 1-5.4.1-6.2-1.4-1.1-4.9.7-6.4 3.6-1.7 3-1.5 8.6 5.1 10.7.2.1.7.4.5.7-2 2.9 1.4 7.8 3.1 7.6 1.7-.1.4-2.1 1.7-4.7.8-1.6 2.2-2.9 3.9-3.5.2-.1.5.1.3.5-1.7 3.5-3.3 9.8 2.8 13.6.4.2.8.2.9-.3.4-6.6 2.3-13.7 16.2-13.7.3 0 .4-.4.1-.6zM25.5 88.7c-.1.4-.1.9-.1 1.4 0 .7 0 1.4.1 2.1v.1c.1.7.2 1.4.5 2 .3.6.7 1.2 1.2 1.8.2.2.4.4.7.5 1.7-.4 3.7-.2 5.3 0 .2 0 .5-.1.2-.5-2.3-2.8-5.1-5.6-7.9-7.4zM27.6 81.9c-.1.3-.3.6-.4.8-.4.8-.7 1.7-1 2.6-.2.6-.4 1.2-.5 1.9 3.1 1.9 5.7 4.5 7.9 7 .4.4.6.1.5-.3-1.4-5.5-3.8-9.6-6.5-12zM13.4 89.3c.3.1.4.3.2.6-1.4 1.8-2.6 4.1-1.7 4.5.5.2 3.2-1.3 6.2-2.2-.1-.9-.1-1.7 0-2.6l-1.5.6c-.4.2-.4-.2-.2-.5.5-.6 1.1-1.1 1.9-1.5.1-.7.3-1.5.5-2.2 0-.1.1-.3.1-.4-3.2-.8-6.3-.6-9.9.3-.3.1-.6-.2-.2-.6 2.4-1.9 7.1-1.7 10.1-1.2.3 0 .6-.2.3-.6-.6-1-1.4-2.2-2.2-3.2-.3-.4 0-.5.3-.4 1.1.5 2 1.5 2.8 2.6.3-.7.6-1.4 1-2l.3-.6-.1-.1c-2.6-2.7-6.1-3.6-7.3-2.6-1.2 1 .7 2.2-1.3 2.6C8.7 80.6 1 83.6.5 92.6c-.4 7.5 4.4 8.8 6.2 8 2.2-1 2.7-4 .4-4.8-2.1-.7-.3 2-2 2.4-1.1.2-1.9-1.3-1.9-3.3 0-3.2 2.7-7.3 10.2-5.6zM3 69c-3.2 3.2-.1 10.2 1.5 7.7 2.4-4.1 8.2-5.6 11.8-5.4.2 0 .3.3.1.4-1.4 1-1.7 1.9-.8 2.4.9.5 2.5-.7 4.4.3 1.3.7 3.4-.7 5.7-.5.2-.2.4-.5.6-.7.8-.9 1.6-1.7 2.5-2.5-2.4-1.2-6.4-.6-9.3 1.5-.2.1-.4-.1-.3-.3.9-1.9 3.1-3 6.5-3.1.3 0 .3-.3 0-.4-3.7-1.7-15.5-3.3-20.8 4.3-.1.2-.4.1-.4-.1.2-2.3 2.7-4.3 4.7-5.3.2-.1.2-.5 0-.6-1.4-.9-2.8-2.9-2.7-5.5.1-2.8 1.7-4.4 3.4-4.8.3-.1.4.3.2.5-1.4 1.2-2.6 2.6-2.4 5 .3 2.8 2.4 4.3 4.9 4.1 2.4-.2 6.3-.6 8.6-.2.3 0 .3-.2.1-.4-1.1-1.2-1.5-2.6-1.6-3.5 0-.4.3-.3.4-.1 1 1.8 2.3 3.1 4.4 4.7 1.7.7 3.6 1.6 5.3 3.1l2.2-1.9c-.8-1-2-1.8-3.6-2.4-3.7-1.3-6.7-4.4-8.1-7.3-.2-.4-.5-.3-.8-.1-1.7 1.4-1.7 2.6-3.7 4-1.8 1.5-4.8.9-4.8-2.1 0-2.3 2.8-3.8 4.5-2.7.2.2.5 0 .4-.3-.9-2.9-4.8-6.3-11-.6-.7.5-.6-3.3-1.3-2.5-3.7 3.6-2.4 9.3-.6 12 1.9 2.7 1.1 2.2 0 3.3z" class="hCiqLFjR_2 tLTJVgfd_2"></path></g><path opacity=".3" fill="#FFF" stroke="#000" stroke-miterlimit="10" d="M78 111.9c3.3-1.9 6.3-4.4 8.9-7.4 4.6-5.5 7.8-12.7 8.8-20.7.3-.6.8-1.1 1.3-2 1.6-2.3 4-2.9 4.3-3.5.3-.5-1.3-1.8-2.6-1.6-.2 0-.5 0-.3-.3 3.7-4.8 7.7-.8 9.7-1.9 1.8-1 3.5.2 4.4-.3.9-.5.5-1.3-.8-2.4-.1-.1-.1-.4.1-.4 3.6-.2 9.4 1.3 11.8 5.4 1.5 2.5 4.6-4.5 1.5-7.7-1.1-1.1-2-.7-.1-3.3 1.9-2.7 3.2-8.4-.5-12.1-.7-.7-.6 3-1.3 2.5-6.2-5.7-10.1-2.3-11 .6-.1.3.2.5.4.3 1.6-1 4.4.4 4.4 2.7 0 3-3 3.6-4.9 2.2-2-1.4-2-2.6-3.7-4-.2-.2-.6-.3-.8.1-1.4 2.9-4.4 6-8.1 7.3-2 .7-3.4 1.9-4.3 3.3-.3-1.6-.7-3.1-1.2-4.6 1.1-1.2 2.5-2.2 4.6-2.8.3-.1.3-.4.2-.6-1.8-3.6-4.9-4-7.6-3.2-.5-1-1.1-1.9-1.7-2.8.3-.1.6-.2.9-.2 5.2-.9 7.6 3.1 9 2.8 1.1-.3.7-2.1-.5-3.9-.2-.1-.3-.3-.5-.5l-.1-.1c-.3-.3-.6-.5-.9-.7-.4-.2-.7-.4-1.1-.5-.6-.2-1.2-.4-1.8-.4-.3 0-.6-.1-.9-.1.4.2.7.5 1 .8.3.3.2.5-.2.3-.9-.4-2.2-.8-3.6-1h-.3c-.7.1-1.5.2-2.2.4l-1.1.3-.2.1c-.2.1-.5.2-.7.3l.1.1c5.4 6.5 8.8 15.5 8.8 25.4 0 9.9-3.4 18.9-8.8 25.4-5.4 6.4-12.8 10.4-21.1 10.4s-15.7-4-21.1-10.4c-1-1.1-1.8-2.4-2.7-3.6-.3.1-.6.2-.9.4h-.1c.3.5.6.9.9 1.3.1.2.2.2.3.2.6.9 1.3 1.7 1.9 2.5 3.7 4.4 8.3 7.7 13.4 9.5-.8 0-1.5.1-2.3.3-4.1 1-5.1 5.8-2.3 7.8.3.2.2.5-.1.4-4-.7-2.8-5.3-1.2-7.6.2-.3 0-.5-.3-.4-3.9 1.3-11.4 5.2-6.5 14.7.2.4-.1.6-.4.2-6.7-8.9 1.3-15.7 7.8-16.7.7-.2.6-.6.2-.7-4.3-1-9.9.8-12.8 3.9-3.2 3.4-3.2 7.1-2.7 9.5.4 2 1.3 3.2 2.8 2.8.1 0 .5 0 .5.3 1.5 3.7 5.3 6.3 9.8 5.4.2 0 .4-.3.1-.6-4.3-4.8-2.9-7.8-2.1-9.7.1-.3.5-.3.6-.1.9 1.9 3.7 2.2 5.7 1.6 1.7-.4 3.2-2 3.8-3.2.2-.4.1-.9-.7-.8-1.4.1-2.5-1.3-2.4-2.5.1-1.4 1.3-3.1 3.7-3.2 2.4-.1 5.3.9 4.4 4.6-1.2 4.8-4.1 6.5-6.6 7.4-2 .7-4.6-.1-5.1.1-.5.1-1.8 1-.1 3.6 1.6 2.6 6 3.2 9.1 2.1.3-.1.3.1.1.2-1.9 1.9-1.5 3.1-1.2 4.2.1.3.4.4.5.5 1.7.4 3-.5 4.2-.8-.7 1.2-1.2 2.9-.8 5.4.6 3 2.3 4.7 3.1 4.7.8 0 2.5-1.7 3.1-4.6-.2 0-1.3-3.6-2.4-6.8 0 1.9.1 4.6-.2 6.8-.1.4-.3.8-.5.8s-.4-.4-.5-.8c-.4-2.7-.2-5.9-.2-7.8 0-.9-.3-.7-.6-.4-.8.7-2.2 1.8-3.6 1.8-.2 0-.5-.3 0-.6 1.5-1 3.5-2.6 4.1-4.5V128c-.3-.8-.4-1.3-.5-1.2-1.3 1.7-5 4.8-10.2 3.6-.4-.1-.4-.3 0-.4 4.8-.2 10.4-3.5 10.4-7.4 0-1.6.1-2.2 0-3.2-.1-2.1-1.2-3.8-2.8-4.8 1.4.2 2.8.3 4.3.3 1.1 0 2.2-.1 3.3-.2-1.5 1-2.5 2.6-2.6 4.6v3.2c0 3.9 5.6 7.2 10.4 7.4.4 0 .4.3 0 .4-5.1 1.2-8.8-2-10.1-3.6-.2-.3-.5-.1-.5.2 0 1.8-.1 2.8-.1 3.9.6 1.8 2.6 3.4 4.1 4.5.4.3.2.6 0 .6-1.4 0-2.8-1.1-3.6-1.8-.2-.2-.4-.3-.5-.2 1.1 3.9 2.3 8.1 2.3 8.2.5-2.5-.1-4.2-.8-5.4 1.1.3 2.5 1.3 4.2.8.2 0 .4-.2.5-.5.3-1 .7-2.3-1.2-4.2-.2-.2-.1-.3.1-.2 3.1 1.1 7.5.4 9.1-2.1 1.7-2.7.4-3.5-.1-3.6-.5-.2-3.1.6-5.1-.1-2.5-.9-5.4-2.5-6.6-7.4-.9-3.8 2-4.7 4.4-4.6 2.4.1 3.5 1.8 3.7 3.2.1 1.2-1 2.6-2.4 2.5-.7-.1-.8.4-.7.8.5 1.2 2 2.8 3.8 3.2 2 .5 4.8.2 5.7-1.6.1-.2.4-.3.6.1.8 1.9 2.1 4.9-2.1 9.7-.3.4-.1.6.1.6 4.5.9 8.4-1.7 9.8-5.4.1-.3.4-.3.5-.3 1.4.4 2.4-.8 2.8-2.8.5-2.4.5-6.1-2.7-9.5-4.8-2.5-10.2-4.2-14.5-3.4zm25.4-45.3c2.2-1.6 3.4-2.9 4.4-4.7.1-.2.5-.3.4.1-.1.9-.5 2.3-1.6 3.5-.2.2-.1.4.1.4 2.3-.4 6.2 0 8.6.2 2.5.2 4.7-1.2 4.9-4.1.2-2.4-1-3.8-2.4-5-.2-.2-.1-.6.2-.5 1.7.4 3.3 2 3.4 4.8.1 2.5-1.3 4.6-2.7 5.5-.2.1-.2.5 0 .6 2.1 1 4.5 2.9 4.8 5.3 0 .2-.3.3-.4.1-5.3-7.7-17.1-6-20.8-4.3-.3.1-.2.4 0 .4 3.4.2 5.6 1.3 6.5 3.1.1.2-.1.4-.3.3-3.4-2.5-8.2-2.9-10.4-.8-.7.6-1.5 1.7-2.2 3.2-.1-.8-.1-1.6-.2-2.3 2.2-3.2 5.1-4.8 7.7-5.8zM93 61.2l-.2.1-.1-.3h.2c.3-.1.4.1.1.2zm-7.2 68.2c-.3.4-.6.2-.4-.2 4.9-9.4-2.6-13.4-6.5-14.7-.3-.1-.5.1-.3.4 1.6 2.3 2.9 6.9-1.2 7.6-.3 0-.4-.2-.1-.4 2.7-2 1.8-6.8-2.3-7.8l-1.6-.3c1.4-.5 2.8-1.1 4.1-1.8 0 .1.1.3.5.4 6.5 1.1 14.6 7.9 7.8 16.8z" class="hCiqLFjR_3 tLTJVgfd_3"></path><path opacity=".3" fill="#FFF" stroke="#000" stroke-miterlimit="10" d="M20 54.7c4.2 1.4 6.9-1.6 9.7-2.6.3-.1.4.1.2.3-1.9 2-2.6 4.6-1.3 4.9 1.4.4 3.9-3.7 9-2.8.6.1 1.1.3 1.6.5-.6.9-1.1 1.8-1.6 2.8-2.8-1.1-6.3-1-8.3 2.9-.1.2-.1.5.2.6 2.5.7 4.1 1.9 5.2 3.5-.1.4-.2.8-.4 1.3.3-.2.5-.4.8-.6l.4-.2c.4-.3.8-.6 1.3-.9 1.5-4.5 3.8-8.5 6.6-11.9 5.4-6.4 12.9-10.4 21.1-10.4 6.6 0 12.7 2.6 17.7 6.9.3-.1.7-.3 1-.4h.1c.8-.3 1.7-.5 2.5-.7.9-.2 1.8-.4 2.8-.5.6-.1 1.2-.1 1.7-.1 3.1-1.3 4.1-2.2 4.8-3.6.1-.2.5-.3.5 0 .2 1-.6 2.3-1.7 3.1-.3.2-.2.5.2.5 1.8.1 3.4.6 4.3 1 3.2 1.3 6 2.2 7.9.3 1.4-1.3 2.5-4.3-.5-7.2-.2-.2-.1-.5.1-.5 4.3.9 3.8 8.7-.6 10.1-.4.1-.4.4.1.4 1.4.1 2.9-.3 4.1-1.2.4-.3.5-.1.2.2-3.2 4.3-7.4 1.7-9.1.4.1.1.2.2.2.4.2.5.4.9.3 1.4 0 .5-.2 1-.7 1.3l-.1.1c1.9 1.1 4 2.1 6.8 1.1 5-1.7 6.8-6 6.9-9.8 0-.5-.2-.7-.4-.6-.8.6-2.3 1.7-2.4.3-.1-1.9-1.3-4.1-2.7-5.2-2.3-1.8-5-2.9-8.2-.4-.2.2-.1.6.2.6 2.1.6 3.9 3.7 3 5-1.1 1.8-4.8.5-5.7.1-.5-.2-.3-.7-.2-.9.3-1.6-.6-4.1-2.5-4.6-.2 0-.5.1-.5.5 0 3.3-2.7 4.7-6.9 5.2-2.5.3-4.3 1.2-5.6 2.4l-1.7-1.4c1.7-1.5 3.8-2.5 4.8-3 2.5-1.3 3-5.7.8-8-.2-.2-.1-.4.2-.3 2.1 1 2.8 3.1 2.6 4.9.6.1 1 .2 1.2.1 2-1.3 3.9-5.1 1.8-9-1.9-3.4-5.1-4-7.5-4-.3 0-.3-.2 0-.4 3.9-1.6 7.8 1.3 9.1 4.5.1.3.4-.1.5-.3.4-.6.8-1.6 1.1-2.7.1-.3.3-.1.4.2.2 1.3-.1 2.7-1 4.2-.1.2-.4.6-.3 1 .2.8.1 2.1-.5 3.9-.2.5.2.7.5.5 2.9-1.5 4.5-4.2 4.6-6.8.2-5.7-3.9-7.2-4.8-7.3-.8 0 .6 2.8-.5 3.4-.2.1-.5-.1-.6-.3-.9-1.5-3.4-3.4-5.8-3.6-3.4-.3-10 1.5-8.7 9.8.2.8 2.4 1.6 2.2-.3-.4-3.3 1.8-4.3 3.3-3.8 1.4.4 4.1 1.3 4.9 3.5.2.4-.2.5-.4.4-2.2-1.3-5.7-1.4-6.1.5-.4 2.1 3.1-.4 2.5 3.3-.6 3.5-1.7 3.7-3.4 4.7-.4.2-.6-.1-.7-.3-.4-2.3-.9-4.4-2.1-5.3-.2-.1-.4-.3-.7-.2-1.2 1-2.7 3.2-3.3 6.6-.7-.3-1.3-.5-2-.7.6-1.3 1-2.6 1.3-4.2.2-.7.1-3.7 1-4.8.4-.5.2-.7-.1-.8-2.5-.8-3.9 1.1-4.7 3.5-.5 1.6-1.2 3.5-2.5 5.2-.3 0-.6-.1-1-.1.5-3.6-.8-7.1-1.7-8.4-.2-.3-.6-.3-.7-.3-.1 0-.5 0-.8.3-.8 1.3-2.2 4.9-1.7 8.5-.3 0-.6.1-.9.1-1.4-1.7-2-3.7-2.5-5.3-.8-2.4-2.2-4.3-4.7-3.5-.3.1-.4.3-.1.8.9 1.1.8 4.1 1 4.8.4 1.7.7 3 1.4 4.4-.7.2-1.4.5-2.1.8-.5-3.6-2.1-5.9-3.3-6.9-.3-.2-.5 0-.7.2-1.2.9-1.7 3-2.1 5.3 0 .2-.3.5-.7.3-1.7-1-2.8-1.2-3.4-4.7-.6-3.8 2.8-1.3 2.5-3.3-.3-1.9-3.9-1.8-6.1-.5-.2.1-.6 0-.4-.4.8-2.2 3.5-3.1 4.9-3.5 1.5-.4 3.8.5 3.3 3.8-.2 1.8 2 1.1 2.2.3 1.3-8.3-5.4-10.1-8.7-9.8-2.4.2-4.9 2.1-5.8 3.6-.1.2-.3.3-.6.3-1.1-.6.3-3.4-.5-3.4-.9.1-5.1 1.6-4.8 7.3.1 2.7 1.7 5.3 4.6 6.8.3.1.7 0 .5-.5-.6-1.7-.7-3.1-.5-3.9.1-.4-.2-.8-.3-1-.8-1.5-1.2-2.9-1-4.2 0-.3.3-.4.4-.2.3 1.1.7 2.1 1.1 2.7.2.2.4.6.6.3 1.2-3.1 5.2-6 9.1-4.5.3.1.3.4 0 .4-2.4-.1-5.6.5-7.5 4-2.2 4-.2 7.7 1.8 9 .3.2.6 0 .5-.5-.3-1.8.5-4 2.6-4.9.3-.1.4.1.2.3-2.1 2.3-1.6 6.7.8 8 1.1.6 3.4 1.7 5.1 3.3-.6.4-1.1.9-1.7 1.4-1.4-1.4-3.3-2.4-6-2.7-4.2-.5-6.9-1.9-6.9-5.2 0-.4-.3-.5-.5-.5-1.9.5-2.8 3-2.5 4.6.1.2.2.7-.2.9-1 .4-4.6 1.7-5.7-.1-.8-1.3.9-4.5 3-5 .3-.1.4-.5.2-.6-3.2-2.5-5.9-1.4-8.2.4-1.5 1.2-2.6 3.3-2.7 5.2-.1 1.4-1.6.3-2.4-.3-.2-.2-.4.1-.4.6-.3 3.8 1.4 8.1 6.5 9.8zm15.8 6.9c-.3-.2-.5-.3-.8-.4-.2-.1-.2-.3.1-.3.3 0 .7.1 1 .1-.2.2-.3.4-.3.6zm41.6-20.8c.1-.4.4-.4.5 0 .2 1 .4 2.2.7 3.5-.4-.2-.8-.5-1.2-.7-.1-1.1-.1-2 0-2.8zm-6.6-2.7c.1-.4.4-.3.3.1-.1 1.1-.4 2-.7 2.7-.3-.1-.7-.1-1-.2.6-.7 1.1-1.6 1.4-2.6zm-7.2.7c.1-.3.3-.6.4-.6.1 0 .3.4.4.6.1.6.2 1.1.3 1.5H63.3c0-.5.1-.9.3-1.5zm-6.5-.7c.4 1.1.9 1.9 1.5 2.7l-1 .3c-.4-.8-.6-1.7-.8-2.9 0-.4.2-.5.3-.1zm-7 2.6c.1-.4.4-.3.5 0 .2.9.1 2 0 3.2-.4.2-.8.5-1.2.8.2-1.4.5-2.9.7-4zm-32.5 9.1c1.2.9 2.8 1.3 4.1 1.2.5 0 .5-.3.1-.4-4.4-1.3-5-9.2-.6-10.1.2 0 .3.3.1.5-3 2.9-1.9 5.9-.5 7.2 1.9 1.9 4.7 1 7.9-.3.9-.4 2.5-.9 4.3-1 .3 0 .4-.3.2-.5-1.1-.8-1.9-2.1-1.7-3.1 0-.4.4-.2.5 0 .9 1.7 2.2 2.5 7 4.5 1.4.5 2.7 1.3 3.9 2.4-.3.4-.6.7-1 1.1l-.2.3c-2.5-1.2-6.2-.4-8 .5-.4.2-.5 0-.2-.3 1.2-1.2 3.2-2.1 5-2.2.6 0 .5-.3 0-.5-4.5-1.6-7.1-.8-11 .8-.6.2-6 5.5-9.9.2-.5-.4-.3-.6 0-.3z" class="hCiqLFjR_4 tLTJVgfd_4"></path><style>.tLTJVgfd_0{stroke-dasharray:331 333;stroke-dashoffset:332;animation:tLTJVgfd_draw_0 3700ms ease-in 0ms infinite,tLTJVgfd_fade 3700ms linear 0ms infinite;}.tLTJVgfd_1{stroke-dasharray:1123 1125;stroke-dashoffset:1124;animation:tLTJVgfd_draw_1 3700ms ease-in 0ms infinite,tLTJVgfd_fade 3700ms linear 0ms infinite;}.tLTJVgfd_2{stroke-dasharray:849 851;stroke-dashoffset:850;animation:tLTJVgfd_draw_2 3700ms ease-in 0ms infinite,tLTJVgfd_fade 3700ms linear 0ms infinite;}.tLTJVgfd_3{stroke-dasharray:1013 1015;stroke-dashoffset:1014;animation:tLTJVgfd_draw_3 3700ms ease-in 0ms infinite,tLTJVgfd_fade 3700ms linear 0ms infinite;}.tLTJVgfd_4{stroke-dasharray:873 875;stroke-dashoffset:874;animation:tLTJVgfd_draw_4 3700ms ease-in 0ms infinite,tLTJVgfd_fade 3700ms linear 0ms infinite;}@keyframes tLTJVgfd_draw{100%{stroke-dashoffset:0;}}@keyframes tLTJVgfd_fade{0%{stroke-opacity:1;}89.1891891891892%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes tLTJVgfd_draw_0{21.62162162162162%{stroke-dashoffset: 332}55.67567567567567%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes tLTJVgfd_draw_1{23.243243243243246%{stroke-dashoffset: 1124}57.2972972972973%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes tLTJVgfd_draw_2{24.864864864864867%{stroke-dashoffset: 850}58.91891891891892%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes tLTJVgfd_draw_3{26.486486486486488%{stroke-dashoffset: 1014}60.54054054054055%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes tLTJVgfd_draw_4{28.10810810810811%{stroke-dashoffset: 874}62.16216216216216%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}</style></svg>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 147.9"><g stroke="#000" stroke-miterlimit="10" opacity=".3"><path fill="none" d="M69.3 58.8c.2-.2.4-.3.6-.5.2-.2.4-.3.6-.5.1-.1.3-.2.4-.3-.2 0-.4-.1-.6-.1-.5 0-1.1-.1-1.8-.1-2.4 0-5.1.3-7.8.8-1.4.3-2.8.6-4.2 1-1.4.4-2.8.8-4.2 1.3-1.4.5-2.8 1.1-4.3 1.7-1.4.6-2.8 1.3-4.2 2.1-1.4.8-2.7 1.6-4.1 2.5-1.3.9-2.6 1.8-3.8 2.9-2.5 2.1-4.6 4.2-6.2 6.4-.8 1.1-1.5 2.1-2.1 3.2-.6 1-1.1 2-1.6 3-.4 1-.8 1.9-1.1 2.9-.3.9-.5 1.8-.6 2.6-.1.8-.2 1.6-.2 2.4 0 .7 0 1.4.1 2.1v.1c.1 1 .3 1.8.7 2.6.3.8.8 1.4 1.4 2 .6.6 1.3 1 2.1 1.3.8.3 1.8.4 2.9.4 2.3 0 4.4-.5 6.2-1.6.9-.5 1.8-1.2 2.7-1.9.9-.7 1.7-1.5 2.5-2.4.8-.9 1.6-1.9 2.4-2.9.8-1 1.6-2.1 2.4-3.3.9-1.4 1.7-2.6 2.4-3.7s1.6-2.4 2.5-3.8c1.4-2.2 2.9-4.3 4.4-6.3 1.5-2 3-3.8 4.5-5.6 1.5-1.7 3-3.3 4.3-4.7 1.4-1.4 2.6-2.6 3.7-3.6zM33.1 96.6c-1.6-.2-3.6-.4-5.3 0-.2-.2-.5-.3-.7-.5-.5-.5-.9-1.1-1.2-1.8-.3-.6-.4-1.3-.5-2v-.1c-.1-.7-.1-1.4-.1-2.1 0-.5.1-.9.1-1.4 2.8 1.8 5.7 4.6 7.9 7.4.4.4.1.6-.2.5zm.5-2.5c-2.1-2.5-4.8-5-7.9-7 .1-.6.3-1.3.5-1.9.3-.9.6-1.7 1-2.6.1-.3.3-.6.4-.8 2.7 2.4 5.1 6.5 6.4 11.9.1.5 0 .8-.4.4zm3.8 1.5l-.1.1-.2.1c-1.3-2.9-2.4-6-3-9.3 0 0-.1-.1-.1-.2-.6-2.2-1.1-2.8-2.5-4.9-.6-.9-1.4-1.6-2.1-2.1l.1-.1c.6-1 1.3-2 1.9-2.9.4-.6.9-1.1 1.3-1.6.2.4.4.8.5 1.3 0-.7.1-1.3.1-2 .1-.1.2-.3.4-.4.3-.4.7-.7 1.1-1-.2 1.9-.4 3.8-.4 5.7 0 6.2 1.3 12.1 3.7 17.2-.2-.2-.4 0-.7.1zM74.5 58.6l-.3.3-.6.6c-.2.2-.3.4-.5.6-.2.2-.3.4-.4.6-.8 1-1.7 2-2.5 3.1s-1.7 2.3-2.5 3.6c-.8 1.2-1.7 2.6-2.7 4.2-.5.8-1.1 1.7-1.7 2.6.1 0 .2-.1.2-.1.3-.1.6-.1.9-.1h.9c.7 0 1.3 0 1.8.1l.7.1.7.1c1-.2 2-.5 2.9-1 1-.5 1.9-1.2 2.8-2 .9-.8 1.6-1.7 2.1-2.7.5-1 .8-2.1.9-3.2.2-1.6.1-3-.4-4.2-.5-1.1-1.3-2-2.3-2.6zM53 16.2c-.3-.2-.7 0-.4.3.5.8 1.2 2.5 1.6 3.4.2.4 0 .7-.3.4-1.9-2.5-5.1-3.7-6.3-3.7-.4.1-.3.3-.1.4 3.6 1.7 7 5.1 10.1 9.7.2.3.4.1.2-.3-1.4-4.5-2.6-8.6-4.8-10.2z" class="hCiqLFjR_0 mDbyQGPb_0"></path><path fill="#FFF" d="M48.2 11.7c-.2 0-.6.1-.5.4.2.5.4 1 .7 1.5.2.3 0 .6-.5.5-2.9-.7-8.5 1.5-7.4 5.2.1.4.4.5 1.2-.3 1.5-1.5 5.9.5 8.9 3.1 3.2 2.9 6.9 7.3 9.5 11.7.2.3.5.1.5-.2-.1-4.2-.3-6-1.2-9.1-1.4-5-4.5-12.1-11.2-12.8zm9.3 15.2c-3.1-4.7-6.6-8-10.1-9.7-.2-.1-.3-.3.1-.4 1.3 0 4.5 1.1 6.3 3.7.3.3.5 0 .3-.4-.4-.9-1.1-2.6-1.6-3.4-.2-.3.1-.6.4-.3 2.3 1.6 3.4 5.6 4.8 10.3.2.3 0 .5-.2.2zM80 14.1c-.4.1-.6-.2-.5-.5.3-.5.6-1 .7-1.5.2-.3-.2-.5-.5-.4-6.7.7-9.8 7.8-11.2 12.8-.9 3.1-1 5-1.2 9.1 0 .3.3.5.5.2 2.6-4.4 6.2-8.9 9.5-11.7 3-2.6 7.4-4.6 8.9-3.1.8.8 1.1.7 1.2.3 1.1-3.7-4.5-5.9-7.4-5.2zm.5 3.1c-3.6 1.7-7 5.1-10.1 9.7-.2.3-.4.1-.2-.3 1.4-4.7 2.5-8.8 4.8-10.3.3-.2.7 0 .4.3-.5.8-1.2 2.5-1.6 3.4-.2.4 0 .7.3.4 1.9-2.5 5.1-3.7 6.3-3.7.4.2.3.4.1.5zM83.3 52c.7-.4 1.5-.7 2.2-1 .8-.3 1.6-.5 2.4-.7.8-.2 1.6-.3 2.4-.4.8-.1 1.5-.1 2.3-.1 1.5 0 2.9.2 4 .6.6.2 1.1.5 1.5.7.4.3.8.6 1.1.9l.3.3c.1.2.3.3.4.3h.5c.3-.2.4-.4.4-.8 0-.2-.1-.5-.3-.8-.4-.5-.8-.9-1.4-1.3-.5-.4-1.2-.7-2-.9-.7-.3-1.5-.4-2.3-.6-.8-.1-1.6-.2-2.5-.2-.9 0-1.8.1-2.7.2-.9.1-1.8.3-2.6.5-.9.2-1.7.4-2.5.7-.8.3-1.6.5-2.3.9-.7.3-1.4.6-2.2 1-.7.4-1.5.8-2.3 1.3l-2.4 1.5c-.7.5-1.5 1.1-2.3 1.7-.6-.1-1.2-.2-1.8-.2-.7 0-1.4-.1-2.1-.1-2.7 0-5.6.3-8.6.8-1.5.3-3 .6-4.6 1-1.5.4-3 .8-4.6 1.4-3.1 1-6.2 2.3-9.1 3.9-1.5.8-3 1.7-4.4 2.6-1.4.9-2.8 1.9-4.2 3-2.8 2.2-5.2 4.5-7.1 6.6-2 2.2-3.5 4.3-4.6 6.4-1.1 2.1-1.8 4.1-2.3 5.9-.5 1.8-.6 3.6-.4 5.1.2 1.5.6 2.8 1.2 3.9.7 1.1 1.6 1.9 2.7 2.6 1.1.6 2.4 1 3.8 1.3 1.4.3 2.9.5 4.5.5 1.5 0 3-.2 4.5-.5s2.9-.8 4.3-1.5 2.7-1.4 4.1-2.3c1.3-.9 2.6-1.9 3.9-2.9 1.2-1.1 2.4-2.3 3.7-3.5 1.2-1.3 2.4-2.6 3.5-4.1 1.1-1.4 2.2-2.9 3.3-4.4 1.1-1.5 2.1-3.1 3.1-4.7l.5-.8.3.3c.2.2.5.3.9.4.3.1.7.1 1 .1h2.3c.2 0 .4 0 .6-.1.2 0 .5-.1.8-.2h.7c.3 0 .6.1.9.2.3.1.7.2 1 .4.3.2.7.4 1 .6.3.2.6.5.9.8.3.3.6.7.8 1.1.2.4.4.8.6 1.3.1.5.2 1 .3 1.6.1 1 .1 2-.1 3-.1 1-.4 1.9-.7 2.8s-.8 1.8-1.3 2.6-1 1.6-1.6 2.3c-.6.7-1.2 1.3-1.9 1.9-.7.6-1.4 1-2.2 1.5-.8.4-1.6.7-2.3.9-.8.2-1.6.3-2.3.3-.4 0-.9 0-1.3-.1s-.9-.2-1.3-.4-.7-.4-.8-.6c-.2-.2-.2-.5-.2-.9 0-.2.1-.4.2-.5.1-.2.2-.3.4-.4.2-.1.4-.3.7-.4.2-.1.5-.2.7-.3.3-.1.6-.3.9-.5l.9-.6c.3-.3.6-.6.7-1 .1-.4.2-.8.1-1.3s-.2-.9-.4-1.3-.5-.7-.9-.9c-.7-.5-1.6-.7-2.6-.7-.8 0-1.6.2-2.4.4-.7.3-1.4.7-2.1 1.3-.7.6-1.1 1.3-1.4 2-.3.8-.4 1.6-.3 2.5.1 1.1.5 1.9 1.2 2.7.3.3.7.7 1.1.9.4.3.8.5 1.2.7.4.2.9.4 1.4.5.5.1 1 .3 1.5.3 1 .2 2 .3 3 .3H62c1.3 0 2.6-.1 3.9-.3 1.2-.2 2.4-.5 3.6-.8 1.2-.4 2.3-.8 3.3-1.3s2-1.1 2.8-1.8c.9-.7 1.7-1.4 2.3-2.2.7-.8 1.3-1.7 1.8-2.6 1-1.9 1.4-4 1.2-6.2-.1-2.2-1.1-4.2-2.8-5.9-.9-.8-2-1.5-3.2-2.1-.8-.4-1.7-.6-2.6-.9h.1c.7-.2 1.3-.4 2-.7 1.4-.5 2.7-1.2 3.9-2.1.6-.4 1.2-.9 1.7-1.4s1-1 1.4-1.6c.4-.6.7-1.2 1-1.9.2-.7.3-1.4.4-2.1.1-1.1 0-2.1-.3-3.1-.3-.9-.8-1.8-1.5-2.5-1.2-1.3-2.7-2.3-4.5-3 1.1-1 2.2-1.9 3.3-2.6 1.2-1 2.4-1.7 3.5-2.2zM61.4 67c-1.5 1.7-3.1 3.6-4.5 5.6-1.5 2-2.9 4.1-4.4 6.3-.9 1.4-1.7 2.7-2.5 3.8-.7 1.1-1.5 2.3-2.4 3.7-.8 1.2-1.6 2.3-2.4 3.3-.8 1-1.6 2-2.4 2.9-.8.9-1.7 1.7-2.5 2.4-.9.7-1.8 1.3-2.7 1.9-1.8 1.1-3.9 1.6-6.2 1.6-1.1 0-2-.2-2.9-.4-.8-.3-1.5-.7-2.1-1.3-.6-.6-1.1-1.2-1.4-2-.3-.8-.6-1.6-.7-2.6v-.1c-.1-.7-.1-1.4-.1-2.1 0-.8.1-1.6.2-2.4.1-.8.3-1.7.6-2.6.3-.9.6-1.9 1.1-2.9.4-1 1-2 1.6-3 .6-1 1.3-2.1 2.1-3.2 1.6-2.1 3.6-4.3 6.2-6.4 1.2-1 2.5-2 3.8-2.9 1.3-.9 2.7-1.7 4.1-2.5 1.4-.8 2.8-1.5 4.2-2.1 1.4-.6 2.8-1.2 4.3-1.7 1.4-.5 2.8-1 4.2-1.3 1.4-.4 2.8-.7 4.2-1 2.8-.5 5.4-.8 7.8-.8.7 0 1.2 0 1.8.1.2 0 .4 0 .6.1-.1.1-.3.2-.4.3-.2.2-.4.3-.6.5-.2.2-.4.3-.6.5-1.1 1-2.3 2.2-3.6 3.6-1.4 1.4-2.8 3-4.4 4.7zm15.3-5.9c.5 1.1.6 2.5.4 4.2-.1 1.1-.4 2.2-.9 3.2s-1.2 1.9-2.1 2.7c-.9.9-1.8 1.5-2.8 2-.9.5-1.9.8-2.9 1l-.7-.1-.6-.1c-.5-.1-1.1-.1-1.8-.1h-.9c-.3 0-.6.1-.9.1-.1 0-.2 0-.2.1.6-.9 1.1-1.8 1.7-2.6 1-1.6 1.9-3 2.7-4.2.8-1.3 1.6-2.4 2.5-3.6.8-1.1 1.7-2.1 2.5-3.1.1-.2.3-.4.4-.6.2-.2.3-.4.5-.6l.6-.6.3-.3c1 .7 1.8 1.6 2.2 2.6zM62.9 28.3c0 .6.2 1.1.5 1.5.1.1.5.3.6.3.1 0 .5-.2.6-.3.3-.3.5-.9.5-1.5 0-5.5.9-8 3-10.8 2.7-3.4 7-8.3 3.2-11.4-.2-.1-.3.2-.4.3-.2 2-2.2 2.7-4.2 5.5-.2.2-.3.1-.2-.2.8-3.3.2-5.8 0-6.6-.4-1.8-1.2-3.4-2-4.3-.1-.2-.4-.4-.5-.4-.1 0-.3.2-.5.4-.8.9-1.6 2.5-2 4.3-.2.9-.8 3.3 0 6.6.1.3-.1.4-.2.2-1.9-2.8-4-3.5-4.2-5.5 0-.2-.2-.4-.4-.3-3.8 3.1.4 7.9 3.2 11.4 2.1 2.8 3 5.3 3 10.8zm-5-17.5c1.1 1.2 2.7 2.8 4.8 5.4.2.3.6.1.6-.2 0-3.3-.1-8.2.3-10 .1-.3.2-.7.3-.7.2 0 .3.4.3.7.4 1.8.3 6.7.3 10 0 .3.4.5.6.2 2-2.6 3.7-4.2 4.8-5.4.1-.2.3 0 .2.2-.3 3.2-4 4.3-5.9 9.7-.1.4-.3.5-.4.5-.1 0-.2 0-.4-.5-1.9-5.4-5.6-6.5-5.9-9.7.2-.2.3-.4.4-.2zM127.4 92.6c-.4-8.9-8.1-11.9-12-12.7-2-.4-.1-1.6-1.3-2.6s-4.7-.1-7.3 2.6c-3.2 3.3-1.1-1.1-4 .3-3.6 1.7-7.2 6.5-8.9 13.6-.1.4.1.7.5.3 2.9-3.4 6.9-7 11.5-8.9 1.2-.5 2.5-4.3 4.9-5.3.2-.1.6 0 .3.4-.8 1-1.6 2.2-2.2 3.2-.2.4.1.7.3.6 2.9-.5 7.7-.7 10.1 1.2.5.4.1.7-.2.6-4.8-1.3-8.5-1.2-13 .7 2.3.7 4.4 1.7 5.6 3 .2.2.1.6-.2.5-3.4-1.3-6.2-3-8.1-2-3.1 1.7-6.3 4.9-8.7 7.9-.3.4 0 .6.2.5 1.9-.3 4.4-.5 6.4.3.3.1.3.4 0 .5-2.1.2-7.5.2-8.7 1.5-.6.8-.9 1.5-1.2 2.1-.1.2.1.3.3.2 4.4-2.7 11 .1 14.2-1.8 3.3-2-5.9-3.1-2.6-6.7 3.3-3.6 11.9 2 12.8 1.6.9-.3-.4-2.7-1.7-4.5-.2-.3-.1-.5.2-.6 7.4-1.7 10.2 2.3 10.2 5.4 0 2.1-.9 3.6-1.9 3.3-1.7-.3.1-3.1-1.9-2.4-2.3.8-1.8 3.9.4 4.8 1.6 1.2 6.4-.1 6-7.6z" class="hCiqLFjR_1 mDbyQGPb_1"></path><path fill="#FFF" d="M34.9 72.2c-.4.3-.7.7-1.1 1l-.4.4c0 .6-.1 1.3-.1 2-.2-.4-.3-.9-.5-1.3-.5.5-.9 1.1-1.3 1.6-.7.9-1.3 1.9-1.9 2.9l-.1.1c.7.5 1.5 1.1 2.1 2.1 1.4 2 1.9 2.7 2.5 4.9 0 .1.1.1.1.2.7 3.3 1.7 6.4 3 9.3l.2-.1c.3-.2.5-.3.8-.5-2.3-5.1-3.7-11-3.7-17.2 0-1.6.1-3.5.4-5.4zM110.5 96c-.9.7 2.3 2.6.1 6.2-1.2 1.9-4.4 1.9-7.7 1.4-.7-.1-.5.2-.1.5 1.1.6 2.1 1.3 3.7 1.7 3.5 1 7-1.5 7.4-5.3 0-.3.3-.2.4 0 1.3 4-2.9 6.6-5.3 7-.8.1-.9.3-.7.7.6.9 1.1 2.2 1 4 0 .3-.3.3-.4 0-2.4-6.8-10.3-8.3-12-8.6-1.7-.3-5.5-.8-8.5 1.7-.3.3-.1.6.2.6 6 .2 11.7 4 11.8 8.8 0 .4-.2.5-.3.1-1.7-6.3-9.7-7.8-13.2-7.6-.2 0-.6.1-.9.3-.7.5-2.2 1.5-3.6 2.4-.3.2-.2.5.1.5 13.9 0 15.7 7.1 16.2 13.7 0 .6.5.6.9.3 6.1-3.8 4.5-10.1 2.8-13.6-.2-.4.1-.5.3-.5 1.7.6 3.1 2 3.9 3.5 1.3 2.5 0 4.5 1.7 4.7 1.7.2 5.1-4.8 3.1-7.6-.2-.3.3-.6.5-.7 6.6-2.1 6.8-7.6 5.1-10.7-1.6-2.9-5-4.6-6.5-3.5zM45.7 109.8c-1.4-.9-2.9-1.9-3.6-2.4-.2-.2-.6-.2-.9-.3-3.5-.1-11.5 1.3-13.2 7.6-.1.4-.3.3-.3-.1.1-4.8 5.8-8.6 11.8-8.8.3 0 .5-.3.2-.6-3-2.5-6.7-2-8.5-1.7-1.7.3-9.6 1.8-12 8.6-.1.3-.4.3-.4 0-.1-1.8.5-3.2 1-4 .2-.3.1-.6-.7-.7-2.4-.4-6.6-3.1-5.4-7 .1-.3.4-.3.4 0 .4 3.9 4 6.3 7.4 5.3 1.6-.5 2.5-1.1 3.7-1.7.4-.2.6-.6-.1-.5-3.4.5-6.5.5-7.7-1.4-2.2-3.6 1-5.4.1-6.2-1.4-1.1-4.9.7-6.4 3.6-1.7 3-1.5 8.6 5.1 10.7.2.1.7.4.5.7-2 2.9 1.4 7.8 3.1 7.6 1.7-.1.4-2.1 1.7-4.7.8-1.6 2.2-2.9 3.9-3.5.2-.1.5.1.3.5-1.7 3.5-3.3 9.8 2.8 13.6.4.2.8.2.9-.3.4-6.6 2.3-13.7 16.2-13.7.3 0 .4-.4.1-.6zM25.5 88.7c-.1.4-.1.9-.1 1.4 0 .7 0 1.4.1 2.1v.1c.1.7.2 1.4.5 2 .3.6.7 1.2 1.2 1.8.2.2.4.4.7.5 1.7-.4 3.7-.2 5.3 0 .2 0 .5-.1.2-.5-2.3-2.8-5.1-5.6-7.9-7.4zM27.6 81.9c-.1.3-.3.6-.4.8-.4.8-.7 1.7-1 2.6-.2.6-.4 1.2-.5 1.9 3.1 1.9 5.7 4.5 7.9 7 .4.4.6.1.5-.3-1.4-5.5-3.8-9.6-6.5-12zM13.4 89.3c.3.1.4.3.2.6-1.4 1.8-2.6 4.1-1.7 4.5.5.2 3.2-1.3 6.2-2.2-.1-.9-.1-1.7 0-2.6l-1.5.6c-.4.2-.4-.2-.2-.5.5-.6 1.1-1.1 1.9-1.5.1-.7.3-1.5.5-2.2 0-.1.1-.3.1-.4-3.2-.8-6.3-.6-9.9.3-.3.1-.6-.2-.2-.6 2.4-1.9 7.1-1.7 10.1-1.2.3 0 .6-.2.3-.6-.6-1-1.4-2.2-2.2-3.2-.3-.4 0-.5.3-.4 1.1.5 2 1.5 2.8 2.6.3-.7.6-1.4 1-2l.3-.6-.1-.1c-2.6-2.7-6.1-3.6-7.3-2.6-1.2 1 .7 2.2-1.3 2.6C8.7 80.6 1 83.6.5 92.6c-.4 7.5 4.4 8.8 6.2 8 2.2-1 2.7-4 .4-4.8-2.1-.7-.3 2-2 2.4-1.1.2-1.9-1.3-1.9-3.3 0-3.2 2.7-7.3 10.2-5.6zM3 69c-3.2 3.2-.1 10.2 1.5 7.7 2.4-4.1 8.2-5.6 11.8-5.4.2 0 .3.3.1.4-1.4 1-1.7 1.9-.8 2.4.9.5 2.5-.7 4.4.3 1.3.7 3.4-.7 5.7-.5.2-.2.4-.5.6-.7.8-.9 1.6-1.7 2.5-2.5-2.4-1.2-6.4-.6-9.3 1.5-.2.1-.4-.1-.3-.3.9-1.9 3.1-3 6.5-3.1.3 0 .3-.3 0-.4-3.7-1.7-15.5-3.3-20.8 4.3-.1.2-.4.1-.4-.1.2-2.3 2.7-4.3 4.7-5.3.2-.1.2-.5 0-.6-1.4-.9-2.8-2.9-2.7-5.5.1-2.8 1.7-4.4 3.4-4.8.3-.1.4.3.2.5-1.4 1.2-2.6 2.6-2.4 5 .3 2.8 2.4 4.3 4.9 4.1 2.4-.2 6.3-.6 8.6-.2.3 0 .3-.2.1-.4-1.1-1.2-1.5-2.6-1.6-3.5 0-.4.3-.3.4-.1 1 1.8 2.3 3.1 4.4 4.7 1.7.7 3.6 1.6 5.3 3.1l2.2-1.9c-.8-1-2-1.8-3.6-2.4-3.7-1.3-6.7-4.4-8.1-7.3-.2-.4-.5-.3-.8-.1-1.7 1.4-1.7 2.6-3.7 4-1.8 1.5-4.8.9-4.8-2.1 0-2.3 2.8-3.8 4.5-2.7.2.2.5 0 .4-.3-.9-2.9-4.8-6.3-11-.6-.7.5-.6-3.3-1.3-2.5-3.7 3.6-2.4 9.3-.6 12 1.9 2.7 1.1 2.2 0 3.3z" class="hCiqLFjR_2 mDbyQGPb_2"></path></g><path opacity=".3" fill="#FFF" stroke="#000" stroke-miterlimit="10" d="M78 111.9c3.3-1.9 6.3-4.4 8.9-7.4 4.6-5.5 7.8-12.7 8.8-20.7.3-.6.8-1.1 1.3-2 1.6-2.3 4-2.9 4.3-3.5.3-.5-1.3-1.8-2.6-1.6-.2 0-.5 0-.3-.3 3.7-4.8 7.7-.8 9.7-1.9 1.8-1 3.5.2 4.4-.3.9-.5.5-1.3-.8-2.4-.1-.1-.1-.4.1-.4 3.6-.2 9.4 1.3 11.8 5.4 1.5 2.5 4.6-4.5 1.5-7.7-1.1-1.1-2-.7-.1-3.3 1.9-2.7 3.2-8.4-.5-12.1-.7-.7-.6 3-1.3 2.5-6.2-5.7-10.1-2.3-11 .6-.1.3.2.5.4.3 1.6-1 4.4.4 4.4 2.7 0 3-3 3.6-4.9 2.2-2-1.4-2-2.6-3.7-4-.2-.2-.6-.3-.8.1-1.4 2.9-4.4 6-8.1 7.3-2 .7-3.4 1.9-4.3 3.3-.3-1.6-.7-3.1-1.2-4.6 1.1-1.2 2.5-2.2 4.6-2.8.3-.1.3-.4.2-.6-1.8-3.6-4.9-4-7.6-3.2-.5-1-1.1-1.9-1.7-2.8.3-.1.6-.2.9-.2 5.2-.9 7.6 3.1 9 2.8 1.1-.3.7-2.1-.5-3.9-.2-.1-.3-.3-.5-.5l-.1-.1c-.3-.3-.6-.5-.9-.7-.4-.2-.7-.4-1.1-.5-.6-.2-1.2-.4-1.8-.4-.3 0-.6-.1-.9-.1.4.2.7.5 1 .8.3.3.2.5-.2.3-.9-.4-2.2-.8-3.6-1h-.3c-.7.1-1.5.2-2.2.4l-1.1.3-.2.1c-.2.1-.5.2-.7.3l.1.1c5.4 6.5 8.8 15.5 8.8 25.4 0 9.9-3.4 18.9-8.8 25.4-5.4 6.4-12.8 10.4-21.1 10.4s-15.7-4-21.1-10.4c-1-1.1-1.8-2.4-2.7-3.6-.3.1-.6.2-.9.4h-.1c.3.5.6.9.9 1.3.1.2.2.2.3.2.6.9 1.3 1.7 1.9 2.5 3.7 4.4 8.3 7.7 13.4 9.5-.8 0-1.5.1-2.3.3-4.1 1-5.1 5.8-2.3 7.8.3.2.2.5-.1.4-4-.7-2.8-5.3-1.2-7.6.2-.3 0-.5-.3-.4-3.9 1.3-11.4 5.2-6.5 14.7.2.4-.1.6-.4.2-6.7-8.9 1.3-15.7 7.8-16.7.7-.2.6-.6.2-.7-4.3-1-9.9.8-12.8 3.9-3.2 3.4-3.2 7.1-2.7 9.5.4 2 1.3 3.2 2.8 2.8.1 0 .5 0 .5.3 1.5 3.7 5.3 6.3 9.8 5.4.2 0 .4-.3.1-.6-4.3-4.8-2.9-7.8-2.1-9.7.1-.3.5-.3.6-.1.9 1.9 3.7 2.2 5.7 1.6 1.7-.4 3.2-2 3.8-3.2.2-.4.1-.9-.7-.8-1.4.1-2.5-1.3-2.4-2.5.1-1.4 1.3-3.1 3.7-3.2 2.4-.1 5.3.9 4.4 4.6-1.2 4.8-4.1 6.5-6.6 7.4-2 .7-4.6-.1-5.1.1-.5.1-1.8 1-.1 3.6 1.6 2.6 6 3.2 9.1 2.1.3-.1.3.1.1.2-1.9 1.9-1.5 3.1-1.2 4.2.1.3.4.4.5.5 1.7.4 3-.5 4.2-.8-.7 1.2-1.2 2.9-.8 5.4.6 3 2.3 4.7 3.1 4.7.8 0 2.5-1.7 3.1-4.6-.2 0-1.3-3.6-2.4-6.8 0 1.9.1 4.6-.2 6.8-.1.4-.3.8-.5.8s-.4-.4-.5-.8c-.4-2.7-.2-5.9-.2-7.8 0-.9-.3-.7-.6-.4-.8.7-2.2 1.8-3.6 1.8-.2 0-.5-.3 0-.6 1.5-1 3.5-2.6 4.1-4.5V128c-.3-.8-.4-1.3-.5-1.2-1.3 1.7-5 4.8-10.2 3.6-.4-.1-.4-.3 0-.4 4.8-.2 10.4-3.5 10.4-7.4 0-1.6.1-2.2 0-3.2-.1-2.1-1.2-3.8-2.8-4.8 1.4.2 2.8.3 4.3.3 1.1 0 2.2-.1 3.3-.2-1.5 1-2.5 2.6-2.6 4.6v3.2c0 3.9 5.6 7.2 10.4 7.4.4 0 .4.3 0 .4-5.1 1.2-8.8-2-10.1-3.6-.2-.3-.5-.1-.5.2 0 1.8-.1 2.8-.1 3.9.6 1.8 2.6 3.4 4.1 4.5.4.3.2.6 0 .6-1.4 0-2.8-1.1-3.6-1.8-.2-.2-.4-.3-.5-.2 1.1 3.9 2.3 8.1 2.3 8.2.5-2.5-.1-4.2-.8-5.4 1.1.3 2.5 1.3 4.2.8.2 0 .4-.2.5-.5.3-1 .7-2.3-1.2-4.2-.2-.2-.1-.3.1-.2 3.1 1.1 7.5.4 9.1-2.1 1.7-2.7.4-3.5-.1-3.6-.5-.2-3.1.6-5.1-.1-2.5-.9-5.4-2.5-6.6-7.4-.9-3.8 2-4.7 4.4-4.6 2.4.1 3.5 1.8 3.7 3.2.1 1.2-1 2.6-2.4 2.5-.7-.1-.8.4-.7.8.5 1.2 2 2.8 3.8 3.2 2 .5 4.8.2 5.7-1.6.1-.2.4-.3.6.1.8 1.9 2.1 4.9-2.1 9.7-.3.4-.1.6.1.6 4.5.9 8.4-1.7 9.8-5.4.1-.3.4-.3.5-.3 1.4.4 2.4-.8 2.8-2.8.5-2.4.5-6.1-2.7-9.5-4.8-2.5-10.2-4.2-14.5-3.4zm25.4-45.3c2.2-1.6 3.4-2.9 4.4-4.7.1-.2.5-.3.4.1-.1.9-.5 2.3-1.6 3.5-.2.2-.1.4.1.4 2.3-.4 6.2 0 8.6.2 2.5.2 4.7-1.2 4.9-4.1.2-2.4-1-3.8-2.4-5-.2-.2-.1-.6.2-.5 1.7.4 3.3 2 3.4 4.8.1 2.5-1.3 4.6-2.7 5.5-.2.1-.2.5 0 .6 2.1 1 4.5 2.9 4.8 5.3 0 .2-.3.3-.4.1-5.3-7.7-17.1-6-20.8-4.3-.3.1-.2.4 0 .4 3.4.2 5.6 1.3 6.5 3.1.1.2-.1.4-.3.3-3.4-2.5-8.2-2.9-10.4-.8-.7.6-1.5 1.7-2.2 3.2-.1-.8-.1-1.6-.2-2.3 2.2-3.2 5.1-4.8 7.7-5.8zM93 61.2l-.2.1-.1-.3h.2c.3-.1.4.1.1.2zm-7.2 68.2c-.3.4-.6.2-.4-.2 4.9-9.4-2.6-13.4-6.5-14.7-.3-.1-.5.1-.3.4 1.6 2.3 2.9 6.9-1.2 7.6-.3 0-.4-.2-.1-.4 2.7-2 1.8-6.8-2.3-7.8l-1.6-.3c1.4-.5 2.8-1.1 4.1-1.8 0 .1.1.3.5.4 6.5 1.1 14.6 7.9 7.8 16.8z" class="hCiqLFjR_3 mDbyQGPb_3"></path><path opacity=".3" fill="#FFF" stroke="#000" stroke-miterlimit="10" d="M20 54.7c4.2 1.4 6.9-1.6 9.7-2.6.3-.1.4.1.2.3-1.9 2-2.6 4.6-1.3 4.9 1.4.4 3.9-3.7 9-2.8.6.1 1.1.3 1.6.5-.6.9-1.1 1.8-1.6 2.8-2.8-1.1-6.3-1-8.3 2.9-.1.2-.1.5.2.6 2.5.7 4.1 1.9 5.2 3.5-.1.4-.2.8-.4 1.3.3-.2.5-.4.8-.6l.4-.2c.4-.3.8-.6 1.3-.9 1.5-4.5 3.8-8.5 6.6-11.9 5.4-6.4 12.9-10.4 21.1-10.4 6.6 0 12.7 2.6 17.7 6.9.3-.1.7-.3 1-.4h.1c.8-.3 1.7-.5 2.5-.7.9-.2 1.8-.4 2.8-.5.6-.1 1.2-.1 1.7-.1 3.1-1.3 4.1-2.2 4.8-3.6.1-.2.5-.3.5 0 .2 1-.6 2.3-1.7 3.1-.3.2-.2.5.2.5 1.8.1 3.4.6 4.3 1 3.2 1.3 6 2.2 7.9.3 1.4-1.3 2.5-4.3-.5-7.2-.2-.2-.1-.5.1-.5 4.3.9 3.8 8.7-.6 10.1-.4.1-.4.4.1.4 1.4.1 2.9-.3 4.1-1.2.4-.3.5-.1.2.2-3.2 4.3-7.4 1.7-9.1.4.1.1.2.2.2.4.2.5.4.9.3 1.4 0 .5-.2 1-.7 1.3l-.1.1c1.9 1.1 4 2.1 6.8 1.1 5-1.7 6.8-6 6.9-9.8 0-.5-.2-.7-.4-.6-.8.6-2.3 1.7-2.4.3-.1-1.9-1.3-4.1-2.7-5.2-2.3-1.8-5-2.9-8.2-.4-.2.2-.1.6.2.6 2.1.6 3.9 3.7 3 5-1.1 1.8-4.8.5-5.7.1-.5-.2-.3-.7-.2-.9.3-1.6-.6-4.1-2.5-4.6-.2 0-.5.1-.5.5 0 3.3-2.7 4.7-6.9 5.2-2.5.3-4.3 1.2-5.6 2.4l-1.7-1.4c1.7-1.5 3.8-2.5 4.8-3 2.5-1.3 3-5.7.8-8-.2-.2-.1-.4.2-.3 2.1 1 2.8 3.1 2.6 4.9.6.1 1 .2 1.2.1 2-1.3 3.9-5.1 1.8-9-1.9-3.4-5.1-4-7.5-4-.3 0-.3-.2 0-.4 3.9-1.6 7.8 1.3 9.1 4.5.1.3.4-.1.5-.3.4-.6.8-1.6 1.1-2.7.1-.3.3-.1.4.2.2 1.3-.1 2.7-1 4.2-.1.2-.4.6-.3 1 .2.8.1 2.1-.5 3.9-.2.5.2.7.5.5 2.9-1.5 4.5-4.2 4.6-6.8.2-5.7-3.9-7.2-4.8-7.3-.8 0 .6 2.8-.5 3.4-.2.1-.5-.1-.6-.3-.9-1.5-3.4-3.4-5.8-3.6-3.4-.3-10 1.5-8.7 9.8.2.8 2.4 1.6 2.2-.3-.4-3.3 1.8-4.3 3.3-3.8 1.4.4 4.1 1.3 4.9 3.5.2.4-.2.5-.4.4-2.2-1.3-5.7-1.4-6.1.5-.4 2.1 3.1-.4 2.5 3.3-.6 3.5-1.7 3.7-3.4 4.7-.4.2-.6-.1-.7-.3-.4-2.3-.9-4.4-2.1-5.3-.2-.1-.4-.3-.7-.2-1.2 1-2.7 3.2-3.3 6.6-.7-.3-1.3-.5-2-.7.6-1.3 1-2.6 1.3-4.2.2-.7.1-3.7 1-4.8.4-.5.2-.7-.1-.8-2.5-.8-3.9 1.1-4.7 3.5-.5 1.6-1.2 3.5-2.5 5.2-.3 0-.6-.1-1-.1.5-3.6-.8-7.1-1.7-8.4-.2-.3-.6-.3-.7-.3-.1 0-.5 0-.8.3-.8 1.3-2.2 4.9-1.7 8.5-.3 0-.6.1-.9.1-1.4-1.7-2-3.7-2.5-5.3-.8-2.4-2.2-4.3-4.7-3.5-.3.1-.4.3-.1.8.9 1.1.8 4.1 1 4.8.4 1.7.7 3 1.4 4.4-.7.2-1.4.5-2.1.8-.5-3.6-2.1-5.9-3.3-6.9-.3-.2-.5 0-.7.2-1.2.9-1.7 3-2.1 5.3 0 .2-.3.5-.7.3-1.7-1-2.8-1.2-3.4-4.7-.6-3.8 2.8-1.3 2.5-3.3-.3-1.9-3.9-1.8-6.1-.5-.2.1-.6 0-.4-.4.8-2.2 3.5-3.1 4.9-3.5 1.5-.4 3.8.5 3.3 3.8-.2 1.8 2 1.1 2.2.3 1.3-8.3-5.4-10.1-8.7-9.8-2.4.2-4.9 2.1-5.8 3.6-.1.2-.3.3-.6.3-1.1-.6.3-3.4-.5-3.4-.9.1-5.1 1.6-4.8 7.3.1 2.7 1.7 5.3 4.6 6.8.3.1.7 0 .5-.5-.6-1.7-.7-3.1-.5-3.9.1-.4-.2-.8-.3-1-.8-1.5-1.2-2.9-1-4.2 0-.3.3-.4.4-.2.3 1.1.7 2.1 1.1 2.7.2.2.4.6.6.3 1.2-3.1 5.2-6 9.1-4.5.3.1.3.4 0 .4-2.4-.1-5.6.5-7.5 4-2.2 4-.2 7.7 1.8 9 .3.2.6 0 .5-.5-.3-1.8.5-4 2.6-4.9.3-.1.4.1.2.3-2.1 2.3-1.6 6.7.8 8 1.1.6 3.4 1.7 5.1 3.3-.6.4-1.1.9-1.7 1.4-1.4-1.4-3.3-2.4-6-2.7-4.2-.5-6.9-1.9-6.9-5.2 0-.4-.3-.5-.5-.5-1.9.5-2.8 3-2.5 4.6.1.2.2.7-.2.9-1 .4-4.6 1.7-5.7-.1-.8-1.3.9-4.5 3-5 .3-.1.4-.5.2-.6-3.2-2.5-5.9-1.4-8.2.4-1.5 1.2-2.6 3.3-2.7 5.2-.1 1.4-1.6.3-2.4-.3-.2-.2-.4.1-.4.6-.3 3.8 1.4 8.1 6.5 9.8zm15.8 6.9c-.3-.2-.5-.3-.8-.4-.2-.1-.2-.3.1-.3.3 0 .7.1 1 .1-.2.2-.3.4-.3.6zm41.6-20.8c.1-.4.4-.4.5 0 .2 1 .4 2.2.7 3.5-.4-.2-.8-.5-1.2-.7-.1-1.1-.1-2 0-2.8zm-6.6-2.7c.1-.4.4-.3.3.1-.1 1.1-.4 2-.7 2.7-.3-.1-.7-.1-1-.2.6-.7 1.1-1.6 1.4-2.6zm-7.2.7c.1-.3.3-.6.4-.6.1 0 .3.4.4.6.1.6.2 1.1.3 1.5H63.3c0-.5.1-.9.3-1.5zm-6.5-.7c.4 1.1.9 1.9 1.5 2.7l-1 .3c-.4-.8-.6-1.7-.8-2.9 0-.4.2-.5.3-.1zm-7 2.6c.1-.4.4-.3.5 0 .2.9.1 2 0 3.2-.4.2-.8.5-1.2.8.2-1.4.5-2.9.7-4zm-32.5 9.1c1.2.9 2.8 1.3 4.1 1.2.5 0 .5-.3.1-.4-4.4-1.3-5-9.2-.6-10.1.2 0 .3.3.1.5-3 2.9-1.9 5.9-.5 7.2 1.9 1.9 4.7 1 7.9-.3.9-.4 2.5-.9 4.3-1 .3 0 .4-.3.2-.5-1.1-.8-1.9-2.1-1.7-3.1 0-.4.4-.2.5 0 .9 1.7 2.2 2.5 7 4.5 1.4.5 2.7 1.3 3.9 2.4-.3.4-.6.7-1 1.1l-.2.3c-2.5-1.2-6.2-.4-8 .5-.4.2-.5 0-.2-.3 1.2-1.2 3.2-2.1 5-2.2.6 0 .5-.3 0-.5-4.5-1.6-7.1-.8-11 .8-.6.2-6 5.5-9.9.2-.5-.4-.3-.6 0-.3z" class="hCiqLFjR_4 mDbyQGPb_4"></path><style>.mDbyQGPb_0{stroke-dasharray:331 333;stroke-dashoffset:332;animation:mDbyQGPb_draw_0 3900ms ease-in 0ms infinite,mDbyQGPb_fade 3900ms linear 0ms infinite;}.mDbyQGPb_1{stroke-dasharray:1123 1125;stroke-dashoffset:1124;animation:mDbyQGPb_draw_1 3900ms ease-in 0ms infinite,mDbyQGPb_fade 3900ms linear 0ms infinite;}.mDbyQGPb_2{stroke-dasharray:849 851;stroke-dashoffset:850;animation:mDbyQGPb_draw_2 3900ms ease-in 0ms infinite,mDbyQGPb_fade 3900ms linear 0ms infinite;}.mDbyQGPb_3{stroke-dasharray:1013 1015;stroke-dashoffset:1014;animation:mDbyQGPb_draw_3 3900ms ease-in 0ms infinite,mDbyQGPb_fade 3900ms linear 0ms infinite;}.mDbyQGPb_4{stroke-dasharray:873 875;stroke-dashoffset:874;animation:mDbyQGPb_draw_4 3900ms ease-in 0ms infinite,mDbyQGPb_fade 3900ms linear 0ms infinite;}@keyframes mDbyQGPb_draw{100%{stroke-dashoffset:0;}}@keyframes mDbyQGPb_fade{0%{stroke-opacity:1;}89.74358974358975%{stroke-opacity:1;}100%{stroke-opacity:0;}}@keyframes mDbyQGPb_draw_0{25.64102564102564%{stroke-dashoffset: 332}64.1025641025641%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes mDbyQGPb_draw_1{25.64102564102564%{stroke-dashoffset: 1124}64.1025641025641%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes mDbyQGPb_draw_2{25.64102564102564%{stroke-dashoffset: 850}64.1025641025641%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes mDbyQGPb_draw_3{25.64102564102564%{stroke-dashoffset: 1014}64.1025641025641%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}@keyframes mDbyQGPb_draw_4{25.64102564102564%{stroke-dashoffset: 874}64.1025641025641%{ stroke-dashoffset: 0;}100%{ stroke-dashoffset: 0;}}</style></svg>
 			
 			</p>
 			
@@ -425,7 +427,7 @@
 					<a href="#" class="">Контакты</a>
 					<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
 					<a href="tel:+380542700818" class="">(0542) 700-818</a>
-					<button class="btn">онлайн-запись</button>
+					<button class="btn arrow">онлайн-запись</button>
 				</p>
 			</header>
 			<div class="b-navigation__side">
@@ -459,10 +461,40 @@
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178.4 89.7"><path fill="#FFF" d="M76.5 64.9s-.1-.1-.2-.1h-.4c-.2 0-.3-.1-.4-.2-.1-.2-.1-.4-.1-.7v-3.6c0-.9-.2-1.6-.6-2-.4-.4-1.1-.6-2-.6-.9 0-1.5.2-2 .5s-.7.8-.7 1.5c0 .2 0 .3.1.4.1.1.2.1.4.1.3 0 .5-.3.6-.7v-.1c0-.4.2-.7.4-.8.2-.2.6-.3 1-.3.5 0 .8.1 1.1.4.2.2.3.6.3 1.1v1.3h-1.5c-1 0-1.8.2-2.2.5-.5.4-.7.9-.7 1.7 0 .7.2 1.2.6 1.6.4.4.9.6 1.6.6.4 0 .8-.1 1.2-.2.4-.1.7-.3 1.1-.5l.1.4c0 .1.1.2.2.2h.1c.3 0 .6-.1.9-.1h.9c.2 0 .3-.1.3-.3-.1 0-.1-.1-.1-.1zM74 63.5c0 .5-.1.8-.4 1-.3.2-.7.3-1.2.3s-.8-.1-1.1-.4c-.2-.3-.4-.7-.4-1.2s.2-.9.4-1.2c.3-.3.7-.4 1.4-.4H74v1.9zM67.3 58.7c-.5-.6-1.2-.9-2.3-.9-.5 0-1 .1-1.4.3-.4.2-.8.4-1.1.8v-.7-.2h-.2-.2c-.4 0-.8.1-1.3.1h-1s-.1.1-.1.2 0 .2.1.2c0 0 .1.1.2.1h.5c.2 0 .4.1.5.2.1.1.1.4.1.7v8.1c0 .3 0 .6-.1.7-.1.1-.2.2-.4.2H60c-.2 0-.3.1-.3.3 0 .1 0 .2.1.2 0 0 .1.1.2.1h.2c.6 0 1.1-.1 1.6-.1s1 0 1.5.1h.3c.1 0 .2 0 .2-.1s.1-.1.1-.2c0-.2-.1-.2-.3-.3H63c-.2 0-.4-.1-.5-.2s-.1-.4-.1-.7v-2.9c.3.3.6.5 1 .7.4.2.8.2 1.4.2 1.1 0 1.8-.3 2.4-1 .5-.6.8-1.6.8-2.9 0-1.4-.2-2.3-.7-3zm-1.2 5.6c-.3.5-.8.7-1.6.7-.7 0-1.3-.3-1.6-.7-.3-.5-.5-1.4-.5-2.6 0-1.2.2-2.1.5-2.6s.9-.8 1.7-.8c.7 0 1.2.3 1.5.8.3.5.5 1.4.5 2.6 0 1.2-.1 2.1-.5 2.6zM117.8 65.3v-.2c0-.1-.1-.2-.2-.2h-.1l-.7-.1c-.2 0-.4-.1-.4-.2-.1-.1-.1-.4-.1-.7v-3.5c0-.6.1-1.1.2-1.3.2-.3.4-.4.8-.4.2 0 .4.1.5.2.1.1.2.3.2.5v.1c0 .4.2.6.5.6.2 0 .4-.1.5-.2.1-.1.1-.3.1-.7 0-.4-.1-.7-.4-1-.2-.2-.6-.3-1-.3-.3 0-.6.1-.9.2-.3.2-.5.4-.7.7v-.7-.2h-.1-.2c-.4 0-.7.1-1 .1h-1.2s-.1.1-.1.2c0 .2.1.2.3.2h.5c.2 0 .4.1.5.2.1.1.2.4.2.7v4.5c0 .3 0 .5-.1.7-.1.1-.2.2-.5.2l-.6.1h-.1c-.1 0-.2.1-.2.2s0 .2.1.2c0 0 .1.1.2.1h.2c.6 0 1.1-.1 1.6-.1s1.1 0 1.6.1h.2c.3.1.3.1.4 0zM56.9 61.2c-.1 0-.3-.1-.5-.1-1.1-.3-1.7-.8-1.7-1.4 0-.4.1-.7.4-1 .3-.2.6-.4 1.1-.4.2 0 .4 0 .5.1.2 0 .3.1.4.2.1.1.2.3.3.6 0 .1 0 .2.1.2l.1.5c0 .1.1.2.1.2h.4c.1 0 .2 0 .2-.1 0 0 .1-.1.1-.2v-1.7c0-.1-.2-.1-.7-.2-.4-.1-.9-.2-1.4-.2-.8 0-1.5.2-2 .6-.5.4-.8 1-.8 1.7 0 .6.2 1 .5 1.3.3.3 1 .6 2 .8.7.2 1.1.3 1.3.5.2.2.3.5.3.8 0 .4-.2.8-.5 1-.3.3-.8.4-1.4.4-.5 0-.8-.1-1-.3-.2-.2-.4-.5-.5-1l-.1-.6c0-.1-.1-.2-.1-.2h-.7s-.1.1-.1.2V65c0 .2.2.3.7.4.4.1 1 .2 1.6.2 1 0 1.7-.2 2.2-.7.5-.4.8-1 .8-1.8 0-.5-.1-.9-.4-1.1-.1-.4-.5-.6-1.2-.8zM121.8 61.6h4.5c.2 0 .4 0 .4-.1.1-.1.1-.2.1-.3 0-1.2-.2-2-.7-2.6-.5-.6-1.2-.8-2.3-.8-1.1 0-2 .3-2.6 1-.6.7-.8 1.6-.8 3 0 1.2.3 2.2.8 2.8s1.4 1 2.5 1c.9 0 1.6-.2 2.2-.7.6-.4.8-1 .8-1.6 0-.1 0-.2-.1-.3-.1-.1-.2-.1-.3-.1-.4 0-.6.1-.6.4v.2c-.1.5-.3.8-.6 1.1-.4.3-.8.4-1.3.4-.7 0-1.2-.2-1.5-.7s-.5-1.1-.5-2.1v-.4-.2zm-.1-.6c0-.9.2-1.6.5-2 .3-.4.8-.7 1.4-.7.6 0 1 .2 1.3.6.3.4.4 1 .4 1.8v.4l-3.6-.1zM80.7 61.2h-3.2v.5h3.2v-.4-.1c.1 0 0 0 0 0zM106.7 64.9l-.6-.1c-.2 0-.4-.1-.4-.2-.1-.1-.1-.4-.1-.7v-3.7c0-.9-.2-1.5-.5-1.9-.3-.4-.9-.6-1.7-.6-.6 0-1 .1-1.5.3-.4.2-.8.4-1.2.8V58v-.1h-.1-2.5s-.1.1-.1.2.1.2.3.2h.5c.2 0 .4.1.5.2.1.2.2.4.2.7v4.5c0 .3-.1.5-.1.7-.1.1-.2.2-.5.2l-.5.1h-.1c-.2 0-.2.1-.2.2s0 .2.1.2c0 0 .1.1.2.1h.2c.6 0 1.1-.1 1.6-.1s1 0 1.5.1h.3c.1 0 .2 0 .2-.1 0 0 .1-.1.1-.2s-.1-.2-.2-.2l-.6-.1c-.2 0-.4-.1-.4-.2-.1-.1-.1-.4-.1-.7V60c0-.4.2-.8.5-1.1.4-.3.8-.5 1.3-.5.6 0 1 .2 1.3.4.3.3.4.8.4 1.6v3.4c0 .3-.1.5-.1.7-.1.1-.2.2-.4.2l-.6.1h-.1c-.1 0-.2.1-.2.2s0 .2.1.2c0 0 .1.1.2.1h.2c.5 0 1-.1 1.5-.1s1 0 1.5.1h.3c.1 0 .2 0 .2-.1 0 0 .1-.1.1-.2-.3 0-.3-.1-.5-.1zM91.9 61.6h4.5c.2 0 .4 0 .4-.1.1-.1.1-.2.1-.3 0-1.2-.2-2-.7-2.6-.5-.6-1.3-.8-2.3-.8-1.1 0-2 .3-2.6 1-.6.7-.8 1.6-.8 3 0 1.2.3 2.2.8 2.8s1.4 1 2.5 1c.9 0 1.6-.2 2.2-.7.6-.4.8-1 .8-1.6 0-.1 0-.2-.1-.3-.1-.1-.2-.1-.3-.1-.4 0-.6.1-.6.4v.2c-.1.5-.3.8-.6 1.1-.3.3-.8.4-1.3.4-.7 0-1.1-.2-1.5-.7-.3-.4-.5-1.1-.5-2.1v-.4-.2zm0-.6c0-.9.2-1.6.5-2 .3-.5.8-.7 1.4-.7.6 0 1 .2 1.3.6.3.4.4 1 .4 1.8v.4l-3.6-.1zM88.8 63h-.5s-.1.1-.1.2l-.1.6c-.1.4-.3.7-.6.9-.3.2-.8.3-1.4.3-.8 0-1.4-.3-1.7-.8-.3-.5-.5-1.4-.5-2.6s.2-2.1.5-2.6c.4-.5.9-.8 1.7-.8.6 0 1 .1 1.3.2.3.2.5.5.6.9l.1.5c0 .1.1.2.1.2h.4c.1 0 .2 0 .2-.1v-1.5c0-.2-.3-.4-.8-.6-.5-.2-1.2-.3-1.9-.3-1.2 0-2.1.3-2.7 1-.6.6-.9 1.6-.9 2.9 0 1.3.3 2.3.8 2.9.6.6 1.4.9 2.6.9.8 0 1.4-.1 2-.3.6-.2.9-.4.9-.6v-1.5-.2c.2.4.1.4 0 .4zM112.1 64.6s-.1 0-.3.1c-.2.1-.4.1-.6.1-.4 0-.7-.1-.8-.4-.1-.3-.2-.8-.2-1.6v-4.4h1.4c.2 0 .3 0 .3-.1 0 0 .1-.1.1-.2s0-.2-.1-.2h-1.7v-1.1-.7-.8-.2s0-.1-.1-.1-.2.1-.5.2c-.2.1-.5.2-.7.3-.1 0-.1 0-.1.1V58h-1.2s-.1.1-.1.2 0 .2.1.2h1.2v5c0 .7.1 1.2.4 1.5.3.3.7.5 1.3.5.4 0 .8-.1 1.2-.2.4-.2.6-.3.6-.4 0-.1 0-.1-.1-.2-.1.1-.1 0-.1 0zM83.9 2.7c-.5-.9-1.5-1.6-2.8-2-1.4-.5-2.8-.7-4.5-.7-1.8 0-3.5.2-5.2.6-1.7.4-3.3.9-4.8 1.5-1.4.5-3 1.3-4.6 2.2-1.7.9-3.4 2-5.1 3.3-1.2-.2-2.5-.3-4-.3-2.6 0-5.5.3-8.5.8s-6.1 1.3-9.2 2.3c-3.1 1-6.3 2.3-9.4 3.9-3.1 1.6-6.1 3.4-9 5.5-6 4.4-10.3 8.6-12.9 12.7C1.3 36.4 0 39.9 0 42.9c0 2.8 1 4.8 3 6 2 1.1 4.6 1.7 7.8 1.7 3 0 5.9-.6 8.7-1.9 2.8-1.3 5.6-2.9 8.3-5.1 2.7-2.1 5.3-4.6 7.9-7.4 2.6-2.8 5-5.8 7.3-9 2.6-3.5 4.9-6.5 6.8-9 1.9-2.5 3.8-4.7 5.7-6.6.3-.4.7-.8 1.1-1.2l1.2-1.2c2.4 1.4 3.1 3.8 2.2 7.2-.5 2.4-1.8 4.4-3.8 6.1-2 1.7-4.1 2.8-6.2 3.1-.5-.1-.9-.1-1.4-.2-.4-.1-1-.1-1.7-.1-.5-.1-1.1 0-1.7.1-.6.1-.9.4-1.1.7-.1.3.2.6.8.7.6.1 1.3.2 1.9.1.6 0 1 0 1.3-.1.3 0 .8-.1 1.4-.3.5-.1 1.1 0 1.8.2s1.4.6 2 1.1c.6.5 1.2 1.2 1.6 2 .4.8.6 1.9.5 3.1-.1 2.1-.6 4.1-1.5 5.9-.9 1.9-2.1 3.5-3.5 4.9-1.4 1.4-2.9 2.6-4.6 3.4s-3.3 1.3-5 1.3c-.9 0-1.9-.2-2.7-.6-.9-.4-1.3-1-1.1-1.9.1-.5.4-1 .9-1.3.5-.3 1-.6 1.5-.8.6-.3 1.2-.6 1.8-1.1.6-.4.9-1.1.9-1.9 0-.8-.3-1.4-.9-1.8-.6-.4-1.3-.6-2.2-.6-1.6 0-3 .5-4.3 1.6-1.3 1.1-2 2.4-2 4.1 0 .9.3 1.7.8 2.4.5.6 1.1 1.2 1.9 1.5.8.4 1.6.6 2.6.8.9.2 1.9.3 2.8.3h.1c2.6 0 5-.4 7.4-1.1 2.3-.7 4.4-1.7 6.2-3 1.8-1.3 3.3-2.8 4.5-4.6 1.2-1.8 1.8-3.7 1.8-5.8.1-2.1-.5-3.9-2-5.5s-3.8-2.7-6.9-3.2v-.1c1.2-.2 2.5-.6 4-1.1 1.4-.5 2.8-1.2 4-2 1.2-.8 2.3-1.8 3.2-2.8.9-1.1 1.5-2.3 1.7-3.8.4-2.1.1-3.8-1.1-5.2S61.1 9 59.2 8.2c2.9-2.4 5.6-4.1 8-5.2 1.6-.7 3.2-1.3 4.8-1.7 1.7-.4 3.2-.6 4.7-.6 1.6 0 2.9.2 4 .7 1.1.4 1.9 1 2.5 1.7.1.1.2.3.3.4.1.1.2.2.4.1.3-.1.3-.4 0-.9zM54.2 9.5c-.4.3-.9.6-1.3 1-2.4 2-5.3 4.7-8.7 8.1-3.4 3.4-6.8 7.3-10.1 11.6-2 2.6-3.9 5-5.7 7.4-1.8 2.4-3.7 4.5-5.5 6.2-1.9 1.8-3.8 3.2-5.8 4.3-2 1.1-4.2 1.6-6.5 1.6-2.2 0-3.9-.6-5-1.8C4.5 46.7 4 45.1 4 43.1V43c0-1.3.2-2.9.7-4.6.5-1.7 1.3-3.5 2.4-5.5 1.1-2 2.6-4.1 4.4-6.2 1.8-2.1 4.1-4.2 6.9-6.3 2.7-2 5.5-3.8 8.5-5.3 2.9-1.5 5.9-2.8 8.8-3.8 2.9-1 5.8-1.8 8.6-2.3 2.8-.5 5.4-.8 7.9-.8 1.3 0 2.4.1 3.2.3-.3.4-.7.7-1.2 1z"/><path fill="#FFF" d="M178.3 38.6c-.1-.1-.4-.1-.7.1-.3.2-.6.4-.9.7-.7.6-1.4 1.2-2.1 1.9-.7.6-1.6 1.3-2.5 2.1-.9.7-1.8 1.4-2.6 1.8-.8.5-1.5.9-2.1 1.2-1.3.6-2.2.7-2.7.3-.5-.4-.4-1.2.3-2.3.3-.5.8-1.2 1.4-1.9.6-.7 1.3-1.5 2.1-2.5.9-1.1 1.8-2.2 2.7-3.2.8-1.1 1.3-2 1.5-2.9.2-1.8-.8-2.6-3.1-2.6-1.3 0-2.8.4-4.4 1.2-1.6.8-3 1.7-4.4 2.7-1.4 1-2.8 2.3-4.5 3.9-1.6 1.6-3.1 3.2-4.5 4.7-2 2.3-4 4.8-6 7.4-2.1 2.6-4.1 5.3-6.2 8.1l-6.8 9.1c-2.1 2.8-3.7 5-4.8 6.6-.7 1-1.5 2.1-2.3 3.2-.8 1.2-1.5 2.2-2.3 3.2-.7 1-1.4 1.9-2 2.7-.6.8-1 1.4-1.4 1.8-.6.7-1.1.9-1.3.6-.1-.1-.2-.3-.1-.6s.3-.7.7-1.4l4.5-6.9c1.3-1.9 2.6-3.8 3.8-5.6 1.3-1.8 2.7-3.8 4.2-5.9 1.5-2.1 3.4-4.7 5.6-7.7 2.4-3.3 4.9-6.6 7.4-9.8 2.5-3.3 4.8-6.3 7.1-9.3 2.3-2.9 4.4-5.6 6.4-8.1s3.7-4.6 5.2-6.3c.9-1 1.4-1.7 1.6-2 .2-.3-.3-.5-1.5-.5-.7 0-1.4.2-2.1.6-.7.4-1.3.9-1.8 1.4-1.7 1.6-3.4 3.1-5.2 4.7-1.8 1.6-3.1 2.8-4.1 3.7-.9.9-2 2-3.3 3.1-1.3 1.2-7.3 8-10.2 8.2-.3 0-.6 0-.8-.1 4.1-3.5 6.1-6.6 6.1-9.2 0-.8-.3-1.6-.8-2.3-.5-.7-1.2-1.1-1.9-1.1-.2 0-.3.1-.3.3 0 .1.1.3.2.5s.1.4.1.5c0 1.2-.1 2-.3 2.4-.7.4-1.2.7-1.5.8-.7.4-1.4 1.3-2.3 2.7-.8 1.4-1.3 2.6-1.5 3.4-3.8 3.9-7.1 5.8-9.8 5.8-1 0-1.5-.4-1.5-1.3 0-1.9 1.9-4.6 5.6-8.2 3.4-3.2 6.1-5.4 8.2-6.4.5-.3.9-.5 1.1-.6h-1.1c-3.7 0-7.8 1.6-12.5 4.7-4.7 3.2-7.6 4.7-8.7 4.7-.8 0-1.3-.2-1.5-.7.2-.3 1.6-2 4.1-5.1l3.4-4.3v-.2c-.1-.2-.6-.3-1.5-.3-2 0-4.1 1.2-6.3 3.4-.7.7-1 1.2-1.1 1.3 0 0-16.1 11.8-17.2 11.8-.3 0-.7-.2-.7-.9 0-1.1 1.7-3.7 5.2-7.8 3.4-4.1 5.2-6.3 5.2-6.4 0-.3-.3-.4-.8-.4-1.6 0-2.7.2-3.2.6-3.2 2.8-6.5 5.5-9.6 8.3-5.1 4.3-8.4 6.3-9.6 6.5-.7.1-.8-.7-.8-.8 0-.3.1-.6.2-1.1.1-.5.2-.8.2-1 0-.7-.6-1-1.7-1-1.9 0-3.1.9-3.7 2.6 0 0-.9 3.9 2.7 3.6 2-.2 4.6-1.1 7.6-3.3 1.2-.8 3.4-2.7 6.8-5.8-2.4 3.2-3.6 5.4-3.6 6.6 0 1.7.9 2.5 2.8 2.5 2.3 0 5.1-1.3 8.5-4 1.6-1.3 2.9-2.3 4-3.3l5.4-4.4c-3.7 4.9-5.6 8.3-5.6 10.1 0 1.1.5 1.7 1.6 1.7.7 0 1.8-1.1 3.4-3.1 1-1.4 2-2.7 3-4.2.5.4 1.2.6 2 .6.7 0 2.5-.7 5.5-2.1-1.2 1.8-1.8 3.6-1.8 5.2 0 2.4 1.7 3.6 5.2 3.6 3.3 0 7.4-1.4 12.2-4.3.3.2.8.3 1.6.3 1.1 0 2.6-.8 4.5-2.3 1.7-1.4 10.1-9.7 12.4-11.8-1.3 1.6-2.9 3.7-4.8 6.1-1.9 2.5-3.9 5-6 7.7s-4 5.3-5.9 7.8c-1.9 2.5-3.4 4.6-4.7 6.3-1.8 2.4-3.4 4.6-4.8 6.5-1.3 1.9-2.6 3.6-3.7 5.1-1.1 1.5-2.1 3-3 4.3-.9 1.3-1.8 2.7-2.8 4.2-1 1.6-1.9 3.1-2.7 4.6-.8 1.5-1.2 2.8-1.2 4 0 1.2.6 1.9 1.7 2.1.5.1 1.1.1 1.6-.1s1-.5 1.4-.9c.5-.4 1-1 1.7-1.8.6-.8 1.4-1.7 2.1-2.7l2.4-3.3c.8-1.2 1.7-2.4 2.5-3.6 1.6-2.2 3.4-4.8 5.6-7.8 2.2-2.9 4.4-5.9 6.7-9 1.3-1.8 2.7-3.6 4.1-5.4 1.4-1.8 2.7-3.5 4.1-5.1 1.3-1.6 2.5-3.1 3.7-4.5 1.1-1.4 2.1-2.5 2.9-3.4 2-2.2 3.8-3.9 5.5-5.2 1.7-1.3 3.4-2.4 5-3.2.4-.2.8-.4 1.3-.5.4-.1.8-.1 1 0 .4.2.4.6 0 1.3-.3.5-.9 1.3-1.8 2.2-.9.9-1.7 1.9-2.5 2.8-.9 1-1.9 2.1-2.8 3.4-.9 1.2-1.5 2.4-1.6 3.4-.1.7.1 1.4.6 2 .5.6 1.4.9 2.7.9 1.8 0 3.4-.5 5.1-1.4 1.6-.9 3-1.8 4.1-2.6l1.6-1.3 1.8-1.5c.6-.5 1.1-1 1.6-1.4.5-.4.9-.8 1.2-1.1.1-.1.3-.4.6-.7.1-.1.2-.3 0-.4z"/><path fill="#FFF" d="M80.5 32c-.4-.6-1.2-.9-2.4-.9H78c-1.3 0-2.8.3-4.3.9-1.5.6-3 1.2-4.5 2-1 .5-1.9 1.1-2.8 1.6-.9.5-1.6 1-2.2 1.4-.7.6-1.4 1-1.9 1.5-.5.4-1.2 1-1.8 1.6l-.6.6c-.2.2-.2.4-.1.5.2.2.5.1 1-.3.3-.3.7-.6 1.2-1 .4-.4.7-.7.9-.8l.1.1c-2 2.3-3 4.4-3.1 6.3-.1 2.7 1.7 4.1 5.4 4.1 3.4 0 7-1.2 11.1-3.9.2-.2-.1-.4-.3-.6-.1-.1-.4-.1-.5 0-1.8 1.2-3.4 1.9-4.7 2.3-1.6.5-2.8.7-3.4.7-1.6 0-2.3-.8-2.3-2.3 0-.7.2-1.5.6-2.3 1.2-.3 2.5-.8 4.1-1.3 1.6-.5 3.1-1.2 4.6-1.9 1.6-.8 3-1.6 4.3-2.6 1.3-1 2-2.2 2.2-3.6.1-.9-.1-1.5-.5-2.1zm-4.2 4.4c-.7.9-1.7 1.9-3 2.7-1.1.7-2.2 1.4-3.5 1.9-1.2.5-2.4.9-3.4 1.2.6-1 1.4-2.2 2.5-3.6s2-2.4 2.8-3.2c2.1-2 3.6-2.9 4.5-2.9.9 0 1.3.5 1.2 1.4 0 .7-.4 1.6-1.1 2.5z"/></svg>
 							</p>
 						</div>
-						<p class="center-wrap"><button class="btn btn__normal btn__white btn-play icon-play" id="play">
+						<p class="center-wrap"><button class="btn btn__normal btn__white btn-play icon-play arrow"
+						                               id="play">
 							Видео-тур</button></p>
 					</div>
 					<div class="b-title__poster"></div>
+				</div>
+			</section>
+			
+			<section class="b-reclame">
+				<div class="wrap row">
+					<a href="#" class="b-reclame__item col lg-6 img-reclame-arrow">
+						<div class="b-reclame__item-block">
+							<div class="b-reclame__item-img">
+								<img src="img/temp/reclame-1.jpg">
+							</div>
+							<div class="b-reclame__item-text">
+								<p class="but-text">АКЦИЯ с 12 января по 31 марта</p>
+								<p class="text">Скидки до -60% на всю линейку Kerastase в Велюре! Отличный подарок
+									себе!</p>
+							</div>
+						</div>
+					</a>
+					
+					<a href="#" class="b-reclame__item col lg-6 img-reclame-arrow">
+						<div class="b-reclame__item-block">
+							<div class="b-reclame__item-img">
+								<img src="img/temp/reclame-2.jpg" alt="">
+							</div>
+							<div class="b-reclame__item-text">
+								<p class="but-text">АКЦИЯ с 12 января по 31 марта</p>
+								<p class="text">Скидки до -60% на всю линейку Kerastase в Велюре! Отличный подарок себе!</p>
+							</div>
+						</div>
+					</a>
 				</div>
 			</section>
 			
@@ -474,7 +506,7 @@
 					</div>
 					<div class="b-programs__cards row">
 						<div class="col lg-4">
-							<div class="b-programs__cards-wrap">
+							<div class="b-programs__cards-wrap white-decor">
 								<div class="b-programs__cards-wrap-item">
 									<p class="half-circle half-circle_top"></p>
 									<h3>SPA-комплекс</h3>
@@ -502,13 +534,14 @@
 										</li>
 									</ul>
 									<p class="yet">и ещё 32 поцедуры и программы</p>
-									<div class="center"><a href="#" class="btn btn__purple">УЗНАТЬ БОЛЬШЕ</a></div>
+									<div
+											class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>
 									<p class="half-circle half-circle_bottom"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col lg-4">
-							<div class="b-programs__cards-wrap">
+							<div class="b-programs__cards-wrap white-decor">
 								<div class="b-programs__cards-wrap-item">
 									<p class="half-circle half-circle_top"></p>
 									<h3>Косметология</h3>
@@ -536,13 +569,13 @@
 										</li>
 									</ul>
 									<p class="yet">и ещё 12 комплексных поцедур</p>
-									<div class="center"><a href="#" class="btn btn__purple">УЗНАТЬ БОЛЬШЕ</a></div>
+									<div class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>
 									<p class="half-circle half-circle_bottom"></p>
 								</div>
 							</div>
 						</div>
 						<div class="col lg-4">
-							<div class="b-programs__cards-wrap">
+							<div class="b-programs__cards-wrap white-decor">
 								<div class="b-programs__cards-wrap-item">
 									<p class="half-circle half-circle_top"></p>
 									<h3>Бьюти-зона</h3>
@@ -570,7 +603,7 @@
 										</li>
 									</ul>
 									<p class="yet">и ещё 12 услуг и процедур</p>
-									<div class="center"><a href="#" class="btn btn__purple">УЗНАТЬ БОЛЬШЕ</a></div>
+									<div class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>
 									<p class="half-circle half-circle_bottom"></p>
 								</div>
 							</div>
@@ -583,14 +616,14 @@
 				<div class="wrap row no-row">
 					<h3 class="col lg-offset-2 lg-8">Эстетическая медицина</h3>
 					<p class="col lg-offset-2 lg-8 normal">Идеальная внешность перестает быть просто мечтой. Мы используем безопасные, проверенные эффективные методики и препараты высоких технологий для достижения эффекта омоложения кожи лица и тела, исправления дефектов.</p>
-					<p class="center"><a href="#" class="btn btn__white">УЗНАТЬ БОЛЬШЕ</a></p>
+					<p class="center"><a href="#" class="btn btn__white arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 				</div>
 			</section>
 			
 			<section class="b-slider">
 				<div class="wrap row no-row">
 					<h2 class="col lg-offset-2 lg-8">Добро пожаловать в островок спокойствия и расслабления</h2>
-					<div class="b-slider__shadow icon-big-logo shadow"></div>
+					<div class="b-slider__shadow icon-big-logo start"></div>
 					<p class="col lg-offset-2 lg-8 lead">Мы собрали вместе лучшие мировые технологии по уходу за лицом и телом, медицинской косметологии</p>
 				</div>
 				<div class="b-slider__viewport swiper-container">
@@ -613,9 +646,9 @@
 			<section class="b-form">
 				<div class="b-form__row row">
 					<div class="b-form__row-block col lg-offset-3 lg-6">
-						<div class="b-form__row-block-wrap">
-							<form action="">
-								<p class="half-circle half-circle_top"></p>
+						<div class="b-form__row-block-wrap white-decor">
+							<form action="" class="half-circle__block">
+								<!--<p class="half-circle half-circle_top"></p>-->
 								<h3>Онлайн-запись</h3>
 								<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
 								<span class="input input--akira">
@@ -630,8 +663,9 @@
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
 								</span>
-								<select id="services" name="services" class="input droplist">
-									<option>Choose your emloyment</option>
+								<select id="services" name="services" placeholder="Услуга"
+								        class="input droplist img-arrow forcibly-placeholder">
+									<option>Услуга</option>
 									<option>BELUM/TIDAK BEKERJA</option>
 									<option>MENGURUS RUMAH TANGGA</option>
 									<option>PELAJAR/MAHASISWA</option>
@@ -643,26 +677,107 @@
 									<option>PETANI/PEKEBUN</option>
 									<option>PETERNAK</option>
 								</select>
-								<input type="date" class="input">
-								<input type="time" class="input">
+								<input type="date" class="input img-arrow forcibly-placeholder" placeholder="Дата">
+								<input type="time" class="input img-arrow forcibly-placeholder" placeholder="Время">
 
 								<input type="submit" class="btn btn__big btn__purple-fill" value="отправить">
 
 								<p class="normal text">или звоните (050) 111-22-33</p>
-								<p class="half-circle half-circle_bottom"></p>
+								<!--<p class="half-circle-block half-circle_bottom"></p>-->
 							</form>
 						</div>
 					</div>
 				</div>
+				<div class="b-form__bg start">
+					<div class="b-form__bg-item1" style="background-image: url('../img/img-detox-salt.png');"></div>
+					<div class="b-form__bg-item2" style="background-image: url('../img/img-oil.png');"></div>
+					<div class="b-form__bg-item3" style="background-image: url('../img/img-peeling-salt.png');"></div>
+					<div class="b-form__bg-item4" style="background-image: url('../img/img-picture.png');"></div>
+					<div class="b-form__bg-item5" style="background-image: url('../img/img-pot.png');"></div>
+				</div>
 			</section>
 			
-			<script>
-				
-			</script>
+			<section class="b-inst">
+				<div class="wrap">
+					<h2>Мы в <span class="icon-inst"></span> Instagram
+						<button class="btn btn-big icon-plus">Подписаться</button></h2>
+					<div class="instafeed-wrapp">
+						<div id="instafeed" class="row"></div>
+					</div>
+					<p class="center">
+						<button class="btn btn__social icon-fb">Мы на Facebook</button>
+						<button class="btn btn__social icon-vk">Мы в Vkontakte</button>
+					</p>
+				</div>
+			</section>
 			
 		</main>
 		
+		<footer class="l-footer b-footer">
+			<div class="wrap white-decor">
+				<div class="b-footer__list row">
+					<div class="b-footer__list-item1 col lg-2">
+							<p class="text bold">О НАС</p>
+							<ul>
+								<li><a href="#">СПА-центре</a></li>
+								<li><a href="#">Новости</a></li>
+								<li><a href="#">Мастера</a></li>
+								<li><a href="#">Галерея</a></li>
+								<li><a href="#">Сертификаты</a></li>
+								<li><a href="#">Награды</a></li>
+							</ul>
+						</div>
+					<div class="b-footer__list-item2 col lg-4">
+							<p class="text bold">Услуги</p>
+							<ul>
+								<li><a href="#">Для тела</a></li>
+								<li><a href="#">Для лица</a></li>
+								<li><a href="#">Для глаз</a></li>
+								<li><a href="#">Для ног и рук</a></li>
+								<li><a href="#">Общее омоложение</a></li>
+								<li><a href="#">СПА</a></li>
+								<li><a href="#">Бьюти зона</a></li>
+								<li><a href="#">Косметология</a></li>
+								<li><a href="#">Медицинская косметология</a></li>
+							</ul>
+						</div>
+					<div class="b-footer__list-item3 col lg-4">
+							<p class="text bold">Косметика</p>
+							<ul>
+								<li><a href="#">Klapp</a></li>
+								<li><a href="#">Thermal</a></li>
+								<li><a href="#">Holy Land</a></li>
+								<li><a href="#">Keraskin</a></li>
+								<li><a href="#">STYX Naturcosmetic</a></li>
+								<li><a href="#">L'Oreal Professionnel</a></li>
+								<li><a href="#">Kerastase ритуалы в салоне</a></li>
+								<li><a href="#">Kerastase домашний уход</a></li>
+								<li><a href="#">Inoa</a></li>
+								<li><a href="#">LCN</a></li>
+							</ul>
+						</div>
+					<div class="b-footer__list-item4 col lg-2">
+							<p class="text bold">Контакты</p>
+							<ul>
+								<li><a href="#">Сумы, ул. Октябрьская (Покровская),16/1,</a></li>
+								<li><a href="#">050 353-32-32</a></li>
+								<li><a href="#">067 456-55-55</a></li>
+								<li><a href="#">(0542) 700-818, 700-817</a></li>
+								<li><a href="#">Показать в на карте</a></li>
+							</ul>
+						</div>
+				</div>
+				<p class="b-footer__bottom">
+					<span>© 2016 СПА-центр Велюр</span>
+					<a href="#">Сrafted with love by crisp</a>
+				</p>
+			</div>
+		</footer>
+		
 		<script src="js/swiper.min.js"></script>
+		<script src="js/instafeed.min.js"></script>
+		<script src="js/inst-script.js"></script>
+		<script src="js/select.js"></script>
 		<script src="js/common.js"></script>
 	</body>
 </html>
