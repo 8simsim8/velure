@@ -5,8 +5,23 @@
 	height: 100%;
 	width: 100%;
 }
+	.swiper-wrapper {
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+	}
 	.swiper-slide {
-		float: left;
+		text-align: center;
 		padding: 0 15px 40px;
 		transform: translate3d(0,0,0);
 		-webkit-transform: translate3d(0,0,0);
@@ -14,41 +29,40 @@
 	.swipe-controls {
 		position: absolute;
 		top: 85px;
-		height: 35px;
-		width: 35px;
+		height: 48px;
+		width: 48px;
 		opacity: 1;
-		background-color: #FFFFFF;
 		border-radius: 50%;
+		border: 1px solid #FFFFFF;
 		cursor: pointer;
-		background-size: 8px 20px;
+		box-shadow: 0px 1px 12px 2px rgba(123,139,145,0.45);
+		background-size: 10px 22px;
 		background-repeat: no-repeat;
 		background-position: center;
 		z-index: 2;
 		transform: translateZ(1px);
-		transition: opacity .2s ease-out;
-		-webkit-transition: opacity .2s ease-out;
+		transition: opacity .2s ease-out,
+					box-shadow .1s ease;
+		-webit-transition: box-shadow .1s ease,
+							box-shadow .1s ease,
+							opacity .2s ease-out;
 	}
+		.swipe-controls:hover {
+			box-shadow: 0 1px 12px 6px rgba(123,139,145,0.45);
+		}
 		.swiper-button-disabled.swipe-controls {
 			opacity: 0;
 		}
 		.swipe-controls-prev.swipe-controls {
 			left: 10px;
-			background-image: url('../../img/button-swipe-prev-mobile.svg');
-			box-shadow: -2px 2px 6px rgba(123,139,145,0.45);
-			transition: box-shadow .1s ease,
-						opacity .2s ease-out;
-			-webit-transition: box-shadow .1s ease,
-								opacity .2s ease-out;
+			background-image: url('../../img/button-swipe-prev.svg');
 		}
 			.swipe-controls-prev.swipe-controls:active {
 				box-shadow: -1px 1px 4px rgba(123,139,145,0.45);
 			}
 		.swipe-controls-next.swipe-controls {
 			right: 10px;
-			background-image: url('../../img/button-swipe-next-mobile.svg');
-			box-shadow: 2px 2px 6px rgba(123,139,145,0.45);
-			transition: box-shadow .1s ease;
-			-webit-transition: box-shadow .1s ease;
+			background-image: url('../../img/button-swipe-next.svg');
 		}
 			.swipe-controls-next.swipe-controls:active {
 				box-shadow: 1px 1px 4px rgba(123,139,145,0.45);

@@ -162,6 +162,10 @@ a {
 			background : transparent;
 			border: 1px solid #FFFFFF
 		}
+		&:hover {
+			background : #FFFFFF;
+			color: #A823A3;
+		}
 	}
 	&__purple {
 		& {
@@ -174,20 +178,32 @@ a {
 			background : #A823A3;
 			border : 1px solid #A823A3;
 		}
+		&-fill:hover {
+			background : #BC23B7;
+			border : 1px solid #BC23B7;
+
+		}
+		&:hover {
+			background : #A823A3;
+			color: #FFFFFF;
+		}
+		&-fill:hover {
+
+		}
 	}
 	&__social {
 		& {
-			padding : 16px 20px 16px 20px;
-			text-align: left;
+			position: relative;
+			padding : 16px 20px 16px 50px;
 			font-size : 18px;
 			color: #FFFFFF;
 			text-transform: none;
 		}
 		&:before {
-			position: relative;
+			position: absolute;
+			left: 30px;
 			display: inline-block;
 			line-height: 20px;
-			margin-right: 43px;
 		}
 		&.icon-vk {
 			& {
@@ -196,6 +212,9 @@ a {
 			&:before {
 				font-size: 19px;
 			}
+			&:hover {
+				background-color: #4174B0;
+			}
 		}
 		&.icon-fb {
 			& {
@@ -203,6 +222,9 @@ a {
 			}
 			&:before {
 				font-size: 21px;
+			}
+			&:hover {
+				background-color: #266AC4;
 			}
 		}
 	}
@@ -218,7 +240,7 @@ a {
 	}
 	.form-control {
 		& {
-			padding-right: 40px;
+			padding-right: 14px;
 			color: #40363e;
 			font-family: 'Raleway', sans-serif;
 			font-size: 16px;
@@ -237,8 +259,9 @@ a {
 	}
 }
 
-.input[type=date],
-.input[type=time] {
+
+.input-date[type=text],
+.input-time[type=text] {
 	border-bottom : 1px solid #E5E5E5;
 }
 
@@ -252,6 +275,10 @@ a {
 		border: none;
 		outline: none;
 		text-align: center
+		font-family: 'Raleway', sans-serif;
+		font-weight: normal;
+		font-size: 16px;
+		color: #40363e;
 		line-height: 1.1em;
 		background-color : transparent;
 		z-index: 1;
@@ -346,7 +373,7 @@ a {
 				position : relative;
 				top: 1em;
 				display : block;
-				width : calc(100% - 30px);
+				width : 100%;
 			}
 
 		}
@@ -437,4 +464,53 @@ a {
 		input.error + label.error + .input__label > .input__label-content {
 			opacity : 0;
 		}
+}
+
+input {
+	&::-webkit-input-placeholder {color:#40363e;}
+	&::-moz-placeholder          {color:#40363e;}
+	&:-moz-placeholder           {color:#40363e;}
+	&:-ms-input-placeholder      {color:#40363e;}
+	&[placeholder]          {text-overflow:ellipsis;}
+	&::-moz-placeholder     {text-overflow:ellipsis;}
+	&:-moz-placeholder      {text-overflow:ellipsis;}
+	&:-ms-input-placeholder {text-overflow:ellipsis;}
+	&:focus::-webkit-input-placeholder {color: transparent; }
+	&:focus::-moz-placeholder          {color: transparent;}
+	&:focus:-moz-placeholder           {color: transparent;}
+	&:focus:-ms-input-placeholder      {color: transparent;}
+
+	&::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+	&::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+	&:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+	&:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+	&:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+}
+
+
+textarea {
+	&::-webkit-input-placeholder {text-align: center; padding: 15px 0; color:#40363e;}
+	&::-moz-placeholder          {text-align: center; padding: 15px 0; color:#40363e;}
+	&:-moz-placeholder           {text-align: center; padding: 15px 0; color:#40363e;}
+	&:-ms-input-placeholder      {text-align: center; padding: 15px 0; color:#40363e;}
+	&[placeholder]          {text-align: left; text-overflow:ellipsis;}
+	&::-moz-placeholder     {text-overflow:ellipsis;}
+	&:-moz-placeholder      {text-overflow:ellipsis;}
+	&:-ms-input-placeholder {text-overflow:ellipsis;}
+	&:focus::-webkit-input-placeholder {color: transparent; }
+	&:focus::-moz-placeholder          {color: transparent;}
+	&:focus:-moz-placeholder           {color: transparent;}
+	&:focus:-ms-input-placeholder      {color: transparent;}
+
+	&::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+	&::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+	&:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+	&:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+	&:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+	&:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
 }

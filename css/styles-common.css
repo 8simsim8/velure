@@ -129,10 +129,15 @@
   border: 1px solid #a823a3;
   border-radius: 1px;
   text-transform: uppercase;
+  -webkit-transition: background-color 0.2s ease, color 0.2s ease;
+  -moz-transition: background-color 0.2s ease, color 0.2s ease;
+  -o-transition: background-color 0.2s ease, color 0.2s ease;
+  -ms-transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 .b-navigation__header-links button:hover {
-  color: #6f1d6a;
-  border: 1px solid #4f144a;
+  color: #fff;
+  background-color: #a823a3;
 }
 .b-navigation__side {
   display: -webkit-box;
@@ -439,6 +444,9 @@ video::-webkit-media-controls-panel {
   .video-wrapp {
     height: calc(100vh - 5vw);
     margin-bottom: 5vw;
+  }
+  .l-content {
+    padding: 0 5vw;
   }
 }
 @media all and (max-width: 1350px) {

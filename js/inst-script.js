@@ -10,7 +10,7 @@ window.addEventListener("load", function load(event){
 
     function blockInstagram() {
 
-        window.addEventListener('resize',cutBlocks);
+        // window.addEventListener('resize',cutBlocks);
 
         var feed = new Instafeed({
             get: 'user',
@@ -25,9 +25,8 @@ window.addEventListener("load", function load(event){
                 return true;
             },
             after: function(){
-                cutBlocks();
             },
-            template: '<div class="item-insta col xs-6 sm-6 md-4' +
+            template: '<div class="item-insta col xs-6 sm-3' +
             ' lg-3"><p class="insta-header"><span class="insta-logo icon-logo text bold">VelurSpaSumy</span><span' +
             ' class="insta-date-create">{{model.data_create}}</span></p><img' +
             ' src="{{image}}"/></div>',

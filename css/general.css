@@ -132,6 +132,10 @@ a {
   background: transparent;
   border: 1px solid #fff;
 }
+.btn__white:hover {
+  background: #fff;
+  color: #a823a3;
+}
 .btn__purple {
   background: #fff;
   border: 1px solid #a823a3;
@@ -142,18 +146,26 @@ a {
   background: #a823a3;
   border: 1px solid #a823a3;
 }
+.btn__purple-fill:hover {
+  background: #bc23b7;
+  border: 1px solid #bc23b7;
+}
+.btn__purple:hover {
+  background: #a823a3;
+  color: #fff;
+}
 .btn__social {
-  padding: 16px 20px 16px 20px;
-  text-align: left;
+  position: relative;
+  padding: 16px 20px 16px 50px;
   font-size: 18px;
   color: #fff;
   text-transform: none;
 }
 .btn__social:before {
-  position: relative;
+  position: absolute;
+  left: 30px;
   display: inline-block;
   line-height: 20px;
-  margin-right: 43px;
 }
 .btn__social.icon-vk {
   background-color: #3e629c;
@@ -161,11 +173,17 @@ a {
 .btn__social.icon-vk:before {
   font-size: 19px;
 }
+.btn__social.icon-vk:hover {
+  background-color: #4174b0;
+}
 .btn__social.icon-fb {
   background-color: #2559b0;
 }
 .btn__social.icon-fb:before {
   font-size: 21px;
+}
+.btn__social.icon-fb:hover {
+  background-color: #266ac4;
 }
 .select.large {
   height: 40px;
@@ -174,7 +192,7 @@ a {
   border-bottom: 1px solid #e5e5e5;
 }
 .select.large .form-control {
-  padding-right: 40px;
+  padding-right: 14px;
   color: #40363e;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
@@ -190,8 +208,8 @@ a {
   background-repeat: no-repeat;
   border: none;
 }
-.input[type=date],
-.input[type=time] {
+.input-date[type=text],
+.input-time[type=text] {
   border-bottom: 1px solid #e5e5e5;
 }
 .input {
@@ -203,6 +221,10 @@ a {
   border: none;
   outline: none;
   text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #40363e;
   line-height: 1.1em;
   background-color: transparent;
   z-index: 1;
@@ -291,7 +313,7 @@ a {
   position: relative;
   top: 1em;
   display: block;
-  width: calc(100% - 30px);
+  width: 100%;
 }
 .input.input--akira {
   margin-top: 1.5rem;
@@ -364,4 +386,149 @@ a {
 }
 .input input.error + label.error + .input__label > .input__label-content {
   opacity: 0;
+}
+input::-webkit-input-placeholder {
+  color: #40363e;
+}
+input::-moz-placeholder {
+  color: #40363e;
+}
+input:-moz-placeholder {
+  color: #40363e;
+}
+input:-ms-input-placeholder {
+  color: #40363e;
+}
+input[placeholder] {
+  text-overflow: ellipsis;
+}
+input::-moz-placeholder {
+  text-overflow: ellipsis;
+}
+input:-moz-placeholder {
+  text-overflow: ellipsis;
+}
+input:-ms-input-placeholder {
+  text-overflow: ellipsis;
+}
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus:-moz-placeholder {
+  color: transparent;
+}
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+input::-webkit-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+input::-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+input:-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+input:-ms-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+input:focus::-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+input:focus:-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+input:focus:-ms-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+textarea::-webkit-input-placeholder {
+  text-align: center;
+  padding: 15px 0;
+  color: #40363e;
+}
+textarea::-moz-placeholder {
+  text-align: center;
+  padding: 15px 0;
+  color: #40363e;
+}
+textarea:-moz-placeholder {
+  text-align: center;
+  padding: 15px 0;
+  color: #40363e;
+}
+textarea:-ms-input-placeholder {
+  text-align: center;
+  padding: 15px 0;
+  color: #40363e;
+}
+textarea[placeholder] {
+  text-align: left;
+  text-overflow: ellipsis;
+}
+textarea::-moz-placeholder {
+  text-overflow: ellipsis;
+}
+textarea:-moz-placeholder {
+  text-overflow: ellipsis;
+}
+textarea:-ms-input-placeholder {
+  text-overflow: ellipsis;
+}
+textarea:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+textarea:focus::-moz-placeholder {
+  color: transparent;
+}
+textarea:focus:-moz-placeholder {
+  color: transparent;
+}
+textarea:focus:-ms-input-placeholder {
+  color: transparent;
+}
+textarea::-webkit-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+textarea::-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+textarea:-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+textarea:-ms-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+textarea:focus::-webkit-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+textarea:focus::-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+textarea:focus:-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+textarea:focus:-ms-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }

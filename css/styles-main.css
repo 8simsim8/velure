@@ -2,6 +2,12 @@
   height: 100%;
   width: 100%;
   object-fit: contain;
+  background-color: transparent;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 :-moz-full-screen {
   height: 100%;
@@ -25,8 +31,76 @@
   width: 100%;
   object-fit: contain;
 }
+.b-reclame .wrap {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.b-reclame__item {
+  position: relative;
+}
+.b-reclame__item:not(:last-child):after {
+  position: absolute;
+  top: calc(50% - 40px);
+  right: 0;
+  content: '';
+  height: 80px;
+  border-left: 1px solid #e5e5e5;
+}
+.b-reclame__item-link {
+  display: block;
+  padding: 10px;
+  padding-right: 13%;
+  background-image: none;
+  background-position: right 10px center;
+  -webkit-background-size: 48px;
+  -moz-background-size: 48px;
+  background-size: 48px;
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-transition: box-shadow 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
+  -ms-transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+.b-reclame__item-link:hover {
+  background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 48 47.8'><symbol id='a' viewBox='0 -47.7 48 47.8'><path opacity='.3' fill='none' stroke='%23000' stroke-miterlimit='10' d='M0-24.3h48M24.5-47.4L47-24.3 24.5-.3'/></symbol><use xlink:href='%23a' width='48' height='47.8' y='-47.7' transform='matrix(1 0 0 -1 0 .042)' overflow='visible'/></svg>");
+  -webkit-box-shadow: 0 0 9px rgba(224,224,224,0.75);
+  box-shadow: 0 0 9px rgba(224,224,224,0.75);
+}
+.b-reclame__item-block {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+.b-reclame__item-img {
+  width: 30%;
+  height: 100px;
+  margin-right: 20px;
+}
+.b-reclame__item-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.b-reclame__item-text {
+  width: 57%;
+  margin-right: 20px;
+}
+.b-reclame__item-text .but-text {
+  color: #a823a3;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.b-reclame__item-text .text {
+  color: #40363e;
+}
 .b-programs {
-  padding: 120px 0;
+  padding: 110px 0 120px;
 }
 .b-programs h2 {
   margin-bottom: 1.18em;
@@ -42,6 +116,24 @@
   height: 100%;
 }
 .b-programs__cards-wrap-item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
   overflow: hidden;
   height: 100%;
   padding: 52px 37px 37px 37px;
@@ -115,11 +207,11 @@
   bottom: 1px;
   content: '›';
 }
-p.action-programs span:first-child {
+.action-programs span:first-child {
   display: block;
   position: relative;
 }
-p.action-programs span:first-child:after {
+.action-programs span:first-child:after {
   position: absolute;
   display: inline-block;
   top: 0.5em;
@@ -134,67 +226,29 @@ p.action-programs span:first-child:after {
   color: #fff;
   font-size: 9px;
 }
-.b-reclame__item {
-  display: block;
-  padding: 10px;
-  padding-right: 13%;
-  background-position: right 10px center;
-  -webkit-background-size: 48px;
-  -moz-background-size: 48px;
-  background-size: 48px;
-  cursor: pointer;
-  -webkit-transition: box-shadow 0.2s ease;
-  -moz-transition: box-shadow 0.2s ease;
-  -o-transition: box-shadow 0.2s ease;
-  -ms-transition: box-shadow 0.2s ease;
-  transition: box-shadow 0.2s ease;
-}
-.b-reclame__item-block {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-}
-.b-reclame__item-img {
-  width: 30%;
-  height: 100px;
-  margin-right: 20px;
-}
-.b-reclame__item-img img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-.b-reclame__item-text {
-  width: 48%;
-  margin-right: 20px;
-}
-.b-reclame__item-text .but-text {
-  color: #a823a3;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.b-reclame__item-text .text {
-  color: #40363e;
-}
-.b-reclame__item:hover {
-  -webkit-box-shadow: 0 4px 5px rgba(224,224,224,0.75);
-  box-shadow: 0 4px 5px rgba(224,224,224,0.75);
-}
 .b-parallax {
+  position: relative;
   padding: 140px 0;
   height: 565px;
-  background-position: center;
+}
+.b-parallax-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   background-repeat: repeat-y;
+  background-attachment: fixed;
+  z-index: 1;
 }
 .b-parallax .wrap {
+  position: relative;
   margin: 0 auto;
+  z-index: 2;
 }
 .b-parallax h3 {
   margin-bottom: 65px;
@@ -222,7 +276,7 @@ p.action-programs span:first-child:after {
 .b-slider__shadow:before {
   font-size: 338px;
   line-height: 516px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-shadow: 0 0 4px rgba(0,0,0,0.5);
   -webkit-transition: text-shadow 1.5s ease 0.5s;
   -moz-transition: text-shadow 1.5s ease 0.5s;
   -o-transition: text-shadow 1.5s ease 0.5s;
@@ -232,7 +286,7 @@ p.action-programs span:first-child:after {
 .b-slider__shadow.start:before {
   text-shadow: 4px 40px 10px rgba(0,0,0,0.5);
 }
-.b-slider p {
+.b-slider p.lead {
   margin-bottom: 70px;
   text-align: center;
 }
@@ -240,15 +294,17 @@ p.action-programs span:first-child:after {
   height: 544px;
   width: 100%;
 }
+.b-slider .b-slider__viewport-wrap-slide {
+  padding: 0;
+}
 .b-slider .swipe-controls {
   top: calc(50% - 15px);
-  border: 2px solid #000;
 }
-.b-slider .swiper-button-prev {
-  left: 0;
+.b-slider .swipe-controls-prev {
+  left: 50px;
 }
-.b-slider .swiper-button-next {
-  right: 0;
+.b-slider .swipe-controls-next {
+  right: 50px;
 }
 .b-form {
   position: relative;
@@ -428,12 +484,14 @@ p.action-programs span:first-child:after {
 }
 .b-inst h2 {
   text-align: center;
+  padding: 0 10px;
   margin-bottom: 45px;
 }
 .b-inst h2 .icon-plus {
   position: relative;
   margin-left: 40px;
   padding: 10px;
+  width: 165px;
   top: -10px;
   font-size: 15px;
   color: #a823a3;
@@ -453,4 +511,18 @@ p.action-programs span:first-child:after {
 .b-inst .instafeed-wrapp + .center button {
   margin: 0 10px;
   width: 305px;
+}
+@media all and (max-width: 1450px) {
+  .b-slider .swipe-controls {
+    height: 40px;
+    width: 40px;
+  }
+}
+@media all and (max-width: 1300px) {
+  .b-slider .swipe-controls-next {
+    right: 120px;
+  }
+  .b-slider .swipe-controls-prev {
+    left: 120px;
+  }
 }
