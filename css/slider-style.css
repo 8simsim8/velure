@@ -1,0 +1,85 @@
+/* Swipe */
+.swiper-container {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+	.swiper-wrapper {
+		/* Center slide text vertically */
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		-webkit-justify-content: center;
+		justify-content: center;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+	}
+	.swiper-slide {
+		text-align: center;
+		height: 100%;
+		transform: translate3d(0,0,0);
+		-webkit-transform: translate3d(0,0,0);
+	}
+	.swiper-controls {
+		position: absolute;
+		top: 85px;
+		height: 48px;
+		width: 48px;
+		opacity: 1;
+		border-radius: 50%;
+		border: 1px solid #FFFFFF;
+		cursor: pointer;
+		box-shadow: 0 1px 12px 2px rgba(123,139,145,0.45);
+		background-size: 10px 22px;
+		background-repeat: no-repeat;
+		background-position: center;
+		z-index: 2;
+		transform: translateZ(1px);
+		transition: opacity .2s ease-out,
+					box-shadow .1s ease;
+		-webit-transition: box-shadow .1s ease,
+							box-shadow .1s ease,
+							opacity .2s ease-out;
+	}
+		.swiper-controls:hover {
+			box-shadow: 0 1px 12px 6px rgba(123,139,145,0.45);
+		}
+		.swiper-button-disabled.swiper-controls {
+			opacity: 0;
+		}
+		.swiper-controls-prev.swiper-controls {
+			left: 10px;
+			background-image: url('../../img/button-swipe-prev.svg');
+		}
+			.swiper-controls-prev.swiper-controls:active {
+				box-shadow: -1px 1px 4px rgba(123,139,145,0.45);
+			}
+		.swiper-controls-next.swiper-controls {
+			right: 10px;
+			background-image: url('../../img/button-swipe-next.svg');
+		}
+			.swiper-controls-next.swiper-controls:active {
+				box-shadow: 1px 1px 4px rgba(123,139,145,0.45);
+			}
+	.swiper-pagination {
+		text-align: center;
+		transform: translate3d(0,0,0);
+		-webkit-transform: translate3d(0,0,0);
+	}
+		.swiper-pagination-bullet {
+			display: inline-block;
+			margin: 0 10px;
+			height: 8px;
+			width: 8px;
+			border-radius: 50%;
+			background-color:  #95A5A6;
+			transition: background-color 0.1s ease;
+		}
+			.swiper-pagination-bullet-active.swiper-pagination-bullet {
+				background-color: #F39C12;
+			}

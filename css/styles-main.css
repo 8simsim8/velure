@@ -1,36 +1,3 @@
-:-webkit-full-screen {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  background-color: transparent;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-:-moz-full-screen {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-:-ms-fullscreen {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-:full-screen {
-/*pre-spec */
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
-:fullscreen {
-/* spec */
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-}
 .b-reclame .wrap {
   padding-bottom: 40px;
   border-bottom: 1px solid #e5e5e5;
@@ -297,13 +264,13 @@
 .b-slider .b-slider__viewport-wrap-slide {
   padding: 0;
 }
-.b-slider .swipe-controls {
+.b-slider .swiper-controls {
   top: calc(50% - 15px);
 }
-.b-slider .swipe-controls-prev {
+.b-slider .swiper-controls-prev {
   left: 50px;
 }
-.b-slider .swipe-controls-next {
+.b-slider .swiper-controls-next {
   right: 50px;
 }
 .b-form {
@@ -498,6 +465,10 @@
   border: 1px solid #a823a3;
   border-radius: 0;
 }
+.b-inst h2 button:hover {
+  color: #fff;
+  background-color: #a823a3;
+}
 .b-inst h2 .icon-plus:before {
   font-size: 16px;
   margin-right: 10px;
@@ -513,16 +484,16 @@
   width: 305px;
 }
 @media all and (max-width: 1450px) {
-  .b-slider .swipe-controls {
+  .b-slider .swiper-controls {
     height: 40px;
     width: 40px;
   }
 }
 @media all and (max-width: 1300px) {
-  .b-slider .swipe-controls-next {
+  .b-slider .swiper-controls-next {
     right: 120px;
   }
-  .b-slider .swipe-controls-prev {
+  .b-slider .swiper-controls-prev {
     left: 120px;
   }
 }

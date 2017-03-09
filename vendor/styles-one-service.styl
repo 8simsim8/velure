@@ -1,0 +1,150 @@
+@import 'nib'
+
+.b-title {
+	&__logo {
+		&-breadcrumbs {
+			& {
+				margin-bottom: 6vh;
+				font-size: 14px;
+			}
+			a {
+				color: rgba(255,255,255,.3);
+			}
+			a:hover {
+				color: rgba(255,255,255,.7);
+			}
+			a:not(:last-child) {
+				margin-right: 30px;
+			}
+			a:not(:last-child):after {
+				content: '\003E';
+				margin-left: 30px;
+			}
+		}
+		&-text {
+			margin-bottom: 7vh;
+		}
+		&-img {
+			& {
+				margin-bottom: 7vh;
+			}
+			svg {
+				height: 40px;
+			}
+		}
+		&-note {
+			margin: 0 auto 12vh;
+			max-width: 930px;
+			text-align: center;
+			color: #FFFFFF
+		}
+		&-feature {
+			& {
+				color: #FFFFFF;
+				text-align: center;
+			}
+			span {
+				& {
+					display: inline-block;
+					min-width: 180px;
+					padding-top: 80px;
+					position: relative;
+					margin: 0 10px;
+					text-align: center;
+				}
+				&:before {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					margin: 0 auto;
+					font-size: 41px;
+					line-height: 80px;
+				}
+				&.icon-all-body:before {
+					font-size: 65px;
+				}
+				&:not(:last-child):after {
+					position: absolute;
+					top: 0;
+					right: -10px;
+					display: inline-block;
+					content: '';
+					height: 110px;
+					transform: rotate(15deg);
+					border-left: 1px solid rgba(255,255,255,0.2);
+				}
+			}
+		}
+	}
+}
+
+.b-about {
+	& {
+	}
+	h2 {
+		margin-bottom: 60px;
+	}
+	.lead {
+		margin-bottom: 70px;
+	}
+	&__slider {
+		& {
+			margin-bottom: 50px;
+		}
+		&-wrap {
+			height: 475px;
+			margin-bottom: 50px;
+		}
+		&-slide {
+			& {
+				height: 100%
+			}
+			img {
+				height: 100%;
+				//width: 100%;
+				//object-fit: contain;
+				object-fit: cover;
+			}
+		}
+		.swiper-controls {
+			& {
+				top: calc(50% - 40px);
+			}
+			&-prev {
+				left: 50px;
+			}
+			&-next {
+				right: 50px;
+			}
+		}
+	}
+
+	&__detail {
+		& {
+			margin-bottom: 65px;
+		}
+		&-item {
+			& {
+				margin-bottom: 35px;
+			}
+			h4 {
+				color: #a823a3;
+				margin-bottom: 0.8em;
+			}
+			p.text {
+				color: #40363e;
+				margin-bottom: 1.5em;
+			}
+		}
+	}
+}
+
+.b-prices {}
+
+.b-faq {
+	& {}
+	h3 {
+		margin-bottom: 40px;
+	}
+}

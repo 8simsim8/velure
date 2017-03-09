@@ -3,7 +3,9 @@ window.addEventListener('load', function(){
     document.body.addEventListener(transitionEnd, loaderAnimation);
 
     function loaderAnimation() {
-        handlerScrollWindow();
+        if(document.body.classList.contains('finish-load')) {
+            scrollAnim('.start');
+        }
         document.body.removeEventListener(transitionEnd, loaderAnimation);
     }
 
@@ -38,8 +40,8 @@ window.addEventListener('load', function(){
         slidesPerView: 'auto',
         lazyLoading: false,
         centeredSlides: true,
-        nextButton: '.swipe-controls-next',
-        prevButton: '.swipe-controls-prev',
+        nextButton: '.swiper-controls-next',
+        prevButton: '.swiper-controls-prev',
         setWrapperSize: true,
         loop: true,
         breakpoints: {

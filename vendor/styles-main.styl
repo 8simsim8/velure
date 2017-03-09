@@ -1,37 +1,5 @@
 @import 'nib'
 
-:-webkit-full-screen {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-	background-color: transparent;
-	transition: all 0.5s ease;
-}
-
-:-moz-full-screen {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-:-ms-fullscreen {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-:full-screen { /*pre-spec */
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-:fullscreen { /* spec */
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
 .b-reclame {
 	& {
 	}
@@ -309,13 +277,13 @@
 	.b-slider__viewport-wrap-slide {
 		padding: 0;
 	}
-	.swipe-controls {
+	.swiper-controls {
 		top: calc(50% - 15px);
 	}
-	.swipe-controls-prev {
+	.swiper-controls-prev {
 		left: 50px;
 	}
-	.swipe-controls-next {
+	.swiper-controls-next {
 		right: 50px;
 	}
 }
@@ -476,6 +444,10 @@
 			border: 1px solid #a823a3;
 			border-radius: 0;
 		}
+		button:hover {
+			color : #FFFFFF;
+			background-color: #A823A3;
+		}
 		.icon-plus:before {
 			font-size: 16px;
 			margin-right: 10px;
@@ -498,7 +470,7 @@
 
 @media all and (max-width: 1450px) {
 	.b-slider {
-		.swipe-controls {
+		.swiper-controls {
 			height: 40px;
 			width: 40px;
 		}
@@ -506,10 +478,10 @@
 }
 @media all and (max-width: 1300px) {
 	.b-slider {
-		.swipe-controls-next {
+		.swiper-controls-next {
 			right : 120px;
 		}
-		.swipe-controls-prev {
+		.swiper-controls-prev {
 			left : 120px;
 		}
 	}
