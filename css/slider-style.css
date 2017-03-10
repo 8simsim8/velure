@@ -54,14 +54,14 @@
 		}
 		.swiper-controls-prev.swiper-controls {
 			left: 10px;
-			background-image: url('../../img/button-swipe-prev.svg');
+			background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11.4 22.8'><path fill='none' stroke='%23FFF' d='M11.4 0L0 11.4l11.4 11.4'/></svg>");
 		}
 			.swiper-controls-prev.swiper-controls:active {
 				box-shadow: -1px 1px 4px rgba(123,139,145,0.45);
 			}
 		.swiper-controls-next.swiper-controls {
 			right: 10px;
-			background-image: url('../../img/button-swipe-next.svg');
+			background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11.4 22.8'><path fill='none' stroke='%23FFF' d='M0 0l11.4 11.4L0 22.8'/></svg>");
 		}
 			.swiper-controls-next.swiper-controls:active {
 				box-shadow: 1px 1px 4px rgba(123,139,145,0.45);

@@ -237,3 +237,20 @@
   color: #fff;
   z-index: 2;
 }
+@media all and (max-height: 670px) {
+  .b-title__logo {
+    padding: 60px 0 0 0;
+  }
+  .b-title__logo-breadcrumbs {
+    margin-bottom: 4vh;
+  }
+  .b-title__logo-text {
+    margin-bottom: 5vh;
+  }
+  .b-title__logo-img {
+    margin-bottom: 5vh;
+  }
+  .b-title__logo-note {
+    margin: 0 auto 9vh;
+  }
+}
