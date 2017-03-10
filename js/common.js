@@ -157,3 +157,21 @@ function aminScroll(e, time) {
     }
 
 }
+
+//*** Work with property will-change ***//
+function willChangeSwitch(elem, prop) {
+    if(elem.length) {
+        for(let i=0; i < elem.length; i++) {
+            elem[i].style.willChange = prop;
+        }
+    } else {
+        elem.style.willChange = prop;
+    }
+}
+
+//*** Delete composition layer ***//
+function removeWillChange(e){
+    willChangeSwitch(this, 'auto');
+    this.removeEventListener(transitionEnd, removeWillChange);
+    this.addEventListener('mouseleave', removeWillChange);
+}

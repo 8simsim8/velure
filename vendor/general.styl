@@ -57,8 +57,11 @@
 }
 
 
-.icon-minus:before {
+.icon-acc-minus:before {
 	content: "\e90d";
+}
+.icon-acc-plus:before {
+	content: "\e90e";
 }
 .icon-all-body:before {
 	content: "\e900";
@@ -242,86 +245,6 @@ a {
 			&:hover {
 				background-color: #266AC4;
 			}
-		}
-	}
-}
-
-
-.swiper-container {
-	.swiper-controls {
-	}
-	.swiper-pagination {
-		& {}
-		&-bullet {
-			& {
-				height: 6px;
-				width: 6px;
-				margin: 0 5px;
-				background-color: rgba(0,0,0,0.2);
-			}
-			&-active {
-				background-color: rgba(0,0,0,1);
-			}
-		}
-	}
-}
-
-
-.accordeon {
-	& {
-	}
-	.acc-item {
-		& {
-			border-bottom: 1px solid #e5e5e5;
-		}
-		&:first-child {
-			border-top: 1px solid #e5e5e5;
-		}
-		.acc-button-element {
-			& {
-				cursor: pointer;
-			}
-			&:after {
-			}
-			&.active:before {
-				content: "\e90d";
-			}
-		}
-		.acc-hidden-element {
-			& {
-				max-height: 0;
-				padding: 0;
-				overflow: hidden;
-				transition: max-height 0.3s ease;
-			}
-		}
-	}
-}
-
-.select.large {
-	& {
-		height : 40px;
-		margin-top : 1.5rem;
-		background-color : transparent;
-		border-bottom : 1px solid #E5E5E5;
-	}
-	.form-control {
-		& {
-			padding-right: 14px;
-			color: #40363e;
-			font-family: 'Raleway', sans-serif;
-			font-size: 16px;
-			text-align: center;
-			overflow: hidden;
-		}
-		&:before {
-			margin-right: -5px;
-			padding: 10px;
-			background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.7 8.1'><path fill='none' stroke='%23000' stroke-miterlimit='10' d='M.4.4l7 7 7-7'/></svg>");
-			background-size: 14px 7px;
-			background-position: left 0.1em;
-			background-repeat: no-repeat;
-			border: none;
 		}
 	}
 }
