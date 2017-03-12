@@ -218,7 +218,10 @@
   height: 100%;
   width: 100%;
   content: '';
-  background-color: rgba(0,0,0,0.2);
+  background-color: #000;
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
   -webkit-transition: background-color 0.2s ease;
   -moz-transition: background-color 0.2s ease;
   -o-transition: background-color 0.2s ease;
@@ -227,7 +230,9 @@
   z-index: 1;
 }
 .b-other-services__links-item:hover:after {
-  background-color: rgba(0,0,0,0);
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
 }
 .b-other-services__links-item h4 {
   position: relative;
@@ -237,7 +242,7 @@
   color: #fff;
   z-index: 2;
 }
-@media all and (max-height: 670px) {
+@media all and (max-height: 680px) {
   .b-title__logo {
     padding: 60px 0 0 0;
   }

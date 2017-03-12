@@ -482,6 +482,30 @@ video::-webkit-media-controls-panel {
 .accordeon .acc-item {
   border-bottom: 1px solid #e5e5e5;
 }
+.accordeon .acc-item.accordeon-item .acc-button-element {
+  cursor: pointer;
+}
+.accordeon .acc-item.accordeon-item .acc-button-element:before {
+  position: relative;
+  top: 0.1em;
+  margin-right: 25px;
+  font-size: 27px;
+  color: #998a97;
+  content: '\e90e';
+}
+.accordeon .acc-item.accordeon-item .acc-button-element.active:before {
+  content: "\e90d";
+}
+.accordeon .acc-item.accordeon-item .acc-hidden-element {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 0.3s ease 0.25s;
+  -moz-transition: max-height 0.3s ease 0.25s;
+  -o-transition: max-height 0.3s ease 0.25s;
+  -ms-transition: max-height 0.3s ease 0.25s;
+  transition: max-height 0.3s ease 0.25s;
+}
 .accordeon .acc-item:first-child {
   border-top: 1px solid #e5e5e5;
 }
@@ -499,32 +523,15 @@ video::-webkit-media-controls-panel {
   -webkit-align-items: baseline;
   align-items: baseline;
   padding: 1em 0 1em 15px;
-  cursor: pointer;
 }
 .accordeon .acc-item .acc-button-element > *:first-child {
   margin-right: auto;
 }
 .accordeon .acc-item .acc-button-element:before {
-  position: relative;
-  top: 0.1em;
-  margin-right: 25px;
-  font-size: 27px;
-  color: #998a97;
-  content: '\e90e';
-}
-.accordeon .acc-item .acc-button-element.active:before {
-  content: "\e90d";
+  content: '';
 }
 .accordeon .acc-item .acc-hidden-element {
-  max-height: 0;
-  padding: 0;
-  overflow: hidden;
   background-color: #fbfaf4;
-  -webkit-transition: max-height 0.3s ease;
-  -moz-transition: max-height 0.3s ease;
-  -o-transition: max-height 0.3s ease;
-  -ms-transition: max-height 0.3s ease;
-  transition: max-height 0.3s ease;
 }
 .accordeon .acc-item .acc-hidden-element__wrap.two-col {
   display: -webkit-box;

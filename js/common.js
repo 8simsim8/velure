@@ -173,5 +173,4 @@ function willChangeSwitch(elem, prop) {
 function removeWillChange(e){
     willChangeSwitch(this, 'auto');
     this.removeEventListener(transitionEnd, removeWillChange);
-    this.addEventListener('mouseleave', removeWillChange);
 }

@@ -6,13 +6,10 @@ window.addEventListener('load', function(){
     const sliderClassName = 'swiper-container';
 
     // Sliders
-    let sliders = createSliders(sliderClassName);
+    let sliders = createSliders(sliderClassName, accordeonClassName);
 
     // Accordeons
-    let accordeons = createAccordeon(accordeonClassName);
-
-    // По открытию аккордеона запускат автопрокрутку слайдов
-    controllAutoplaySlider(sliders, accordeonClassName);
+    let accordeons = createAccordeons(accordeonClassName, sliderClassName);
 
     // inputs();
 
@@ -36,43 +33,14 @@ window.addEventListener('load', function(){
 
 });
 
-function controllAutoplaySlider(sliders, classNameWrappAccordeon) {
-    for(let i = 0, len = sliders.length; i < len; i++) {
-        if (sliders[i].wrapper[0].closest('.'+classNameWrappAccordeon)) {
-            let button = sliders[i].wrapper[0].closest('.acc-hidden-element').previousElementSibling;
-            button.addEventListener('click', handlerClick.bind(button,sliders[i]));
-            button.addEventListener('mouseover', prepareAnimationAccordeon);
-            button.addEventListener('mouseleave', removeWillChange.bind(button.nextElementSibling));
-        }
-    }
-
-    function handlerClick(slider) {
-        let self = this;
-        let hiddenBlock = self.parentNode.querySelector('.acc-hidden-element');
-
-        hiddenBlock.addEventListener(transitionEnd, removeWillChange);
-
-        // if(self.classList.contains('active')) {
-        //     slider.startAutoplay();
-        // } else {
-        //     slider.stopAutoplay();
-        // }
-    }
-
-    function prepareAnimationAccordeon(){
-        let self = this;
-        let hiddenBlock = self.parentNode.querySelector('.acc-hidden-element');
-
-        willChangeSwitch(hiddenBlock, 'height');
-    }
-
-}
-
-function createSliders(classNameSlidersContainer){
+function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
     const slidersElem = document.getElementsByClassName(classNameSlidersContainer);
     let sliders = [];
     for(let i = 0, len = slidersElem.length; i < len; i++) {
         sliders[i] = makeSlider(slidersElem[i]);
+        if(slidersElem[i].closest('.'+classNameWrappAccordeon)) {
+            sliders[i].stopAutoplay();
+        }
     }
     return sliders;
 }
@@ -96,12 +64,6 @@ function makeSlider(wrapClass){
         loop: true
     });
 
-    if(wrapClass.closest('.accordeon')) {
-        swipeSlide.stopAutoplay();
-    } else {
-        swipeSlide.startAutoplay();
-    }
-
     swipeSlide.wrapper[0].addEventListener('click', function () {
         swipeSlide.slideNext();
     });
@@ -109,7 +71,7 @@ function makeSlider(wrapClass){
     return swipeSlide;
 }
 
-function createAccordeon(classNameAccordeonContainer){
+function createAccordeons(classNameAccordeonContainer, classNameSlidersContainer){
     const accordeonsElem = document.getElementsByClassName(classNameAccordeonContainer);
     let accordeons = [];
 
@@ -119,6 +81,7 @@ function createAccordeon(classNameAccordeonContainer){
 
         // Открыть первую вкладку
         accordeons[i].button[0].click();
+
     }
 
     return accordeons;
@@ -132,44 +95,82 @@ function MakeAccordeon(elem){
     this.hidden = elem.getElementsByClassName("acc-hidden-element");
 
     this.accordeonStart = function() {
-
         for (let i = 0, len = this.button.length; i < len; i++) {
 
             this.button[i].addEventListener('click', clickAccordeon);
+
+            this.button[i].addEventListener('mouseover',handlerMouseOver);
+
             this.items[i].classList.toggle('accordeon-item');
 
             this.hidden[i].style.maxHeight = null;
-
+            this.hidden[i].style.display = 'none';
         }
     };
 
     function clickAccordeon(e){
-
         let prevElem = elem.querySelector(".active");
 
         if(prevElem && prevElem != this) {
             prevElem.classList.toggle("active");
             prevElem.nextElementSibling.style.maxHeight = null;
+            prevElem.addEventListener(transitionEnd, handlerAnim);
         }
 
         this.classList.toggle("active");
 
         let panel = this.nextElementSibling;
 
+        panel.addEventListener(transitionEnd, handlerAnim);
+
         if (panel.style.maxHeight){
             panel.style.maxHeight = null;
         } else {
+            panel.style.display = '';
             panel.style.maxHeight = panel.scrollHeight + "px";
         }
+
+        function handlerAnim() {
+            console.log('click acc');
+            if(!this.style.maxHeight) {
+                this.style.display = 'none';
+            }
+            this.addEventListener(transitionEnd, handlerAnim);
+        }
+    }
+
+    function handlerMouseOver() {
+        let self = this,
+            hidden = self.nextElementSibling;
+
+        willChangeSwitch(hidden, 'max-height');
+        if(!hidden.style.maxHeight) {
+            hidden.style.display = '';
+        }
+        self.addEventListener('mouseleave',handlerMouseLeave);
+
+        function handlerMouseLeave() {
+            let self = this,
+                hidden = self.nextElementSibling;
+
+            willChangeSwitch(hidden, 'auto');
+            if(!hidden.style.maxHeight) {
+                hidden.style.display = 'none';
+            }
+            self.removeEventListener('mouseleave', handlerMouseLeave);
+        }
+
     }
 
     this.accordeonStop = function() {
         let i;
         for (i = 0; i < this.button.length; i++) {
             this.button[i].removeEventListener('click', clickAccordeon);
+            this.button[i].removeEventListener('mouseover',handlerMouseOver);
             this.items[i].classList.remove('accordeon-item');
 
             this.hidden[i].style.maxHeight = null;
+            this.hidden[i].style.display = '';
 
         }
         if(elem.querySelector(".active")) {

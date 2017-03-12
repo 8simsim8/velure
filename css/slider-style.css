@@ -22,8 +22,8 @@
 	.swiper-slide {
 		text-align: center;
 		height: 100%;
-		transform: translate3d(0,0,0);
-		-webkit-transform: translate3d(0,0,0);
+		/*transform: translate3d(0,0,0);*/
+		/*-webkit-transform: translate3d(0,0,0);*/
 	}
 	.swiper-controls {
 		position: absolute;
@@ -68,8 +68,8 @@
 			}
 	.swiper-pagination {
 		text-align: center;
-		transform: translate3d(0,0,0);
-		-webkit-transform: translate3d(0,0,0);
+		transform: translateZ(1px);
+		-webkit-transform: translateZ(1px);
 	}
 		.swiper-pagination-bullet {
 			display: inline-block;
