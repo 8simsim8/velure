@@ -9,9 +9,15 @@ window.addEventListener('load', function(){
         document.body.removeEventListener(transitionEnd, loaderAnimation);
     }
 
-    window.addEventListener('scroll', handlerScrollWindow);
+    const buttonOnlineRecord = document.querySelector('.online-record');
 
-    droplist();
+    // Scroll on click button
+    buttonOnlineRecord.addEventListener('click', function handlerOnlineRecordButton(e){
+        aminScroll(document.querySelector('.b-form'), 1000);
+    });
+
+
+    window.addEventListener('scroll', handlerScrollWindow);
 
     //
     //  Calendar
@@ -54,26 +60,11 @@ window.addEventListener('load', function(){
             }
         });
 
-    const input = document.getElementsByClassName('input__field');
+    let ticking = false;
+    let scrollPage;
+    let scrollLeft;
 
-    // Styles inputs
-    for(var i = 0; i < input.length; i++) {
-        input[i].addEventListener('focus', function() {
-            this.parentNode.classList.add('input--filled');
-        });
-        input[i].addEventListener('blur', function() {
-            if(this.value == '') {
-                this.parentNode.classList.remove('input--filled');
-            }
-        });
-
-    }
-
-    var ticking = false;
-    var scrollPage;
-    var scrollLeft;
-
-    var isScrollAnimFinish = false;
+    let isScrollAnimFinish = false;
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -87,50 +78,6 @@ window.addEventListener('load', function(){
             });
         }
         ticking = true;
-    }
-
-    function droplist() {
-        var droplistsSelect = document.getElementsByClassName('droplist');
-        var droplists = [];
-
-        for(var i = 0, len = droplistsSelect.length; i < len; i++) {
-            var id = '#' + droplistsSelect[i].id;
-            var isDisableOnLoad;
-
-            isDisableOnLoad = (droplistsSelect[i].hasAttribute('data-next-select-id')) ? isDisableOnLoad = true : isDisableOnLoad = false;
-
-            droplists[i] = new Select(id, {
-                    // auto show the live filter
-                    filtered: 'auto',
-                    // auto show the live filter when the options >= 8
-                    filter_threshold: 10,
-                    // custom placeholder
-                    filter_placeholder: 'Filter options...',
-                    // on start disable/enable select
-                    onLoadDisable: isDisableOnLoad
-                },
-                // callback
-                function (){
-                    // close virtual keyboard
-                    var filter = this.filter;
-                    setTimeout(function(){
-                        filter.blur();
-                    },200);
-                    // change color of font
-                    this.target.parentNode.querySelector('.value').classList.add('select-active');
-
-                    // droplist where need to put list by request if need
-                    var selector = '[data-next-select-id = ' + this.target.id + ']';
-                    var elemBuildSelect = document.querySelector(selector);
-
-                    // Test
-                    if(elemBuildSelect) {
-                        elemBuildSelect.parentNode.querySelector('.value').removeAttribute('disabled');
-                        // requestResult(this.value, elemBuildSelect);
-                    }
-                }
-            );
-        }
     }
 
 });

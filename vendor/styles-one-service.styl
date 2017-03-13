@@ -24,7 +24,7 @@
 		&-text {
 			margin-bottom: 7vh;
 		}
-		&-img {
+		&-ligature {
 			& {
 				margin-bottom: 7vh;
 			}
@@ -80,6 +80,7 @@
 	}
 	.lead {
 		margin-bottom: 70px;
+		color: #40363E;
 	}
 	&__slider {
 		& {
@@ -174,43 +175,6 @@
 		.acc-hidden-element {
 			& {
 			}
-			.b-packages__accordeon-description {
-				& {
-					padding: 35px;
-				}
-				p {
-					margin-bottom: 3.3em
-				}
-				h4 {
-					margin-bottom: 1.5em
-				}
-				ol {
-					& {
-						counter-reset : list;
-						margin-bottom: 55px;
-					}
-					li {
-						& {
-							line-height: 1.5em;
-						}
-						&:before {
-							counter-increment: list;
-							content: counter(list);
-							color : #A823A3;
-							margin-right: 10px;
-						}
-					}
-				}
-			}
-			.b-packages__slider {
-				& {
-				}
-				p {
-					line-height: 0;
-					font-size: 0;
-					margin: 0;
-				}
-			}
 		}
 	}
 }
@@ -225,16 +189,6 @@
 			flex-wrap: wrap;
 		}
 		&-item {
-			& {
-				display: flex;
-				position: relative;
-				height: 304px;
-				background-clip: content-box;
-				background-position: center;
-				background-size: cover;
-				background-repeat: no-repeat;
-				border: 10px solid transparent;
-			}
 			&.row1 {
 				width: 12.5%;
 			}
@@ -259,33 +213,7 @@
 			&.row8 {
 				width: 100%;
 			}
-			&:after{
-				position : absolute;
-				display: block;
-				top: 0;
-				left: 0;
-				height: 100%;
-				width: 100%;
-				content: '';
-				background-color: #000000;
-				opacity: 0.2;
-				transition: background-color 0.2s ease;
-				z-index: 1;
-
-			}
-			&:hover:after {
-				opacity: 0;
-			}
-			h4 {
-				position: relative;
-				margin: auto;
-				padding: 20px;
-				text-align: center;
-				color : #FFFFFF;
-				z-index: 2;
-			}
 		}
-
 	}
 }
 

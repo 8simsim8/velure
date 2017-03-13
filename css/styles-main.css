@@ -204,6 +204,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-image: url("../img/velur-bg.jpg");
   background-color: transparent;
   -webkit-background-size: cover;
   -moz-background-size: cover;

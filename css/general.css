@@ -34,6 +34,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-checkbox-yes:before {
+  content: "\e910";
+}
+.icon-full-logo:before {
+  content: "\e90f";
+}
 .icon-acc-minus:before {
   content: "\e90d";
 }
@@ -154,10 +160,20 @@ a {
   background: #fff;
   color: #a823a3;
 }
+.btn__submit {
+  color: #fff;
+  background: #23a86c;
+  border: 1px solid #23a86c;
+  border-radius: 4px;
+}
+.btn__submit:hover {
+  background: #24bc7e;
+  border: 1px solid #24bc7e;
+}
 .btn__purple {
   background: #fff;
   border: 1px solid #a823a3;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 .btn__purple-fill {
   color: #fff;
@@ -283,9 +299,8 @@ a {
   border: none;
   border-radius: 0;
   background-color: transparent;
-  font-size: 14px;
-  color: #383838;
-  font-weight: bold;
+  font-size: 16px;
+  color: #40363e;
   resize: none;
   -webkit-appearance: none;
 /* for box shadows to show on iOS */
@@ -449,6 +464,53 @@ input:focus:-moz-placeholder {
 input:focus:-ms-input-placeholder {
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+/* Checkbox */
+.input-checkbox {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  padding-left: 0;
+  line-height: 0;
+}
+.input-checkbox input[type='checkbox'] {
+  visibility: hidden;
+  width: 0 !important;
+}
+.input-checkbox input[type='checkbox'] + span {
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+.input-checkbox input[type='checkbox'] + span:before {
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  margin-right: 15px;
+  content: " ";
+  color: #a8238e;
+  font-family: 'icon-velur';
+  font-size: 16px;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-checkbox input[type='checkbox'] + span,
+.input-checkbox input[type='checkbox'] + span:before {
+  transition: color 0.1s ease;
+}
+.input-checkbox input[type='checkbox']:checked + span:before {
+  content: "\e910";
+}
+.input-checkbox span:hover,
+.input-checkbox span:hover:before {
+  opacity: 1;
 }
 textarea::-webkit-input-placeholder {
   text-align: center;

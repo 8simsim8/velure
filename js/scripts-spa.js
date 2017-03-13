@@ -2,6 +2,14 @@ window.addEventListener('load', function(){
 
     // window.addEventListener('scroll', handlerScrollWindow);
 
+    const buttonOnlineRecord = document.querySelector('.online-record');
+
+    // Scroll on click button
+    buttonOnlineRecord.addEventListener('click', function handlerOnlineRecordButton(e){
+        aminScroll(document.querySelector('.b-certificate .wrap'), 1000);
+    });
+
+
     const accordeonClassName = 'accordeon';
     const sliderClassName = 'swiper-container';
 

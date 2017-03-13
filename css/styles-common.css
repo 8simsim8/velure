@@ -345,6 +345,15 @@
 .l-content {
   padding: 0 80px;
 }
+section .icon-ligature {
+  margin-bottom: 1.4em;
+  text-align: center;
+  font-size: 40px;
+  color: #7f7f7f;
+}
+section .icon-ligature + h2 {
+  margin-bottom: 1.25em;
+}
 .wrap {
   max-width: 1415px;
   margin: 0 auto;
@@ -369,6 +378,61 @@ video::-webkit-media-controls-panel {
 }
 .center {
   text-align: center;
+}
+[class*="services__links-item"] {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  position: relative;
+  height: 304px;
+  padding: 10px;
+  -webkit-background-clip: content;
+  -moz-background-clip: content;
+  background-clip: content-box;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+[class*="services__links-item"]:after {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  content: '';
+  -webkit-background-clip: content;
+  -moz-background-clip: content;
+  background-clip: content-box;
+  background-color: #000;
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+  -ms-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+  z-index: 1;
+}
+[class*="services__links-item"]:hover:after {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+[class*="services__links-item"] h4 {
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
 }
 .half-circle__block {
   position: relative;
@@ -466,6 +530,10 @@ video::-webkit-media-controls-panel {
   transform: rotate(15deg);
   border-left: 1px solid rgba(102,92,100,0.5);
 }
+.swiper-container .swiper-slide img {
+  height: 100%;
+  object-fit: cover;
+}
 .swiper-container .swiper-pagination-bullet {
   height: 6px;
   width: 6px;
@@ -483,7 +551,11 @@ video::-webkit-media-controls-panel {
   border-bottom: 1px solid #e5e5e5;
 }
 .accordeon .acc-item.accordeon-item .acc-button-element {
+  color: #40363e;
   cursor: pointer;
+}
+.accordeon .acc-item.accordeon-item .acc-button-element .details-feature {
+  color: #665c64;
 }
 .accordeon .acc-item.accordeon-item .acc-button-element:before {
   position: relative;
@@ -500,11 +572,11 @@ video::-webkit-media-controls-panel {
   max-height: 0;
   padding: 0;
   overflow: hidden;
-  -webkit-transition: max-height 0.3s ease 0.25s;
-  -moz-transition: max-height 0.3s ease 0.25s;
-  -o-transition: max-height 0.3s ease 0.25s;
-  -ms-transition: max-height 0.3s ease 0.25s;
-  transition: max-height 0.3s ease 0.25s;
+  -webkit-transition: max-height 0.3s ease-out;
+  -moz-transition: max-height 0.3s ease-out;
+  -o-transition: max-height 0.3s ease-out;
+  -ms-transition: max-height 0.3s ease-out;
+  transition: max-height 0.3s ease-out;
 }
 .accordeon .acc-item:first-child {
   border-top: 1px solid #e5e5e5;
@@ -532,6 +604,7 @@ video::-webkit-media-controls-panel {
 }
 .accordeon .acc-item .acc-hidden-element {
   background-color: #fbfaf4;
+  color: #40363e;
 }
 .accordeon .acc-item .acc-hidden-element__wrap.two-col {
   display: -webkit-box;
@@ -562,13 +635,41 @@ video::-webkit-media-controls-panel {
 .accordeon .acc-item .acc-hidden-element__wrap.two-col .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: #a823a3;
 }
-.select.large {
+.b-packages__accordeon-description {
+  padding: 35px;
+}
+.b-packages__accordeon-description p {
+  margin-bottom: 3.3em;
+}
+.b-packages__accordeon-description h4 {
+  margin-bottom: 1.5em;
+}
+.b-packages__accordeon-description ol {
+  counter-reset: list;
+  margin-bottom: 55px;
+}
+.b-packages__accordeon-description ol li {
+  line-height: 1.5em;
+}
+.b-packages__accordeon-description ol li:before {
+  counter-increment: list;
+  content: counter(list);
+  color: #a823a3;
+  margin-right: 10px;
+}
+.b-packages__slider p {
+  line-height: 0;
+  font-size: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.select {
   height: 40px;
   margin-top: 1.5rem;
   background-color: transparent;
   border-bottom: 1px solid #e5e5e5;
 }
-.select.large .form-control {
+.select .form-control {
   padding-right: 14px;
   color: #40363e;
   font-family: 'Raleway', sans-serif;
@@ -576,7 +677,7 @@ video::-webkit-media-controls-panel {
   text-align: center;
   overflow: hidden;
 }
-.select.large .form-control:before {
+.select .form-control:before {
   margin-right: -5px;
   padding: 10px;
   background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.7 8.1'><path fill='none' stroke='%23000' stroke-miterlimit='10' d='M.4.4l7 7 7-7'/></svg>");
@@ -586,6 +687,11 @@ video::-webkit-media-controls-panel {
   background-position: left 0.1em;
   background-repeat: no-repeat;
   border: none;
+}
+.select .list ul li {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  color: #40363e;
 }
 @media all and (max-width: 1620px) {
   .wrap {

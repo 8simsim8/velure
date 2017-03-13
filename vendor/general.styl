@@ -57,6 +57,12 @@
 }
 
 
+.icon-checkbox-yes:before {
+	content: "\e910";
+}
+.icon-full-logo:before {
+	content: "\e90f";
+}
 .icon-acc-minus:before {
 	content: "\e90d";
 }
@@ -186,11 +192,23 @@ a {
 			color: #A823A3;
 		}
 	}
+	&__submit {
+		& {
+			color: #FFFFFF;
+			background : #23A86C;
+			border : 1px solid #23A86C;
+			border-radius : 4px;
+		}
+		&:hover {
+			background : #24BC7E;
+			border : 1px solid #24BC7E;
+		}
+	}
 	&__purple {
 		& {
 			background : #FFFFFF;
 			border : 1px solid #A823A3;
-			border-radius: 3px;
+			border-radius: 4px;
 		}
 		&-fill {
 			color: #FFFFFF;
@@ -335,9 +353,8 @@ a {
 			border : none;
 			border-radius : 0;
 			background-color : transparent;
-			font-size : 14px;
-			color : #383838;
-			font-weight : bold;
+			font-size : 16px;
+			color : #40363e;
 			resize : none;
 			-webkit-appearance : none; /* for box shadows to show on iOS */
 		}
@@ -480,6 +497,60 @@ input {
 	&:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
 }
 
+
+/* Checkbox */
+.input-checkbox {
+	& {
+		position: relative;
+		cursor: pointer;
+		display: inline-block;
+		padding-left: 0;
+		line-height: 0;
+	}
+	input[type='checkbox'] {
+		& {
+			visibility: hidden;
+			width: 0!important;
+		}
+		& + span {
+			display: flex;
+			align-items: center;
+			height: 24px;
+		}
+		& + span:before {
+			position: relative;
+			display: inline-block;
+			height: 24px;
+			width: 24px;
+			margin-right: 15px;
+			content: " ";
+			color: #a8238e;
+			font-family: 'icon-velur';
+			font-size: 16px;
+			speak: none;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			-webkit-font-smoothing: antialiased;
+			border: 1px solid #CCCCCC;
+			border-radius: 4px;
+		}
+		& + span,
+		& + span:before {
+			transition: color .1s ease;
+		}
+		&:checked + span {
+		}
+		&:checked + span:before{
+			content: "\e910";
+		}
+	}
+	span:hover,
+	span:hover:before {
+		opacity: 1;
+	}
+}
 
 textarea {
 	&::-webkit-input-placeholder {text-align: center; padding: 15px 0; color:#40363e;}
