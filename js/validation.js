@@ -1,38 +1,41 @@
 function validForm(form, path, messagesSetting, settings, callback) {
 
-    var isSumbit = false;
+    let isSumbit = false;
 
-    var buttonSubm = form.querySelector('[type=submit]');
-    var input = form.querySelectorAll('input[required]:not([type=submit])');
-    var DELAY_HIDE_MESSAGE_ERROR = settings.duringShowError || null;                // Время до скрытия сообщения об
+    const buttonSubm = form.querySelector('[type=submit]');
+    const input = form.querySelectorAll('input[required]:not([type=submit]), select[required]');
+    // const input = form.getElementsByClassName('value-input');
+
+    const DELAY_HIDE_MESSAGE_ERROR = settings.duringShowError || null;                // Время до скрытия сообщения об
     // ошибке
 
-    var messDefault = {
+    let messDefault = {
         'name'  :   {
-            'required'  :   'Необходимо ввести свое имя',
-            'invalid'   :   'Не верный ввод имени'
+            'required'  :   'Введите свое имя'
         },
         'phone' :   {
-            'required'  :   'Необходимо ввести свой номер телефона',
+            'required'  :   'Введите свой номер телефона',
             'invalid'   :   'Проверьте номер телефона'
         },
         'email' :   {
-            'required'  :   'Необходимо ввести свой E-mail',
+            'required'  :   'Введите свой E-mail',
             'invalid'   :   'Проверьте свой E-mail'
+        },
+        'date'  :   {
+            'required'  :   'Введите дату',
+        },
+        'time'  :   {
+            'required'  :   'Введите время',
+        },
+        'default'   :   {
+            'required'  :   'Ошибка ввода'
         }
     };
 
-    // var defaultMessage = {
-    //     'default':  {
-    //         'required'  :   'Необходимо ввести свои данные',
-    //         'invalid'   :   'Проверьте введненные данные'
-    //     }
-    // };
-
-    var messObj;
+    let messObj = {};
 
     if(typeof messagesSetting === 'object') {
-        messObj = messagesSetting;
+        messObj = Object.assign(messDefault, messagesSetting);
     } else {
         messObj = messDefault;
         if (typeof messagesSetting === 'function') {
@@ -40,14 +43,13 @@ function validForm(form, path, messagesSetting, settings, callback) {
         }
     }
 
-    var i;
-    var sendMessage;
-    var isEnablePrintError = [];
-    var timerHide;
+    let sendMessage;
+    let isEnablePrintError = [];
+    let timerHide;
 
     buttonSubm.addEventListener('click', handlerClick);
 
-    for(i = 0; i < input.length; i++) {
+    for(let i = 0; i < input.length; i++) {
         input[i].addEventListener('keyup', handlerInvalidInputKeyUp);
         input[i].addEventListener('change', handlerInvalidInput);
         input[i].addEventListener('input', handlerInvalidInputWithShow);
@@ -59,20 +61,20 @@ function validForm(form, path, messagesSetting, settings, callback) {
     function handlerClick(e) {
         sendMessage = true;
 
-        var errors = form.querySelectorAll('span.error');
-        for(i = 0; i < errors.length; i++) {
+        let errors = form.querySelectorAll('span.error');
+        for(let i = 0, len = errors.length; i < len; i++) {
             errors[i].remove();
         }
 
         handlerValid(e);
         e.preventDefault();
 
-        for(i = 0; i < input.length; i++) {
+        for(let i = 0, len = input.length; i < len; i++) {
             isEnablePrintError[i] = true;
         }
 
-        for(i = 0; i < input.length; i++) {
-            if (input[i].checkValidity() == false) {
+        for(let i = 0, len = input.length; i < len; i++) {
+            if ((input[i].checkValidity() == false) || (!input[i].willValidate && input[i].value == '')) {
                 sendMessage = false;
                 break;
             }
@@ -87,25 +89,24 @@ function validForm(form, path, messagesSetting, settings, callback) {
 
     function handlerValid(e) {
         for(i = 0; i < input.length; i++) {
-            if (input[i].checkValidity() == false) {
+            if ((input[i].willValidate && input[i].checkValidity() == false) || (!input[i].willValidate && input[i].value == '')) {
                 printError(input[i], true);
                 if(DELAY_HIDE_MESSAGE_ERROR) {
                     hideError(input[i]);                // Убрать сообщение c задержкой
                 }
-
             }
         }
     }
 
     function handlerInvalidInputKeyUp(e) {
-        var self = this;
+        let self = this;
 
         if(e.code != 'Tab') {
-            var index = searchIndex(input, self);
+            let index = searchIndex(input, self);
             isEnablePrintError[index] = true;
         }
 
-        if (self.validity.valid) {
+        if (self.validity.valid || (!self.willValidate && self.value != '')) {
             removeError(self);
         } else {
             // printError(self, true);
@@ -113,23 +114,27 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInput(e) {
-        var self = this;
+        let self = this;
 
-        var index = searchIndex(input, self);
+        // console.log(self);
 
-        if(isEnablePrintError[index]){
-            if (self.validity.valid) {
+        let index = searchIndex(input, self);
+        isEnablePrintError[index] = true;
+        //
+        // if(isEnablePrintError[index]){
+
+            if (self.validity.valid || (!self.willValidate && self.value != '')) {
                 removeError(self);
             } else {
                 printError(self, true);
             }
-        }
+        // }
     }
 
     function handlerInvalidInputWithHide(e) {
-        var self = this;
+        let self = this;
 
-        var index = searchIndex(input, self);
+        let index = searchIndex(input, self);
 
         if(self.value != '') {
             if(isEnablePrintError[index]){
@@ -146,12 +151,12 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInputWithShow(e) {
-        var self = this;
+        let self = this;
 
-        var index = searchIndex(input, self);
+        let index = searchIndex(input, self);
 
         if(isEnablePrintError[index] && self.classList.contains('error')){
-            if (self.validity.valid) {
+            if (self.validity.valid || (!self.willValidate && self.value != '')) {
                 removeError(self);
             } else {
                 printError(self, true);
@@ -162,12 +167,12 @@ function validForm(form, path, messagesSetting, settings, callback) {
     // noMissing    - Display error only if click on submit
     // elem         - Item input element
     function printError(elem, noMissing) {
-        var nameElem = messObj[elem.getAttribute('name')] ? elem.getAttribute('name') : '';
-        var mes;
+        let nameElem = messObj[elem.getAttribute('name')] ? elem.getAttribute('name') : '';
+        let mes;
 
         removeError(elem);
 
-        if(elem.validity.valueMissing && noMissing) {
+        if((elem.validity.valueMissing && noMissing) || (!elem.willValidate && elem.value == '' && noMissing)) {
             mes = nameElem ? messObj[nameElem]['required'] : '';
             createErrorBlock(elem, mes);
         }
@@ -178,9 +183,9 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function removeError(input, isInputErrorRemove) {
-        isInputErrorRemove = (isInputErrorRemove === undefined) ? true : false;
-        var error = input.nextElementSibling;
-        if(error && error.classList.contains('error')) {
+        isInputErrorRemove = (isInputErrorRemove === undefined);
+        let error = input.nextElementSibling;
+        if(error && error.firstElementChild && error.firstElementChild.classList.contains('error')) {
             error.remove();
             if(isInputErrorRemove) {
                 input.classList.remove('error');
@@ -189,9 +194,9 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function sendForm(path) {
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-        var formData = new FormData(form);
+        let formData = new FormData(form);
 
         xhr.open('POST', path);
 
@@ -218,16 +223,20 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function createErrorBlock(input, message){
-        var error = document.createElement('span');
+        let wrap = document.createElement('div');
+        wrap.classList.add('wrap-error');
+
+        let error = document.createElement('span');
         error.classList.add('error');
-        message = message || input.validationMessage;
+        message = message || input.validationMessage || messObj['default']['required'];
         error.innerHTML = message;
-        input.after(error);
+        wrap.append(error);
+        input.after(wrap);
         input.classList.add('error');
     }
 
     function searchIndex(arr, elem) {
-        for(var i = 0, len = arr.length; i < len; i++) {
+        for(let i = 0, len = arr.length; i < len; i++) {
             if(arr[i] === elem) {
                 return i;
             }

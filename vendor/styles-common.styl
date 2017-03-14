@@ -366,7 +366,7 @@ video {
 		background-clip: content-box;
 		background-color: #000000;
 		opacity: 0.2;
-		transition: background-color 0.2s ease;
+		transition: opacity 0.2s ease;
 		z-index: 1;
 	}
 	&:hover:after {
@@ -676,6 +676,10 @@ video {
 		background-color : transparent;
 		border-bottom : 1px solid #E5E5E5;
 	}
+	.value {
+		padding-top: 18px;
+		padding-bottom: 2px;
+	}
 	.form-control {
 		& {
 			padding-right: 14px;
@@ -702,6 +706,37 @@ video {
 	}
 }
 
+
+.wrap-error {
+	& {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+	}
+	span.error {
+		top: 0;
+		left: 0;
+	}
+}
+
+.input-date + .wrap-error,
+.input-time + .wrap-error {
+	position : relative;
+	top: -42px;
+}
+.input-date + .wrap-error {
+	top: 25px;
+}
+.select .wrap-error {
+	& {
+		top: auto;
+	}
+	span.error {
+		top: -40px;
+		left: 0;
+	}
+}
 
 @media all and (max-width: 1620px) {
 	.wrap {

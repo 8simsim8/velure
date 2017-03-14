@@ -348,27 +348,79 @@ function makeSlider(wrapClass, delayAutoplay){
 */
 function controlInputs() {
 
-    const input = document.getElementsByClassName('input__field');
-
-    // Styles inputs
-    for(let i = 0; i < input.length; i++) {
-        input[i].addEventListener('focus',handlerClickInput);
-    }
+    animTextInput('input__field');
 
     createDroplists('droplist');
 
+    const timePick = createTime('input-time');
+
+    const datePick = createDate('input-date');
+
+}
+
+/*
+*    Отслеживание ввода для текстовых input
+*    className                  - обертка текстового input
+*/
+function animTextInput(className) {
+    const input = document.getElementsByClassName(className);
+
+    // Styles inputs
+    for (let i = 0; i < input.length; i++) {
+        input[i].addEventListener('focus', handlerClickInput);
+    }
+
     function handlerClickInput() {
         this.parentNode.classList.add('input--filled');
+        if (this.value == '') {
+            this.parentNode.querySelector('.input__label-content').style.opacity = '';
+        }
         this.addEventListener('blur', handlerBlurInput);
     }
 
     function handlerBlurInput() {
-        if(this.value == '') {
+        if (this.value == '') {
             this.parentNode.classList.remove('input--filled');
+            this.parentNode.querySelector('.input__label-content').style.opacity = '';
+        } else if(!this.classList.contains('error')) {
+            this.parentNode.querySelector('.input__label-content').style.opacity = '0';
         }
         this.removeEventListener('blur', handlerBlurInput);
     }
+}
 
+/*
+*   Создание выбора даты
+*/
+function createDate(classDate) {
+    const dateInput = document.getElementsByClassName(classDate);
+    let datePick = [];
+    for(let i = 0, len = dateInput.length; i < len; i++) {
+        datePick[i] = new Flatpickr(dateInput[i], {
+            minDate: "today",
+            altInput: true,
+            disableMobile: true,
+            locale: 'ru'
+        });
+    }
+    return datePick;
+}
+
+/*
+ *   Создание выбора времени
+ */
+function createTime(classTime) {
+    const timeInput = document.getElementsByClassName(classTime);
+    let timePick = [];
+    for(let i = 0, len = timeInput.length; i < len; i++) {
+        timePick[i] = new Flatpickr(timeInput[i], {
+            noCalendar: true,
+            enableTime: true,
+            time_24hr: true,
+            disableMobile: true
+        });
+    }
+    return timePick;
 }
 
 /*
@@ -405,24 +457,11 @@ function makeDroplist(elem) {
         // on start disable/enable select
         onLoadDisable: isDisableOnLoad
         },
-        // callback
-        function (){
-            // close virtual keyboard
-            let filter = this.filter;
-            setTimeout(function(){
-                filter.blur();
-            },200);
-            // change color of font
-            this.target.parentNode.querySelector('.value').classList.add('select-active');
-            // droplist where need to put list by request if need
-            let selector = '[data-next-select-id = ' + this.target.id + ']';
-            let elemBuildSelect = document.querySelector(selector);
-
-            // Test
-            if(elemBuildSelect) {
-                elemBuildSelect.parentNode.querySelector('.value').removeAttribute('disabled');
-                // requestResult(this.value, elemBuildSelect);
-            }
+        function () {
+            elem.addEventListener('change',function(){
+                console.log('clek');
+            });
+            // console.dir(elem);
         }
     );
 }

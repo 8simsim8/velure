@@ -245,11 +245,12 @@
 	
 	<link rel="stylesheet" href="css/reset-min.css">
 	<link rel="stylesheet" href="css/gird-column.css">
-	<link rel="preload" rel="stylesheet" href="css/select.min.css" as="style" onload="this.rel='stylesheet'">
-	<link rel="preload" rel="stylesheet" href="css/slider-style.css" as="style" onload="this.rel='stylesheet'">
-	<link rel="preload" rel="stylesheet" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/select.min.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/slider-style.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
 	<link rel="stylesheet" href="css/styles-common.css">
-	<link rel="preload" rel="stylesheet" href="css/styles-spa.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/styles-spa.css" as="style" onload="this.rel='stylesheet'">
 	
 	
 	<script defer>
@@ -458,6 +459,7 @@
         }
 	
 	</script>
+
 
 </head>
 
@@ -933,10 +935,10 @@
 					<h2>Подарочные сертификаты «Велюр»</h2>
 					<div class="row">
 						<p class="b-certificate__full-logo img-full-logo col lg-offset-2 lg-3 md-offset-1 md-3"></p>
-						<form action="" class="b-certificate__form col lg-5 md-7">
+						<form action="" class="b-certificate__form col lg-5 md-7" name="buy-certificate">
 							<div class="b-certificate__form-wrap">
-								<select id="par" name="par" placeholder="Выберите номинал"
-								        class="input droplist img-arrow forcibly-placeholder">
+								<select id="par" name="par" title="select-par" data-placeholder="Выберите номинал"
+								        class="input droplist img-arrow forcibly-placeholder" required>
 									<option>Выберите номинал</option>
 									<option>100 грн</option>
 									<option>500 грн</option>
@@ -948,11 +950,12 @@
 								</select>
 								
 								<span class="input input--akira">
-								<input class="input__field input__field--akira" type="tel" id="phone" name="phone" />
-								<label class="input__label input__label--akira" for="phone">
-									<span class="input__label-content input__label-content--akira text">Телефон</span>
-								</label>
-							</span>
+									<input class="input__field input__field--akira" type="tel" id="phone"
+									       name="phone" required/>
+									<label class="input__label input__label--akira" for="phone">
+										<span class="input__label-content input__label-content--akira text">Телефон</span>
+									</label>
+								</span>
 								
 								<label class="input input-checkbox">
 									<input type="checkbox" name="delivery" id="delivery" value="no" class="">
@@ -1055,6 +1058,7 @@
 	<script src="js/flatpickr.min.js"></script>
 	<script src="js/ru.js"></script>
 	<script src="js/select.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/common.js"></script>
 	<script src="js/scripts-spa.js"></script>
 </body>

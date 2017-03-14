@@ -58,6 +58,17 @@ var Select = function(target, settings, callback) {
 			this.display.innerHTML = this.selected.innerHTML;
 		}
 
+		// if(this.target.getAttribute('data-placeholder')) {
+         //    this.value = '';
+         //    this.selected = '';
+         //    this.target.value = '';
+         //    this.display.innerHTML = this.target.getAttribute('data-placeholder');
+		// } else if(this.options.length) {
+         //    this.value = this.options[this.target.selectedIndex].getAttribute('data-value');
+         //    this.selected = this.options[this.target.selectedIndex];
+         //    this.display.innerHTML = this.selected.innerHTML;
+        // }
+
 		if(
 			(this.settings.filtered === 'auto' && this.options.length >= this.settings.filter_threshold) ||
 			this.settings.filtered === true
@@ -229,10 +240,12 @@ var Select = function(target, settings, callback) {
 	};
 
 	this.handleOptionClick = function(e) {
+		console.log('hello');
 		this.display.innerHTML = e.target.innerHTML;
 		this.target.value      = e.target.getAttribute('data-value');
 		this.value             = this.target.value;
 		this.selected          = e.target;
+
 		this.closeList();
 		this.clearFilter();
         if(typeof callback == 'function') this.callback();

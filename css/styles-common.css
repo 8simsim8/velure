@@ -414,11 +414,11 @@ video::-webkit-media-controls-panel {
   opacity: 0.2;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
-  -webkit-transition: background-color 0.2s ease;
-  -moz-transition: background-color 0.2s ease;
-  -o-transition: background-color 0.2s ease;
-  -ms-transition: background-color 0.2s ease;
-  transition: background-color 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   z-index: 1;
 }
 [class*="services__links-item"]:hover:after {
@@ -669,6 +669,10 @@ video::-webkit-media-controls-panel {
   background-color: transparent;
   border-bottom: 1px solid #e5e5e5;
 }
+.select .value {
+  padding-top: 18px;
+  padding-bottom: 2px;
+}
 .select .form-control {
   padding-right: 14px;
   color: #40363e;
@@ -692,6 +696,31 @@ video::-webkit-media-controls-panel {
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
   color: #40363e;
+}
+.wrap-error {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.wrap-error span.error {
+  top: 0;
+  left: 0;
+}
+.input-date + .wrap-error,
+.input-time + .wrap-error {
+  position: relative;
+  top: -42px;
+}
+.input-date + .wrap-error {
+  top: 25px;
+}
+.select .wrap-error {
+  top: auto;
+}
+.select .wrap-error span.error {
+  top: -40px;
+  left: 0;
 }
 @media all and (max-width: 1620px) {
   .wrap {

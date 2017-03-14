@@ -1,9 +1,16 @@
 <?php
 $phone = $_POST['phone'];
-$email = $_POST['email'];
+$name = $_POST['name'];
+$service = $_POST['services'];
+$date = $_POST['date'];
+$time = $_POST['time'];
+//$par = $_POST['par'];
 
-$mes = '<p>Phone: '.$phone.'</p>
-        <p>E-mail: '.$email.'</p>';
+$mes = '<p>Имя: '.$name.'</p>
+        <p>Телефон: '.$phone.'</p>
+        <p>Услуга: '.$service.'</p>
+        <p>Дата: '.$date.'</p>
+        <p>Время: '.$time.'</p>';
 
 date_default_timezone_set('Etc/UTC');
 require_once 'PHPMailerAutoload.php';
@@ -32,7 +39,7 @@ $mail->Password = 'PasswordTesterCrisp';
 // $mail->FromName = $name;
 // $mail->AddReplyTo($email, $name);
 $mail->addAddress('TesterCrisp@gmail.com', 'Test message');
-$mail->Subject = 'New Message from site kredit.24.loc';
+$mail->Subject = 'New Message from site velue.loc';
 
 $y = $indexInputs = '0';
 
@@ -52,7 +59,7 @@ while($y < count($_FILES)) {
 }
 
 $mail->Body = $mes;
-$mail->AltBody = "Phone: $phone \n E-mail: $email";
+$mail->AltBody = "Телефон: $phone \n Имя: $name";
 
 if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;

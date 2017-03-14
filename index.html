@@ -266,12 +266,13 @@
 		
 		<link rel="stylesheet" href="css/reset-min.css">
 		<link rel="stylesheet" href="css/gird-column.css">
-		<link rel="preload" rel="stylesheet" href="css/select.min.css" as="style" onload="this.rel='stylesheet'">
-		<link rel="preload" rel="stylesheet" href="css/slider-style.css" as="style" onload="this.rel='stylesheet'">
-		<link rel="preload" rel="stylesheet" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/select.min.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/slider-style.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
 		<link rel="stylesheet" href="css/styles-common.css">
-		<link rel="preload" rel="stylesheet" href="css/styles-inst.css" as="style" onload="this.rel='stylesheet'">
-		<link rel="preload" rel="stylesheet" href="css/styles-main.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/styles-inst.css" as="style" onload="this.rel='stylesheet'">
+		<link rel="preload" href="css/styles-main.css" as="style" onload="this.rel='stylesheet'">
 		
 		
 		<script defer>
@@ -780,41 +781,43 @@
 				<div class="b-form__row row">
 					<div class="b-form__row-block col md-offset-3 md-6">
 						<div class="b-form__row-block-wrap white-decor">
-							<form action="" class="half-circle__block">
+							<form action="" class="half-circle__block" name="form-online-record">
 								<!--<p class="half-circle half-circle_top"></p>-->
 								<h3>Онлайн-запись</h3>
 								<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
 								<span class="input input--akira">
-									<input class="input__field input__field--akira" type="text" id="name" name="name" />
+									<input class="input__field input__field--akira value-input" type="text" id="name"
+									       name="name"
+									       required/>
 									<label class="input__label input__label--akira" for="name">
 										<span class="input__label-content input__label-content--akira text">Имя</span>
 									</label>
 								</span>
 								<span class="input input--akira">
-									<input class="input__field input__field--akira" type="tel" id="phone"
-									       name="phone" />
+									<input class="input__field input__field--akira value-input" type="tel" id="phone"
+									       name="phone" required/>
 									<label class="input__label input__label--akira" for="phone">
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
 								</span>
-								<select id="services" name="services" placeholder="Услуга"
-								        class="input droplist img-arrow forcibly-placeholder">
-									<option>Услуга</option>
-									<option>BELUM/TIDAK BEKERJA</option>
-									<option>MENGURUS RUMAH TANGGA</option>
-									<option>PELAJAR/MAHASISWA</option>
-									<option>PENSIUNAN</option>
-									<option>PEGAWAI NEGERI SIPIL</option>
-									<option>TENTARA NASIONAL INDONESIA</option>
-									<option>KEPOLISIAN RI</option>
-									<option>PERDAGANGAN</option>
-									<option>PETANI/PEKEBUN</option>
-									<option>PETERNAK</option>
+								<select id="services" name="services" data-placeholder="Услуга" required
+								        class="input droplist img-arrow forcibly-placeholder value-input">
+									<!--<option>Услуга</option>-->
+									<option>Услуга 1</option>
+									<option>Услуга 2</option>
+									<option>Услуга 3</option>
+									<option>Услуга 4</option>
+									<option>Услуга 5</option>
+									<option>Услуга 6</option>
+									<option>Услуга 7</option>
+									<option>Услуга 8</option>
+									<option>Услуга 9</option>
+									<option>Услуга 10</option>
 								</select>
-								<input type="time" class="input img-arrow input-time forcibly-placeholder"
-								       placeholder="Время">
-								<input type="date" class="input img-arrow input-date forcibly-placeholder"
-								       placeholder="Дата">
+								<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+								       placeholder="Время" required>
+								<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+								       placeholder="Дата" required>
 
 								<input type="submit" class="btn btn__big btn__purple-fill" value="отправить">
 
@@ -917,6 +920,7 @@
 		<script src="js/ru.js"></script>
 		<script src="js/select.js"></script>
 		<script src="js/common.js"></script>
+		<script src="js/validation.js"></script>
 		<script src="js/scripts-main.js"></script>
 	</body>
 </html>

@@ -20,24 +20,6 @@ window.addEventListener('load', function(){
     window.addEventListener('scroll', handlerScrollWindow);
 
     //
-    //  Calendar
-    //
-    const dateInput = document.getElementsByClassName('input-date')[0];
-    const timeInput = document.getElementsByClassName('input-time')[0];
-    const datePick = new Flatpickr(dateInput, {
-        minDate: "today",
-        altInput: true,
-        disableMobile: true,
-        locale: 'ru'
-    });
-    const timePick = new Flatpickr(timeInput, {
-        noCalendar: true,
-        enableTime: true,
-        time_24hr: true,
-        disableMobile: true
-    });
-
-    //
     // Swipe block
     //
     const swipeElemClass = '.swiper-container';
@@ -79,5 +61,26 @@ window.addEventListener('load', function(){
         }
         ticking = true;
     }
+
+    let form = document.querySelector('[name=form-online-record]');
+
+    /*
+    * Валидация формы
+    */
+    validForm(
+        document.getElementsByTagName('form')[0],      // Form DOM
+        'PHPmailer.php',                               // Path to Mailer
+        textError = {                                  // Text error messages
+            'services': {
+                'required'  :   'Выберите услугу',
+            }
+        },
+        settings = {
+            // duringShowError : 2000                       // Duration show error messages
+        },
+        function(options){                               // Callback function
+            console.log("ок");
+        }
+    );
 
 });
