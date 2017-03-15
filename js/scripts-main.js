@@ -42,11 +42,11 @@ window.addEventListener('load', function(){
             }
         });
 
-    let ticking = false;
-    let scrollPage;
-    let scrollLeft;
+    var ticking = false;
+    var scrollPage;
+    var scrollLeft;
 
-    let isScrollAnimFinish = false;
+    var isScrollAnimFinish = false;
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -62,7 +62,7 @@ window.addEventListener('load', function(){
         ticking = true;
     }
 
-    let form = document.querySelector('[name=form-online-record]');
+    var form = document.querySelector('[name=form-online-record]');
 
     /*
     * Валидация формы

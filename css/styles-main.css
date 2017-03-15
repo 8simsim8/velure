@@ -298,7 +298,7 @@
   margin-bottom: 5px;
   text-align: center;
 }
-.b-form__row-block form input[type="submit"] {
+.b-form__row-block form button {
   margin-top: 50px;
   width: 100%;
 }

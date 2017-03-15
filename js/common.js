@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
 
     const header = document.getElementsByClassName('l-navigation')[0];
 
-    let isTouch;
+    var isTouch;
 
     initBrowser();
 
@@ -12,9 +12,9 @@ window.addEventListener('load', function() {
 
     window.addEventListener('scroll', handlerScrollWindow);
 
-    let ticking = false;
-    let scrollPage;
-    let scrollLeft;
+    var ticking = false;
+    var scrollPage;
+    var scrollLeft;
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -51,17 +51,16 @@ window.addEventListener('load', function() {
             document.body.classList.remove('touch-device');
         }
     }
-
 });
 
 function scrollAnim(classAnimEl) {
 
-    let el = document.querySelectorAll(classAnimEl);
+    var el = document.querySelectorAll(classAnimEl);
     if(el.length == 0) return;
 
-    for(let i = 0, len = el.length; i < len; i++) {
+    for(var i = 0, len = el.length; i < len; i++) {
 
-        let posEl = el[i].getBoundingClientRect();
+        var posEl = el[i].getBoundingClientRect();
 
         if (posEl.top <= window.innerHeight - el[i].offsetHeight / 2) {
             el[i].classList.remove('start');
@@ -72,11 +71,11 @@ function scrollAnim(classAnimEl) {
 }
 
 function whichTransitionEvent(){
-    let t;
-    let el = document.createElement('fakeelement');
-    let restransitionsEnd;
+    var t;
+    var el = document.createElement('fakeelement');
+    var restransitionsEnd;
 
-    let transitionsEnd = {
+    var transitionsEnd = {
         'OTransition':'oTransitionEnd',
         'MozTransition':'transitionend',
         'WebkitTransition':'webkitTransitionEnd',
@@ -95,7 +94,7 @@ function whichTransitionEvent(){
 //*** Scroll with animation ***/
 function aminScroll(e, time) {
 
-    let EasingFunctions = {
+    var EasingFunctions = {
         // no easing, no acceleration
         linear: function (t) { return t },
         // accelerating from zero velocity
@@ -158,7 +157,7 @@ function aminScroll(e, time) {
 //*** Work with property will-change ***//
 function willChangeSwitch(elem, prop) {
     if(elem.length) {
-        for(let i=0; i < elem.length; i++) {
+        for(var i=0; i < elem.length; i++) {
             elem[i].style.willChange = prop;
         }
     } else {
@@ -179,9 +178,9 @@ function removeWillChange(e){
  */
 function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
     const slidersElem = document.getElementsByClassName(classNameSlidersContainer);
-    let sliders = [];
-    for(let i = 0, len = slidersElem.length; i < len; i++) {
-        if(slidersElem[i].closest('.'+classNameWrappAccordeon)) {
+    var sliders = [];
+    for(var i = 0, len = slidersElem.length; i < len; i++) {
+        if(isClosest(slidersElem[i], '.'+classNameWrappAccordeon)) {
             sliders[i] = makeSlider(slidersElem[i]);
         } else {
             sliders[i] = makeSlider(slidersElem[i],5000);
@@ -197,9 +196,9 @@ function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
  */
 function createAccordeons(classNameAccordeonContainer, isFirstOpen){
     const accordeonsElem = document.getElementsByClassName(classNameAccordeonContainer);
-    let accordeons = [];
+    var accordeons = [];
 
-    for(let i = 0, len = accordeonsElem.length; i < len; i++) {
+    for(var i = 0, len = accordeonsElem.length; i < len; i++) {
         accordeons[i] = new MakeAccordeon(accordeonsElem[i]);
         accordeons[i].accordeonStart();
 
@@ -225,7 +224,7 @@ function MakeAccordeon(elem){
     this.hidden = elem.getElementsByClassName("acc-hidden-element");
 
     this.accordeonStart = function() {
-        for (let i = 0, len = this.button.length; i < len; i++) {
+        for (var i = 0, len = this.button.length; i < len; i++) {
 
             this.button[i].addEventListener('click', clickAccordeon);
 
@@ -239,7 +238,7 @@ function MakeAccordeon(elem){
     };
 
     function clickAccordeon(e){
-        let prevElem = elem.querySelector(".active");
+        var prevElem = elem.querySelector(".active");
 
         if(prevElem && prevElem != this) {
             prevElem.classList.toggle("active");
@@ -249,7 +248,7 @@ function MakeAccordeon(elem){
 
         this.classList.toggle("active");
 
-        let panel = this.nextElementSibling;
+        var panel = this.nextElementSibling;
 
         panel.addEventListener(transitionEnd, handlerAnim);
 
@@ -269,7 +268,7 @@ function MakeAccordeon(elem){
     }
 
     function handlerMouseOver() {
-        let self = this,
+        var self = this,
             hidden = self.nextElementSibling;
 
         willChangeSwitch(hidden, 'max-height');
@@ -279,7 +278,7 @@ function MakeAccordeon(elem){
         self.addEventListener('mouseleave',handlerMouseLeave);
 
         function handlerMouseLeave() {
-            let self = this,
+            var self = this,
                 hidden = self.nextElementSibling;
 
             willChangeSwitch(hidden, 'auto');
@@ -292,7 +291,7 @@ function MakeAccordeon(elem){
     }
 
     this.accordeonStop = function() {
-        let i;
+        var i;
         for (i = 0; i < this.button.length; i++) {
             this.button[i].removeEventListener('click', clickAccordeon);
             this.button[i].removeEventListener('mouseover',handlerMouseOver);
@@ -317,7 +316,7 @@ function MakeAccordeon(elem){
  */
 function makeSlider(wrapClass, delayAutoplay){
 
-    let swipeSlide,
+    var swipeSlide,
         nextButtonClass =   wrapClass.querySelector('.swiper-controls-next') || null,
         prevButtonClass =   wrapClass.querySelector('.swiper-controls-prev') || null,
         paginElemClass =    wrapClass.querySelector('.swiper-pagination') || null;
@@ -366,7 +365,7 @@ function animTextInput(className) {
     const input = document.getElementsByClassName(className);
 
     // Styles inputs
-    for (let i = 0; i < input.length; i++) {
+    for (var i = 0; i < input.length; i++) {
         input[i].addEventListener('focus', handlerClickInput);
     }
 
@@ -394,8 +393,8 @@ function animTextInput(className) {
 */
 function createDate(classDate) {
     const dateInput = document.getElementsByClassName(classDate);
-    let datePick = [];
-    for(let i = 0, len = dateInput.length; i < len; i++) {
+    var datePick = [];
+    for(var i = 0, len = dateInput.length; i < len; i++) {
         datePick[i] = new Flatpickr(dateInput[i], {
             minDate: "today",
             altInput: true,
@@ -411,8 +410,8 @@ function createDate(classDate) {
  */
 function createTime(classTime) {
     const timeInput = document.getElementsByClassName(classTime);
-    let timePick = [];
-    for(let i = 0, len = timeInput.length; i < len; i++) {
+    var timePick = [];
+    for(var i = 0, len = timeInput.length; i < len; i++) {
         timePick[i] = new Flatpickr(timeInput[i], {
             noCalendar: true,
             enableTime: true,
@@ -428,10 +427,10 @@ function createTime(classTime) {
 *   classNameDroplists          - класс-вызова дроплиста
 */
 function createDroplists(classNameDroplists) {
-    let droplistsSelect = document.getElementsByClassName(classNameDroplists);
-    let droplists = [];
+    var droplistsSelect = document.getElementsByClassName(classNameDroplists);
+    var droplists = [];
 
-    for (let i = 0, len = droplistsSelect.length; i < len; i++) {
+    for (var i = 0, len = droplistsSelect.length; i < len; i++) {
 
         droplists[i] = makeDroplist(droplistsSelect[i]);
 
@@ -444,8 +443,8 @@ function createDroplists(classNameDroplists) {
 */
 function makeDroplist(elem) {
 
-    let id = '#' + elem.id;
-    let isDisableOnLoad = elem.hasAttribute('data-next-select-id');
+    var id = '#' + elem.id;
+    var isDisableOnLoad = elem.hasAttribute('data-next-select-id');
 
     return droplist = new Select(id, {
         // auto show the live filter
@@ -465,3 +464,35 @@ function makeDroplist(elem) {
         }
     );
 }
+
+function isClosest(el, css) {
+    var node = el;
+    while (node) {
+        if (node.matches(css)) return true;
+        else node = node.parentElement;
+    }
+    return false;
+}
+
+/*
+*   Вывод карты
+*/
+var mapDiv = document.getElementById('map');
+var posit = {lat:50.905910, lng:34.792679};
+
+function myMap() {
+    var mapOptions = {
+        center: posit,
+        zoom: 17,
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(mapDiv, mapOptions);
+    var marker = new google.maps.Marker({
+        position: posit,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title: 'Velure SPA'
+    });
+}
+

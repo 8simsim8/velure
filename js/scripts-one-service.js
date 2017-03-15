@@ -6,16 +6,16 @@ window.addEventListener('load', function(){
     const sliderClassName = 'swiper-container';
 
     // Sliders
-    let sliders = createSliders(sliderClassName, accordeonClassName);
+    var sliders = createSliders(sliderClassName, accordeonClassName);
 
     // Accordeons
-    let accordeons = createAccordeons(accordeonClassName, true);
+    var accordeons = createAccordeons(accordeonClassName, true);
 
     // inputs();
 
-    let ticking = false;
-    let scrollPage;
-    let scrollLeft;
+    var ticking = false;
+    var scrollPage;
+    var scrollLeft;
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -55,7 +55,7 @@ function inputs(){
     const input = document.getElementsByClassName('input__field');
 
     // Styles inputs
-    for(let i = 0; i < input.length; i++) {
+    for(var i = 0; i < input.length; i++) {
         input[i].addEventListener('focus', function() {
             this.parentNode.classList.add('input--filled');
         });
@@ -72,12 +72,12 @@ function inputs(){
 }
 
 function droplist() {
-    let droplistsSelect = document.getElementsByClassName('droplist');
-    let droplists = [];
+    var droplistsSelect = document.getElementsByClassName('droplist');
+    var droplists = [];
 
-    for(let i = 0, len = droplistsSelect.length; i < len; i++) {
-        let id = '#' + droplistsSelect[i].id;
-        let isDisableOnLoad;
+    for(var i = 0, len = droplistsSelect.length; i < len; i++) {
+        var id = '#' + droplistsSelect[i].id;
+        var isDisableOnLoad;
 
         isDisableOnLoad = (droplistsSelect[i].hasAttribute('data-next-select-id')) ? isDisableOnLoad = true : isDisableOnLoad = false;
 
@@ -94,7 +94,7 @@ function droplist() {
             // callback
             function (){
                 // close virtual keyboard
-                let filter = this.filter;
+                var filter = this.filter;
                 setTimeout(function(){
                     filter.blur();
                 },200);
@@ -102,8 +102,8 @@ function droplist() {
                 this.target.parentNode.querySelector('.value').classList.add('select-active');
 
                 // droplist where need to put list by request if need
-                let selector = '[data-next-select-id = ' + this.target.id + ']';
-                let elemBuildSelect = document.querySelector(selector);
+                var selector = '[data-next-select-id = ' + this.target.id + ']';
+                var elemBuildSelect = document.querySelector(selector);
 
                 // Test
                 if(elemBuildSelect) {

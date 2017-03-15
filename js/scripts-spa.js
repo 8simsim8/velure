@@ -14,16 +14,16 @@ window.addEventListener('load', function(){
     const sliderClassName = 'swiper-container';
 
     // Sliders
-    let sliders = createSliders(sliderClassName, accordeonClassName);
+    var sliders = createSliders(sliderClassName, accordeonClassName);
 
     // Accordeons
-    let accordeons = createAccordeons(accordeonClassName, true);
+    var  accordeons = createAccordeons(accordeonClassName, true);
 
     // inputs();
 
-    let ticking = false;
-    let scrollPage;
-    let scrollLeft;
+    var  ticking = false;
+    var  scrollPage;
+    var  scrollLeft;
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;

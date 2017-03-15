@@ -1,15 +1,15 @@
 function validForm(form, path, messagesSetting, settings, callback) {
 
-    let isSumbit = false;
+    var isSumbit = false;
 
-    const buttonSubm = form.querySelector('[type=submit]');
+    const buttonSubm = form.querySelector('[type=submit]') || form.querySelector('button');
     const input = form.querySelectorAll('input[required]:not([type=submit]), select[required]');
     // const input = form.getElementsByClassName('value-input');
 
     const DELAY_HIDE_MESSAGE_ERROR = settings.duringShowError || null;                // Время до скрытия сообщения об
     // ошибке
 
-    let messDefault = {
+    var messDefault = {
         'name'  :   {
             'required'  :   'Введите свое имя'
         },
@@ -32,10 +32,11 @@ function validForm(form, path, messagesSetting, settings, callback) {
         }
     };
 
-    let messObj = {};
+    var messObj = {};
 
     if(typeof messagesSetting === 'object') {
-        messObj = Object.assign(messDefault, messagesSetting);
+        // messObj = Object.assign(messDefault, messagesSetting);
+        messObj = assignObjects(messDefault, messagesSetting);
     } else {
         messObj = messDefault;
         if (typeof messagesSetting === 'function') {
@@ -43,13 +44,14 @@ function validForm(form, path, messagesSetting, settings, callback) {
         }
     }
 
-    let sendMessage;
-    let isEnablePrintError = [];
-    let timerHide;
+    var sendMessage;
+    var isEnablePrintError = [];
+    var timerHide;
 
     buttonSubm.addEventListener('click', handlerClick);
+    form.addEventListener('submit', handlerClick);
 
-    for(let i = 0; i < input.length; i++) {
+    for(var i = 0; i < input.length; i++) {
         input[i].addEventListener('keyup', handlerInvalidInputKeyUp);
         input[i].addEventListener('change', handlerInvalidInput);
         input[i].addEventListener('input', handlerInvalidInputWithShow);
@@ -58,22 +60,33 @@ function validForm(form, path, messagesSetting, settings, callback) {
         isEnablePrintError[i] = false;
     }
 
+    function assignObjects(a,b) {
+        var c = {},
+            key;
+        for (key in a) {
+            if (a.hasOwnProperty(key)) {
+                c[key] = key in b ? b[key] : a[key];
+            }
+        }
+        return c;
+    }
+
     function handlerClick(e) {
         sendMessage = true;
 
-        let errors = form.querySelectorAll('span.error');
-        for(let i = 0, len = errors.length; i < len; i++) {
+        var errors = form.querySelectorAll('span.error');
+        for(var i = 0, len = errors.length; i < len; i++) {
             errors[i].remove();
         }
 
         handlerValid(e);
         e.preventDefault();
 
-        for(let i = 0, len = input.length; i < len; i++) {
+        for(var i = 0, len = input.length; i < len; i++) {
             isEnablePrintError[i] = true;
         }
 
-        for(let i = 0, len = input.length; i < len; i++) {
+        for(var i = 0, len = input.length; i < len; i++) {
             if ((input[i].checkValidity() == false) || (!input[i].willValidate && input[i].value == '')) {
                 sendMessage = false;
                 break;
@@ -99,10 +112,10 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInputKeyUp(e) {
-        let self = this;
+        var self = this;
 
         if(e.code != 'Tab') {
-            let index = searchIndex(input, self);
+            var index = searchIndex(input, self);
             isEnablePrintError[index] = true;
         }
 
@@ -114,11 +127,11 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInput(e) {
-        let self = this;
+        var self = this;
 
         // console.log(self);
 
-        let index = searchIndex(input, self);
+        var index = searchIndex(input, self);
         isEnablePrintError[index] = true;
         //
         // if(isEnablePrintError[index]){
@@ -132,9 +145,9 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInputWithHide(e) {
-        let self = this;
+        var self = this;
 
-        let index = searchIndex(input, self);
+        var index = searchIndex(input, self);
 
         if(self.value != '') {
             if(isEnablePrintError[index]){
@@ -151,9 +164,9 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerInvalidInputWithShow(e) {
-        let self = this;
+        var self = this;
 
-        let index = searchIndex(input, self);
+        var index = searchIndex(input, self);
 
         if(isEnablePrintError[index] && self.classList.contains('error')){
             if (self.validity.valid || (!self.willValidate && self.value != '')) {
@@ -167,8 +180,8 @@ function validForm(form, path, messagesSetting, settings, callback) {
     // noMissing    - Display error only if click on submit
     // elem         - Item input element
     function printError(elem, noMissing) {
-        let nameElem = messObj[elem.getAttribute('name')] ? elem.getAttribute('name') : '';
-        let mes;
+        var nameElem = messObj[elem.getAttribute('name')] ? elem.getAttribute('name') : '';
+        var mes;
 
         removeError(elem);
 
@@ -184,7 +197,7 @@ function validForm(form, path, messagesSetting, settings, callback) {
 
     function removeError(input, isInputErrorRemove) {
         isInputErrorRemove = (isInputErrorRemove === undefined);
-        let error = input.nextElementSibling;
+        var error = input.nextElementSibling;
         if(error && error.firstElementChild && error.firstElementChild.classList.contains('error')) {
             error.remove();
             if(isInputErrorRemove) {
@@ -194,9 +207,9 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function sendForm(path) {
-        let xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
-        let formData = new FormData(form);
+        var formData = new FormData(form);
 
         xhr.open('POST', path);
 
@@ -223,10 +236,10 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function createErrorBlock(input, message){
-        let wrap = document.createElement('div');
+        var wrap = document.createElement('div');
         wrap.classList.add('wrap-error');
 
-        let error = document.createElement('span');
+        var error = document.createElement('span');
         error.classList.add('error');
         message = message || input.validationMessage || messObj['default']['required'];
         error.innerHTML = message;
@@ -236,7 +249,7 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function searchIndex(arr, elem) {
-        for(let i = 0, len = arr.length; i < len; i++) {
+        for(var i = 0, len = arr.length; i < len; i++) {
             if(arr[i] === elem) {
                 return i;
             }
@@ -247,6 +260,38 @@ function validForm(form, path, messagesSetting, settings, callback) {
         return setTimeout(function(){
             removeError(elem,isDeleteOnInputError);
         }, DELAY_HIDE_MESSAGE_ERROR);
+    }
+
+    if (!Object.assign) {
+        Object.defineProperty(Object, 'assign', {
+            enumerable: false,
+            configurable: true,
+            writable: true,
+            value: function(target, firstSource) {
+                'use strict';
+                if (target === undefined || target === null) {
+                    throw new TypeError('Cannot convert first argument to object');
+                }
+
+                var to = Object(target);
+                for (var i = 1; i < arguments.length; i++) {
+                    var nextSource = arguments[i];
+                    if (nextSource === undefined || nextSource === null) {
+                        continue;
+                    }
+
+                    var keysArray = Object.keys(Object(nextSource));
+                    for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                        var nextKey = keysArray[nextIndex];
+                        var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+                        if (desc !== undefined && desc.enumerable) {
+                            to[nextKey] = nextSource[nextKey];
+                        }
+                    }
+                }
+                return to;
+            }
+        });
     }
 
 }

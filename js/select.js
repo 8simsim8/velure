@@ -240,7 +240,6 @@ var Select = function(target, settings, callback) {
 	};
 
 	this.handleOptionClick = function(e) {
-		console.log('hello');
 		this.display.innerHTML = e.target.innerHTML;
 		this.target.value      = e.target.getAttribute('data-value');
 		this.value             = this.target.value;
