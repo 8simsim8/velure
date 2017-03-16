@@ -21,6 +21,7 @@
 		}
 		&-link {
 			& {
+				position: relative;
 				display: block;
 				padding: 10px;
 				padding-right: 13%;
@@ -32,9 +33,21 @@
 				transition: box-shadow 0.3s ease;
 
 			}
+			&:before {
+				position: absolute;
+				font-size: 28px;
+				right: 10px;
+				color: #a699a4;
+				top: calc(50% - 14px);
+				opacity: 0.5;
+				transition: opacity 0.3s ease;
+			}
 			&:hover {
 				& {
 					box-shadow: 0 0 9px rgba(224,224,224,0.75);
+				}
+				&:before {
+					opacity: 1;
 				}
 			}
 		}

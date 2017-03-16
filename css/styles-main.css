@@ -14,6 +14,7 @@
   border-left: 1px solid #e5e5e5;
 }
 .b-reclame__item-link {
+  position: relative;
   display: block;
   padding: 10px;
   padding-right: 13%;
@@ -30,9 +31,29 @@
   -ms-transition: box-shadow 0.3s ease;
   transition: box-shadow 0.3s ease;
 }
+.b-reclame__item-link:before {
+  position: absolute;
+  font-size: 28px;
+  right: 10px;
+  color: #a699a4;
+  top: calc(50% - 14px);
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
 .b-reclame__item-link:hover {
   -webkit-box-shadow: 0 0 9px rgba(224,224,224,0.75);
   box-shadow: 0 0 9px rgba(224,224,224,0.75);
+}
+.b-reclame__item-link:hover:before {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
 }
 .b-reclame__item-block {
   display: -webkit-box;
