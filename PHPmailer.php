@@ -1,16 +1,23 @@
 <?php
+$title = $_POST['title'];
 $phone = $_POST['phone'];
 $name = $_POST['name'];
 $service = $_POST['services'];
 $date = $_POST['date'];
 $time = $_POST['time'];
-//$par = $_POST['par'];
+$delivery = $_POST['delivery'];
+$par = $_POST['par'];
 
-$mes = '<p>Имя: '.$name.'</p>
-        <p>Телефон: '.$phone.'</p>
-        <p>Услуга: '.$service.'</p>
-        <p>Дата: '.$date.'</p>
-        <p>Время: '.$time.'</p>';
+if(isset($title)) {$mes ='<h1>'.$title.'</h1>';}
+$mes = $mes.'<hr />';
+if(isset($name)) {$mes = $mes.'<h3>Имя: <span style="font-weight:normal;">'.$name.'</span></h3>';}
+if(isset($phone)) {$mes = $mes.'<h3>Телефон: <span style="font-weight:normal;">'.$phone.'</span></h3>';}
+if(isset($service)) {$mes = $mes.'<h3>Услуга: <span style="font-weight:normal;">'.$service.'</span></h3>';}
+if(isset($date)) {$mes = $mes.'<h3>Дата: <span style="font-weight:normal;">'.$date.'</span></h3>';}
+if(isset($time)) {$mes = $mes.'<h3>Время: <span style="font-weight:normal;">'.$time.'</span></h3>';}
+if(isset($delivery)) {$mes = $mes.'<h3>'.$delivery.'</span></h3>';}
+if(isset($par)) {$mes = $mes.'<h3>Стоимость: <span style="font-weight:normal;">'.$par.'</span></h3>';}
+
 
 date_default_timezone_set('Etc/UTC');
 require_once 'PHPMailerAutoload.php';

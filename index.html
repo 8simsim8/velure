@@ -551,7 +551,9 @@
 	</head>
 
 	<body class="no-scroll">
+	<!--<body class="finish-load">-->
 	
+		<!--<div class="preloader" hidden>-->
 		<div class="preloader">
 			<div class="preloader__bg"></div>
 			<p>
@@ -619,7 +621,7 @@
 			<section class="b-reclame">
 				<div class="wrap row">
 					<div class="b-reclame__item col lg-6">
-						<a href="#" class="b-reclame__item-link img-reclame-arrow">
+						<a href="#" class="b-reclame__item-link">
 							<div class="b-reclame__item-block">
 								<div class="b-reclame__item-img">
 									<img src="img/temp/reclame-1.jpg">
@@ -634,7 +636,7 @@
 					</div>
 					
 					<div class="b-reclame__item col lg-6">
-						<a href="#" class="b-reclame__item-link img-reclame-arrow">
+						<a href="#" class="b-reclame__item-link">
 							<div class="b-reclame__item-block">
 								<div class="b-reclame__item-img">
 									<img src="img/temp/reclame-2.jpg" alt="">
@@ -790,8 +792,8 @@
 							<img src="img/temp/3.jpg" alt="">
 						</p>
 					</div>
-					<div class="swiper-controls swiper-controls-prev"></div>
-					<div class="swiper-controls swiper-controls-next"></div>
+					<div class="swiper-controls swiper-controls-prev icon-btn-left"></div>
+					<div class="swiper-controls swiper-controls-next icon-btn-right"></div>
 				</div>
 			</section>
 			
@@ -801,6 +803,7 @@
 						<div class="b-form__row-block-wrap white-decor">
 							<form action="" class="half-circle__block" name="form-online-record">
 								<!--<p class="half-circle half-circle_top"></p>-->
+								<input name="title" value="Онлайн запись" hidden />
 								<h3>Онлайн-запись</h3>
 								<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
 								<span class="input input--akira">
@@ -813,7 +816,7 @@
 								</span>
 								<span class="input input--akira">
 									<input class="input__field input__field--akira value-input" type="tel" id="phone"
-									       name="phone" required/>
+									       name="phone" pattern="(\+?\d[- .]*){7,13}" required/>
 									<label class="input__label input__label--akira" for="phone">
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
@@ -870,7 +873,25 @@
 			
 		</main>
 		
-		<div id="map" class="wrap-map"></div>
+		<section class="b-popup">
+			<div class="b-popup__map">
+				<p class="b-popup__map-button-close"></p>
+				<div class="b-popup__map-left">
+					<div id="map" class="google-map"></div>
+				</div>
+				<div class="b-popup__map-right">
+					<div id="pano" class="street-view"></div>
+					<h4>Сумы, ул. Покровская, 16/1</h4>
+					<ul>
+						<li
+								class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+						</span></li>
+						<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+						<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
 		
 		<footer class="l-footer b-footer">
 			<div class="wrap white-decor">
@@ -922,7 +943,7 @@
 							<li><a href="#">050 353-32-32</a></li>
 							<li><a href="#">067 456-55-55</a></li>
 							<li><a href="#">(0542) 700-818, 700-817</a></li>
-							<li><a href="#">Показать в на карте</a></li>
+							<li><a href="#" class="show-map">Показать на карте</a></li>
 						</ul>
 					</div>
 				</div>
@@ -942,9 +963,8 @@
 		<script src="js/ru.js"></script>
 		<script src="js/select.js"></script>
 		<script src="js/common.js"></script>
-		<script
-				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script>
 		<script src="js/validation.js"></script>
 		<script src="js/scripts-main.js"></script>
+		<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script>
 	</body>
 </html>

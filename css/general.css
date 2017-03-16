@@ -34,8 +34,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-btn-left:before {
+  content: "\e911";
+}
+.icon-btn-right:before {
+  content: "\e912";
+}
 .icon-checkbox-yes:before {
   content: "\e910";
+}
+.icon-ligature-half:before {
+  content: "\e913";
 }
 .icon-full-logo:before {
   content: "\e90f";
@@ -237,6 +246,7 @@ a {
   width: 100%;
   height: 40px;
   margin: 25px 0 0;
+  padding-top: 1em;
   border: none;
   outline: none;
   text-align: center;
@@ -348,6 +358,7 @@ a {
   z-index: 10;
   display: block;
   padding: 0 1em;
+  padding-bottom: 0.5em;
   width: 100%;
   height: 100%;
   background-color: transparent;

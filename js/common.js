@@ -4,6 +4,24 @@ window.addEventListener('load', function() {
 
     const header = document.getElementsByClassName('l-navigation')[0];
 
+    var buttonMap = document.getElementsByClassName('show-map')[0];
+
+    buttonMap.addEventListener('click', handlerShowMap);
+
+    function handlerShowMap(e) {
+        var buttonCloseMap = document.getElementsByClassName('b-popup__map-button-close')[0];
+        buttonCloseMap.addEventListener('click', handlerCloseMap);
+
+        document.body.classList.toggle('open-popup');
+
+        e.preventDefault();
+
+        function handlerCloseMap() {
+            document.body.classList.toggle('open-popup');
+            this.removeEventListener('click', handlerCloseMap);
+        }
+    }
+
     var isTouch;
 
     initBrowser();
@@ -457,10 +475,6 @@ function makeDroplist(elem) {
         onLoadDisable: isDisableOnLoad
         },
         function () {
-            elem.addEventListener('change',function(){
-                console.log('clek');
-            });
-            // console.dir(elem);
         }
     );
 }
@@ -483,16 +497,34 @@ var posit = {lat:50.905910, lng:34.792679};
 function myMap() {
     var mapOptions = {
         center: posit,
-        zoom: 17,
+        zoom: 18,
         disableDefaultUI: true,
+
+        zoomControl: true,
+        // mapTypeControl: true,
+        // scaleControl: true,
+        // streetViewControl: true,
+        // rotateControl: true,
+
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(mapDiv, mapOptions);
     var marker = new google.maps.Marker({
         position: posit,
         map: map,
-        animation: google.maps.Animation.DROP,
+        icon: 'img/marker-map-with-logo.png',
+        // animation: google.maps.Animation.DROP,
         title: 'Velure SPA'
     });
+    var panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('pano'), {
+            position: posit,
+            pov: {
+                heading: 225,
+                pitch: 0
+            },
+            disableDefaultUI: true
+        });
+    map.setStreetView(panorama);
 }
 

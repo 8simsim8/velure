@@ -62,8 +62,6 @@ window.addEventListener('load', function(){
         ticking = true;
     }
 
-    var form = document.querySelector('[name=form-online-record]');
-
     /*
     * Валидация формы
     */

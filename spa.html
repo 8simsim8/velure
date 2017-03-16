@@ -953,9 +953,10 @@
 						<p class="b-certificate__full-logo img-full-logo col lg-offset-2 lg-3 md-offset-1 md-3"></p>
 						<form action="" class="b-certificate__form col lg-5 md-7" name="buy-certificate">
 							<div class="b-certificate__form-wrap">
+								<input name="title" value="Покупка сертификата" hidden />
 								<select id="par" name="par" title="select-par" data-placeholder="Выберите номинал"
 								        class="input droplist img-arrow forcibly-placeholder" required>
-									<option>Выберите номинал</option>
+									<!--<option>Выберите номинал</option>-->
 									<option>100 грн</option>
 									<option>500 грн</option>
 									<option>700 грн</option>
@@ -967,14 +968,16 @@
 								
 								<span class="input input--akira">
 									<input class="input__field input__field--akira" type="tel" id="phone"
-									       name="phone" required/>
+									       name="phone" pattern="(\+?\d[- .]*){7,13}" required/>
 									<label class="input__label input__label--akira" for="phone">
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
 								</span>
 								
 								<label class="input input-checkbox">
-									<input type="checkbox" name="delivery" id="delivery" value="no" class="">
+									<input type="checkbox" name="delivery" id="delivery"
+									       value="Необходима доставка в руки"
+									       class="">
 									<span class="text">Доставка в руки (+40 грн)</span>
 								</label>
 								
@@ -1008,8 +1011,26 @@
 		</section>
 	
 	</main>
-	
-	<div id="map" class="wrap-map"></div>
+
+	<section class="b-popup">
+	<div class="b-popup__map">
+		<p class="b-popup__map-button-close"></p>
+		<div class="b-popup__map-left">
+			<div id="map" class="google-map"></div>
+		</div>
+		<div class="b-popup__map-right">
+			<div id="pano" class="street-view"></div>
+			<h4>Сумы, ул. Покровская, 16/1</h4>
+			<ul>
+				<li
+						class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+						</span></li>
+				<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+				<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+			</ul>
+		</div>
+	</div>
+</section>
 
 	<footer class="l-footer b-footer">
 		<div class="wrap white-decor">
@@ -1080,5 +1101,6 @@
 	<script src="js/validation.js"></script>
 	<script src="js/common.js"></script>
 	<script src="js/scripts-spa.js"></script>
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script>
 </body>
 </html>

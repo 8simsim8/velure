@@ -25,9 +25,13 @@ var Select = function(target, settings, callback) {
 		this.settings = this.getSettings(settings);
 		this.buildSelect();
 
+
 		this.target.parentNode.replaceChild(this.select, this.target);
 		this.target.style.display = 'none';
 		this.select.appendChild(this.target);
+
+        this.evt = document.createEvent("HTMLEvents");
+        this.evt.initEvent("change", false, true);
 
 		document.addEventListener('click', this.handleClickOff.bind(this));
 		// this.positionList();
@@ -52,22 +56,22 @@ var Select = function(target, settings, callback) {
 
 		this.buildList();
 
-		if(this.options.length) {
-			this.value = this.options[this.target.selectedIndex].getAttribute('data-value');
-			this.selected = this.options[this.target.selectedIndex];
-			this.display.innerHTML = this.selected.innerHTML;
-		}
+		// if(this.options.length) {
+		// 	this.value = this.options[this.target.selectedIndex].getAttribute('data-value');
+		// 	this.selected = this.options[this.target.selectedIndex];
+		// 	this.display.innerHTML = this.selected.innerHTML;
+		// }
 
-		// if(this.target.getAttribute('data-placeholder')) {
-         //    this.value = '';
-         //    this.selected = '';
-         //    this.target.value = '';
-         //    this.display.innerHTML = this.target.getAttribute('data-placeholder');
-		// } else if(this.options.length) {
-         //    this.value = this.options[this.target.selectedIndex].getAttribute('data-value');
-         //    this.selected = this.options[this.target.selectedIndex];
-         //    this.display.innerHTML = this.selected.innerHTML;
-        // }
+		if(this.target.getAttribute('data-placeholder')) {
+            this.value = '';
+            this.selected = '';
+            this.target.value = '';
+            this.display.innerHTML = this.target.getAttribute('data-placeholder');
+		} else if(this.options.length) {
+            this.value = this.options[this.target.selectedIndex].getAttribute('data-value');
+            this.selected = this.options[this.target.selectedIndex];
+            this.display.innerHTML = this.selected.innerHTML;
+        }
 
 		if(
 			(this.settings.filtered === 'auto' && this.options.length >= this.settings.filter_threshold) ||
@@ -141,9 +145,9 @@ var Select = function(target, settings, callback) {
 	};
 
 	// this.positionList = function() {
-		// if(!this.isLarge) {
-			// this.list.style.top = '-' + this.selected.offsetTop + 'px';
-		// }
+	// 	if(!this.isLarge) {
+	// 		this.list.style.top = '-' + this.selected.offsetTop + 'px';
+	// 	}
 	// };
 
 	this.highlightOption = function(dir) {
@@ -240,10 +244,13 @@ var Select = function(target, settings, callback) {
 	};
 
 	this.handleOptionClick = function(e) {
-		this.display.innerHTML = e.target.innerHTML;
+
+        this.display.innerHTML = e.target.innerHTML;
 		this.target.value      = e.target.getAttribute('data-value');
 		this.value             = this.target.value;
 		this.selected          = e.target;
+
+        this.target.dispatchEvent(this.evt);
 
 		this.closeList();
 		this.clearFilter();

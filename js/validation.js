@@ -129,8 +129,6 @@ function validForm(form, path, messagesSetting, settings, callback) {
     function handlerInvalidInput(e) {
         var self = this;
 
-        // console.log(self);
-
         var index = searchIndex(input, self);
         isEnablePrintError[index] = true;
         //
