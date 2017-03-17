@@ -1,10 +1,9 @@
-function validForm(form, path, messagesSetting, settings, callback) {
+function MakeValidationForm(form, path, messagesSetting, settings, callback) {
 
     var isSumbit = false;
 
     const buttonSubm = form.querySelector('[type=submit]') || form.querySelector('button');
     const input = form.querySelectorAll('input[required]:not([type=submit]), select[required]');
-    // const input = form.getElementsByClassName('value-input');
 
     const DELAY_HIDE_MESSAGE_ERROR = settings.duringShowError || null;                // Время до скрытия сообщения об
     // ошибке
@@ -22,10 +21,10 @@ function validForm(form, path, messagesSetting, settings, callback) {
             'invalid'   :   'Проверьте свой E-mail'
         },
         'date'  :   {
-            'required'  :   'Введите дату',
+            'required'  :   'Введите дату'
         },
         'time'  :   {
-            'required'  :   'Введите время',
+            'required'  :   'Введите время'
         },
         'default'   :   {
             'required'  :   'Ошибка ввода'
@@ -72,21 +71,23 @@ function validForm(form, path, messagesSetting, settings, callback) {
     }
 
     function handlerClick(e) {
+        var i, len;
+
         sendMessage = true;
 
         var errors = form.querySelectorAll('span.error');
-        for(var i = 0, len = errors.length; i < len; i++) {
+        for(i = 0, len = errors.length; i < len; i++) {
             errors[i].remove();
         }
 
         handlerValid(e);
         e.preventDefault();
 
-        for(var i = 0, len = input.length; i < len; i++) {
+        for(i = 0, len = input.length; i < len; i++) {
             isEnablePrintError[i] = true;
         }
 
-        for(var i = 0, len = input.length; i < len; i++) {
+        for(i = 0, len = input.length; i < len; i++) {
             if ((input[i].checkValidity() == false) || (!input[i].willValidate && input[i].value == '')) {
                 sendMessage = false;
                 break;

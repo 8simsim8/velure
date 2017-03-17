@@ -112,35 +112,6 @@ function whichTransitionEvent(){
 //*** Scroll with animation ***/
 function aminScroll(e, time) {
 
-    var EasingFunctions = {
-        // no easing, no acceleration
-        linear: function (t) { return t },
-        // accelerating from zero velocity
-        easeInQuad: function (t) { return t*t },
-        // decelerating to zero velocity
-        easeOutQuad: function (t) { return t*(2-t) },
-        // acceleration until halfway, then deceleration
-        easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-        // accelerating from zero velocity
-        easeInCubic: function (t) { return t*t*t },
-        // decelerating to zero velocity
-        easeOutCubic: function (t) { return (--t)*t*t+1 },
-        // acceleration until halfway, then deceleration
-        easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-        // accelerating from zero velocity
-        easeInQuart: function (t) { return t*t*t*t },
-        // decelerating to zero velocity
-        easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-        // acceleration until halfway, then deceleration
-        easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-        // accelerating from zero velocity
-        easeInQuint: function (t) { return t*t*t*t*t },
-        // decelerating to zero velocity
-        easeOutQuint: function (t) { return 1+(--t)*t*t*t*t; },
-        // acceleration until halfway, then deceleration
-        easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
-    };
-
     var duration = time;
     var bringIntoView_started = Date.now();
     var bringIntoView_ends = bringIntoView_started + duration;
@@ -217,9 +188,9 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
     var accordeons = [];
 
     for(var i = 0, len = accordeonsElem.length; i < len; i++) {
-        accordeons[i] = new MakeAccordeon(accordeonsElem[i]);
-        accordeons[i].accordeonStart();
+        accordeons[i] = new MakeAccordeon(accordeonsElem[i], 500);
 
+        accordeons[i].accordeonStart();
         // Открыть первую вкладку
         if(isFirstOpen) {
             accordeons[i].button[0].click();
@@ -234,9 +205,10 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
  *   Создание одного аккордеона
  *   elem                        - класс обертки аккордеона
  */
-function MakeAccordeon(elem){
+function MakeAccordeon(elem, time){
 
     this.accordeonWrap = elem;
+    this.time = time;
     this.items = elem.getElementsByClassName("acc-item");
     this.button = elem.getElementsByClassName('acc-button-element');
     this.hidden = elem.getElementsByClassName("acc-hidden-element");
@@ -244,86 +216,133 @@ function MakeAccordeon(elem){
     this.accordeonStart = function() {
         for (var i = 0, len = this.button.length; i < len; i++) {
 
-            this.button[i].addEventListener('click', clickAccordeon);
+            this.button[i].addEventListener('click', handlerClick);
+            this.items[i].classList.add('accordeon-item');
 
-            this.button[i].addEventListener('mouseover',handlerMouseOver);
-
-            this.items[i].classList.toggle('accordeon-item');
-
-            this.hidden[i].style.maxHeight = null;
+            this.hidden[i].style.height = 0;
             this.hidden[i].style.display = 'none';
         }
     };
 
-    function clickAccordeon(e){
-        var prevElem = elem.querySelector(".active");
-
-        if(prevElem && prevElem != this) {
-            prevElem.classList.toggle("active");
-            prevElem.nextElementSibling.style.maxHeight = null;
-            prevElem.addEventListener(transitionEnd, handlerAnim);
-        }
-
-        this.classList.toggle("active");
-
-        var panel = this.nextElementSibling;
-
-        panel.addEventListener(transitionEnd, handlerAnim);
-
-        if (panel.style.maxHeight){
-            panel.style.maxHeight = null;
-        } else {
-            panel.style.display = '';
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-
-        function handlerAnim() {
-            if(!this.style.maxHeight) {
-                this.style.display = 'none';
-            }
-            this.addEventListener(transitionEnd, handlerAnim);
-        }
+    function handlerClick(e) {
+        clickAccordeon(this, elem,time);
+        e.preventDefault();
+        e.stopPropagation();
     }
 
-    function handlerMouseOver() {
-        var self = this,
-            hidden = self.nextElementSibling;
+    function clickAccordeon(self, element,durationDown) {
 
-        willChangeSwitch(hidden, 'max-height');
-        if(!hidden.style.maxHeight) {
-            hidden.style.display = '';
+        var bringStarted = Date.now();
+        var bringEndsDown = bringStarted + durationDown;
+        var durationUp = 500;
+        var bringEndsUp = bringStarted + durationUp;
+
+        var prevElem = element.querySelector(".active");
+
+        self.classList.toggle("active");
+
+        if (prevElem && prevElem != self) {
+            prevElem.classList.toggle("active");
+            window.requestAnimationFrame(bringSlideUp.bind(null,prevElem, true));
+        } else if(prevElem && prevElem == self) {
+            console.log(self);
+            window.requestAnimationFrame(bringSlideUp.bind(null,self, false));
+        } else {
+            window.requestAnimationFrame(bringSlideDown.bind(null,self));
         }
-        self.addEventListener('mouseleave',handlerMouseLeave);
 
-        function handlerMouseLeave() {
-            var self = this,
-                hidden = self.nextElementSibling;
+        function bringSlideUp(buttonBlock, callBack) {
 
-            willChangeSwitch(hidden, 'auto');
-            if(!hidden.style.maxHeight) {
-                hidden.style.display = 'none';
+            var panel = buttonBlock.nextElementSibling;
+
+            var dt, t, temp;
+
+            t = Date.now();
+
+            if (t <= bringEndsUp) {
+                dt = t - bringStarted;
+                temp = EasingFunctions.easeInQuart(dt / durationUp);
+
+                panel.style.height = (panel.scrollHeight - Math.floor(panel.scrollHeight*temp) ) + 'px' ;
+
+                window.requestAnimationFrame(bringSlideUp.bind(null,buttonBlock,callBack));
+            } else {
+                panel.style.height = '0px';
+                panel.style.display = 'none';
+                if(callBack) {
+                    bringStarted = Date.now();
+                    bringEndsDown = bringStarted + durationDown;
+                    window.requestAnimationFrame(bringSlideDown.bind(null,element.querySelector(".active")));
+                }
             }
-            self.removeEventListener('mouseleave', handlerMouseLeave);
         }
 
+        function bringSlideDown(buttonBlock) {
+
+            var panel = buttonBlock.nextElementSibling;
+
+            panel.style.display = '';
+
+            var dt, t, temp;
+
+            t = Date.now();
+
+            if (t <= bringEndsDown) {
+                dt = t - bringStarted;
+                temp = EasingFunctions.easeOutQuart(dt / durationDown);
+
+                panel.style.height = Math.floor(panel.scrollHeight*temp) + 'px';
+
+                window.requestAnimationFrame(bringSlideDown.bind(null,buttonBlock));
+            } else {
+                panel.style.height = Math.floor(panel.scrollHeight) + 'px';
+            }
+        }
     }
 
     this.accordeonStop = function() {
-        var i;
-        for (i = 0; i < this.button.length; i++) {
-            this.button[i].removeEventListener('click', clickAccordeon);
-            this.button[i].removeEventListener('mouseover',handlerMouseOver);
+        for (var i = 0, len = this.button.length; i < len; i++) {
+            this.button[i].removeEventListener('click', handlerClick);
+
             this.items[i].classList.remove('accordeon-item');
 
-            this.hidden[i].style.maxHeight = null;
             this.hidden[i].style.display = '';
-
-        }
-        if(elem.querySelector(".active")) {
-            elem.querySelector(".active").classList.remove('active');
+            this.hidden[i].style.height = '';
         }
 
-    }
+        if(this.accordeonWrap.querySelector(".active")) {
+            this.accordeonWrap.querySelector(".active").classList.remove('active');
+        }
+    };
+
+    var EasingFunctions = {
+        // no easing, no acceleration
+        linear: function (t) { return t },
+        // accelerating from zero velocity
+        easeInQuad: function (t) { return t*t },
+        // decelerating to zero velocity
+        easeOutQuad: function (t) { return t*(2-t) },
+        // acceleration until halfway, then deceleration
+        easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+        // accelerating from zero velocity
+        easeInCubic: function (t) { return t*t*t },
+        // decelerating to zero velocity
+        easeOutCubic: function (t) { return (--t)*t*t+1 },
+        // acceleration until halfway, then deceleration
+        easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+        // accelerating from zero velocity
+        easeInQuart: function (t) { return t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+        // acceleration until halfway, then deceleration
+        easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+        // accelerating from zero velocity
+        easeInQuint: function (t) { return t*t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuint: function (t) { return 1+(--t)*t*t*t*t; },
+        // acceleration until halfway, then deceleration
+        easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+    };
 
 }
 
@@ -527,4 +546,33 @@ function myMap() {
         });
     map.setStreetView(panorama);
 }
+
+var EasingFunctions = {
+    // no easing, no acceleration
+    linear: function (t) { return t },
+    // accelerating from zero velocity
+    easeInQuad: function (t) { return t*t },
+    // decelerating to zero velocity
+    easeOutQuad: function (t) { return t*(2-t) },
+    // acceleration until halfway, then deceleration
+    easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+    // accelerating from zero velocity
+    easeInCubic: function (t) { return t*t*t },
+    // decelerating to zero velocity
+    easeOutCubic: function (t) { return (--t)*t*t+1 },
+    // acceleration until halfway, then deceleration
+    easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+    // accelerating from zero velocity
+    easeInQuart: function (t) { return t*t*t*t },
+    // decelerating to zero velocity
+    easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+    // acceleration until halfway, then deceleration
+    easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+    // accelerating from zero velocity
+    easeInQuint: function (t) { return t*t*t*t*t },
+    // decelerating to zero velocity
+    easeOutQuint: function (t) { return 1+(--t)*t*t*t*t; },
+    // acceleration until halfway, then deceleration
+    easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+};
 

@@ -747,14 +747,8 @@ video::-webkit-media-controls-panel {
   content: "\e90d";
 }
 .accordeon .acc-item.accordeon-item .acc-hidden-element {
-  max-height: 0;
   padding: 0;
   overflow: hidden;
-  -webkit-transition: max-height 0.3s ease-out;
-  -moz-transition: max-height 0.3s ease-out;
-  -o-transition: max-height 0.3s ease-out;
-  -ms-transition: max-height 0.3s ease-out;
-  transition: max-height 0.3s ease-out;
 }
 .accordeon .acc-item:first-child {
   border-top: 1px solid #e5e5e5;

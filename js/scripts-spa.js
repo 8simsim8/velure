@@ -40,11 +40,11 @@ window.addEventListener('load', function(){
     }
 
     /*
-     * Валидация формы
+     * Валидация формы записи
      */
-    validForm(
+    var validationRecord = new MakeValidationForm(
         document.getElementsByTagName('form')[0],      // Form DOM
-        'PHPmailer.php',                               // Path to Mailer
+        '/mailer/PHPmailer.php',                               // Path to Mailer
         textError = {                                  // Text error messages
             'services': {
                 'required'  :   'Выберите услугу',
