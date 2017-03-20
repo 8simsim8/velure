@@ -34,65 +34,65 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-btn-left:before {
-  content: "\e911";
-}
-.icon-btn-right:before {
-  content: "\e912";
-}
-.icon-checkbox-yes:before {
-  content: "\e910";
-}
-.icon-ligature-half:before {
-  content: "\e913";
-}
-.icon-full-logo:before {
-  content: "\e90f";
-}
 .icon-acc-minus:before {
-  content: "\e90d";
-}
-.icon-acc-plus:before {
-  content: "\e90e";
-}
-.icon-all-body:before {
   content: "\e900";
 }
-.icon-big-logo:before {
+.icon-acc-plus:before {
   content: "\e901";
 }
-.icon-clock:before {
+.icon-all-body:before {
   content: "\e902";
 }
-.icon-fb:before {
+.icon-big-logo:before {
   content: "\e903";
 }
-.icon-inst:before {
+.icon-btn-left:before {
   content: "\e904";
 }
-.icon-ligature:before {
+.icon-btn-right:before {
   content: "\e905";
 }
-.icon-logo:before {
+.icon-checkbox-yes:before {
   content: "\e906";
 }
-.icon-phone:before {
+.icon-clock:before {
   content: "\e907";
 }
-.icon-play:before {
+.icon-fb:before {
   content: "\e908";
 }
-.icon-plus:before {
+.icon-full-logo:before {
   content: "\e909";
 }
-.icon-price:before {
+.icon-inst:before {
   content: "\e90a";
 }
-.icon-text-big-logo:before {
+.icon-ligature:before {
   content: "\e90b";
 }
-.icon-vk:before {
+.icon-ligature-half:before {
   content: "\e90c";
+}
+.icon-logo:before {
+  content: "\e90d";
+}
+.icon-phone:before {
+  content: "\e90e";
+}
+.icon-play:before {
+  content: "\e90f";
+}
+.icon-plus:before {
+  content: "\e910";
+}
+.icon-price:before {
+  content: "\e911";
+}
+.icon-text-big-logo:before {
+  content: "\e912";
+}
+.icon-vk:before {
+  content: "\e913";
 }
 html {
   font-family: 'Raleway', sans-serif;
@@ -150,7 +150,7 @@ a {
   font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   outline: none;
   -webkit-transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;

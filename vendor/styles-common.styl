@@ -43,6 +43,7 @@
 		left : 0;
 		right : 0;
 		bottom : 0;
+		width: 100%;
 		min-height: 100vh;
 		pointer-events : none;
 		z-index : 9999;
@@ -125,7 +126,6 @@
 				padding: 0.6em 10px;
 				color : #A823A3;
 				border: 1px solid #A823A3;
-				border-radius: 1px;
 				text-transform: uppercase;
 				transition: background-color 0.2s ease,
 							color 0.2s ease;
@@ -240,12 +240,14 @@
 			position: relative;
 			height : 680px;
 			width: calc(100% - 160px);
-			max-width: 1280px;
+			//max-width: 1280px;
 			margin : auto;
 			padding : 20px;
 			display: flex;
 			align-items: stretch;
-			background: url('../img/flow-1.svg') no-repeat bottom -30px right -30px #FFFFFF;
+			background-repeat: no-repeat;
+			background-position: bottom -30px right -30px;
+			background-color: #FFFFFF;
 			background-size: auto 260px;
 			border-radius : 5px;
 		}
@@ -292,7 +294,7 @@
 		&-left {
 			& {
 				height : 100%;
-				width : 55vw;
+				width : calc(70% - 20px);
 				margin-right : 20px;
 			}
 			.google-map {
@@ -303,7 +305,7 @@
 		&-right {
 			& {
 				height: 100%;
-				width : 30vw;
+				width : 30%;
 			}
 			.street-view {
 				height : 45vh;
@@ -336,6 +338,7 @@
 
 .b-footer {
 	& {
+		padding: 0 5vw;
 		padding-top: 135px;
 	}
 	&__list {
@@ -637,6 +640,10 @@ video {
 		&:hover {
 			color: #E8E8E8;
 		}
+		&:active {
+			box-shadow: none;
+			color: #A8A8A8;
+		}
 		&-prev {}
 		&-next {}
 	}
@@ -689,11 +696,6 @@ video {
 			}
 		}
 		&.accordeon-item .acc-hidden-element {
-			//max-height: 0;
-			padding: 0;
-			overflow: hidden;
-			//transition: max-height 0.3s ease 0.25s;
-			//transition: max-height 0.3s ease-out;
 		}
 		&:first-child {
 			border-top: 1px solid #e5e5e5;
@@ -898,10 +900,9 @@ video {
 
 @media all and (max-width: 1440px) {
 	main {
-		padding: 0 5vw;
 	}
 	.wrap {
-		max-width: calc(1280px - 10vw);
+		//max-width: calc(1280px - 10vw);
 	}
 	.b-navigation {
 		&__header {
@@ -924,6 +925,9 @@ video {
 					margin-right: 25px;
 					font-size: 12px;
 				}
+				a[class*="icon-"]:before {
+					top: -0.5em;
+				}
 			}
 		}
 		&__side {
@@ -945,19 +949,24 @@ video {
 
 @media all and (max-width: 1350px) {
 	main {
-		padding: 0 60px;
-	}
+			}
 	.wrap {
-		max-width: calc(1133px - 120px);
-	}
+			}
 	.b-navigation {
 		&__header{
+			&-logo:before {
+				font-size: 2vw;
+			}
 			&-links {
 				& {
 				}
 				a {
 					margin-right: 15px;
+					font-size: 10px;
 					letter-spacing: 0.12em;
+				}
+				button {
+					font-size: 11px;
 				}
 			}
 		}
@@ -966,7 +975,7 @@ video {
 
 @media all and (max-width: 1230px) {
 	body {
-		min-width: 1210px;
+		//min-width: 1210px;
 	}
 	.wrap {
 		//max-width: calc(1280px - 120px);
@@ -976,7 +985,7 @@ video {
 			position : fixed;
 			top : 0;
 			left : 0;
-			width: 1210px;
+			//width: 1210px;
 			bottom : 0;
 			min-height: 100vh;
 			pointer-events : none;
@@ -984,19 +993,19 @@ video {
 		}
 		&__header {
 			& {
-				height: 60px;
+				//height: 60px;
 			}
 			&-logo {
-				height: 60px;
-				width: 60px;
+				//height: 60px;
+				//width: 60px;
 			}
 			&-logo:before {
-				line-height: 60px;
+				//line-height: 60px;
 			}
 			&-links {
 				& {
-					height : 60px;
-					margin-right : 60px;
+					//height : 60px;
+					//margin-right : 60px;
 				}
 				a {
 				}
@@ -1005,14 +1014,47 @@ video {
 		&__side {
 			&-left,
 			&-right {
-				height : calc(100vh - 60px);
-				width : 60px;
+				//height : calc(100vh - 60px);
+				//width : 60px;
 			}
 		}
 	}
 	.video-wrapp {
-		height: calc(100vh - 60px);
-		margin-bottom: 60px;
+		//height: calc(100vh - 60px);
+		//margin-bottom: 60px;
+	}
+}
+
+@media all and (max-width: 1150px) {
+	body {
+	}
+	.wrap {
+	}
+	.b-navigation {
+		& {
+		}
+		&__header {
+			& {
+			}
+			&-logo {
+			}
+			&-logo:before {
+			}
+			&-links {
+				& {
+					margin-right: 20px;
+				}
+				a {
+				}
+			}
+		}
+		&__side {
+			&-left,
+			&-right {
+			}
+		}
+	}
+	.video-wrapp {
 	}
 }
 

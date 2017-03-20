@@ -220,6 +220,8 @@ function MakeAccordeon(elem, time){
             this.items[i].classList.add('accordeon-item');
 
             this.hidden[i].style.height = 0;
+            this.hidden[i].style.padding = 0;
+            this.hidden[i].style.overflow = 'hidden';
             this.hidden[i].style.display = 'none';
         }
     };
@@ -308,6 +310,8 @@ function MakeAccordeon(elem, time){
 
             this.hidden[i].style.display = '';
             this.hidden[i].style.height = '';
+            this.hidden[i].style.padding = '';
+            this.hidden[i].style.overflow = '';
         }
 
         if(this.accordeonWrap.querySelector(".active")) {
