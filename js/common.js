@@ -71,9 +71,13 @@ window.addEventListener('load', function() {
     }
 });
 
-function scrollAnim(classAnimEl) {
+function scrollAnim(classAnimEl, classAfterFinish) {
 
-    var el = document.querySelectorAll(classAnimEl);
+    var start = classAnimEl || 'start';
+    var finish = classAfterFinish || 'finish';
+
+    var el = document.querySelectorAll('.'+start);
+
     if(el.length == 0) return;
 
     for(var i = 0, len = el.length; i < len; i++) {
@@ -81,9 +85,15 @@ function scrollAnim(classAnimEl) {
         var posEl = el[i].getBoundingClientRect();
 
         if (posEl.top <= window.innerHeight - el[i].offsetHeight / 2) {
-            el[i].classList.remove('start');
+            el[i].classList.remove(start);
+            el[i].addEventListener(transitionEnd, listenAnim);
         }
 
+    }
+
+    function listenAnim(){
+        this.classList.add(finish);
+        this.removeEventListener(transitionEnd, listenAnim);
     }
 
 }

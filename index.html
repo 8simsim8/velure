@@ -331,9 +331,7 @@
                     isFinishLoaderOneCicle = true;
                     if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
                         videoLoad();
-                        console.log('video load');
                     } else  if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishNotLoadVideo) {
-                        console.log('video no-load');
                         setTimeout(function(){
                             willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
 	                            'opacity, transition');
@@ -661,154 +659,152 @@
 						<p class="col lg-offset-1 lg-10 normal">Мы собрали вместе лучшие мировые технологии по уходу за лицом и телом, медицинской косметологии и SPA-процедур. Атмосфера роскоши и релакса позволит забыть о повседневой рутине, отдохнуть и отвлечься от ежедневных забот.</p>
 					</div>
 				</div>
-				<div class="b-programs__cards start">
+				<div class="b-programs__circles start">
 					<div class="wrap row">
-						<div class="b-programs__cards-left col md-5"></div>
-						<div class="b-programs__cards-right col md-7">
-							<p class="b-programs__cards-right-item cards-item_slim">
-								<span class="circles-bg"></span>
-								<span class="text bold">похудеть</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_younger ">
-								<span class="circles-bg"></span>
-								<span class="text bold">Выглядеть моложе</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_well">
-								<span class="circles-bg"></span>
-								<span class="text bold">Оздоровиться</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_hairstyle">
-								<span class="circles-bg"></span>
-								<span class="text bold">Великолепную причёску</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_defects">
-								<span class="circles-bg"></span>
-								<span class="text bold">устранить дефекты кожи</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_tone">
-								<span class="circles-bg"></span>
-								<span class="text bold">быть в тонусе</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_relax">
-								<span class="circles-bg"></span>
-								<span class="text bold">Расслабиться</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_makeup">
-								<span class="circles-bg"></span>
-								<span class="text bold">вечерний макияж</span>
-							</p>
-							<p class="b-programs__cards-right-item cards-item_forms">
-								<span class="circles-bg"></span>
-								<span class="text bold">эффектные формы</span>
-							</p>
+						<div class="b-programs__circles-left col md-5">
+							<h1>Я хочу...</h1>
+						</div>
+						<div class="b-programs__circles-right col md-7">
+							<div class="circles-wrap">
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="slim">
+									<span class="circles-bg"></span>
+									<span class="text bold">похудеть</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="younger">
+									<span class="circles-bg"></span>
+									<span class="text bold">Выглядеть моложе</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="well">
+									<span class="circles-bg"></span>
+									<span class="text bold">Оздоровиться</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="hairstyle">
+									<span class="circles-bg"></span>
+									<span class="text bold">Великолепную причёску</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="defects">
+									<span class="circles-bg"></span>
+									<span class="text bold">устранить дефекты кожи</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="tone">
+									<span class="circles-bg"></span>
+									<span class="text bold">быть в тонусе</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="relax">
+									<span class="circles-bg"></span>
+									<span class="text bold">Расслабиться</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="makeup">
+									<span class="circles-bg"></span>
+									<span class="text bold">вечерний макияж</span>
+								</p>
+								<p class="b-programs__circles-right-item cards-item" data-recommendation="forms">
+									<span class="circles-bg"></span>
+									<span class="text bold">эффектные формы</span>
+								</p>
+							</div>
+							<div class="tables-wrap">
+								<p class="tables-button-close button-close"></p>
+								<h3>Наши рекомендации</h3>
+								<div class="tables-wrap-collection">
+									<table class="item-table" data-table="well">
+										<tr>
+											<td class="text name">Хамам</td>
+											<td class="button-text price">223 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Массаж в четыре руки</td>
+											<td class="button-text price">210 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Расслабляющий комплекс</td>
+											<td class="button-text price">125 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Тонизирующая ванная</td>
+											<td class="button-text price">115 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">СПА-комплекс  «Антистресс»</td>
+											<td class="button-text price">223 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Массаж расслабляющий</td>
+											<td class="button-text price">210 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Расслабляющий комплекс</td>
+											<td class="button-text price">125 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+									</table>
+									<table class="item-table" data-table="slim">
+										<tr>
+											<td class="text name">Slim</td>
+											<td class="button-text price">223 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Массаж в четыре руки</td>
+											<td class="button-text price">210 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Расслабляющий комплекс</td>
+											<td class="button-text price">125 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Тонизирующая ванная</td>
+											<td class="button-text price">115 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">СПА-комплекс  «Антистресс»</td>
+											<td class="button-text price">223 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Массаж расслабляющий</td>
+											<td class="button-text price">210 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+										<tr>
+											<td class="text name">Расслабляющий комплекс</td>
+											<td class="button-text price">125 грн</td>
+											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
+										</tr>
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-					<!--<div class="b-programs__cards row">-->
-						<!--<div class="col lg-4">-->
-							<!--<div class="b-programs__cards-wrap white-decor">-->
-								<!--<div class="b-programs__cards-wrap-item">-->
-									<!--<p class="half-circle half-circle_top"></p>-->
-									<!--<h3>SPA-комплекс</h3>-->
-									<!--<p>Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости и сил</p>-->
-									<!--<ul class="b-programs__cards-wrap-item-table">-->
-										<!--<li class="action-programs">-->
-											<!--<span>Талассотерапия</span>-->
-											<!--<span>от 500 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Гидромассажная ванна</span>-->
-											<!--<span>от 250 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Хаммам</span>-->
-											<!--<span>от 120 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Пакет "горячий шоколад"</span>-->
-											<!--<span>от 430 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Пакет "секреты клеопатры"</span>-->
-											<!--<span>760 грн</span>-->
-										<!--</li>-->
-									<!--</ul>-->
-									<!--<p class="yet">и ещё 32 поцедуры и программы</p>-->
-									<!--<div-->
-											<!--class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>-->
-									<!--<p class="half-circle half-circle_bottom"></p>-->
-								<!--</div>-->
-							<!--</div>-->
-						<!--</div>-->
-						<!--<div class="col lg-4">-->
-							<!--<div class="b-programs__cards-wrap white-decor">-->
-								<!--<div class="b-programs__cards-wrap-item">-->
-									<!--<p class="half-circle half-circle_top"></p>-->
-									<!--<h3>Косметология</h3>-->
-									<!--<p>Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>-->
-									<!--<ul class="b-programs__cards-wrap-item-table">-->
-										<!--<li>-->
-											<!--<span>Вакуумный массаж лица</span>-->
-											<!--<span>от 1500 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Вакуумно-роликовый массаж</span>-->
-											<!--<span>от 1250 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Медицинская косметология</span>-->
-											<!--<span>от 120 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Световая терапия</span>-->
-											<!--<span>от 430 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Кавитация</span>-->
-											<!--<span>от 760 грн</span>-->
-										<!--</li>-->
-									<!--</ul>-->
-									<!--<p class="yet">и ещё 12 комплексных поцедур</p>-->
-									<!--<div class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>-->
-									<!--<p class="half-circle half-circle_bottom"></p>-->
-								<!--</div>-->
-							<!--</div>-->
-						<!--</div>-->
-						<!--<div class="col lg-4">-->
-							<!--<div class="b-programs__cards-wrap white-decor">-->
-								<!--<div class="b-programs__cards-wrap-item">-->
-									<!--<p class="half-circle half-circle_top"></p>-->
-									<!--<h3>Бьюти-зона</h3>-->
-									<!--<p>Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>-->
-									<!--<ul class="b-programs__cards-wrap-item-table">-->
-										<!--<li>-->
-											<!--<span>Стрижки и укладки</span>-->
-											<!--<span>от 80 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Покраска</span>-->
-											<!--<span>от 120 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Маникюр</span>-->
-											<!--<span>от 100 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Педикюр</span>-->
-											<!--<span>от 430 грн</span>-->
-										<!--</li>-->
-										<!--<li>-->
-											<!--<span>Коррекция веса</span>-->
-											<!--<span>760 грн</span>-->
-										<!--</li>-->
-									<!--</ul>-->
-									<!--<p class="yet">и ещё 12 услуг и процедур</p>-->
-									<!--<div class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></div>-->
-									<!--<p class="half-circle half-circle_bottom"></p>-->
-								<!--</div>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</div>-->
+				<div class="b-programs__cards">
+					<div class="wrap row">
+						<div class="b-programs__cards-item card_spa-complex col sm-4">
+							<h3>SPA-комплекс</h3>
+							<p class="normal">Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости
+								и сил</p>
+							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						</div>
+						<div class="b-programs__cards-item card_cosmetology col sm-4">
+							<h3>Косметология</h3>
+							<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
+							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						</div>
+						<div class="b-programs__cards-item card_beauty-zone col sm-4">
+							<h3>Бьюти-зона</h3>
+							<p class="normal">Быть красивой всегда - легко, вместе с нашей командой профессиональных бьюти-мастеров</p>
+							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						</div>
+					</div>
 				</div>
 			</section>
 			
@@ -823,9 +819,7 @@
 			
 			<section class="b-slider">
 				<div class="wrap row no-row">
-					<h2 class="col lg-offset-2 lg-8">Добро пожаловать в островок спокойствия и расслабления</h2>
-					
-					<p class="col lg-offset-2 lg-8 lead">Мы собрали вместе лучшие мировые технологии по уходу за лицом и телом, медицинской косметологии</p>
+					<p class="col lg-offset-2 lg-8 lead">Теперь не нужно путешествовать для того, чтобы насладиться аюрведическими процедурами, балинезийскими массажами, стоунтерапией, турецкими пилингами и обертываниями в хамаме – все это теперь можно сделать у нас.</p>
 				</div>
 				<div class="b-slider__viewport swiper-container">
 					<div class="b-slider__viewport-wrap swiper-wrapper">
@@ -841,15 +835,28 @@
 					</div>
 					<div class="swiper-controls swiper-controls-prev icon-btn-left"></div>
 					<div class="swiper-controls swiper-controls-next icon-btn-right"></div>
+					<p class="swiper-pagination"></p>
+				</div>
+				<p
+						class="b-slider__details center"><a href="#" class="btn btn__purple arrow">ПОДРОБНЕЕ О
+					SPA-центре</a></p>
+			</section>
+			
+			<section class="b-inst">
+				<div class="wrap">
+					<h3>Наш Instagram</h3>
+					<div class="instafeed-wrapp">
+						<div id="instafeed" class="row"></div>
+					</div>
 				</div>
 			</section>
 			
 			<section class="b-form">
 				<div class="b-form__row row">
-					<div class="b-form__row-block col md-offset-3 md-6">
-						<div class="b-form__row-block-wrap white-decor">
-							<form action="" class="half-circle__block" name="form-online-record">
-								<!--<p class="half-circle half-circle_top"></p>-->
+					<div class="b-form__row-block col sm-offset-1 sm-10 md-offset-2 md-8 lg-offset-3 lg-6">
+						<div class="b-form__row-block-wrap">
+							<p class="icon-ligature-half"></p>
+							<form action="" name="form-online-record">
 								<input name="title" value="Онлайн запись" hidden />
 								<h3>Онлайн-запись</h3>
 								<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
@@ -890,7 +897,6 @@
 								<button type="button" class="btn btn__big btn__purple-fill">отправить</button>
 
 								<p class="normal text">или звоните (050) 111-22-33</p>
-								<!--<p class="half-circle-block half-circle_bottom"></p>-->
 							</form>
 						</div>
 					</div>
@@ -904,25 +910,11 @@
 				</div>
 			</section>
 			
-			<section class="b-inst">
-				<div class="wrap">
-					<h2>Мы в <span class="icon-inst"></span> Instagram
-						<button class="btn btn-big icon-plus">Подписаться</button></h2>
-					<div class="instafeed-wrapp">
-						<div id="instafeed" class="row"></div>
-					</div>
-					<p class="center">
-						<button class="btn btn__social icon-fb">Мы на Facebook</button>
-						<button class="btn btn__social icon-vk">Мы в Vkontakte</button>
-					</p>
-				</div>
-			</section>
-			
 		</main>
 		
 		<section class="b-popup">
 			<div class="b-popup__map img-flover__form">
-				<p class="b-popup__map-button-close"></p>
+				<p class="b-popup__map-button-close button-close"></p>
 				<div class="b-popup__map-left">
 					<div id="map" class="google-map"></div>
 				</div>

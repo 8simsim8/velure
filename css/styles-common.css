@@ -332,7 +332,6 @@
   width: 60px;
   background-color: rgba(0,0,0,0.8);
   border-radius: 9px;
-  cursor: pointer;
   -webkit-transition: backgroundr 0.2s ease;
   -moz-transition: backgroundr 0.2s ease;
   -o-transition: backgroundr 0.2s ease;
@@ -344,17 +343,9 @@
 }
 .b-popup__map-button-close:before,
 .b-popup__map-button-close:after {
-  position: absolute;
   right: 16px;
-  content: '';
-  display: block;
   height: 37px;
   border-left: 2px solid rgba(255,255,255,0.5);
-  -webkit-transition: border 0.2s ease;
-  -moz-transition: border 0.2s ease;
-  -o-transition: border 0.2s ease;
-  -ms-transition: border 0.2s ease;
-  transition: border 0.2s ease;
 }
 .b-popup__map-button-close:hover:before,
 .b-popup__map-button-close:hover.b-popup__map-button-close:after {
@@ -362,29 +353,9 @@
 }
 .b-popup__map-button-close:after {
   top: 16px;
-  -webkit-transform-origin: 0 0;
-  -moz-transform-origin: 0 0;
-  -o-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  transform-origin: 0 0;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
 }
 .b-popup__map-button-close:before {
   bottom: 16px;
-  -webkit-transform-origin: 0 100%;
-  -moz-transform-origin: 0 100%;
-  -o-transform-origin: 0 100%;
-  -ms-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
 }
 .b-popup__map-left {
   height: 100%;
@@ -428,7 +399,6 @@
 }
 .b-footer {
   padding: 0 5vw;
-  padding-top: 135px;
 }
 .b-footer__list {
   display: -webkit-box;
@@ -694,8 +664,67 @@ video::-webkit-media-controls-panel {
   transform: rotate(15deg);
   border-left: 1px solid rgba(102,92,100,0.5);
 }
+.button-close {
+  position: absolute;
+  top: 0;
+  right: -70px;
+  height: 60px;
+  width: 60px;
+  border-radius: 9px;
+  cursor: pointer;
+  -webkit-transition: backgroundr 0.2s ease;
+  -moz-transition: backgroundr 0.2s ease;
+  -o-transition: backgroundr 0.2s ease;
+  -ms-transition: backgroundr 0.2s ease;
+  transition: backgroundr 0.2s ease;
+}
+.button-close:before,
+.button-close:after {
+  position: absolute;
+  right: 16px;
+  content: '';
+  display: block;
+  height: 37px;
+  border-left: 2px solid rgba(255,255,255,0.5);
+  -webkit-transition: border 0.2s ease;
+  -moz-transition: border 0.2s ease;
+  -o-transition: border 0.2s ease;
+  -ms-transition: border 0.2s ease;
+  transition: border 0.2s ease;
+}
+.button-close:hover:before,
+.button-close:hover.button-close:after {
+  border-left: 2px solid #fff;
+}
+.button-close:after {
+  top: 16px;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.button-close:before {
+  bottom: 18px;
+  -webkit-transform-origin: 0 100%;
+  -moz-transform-origin: 0 100%;
+  -o-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
 .swiper-container .swiper-slide img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 .swiper-container .swiper-controls {
@@ -711,6 +740,12 @@ video::-webkit-media-controls-panel {
   -ms-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
+.swiper-container .swiper-controls.swiper-button-disabled {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  pointer-events: none;
+}
 .swiper-container .swiper-controls:hover {
   color: #e8e8e8;
 }
@@ -718,6 +753,12 @@ video::-webkit-media-controls-panel {
   -webkit-box-shadow: none;
   box-shadow: none;
   color: #a8a8a8;
+}
+.swiper-container .swiper-controls-prev {
+  left: 10%;
+}
+.swiper-container .swiper-controls-next {
+  right: 10%;
 }
 .swiper-container .swiper-pagination-bullet {
   height: 6px;

@@ -23,7 +23,7 @@ window.addEventListener('load', function(){
         if (!ticking) {
             window.requestAnimationFrame(function () {
                 if(document.body.classList.contains('finish-load')) {
-                    scrollAnim('.start');
+                    scrollAnim('start');
                 }
                 ticking = false;
             });

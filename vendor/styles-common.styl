@@ -260,7 +260,6 @@
 				width : 60px;
 				background-color : rgba(0, 0, 0, 0.8);
 				border-radius : 9px;
-				cursor: pointer;
 				transition: backgroundr 0.2s ease;
 			}
 			&:hover {
@@ -268,13 +267,9 @@
 			}
 			&:before,
 			&:after {
-				position: absolute;
 				right: 16px;
-				content: '';
-				display: block;
 				height: 37px;
 				border-left: 2px solid rgba(255,255,255,0.5);
-				transition: border 0.2s ease;
 			}
 			&:hover:before,
 			&:hover&:after {
@@ -282,13 +277,9 @@
 			}
 			&:after {
 				top: 16px;
-				transform-origin: 0 0;
-				transform: rotate(45deg);
 			}
 			&:before {
 				bottom: 16px;
-				transform-origin: 0 100%;
-				transform: rotate(-45deg);
 			}
 		}
 		&-left {
@@ -339,7 +330,6 @@
 .b-footer {
 	& {
 		padding: 0 5vw;
-		padding-top: 135px;
 	}
 	&__list {
 		& {
@@ -623,9 +613,50 @@ video {
 }
 
 
+.button-close {
+	& {
+		position : absolute;
+		top : 0;
+		right : -70px;
+		height : 60px;
+		width : 60px;
+		border-radius : 9px;
+		cursor: pointer;
+		transition: backgroundr 0.2s ease;
+	}
+	&:hover {
+	}
+	&:before,
+	&:after {
+		position: absolute;
+		right: 16px;
+		content: '';
+		display: block;
+		height: 37px;
+		border-left: 2px solid rgba(255,255,255,0.5);
+		transition: border 0.2s ease;
+	}
+	&:hover:before,
+	&:hover&:after {
+		border-left: 2px solid rgba(255,255,255,1);
+	}
+	&:after {
+		top: 16px;
+		transform-origin: 0 0;
+		transform: rotate(45deg);
+	}
+	&:before {
+		bottom: 18px;
+		transform-origin: 0 100%;
+		transform: rotate(-45deg);
+	}
+}
+
+
 .swiper-container {
 	.swiper-slide img {
 		height: 100%;
+		width: 100%;
 		object-fit: cover;
 	}
 	.swiper-controls {
@@ -637,6 +668,10 @@ video {
 			box-shadow : none;
 			transition: color 0.5s ease;
 		}
+		&.swiper-button-disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
 		&:hover {
 			color: #E8E8E8;
 		}
@@ -644,8 +679,12 @@ video {
 			box-shadow: none;
 			color: #A8A8A8;
 		}
-		&-prev {}
-		&-next {}
+		&-prev {
+			left: 10%;
+		}
+		&-next {
+			right: 10%;
+		}
 	}
 	.swiper-pagination {
 		& {}
@@ -879,6 +918,7 @@ video {
 		left: 0;
 	}
 }
+
 
 @media all and (max-width: 1620px) {
 	.wrap {
