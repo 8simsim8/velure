@@ -1,66 +1,136 @@
 window.addEventListener('load', function() {
 
-    window.transitionEnd = whichTransitionEvent();
-
     const header = document.getElementsByClassName('l-navigation')[0];
-
-    var buttonMap = document.getElementsByClassName('show-map')[0];
-
-    buttonMap.addEventListener('click', handlerShowMap);
-
-    function handlerShowMap(e) {
-        var buttonCloseMap = document.getElementsByClassName('b-popup__map-button-close')[0];
-        buttonCloseMap.addEventListener('click', handlerCloseMap);
-
-        document.body.classList.toggle('open-popup');
-
-        e.preventDefault();
-
-        function handlerCloseMap() {
-            document.body.classList.toggle('open-popup');
-            this.removeEventListener('click', handlerCloseMap);
-        }
-    }
-
-    var isTouch;
-
-    initBrowser();
-
-    controlInputs();
-
-    window.addEventListener('scroll', handlerScrollWindow);
 
     var ticking = false;
     var scrollPage;
     var scrollLeft;
+    var updateMap = false;
+
+    window.addEventListener('scroll', handlerScrollWindow);
+
+
+    var isTouch;
+
+    /*
+    *   Инициализация браузера
+    */
+    initBrowser();
+
+    /*
+    *   Инициализация формы
+    */
+    controlInputs();
+
+    /*
+    *   Инициализация карты
+    */
+    map();
 
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
         if (!ticking) {
             window.requestAnimationFrame(function () {
-                if (window.innerWidth <= 1210) {
-                    header.style.left = -scrollLeft + "px";
-                } else {
-                    header.style.left = 0;
-                }
+                // if (window.innerWidth <= 1210) {
+                //     header.style.left = -scrollLeft + "px";
+                // } else {
+                //     header.style.left = '';
+                // }
+                prepareMapScroll(scrollPage);
                 ticking = false;
             });
         }
         ticking = true;
     }
 
-    // Определение touch устройства
-    function detectTouch() {
-        try {
-            document.createEvent("TouchEvent");
-            return true;
-        }
-        catch (e) {
-            return false;
+    /*
+    *   Подготовка карты к открытию при скролле
+    */
+    function prepareMapScroll(scrollPage) {
+        if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
+            if(!updateMap) {
+                setTimeout(function(){
+                    var popup = document.getElementsByClassName('b-popup')[0];
+
+                    popup.style.display = 'flex';
+
+                    myMap();
+
+                    google.maps.event.trigger(map, 'resize');
+
+                },100);
+                updateMap = true;
+            }
+        } else {
+            if(updateMap) {
+                updateMap = false;
+                document.getElementsByClassName('b-popup')[0].style.display = '';
+            }
         }
     }
 
+    /*
+    *   Подготовка карты к открытию/закрытию
+    */
+    function map() {
+
+        var buttonMap = document.getElementsByClassName('show-map')[0];
+
+        buttonMap.addEventListener('click', handlerShowMap);
+        buttonMap.addEventListener('mouseenter', prepareShowMap);
+        buttonMap.addEventListener('mouseleave', cancelPrepareShowMap);
+
+        function handlerShowMap(e) {
+            var buttonCloseMap = document.getElementsByClassName('b-popup__map-button-close')[0];
+            buttonCloseMap.addEventListener('click', handlerCloseMap);
+            buttonCloseMap.addEventListener('mouseenter', prepareCloseMap);
+            buttonCloseMap.addEventListener('mouseleave', cancelPrepareCloseMap);
+
+            var popup = document.getElementsByClassName('b-popup')[0];
+
+            document.body.classList.toggle('open-popup');
+
+            if(!updateMap) {
+                myMap();
+                google.maps.event.trigger(map, 'resize');
+            }
+
+            e.preventDefault();
+
+            function prepareCloseMap(e) {
+                willChangeSwitch(popup, 'opacity');
+            }
+
+            function cancelPrepareCloseMap() {
+                removeWillChange.call(popup);
+            }
+
+            function handlerCloseMap() {
+                document.body.classList.toggle('open-popup');
+                this.removeEventListener('click', handlerCloseMap);
+            }
+        }
+
+        function prepareShowMap(e) {
+
+            var popup = document.getElementsByClassName('b-popup')[0];
+
+            willChangeSwitch(popup, 'opacity');
+            popup.addEventListener(transitionEnd, removeWillChange);
+
+        }
+
+        function cancelPrepareShowMap() {
+            var popup = document.getElementsByClassName('b-popup')[0];
+            removeWillChange.call(popup);
+        }
+
+    }
+
+    /*
+    *   Инициализация браузера
+    */
     function initBrowser() {
         isTouch = detectTouch();
         if (isTouch) {
@@ -68,9 +138,26 @@ window.addEventListener('load', function() {
         } else {
             document.body.classList.remove('touch-device');
         }
+
+        /*
+         *   Определение touch устройства
+         */
+        function detectTouch() {
+            try {
+                document.createEvent("TouchEvent");
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        }
+
     }
 });
 
+/*
+*   Отслеживание старта анимации элементов при скроле
+*/
 function scrollAnim(classAnimEl, classAfterFinish) {
 
     var start = classAnimEl || 'start';
@@ -98,28 +185,31 @@ function scrollAnim(classAnimEl, classAfterFinish) {
 
 }
 
-function whichTransitionEvent(){
-    var t;
-    var el = document.createElement('fakeelement');
-    var restransitionsEnd;
+/*
+*   Подготовка элементов к анимации при скроле
+*/
+function prepareToAnim(classAnimEl) {
+    var start = classAnimEl || 'start';
 
-    var transitionsEnd = {
-        'OTransition':'oTransitionEnd',
-        'MozTransition':'transitionend',
-        'WebkitTransition':'webkitTransitionEnd',
-        'transition':'transitionend'
-    };
+    var el = document.querySelectorAll('.'+start);
 
-    for(t in transitionsEnd){
-        if( el.style[t] !== undefined ){
-            restransitionsEnd = transitionsEnd[t];
+    if(el.length == 0) return;
+
+    for(var i = 0, len = el.length; i < len; i++) {
+
+        var posEl = el[i].getBoundingClientRect();
+
+        if (posEl.top <= window.innerHeight && el[i].style.willChange == '') {
+            willChangeSwitch(el[i], 'transition, opacity');
+            el[i].addEventListener(transitionEnd, removeWillChange);
         }
-    }
 
-    return restransitionsEnd;
+    }
 }
 
-//*** Scroll with animation ***/
+/*
+*   Скролл к элементу с анимацией
+*/
 function aminScroll(e, time) {
 
     var duration = time;
@@ -155,6 +245,7 @@ function aminScroll(e, time) {
 
 //*** Work with property will-change ***//
 function willChangeSwitch(elem, prop) {
+
     if(elem.length) {
         for(var i=0; i < elem.length; i++) {
             elem[i].style.willChange = prop;
@@ -165,9 +256,11 @@ function willChangeSwitch(elem, prop) {
 }
 
 //*** Delete composition layer ***//
-function removeWillChange(e){
-    willChangeSwitch(this, 'auto');
-    this.removeEventListener(transitionEnd, removeWillChange);
+function removeWillChange(){
+    var self = this;
+
+    willChangeSwitch(self, 'auto');
+    self.removeEventListener(transitionEnd, removeWillChange);
 }
 
 /*
@@ -406,6 +499,25 @@ function controlInputs() {
 
     const datePick = createDate('input-date');
 
+    /*
+     * Валидация формы записи
+     */
+    var validation = new MakeValidationForm(
+        document.getElementsByTagName('form')[0],      // Form DOM
+        '/mailer/PHPmailer.php',                       // Path to Mailer
+        textError = {                                  // Text error messages
+            'services': {
+                'required'  :   'Выберите услугу',
+            }
+        },
+        settings = {
+            // duringShowError : 2000                       // Duration show error messages
+        },
+        function(options){                               // Callback function
+            console.log("ок");
+        }
+    );
+
 }
 
 /*
@@ -512,6 +624,9 @@ function makeDroplist(elem) {
     );
 }
 
+/*
+*   Полифил для поиска вхождения элемента в группу
+*/
 function isClosest(el, css) {
     var node = el;
     while (node) {
@@ -524,24 +639,24 @@ function isClosest(el, css) {
 /*
 *   Вывод карты
 */
-var mapDiv = document.getElementById('map');
-var posit = {lat:50.905910, lng:34.792679};
-
 function myMap() {
+    var mapDiv = document.getElementById('map');
+    var posit = {lat:50.905910, lng:34.792679};
+
     var mapOptions = {
         center: posit,
         zoom: 18,
         disableDefaultUI: true,
-
         zoomControl: true,
         // mapTypeControl: true,
         // scaleControl: true,
         // streetViewControl: true,
         // rotateControl: true,
-
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+
     var map = new google.maps.Map(mapDiv, mapOptions);
+
     var marker = new google.maps.Marker({
         position: posit,
         map: map,
@@ -549,6 +664,7 @@ function myMap() {
         // animation: google.maps.Animation.DROP,
         title: 'Velure SPA'
     });
+
     var panorama = new google.maps.StreetViewPanorama(
         document.getElementById('pano'), {
             position: posit,

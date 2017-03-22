@@ -282,7 +282,7 @@
                 isFinishLoadVideo = false,
                 isFinishNotLoadVideo = false;
 
-            const transitionEnd = whichTransitionEvent();
+            window.transitionEnd = whichTransitionEvent();
 
             const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
 
@@ -491,34 +491,34 @@
 			</p>
 	
 	</div>
-	
+
 	<nav class="l-navigation b-navigation">
-		<header class="b-navigation__header">
-			<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
-			<p class="b-navigation__header-links">
-				<a href="#" class="">О центре</a>
-				<a href="spa.html" class="">SPA-комплекс</a>
-				<a href="#" class="">Косметология</a>
-				<a href="#" class="">Бьюти-зона</a>
-				<a href="#" class="">Косметика</a>
-				<a href="#" class="">Контакты</a>
-				<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
-				<a href="tel:+380542700818" class="">(0542) 700-818</a>
-				<button class="btn arrow online-record">онлайн-запись</button>
-			</p>
-		</header>
-		<div class="b-navigation__side">
-			<div class="b-navigation__side-left">
-				<a href="#" class="icon-inst"></a>
-				<a href="#" class="icon-vk"></a>
-				<a href="#" class="icon-fb"></a>
-			</div>
-			<div class="b-navigation__side-right">
-				<a href="#" class="current">RU</a>
-				<a href="#">EN</a>
-			</div>
+	<header class="b-navigation__header">
+		<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
+		<p class="b-navigation__header-links">
+			<a href="#" class="">О центре</a>
+			<a href="spa.html" class="">SPA-комплекс</a>
+			<a href="#" class="">Косметология</a>
+			<a href="#" class="">Бьюти-зона</a>
+			<a href="cosmetics.html" class="">Косметика</a>
+			<a href="#" class="">Контакты</a>
+			<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
+			<a href="tel:+380542700818" class="">(0542) 700-818</a>
+			<button class="btn arrow online-record">онлайн-запись</button>
+		</p>
+	</header>
+	<div class="b-navigation__side">
+		<div class="b-navigation__side-left">
+			<a href="#" class="icon-inst"></a>
+			<a href="#" class="icon-vk"></a>
+			<a href="#" class="icon-fb"></a>
 		</div>
-	</nav>
+		<div class="b-navigation__side-right">
+			<a href="#" class="current">RU</a>
+			<a href="#">EN</a>
+		</div>
+	</div>
+</nav>
 	
 	<main class="l-content">
 		
@@ -1013,82 +1013,76 @@
 	</main>
 
 	<section class="b-popup">
-	<div class="b-popup__map">
-		<p class="b-popup__map-button-close"></p>
-		<div class="b-popup__map-left">
-			<div id="map" class="google-map"></div>
+		<div class="b-popup__map img-flover__form">
+			<p class="b-popup__map-button-close button-close"></p>
+			<div class="b-popup__map-left">
+				<div id="map" class="google-map"></div>
+			</div>
+			<div class="b-popup__map-right">
+				<div id="pano" class="street-view"></div>
+				<h4>Сумы, ул. Покровская, 16/1</h4>
+				<ul>
+					<li
+							class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+							</span></li>
+					<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+					<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="b-popup__map-right">
-			<div id="pano" class="street-view"></div>
-			<h4>Сумы, ул. Покровская, 16/1</h4>
-			<ul>
-				<li
-						class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
-						</span></li>
-				<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
-				<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
-			</ul>
-		</div>
-	</div>
-</section>
-
+	</section>
+	
 	<footer class="l-footer b-footer">
-		<div class="wrap white-decor">
+		<div class="wrap img-footer__bg">
 			<div class="b-footer__list row">
-				<div class="b-footer__list-item1 col lg-2">
+				<div class="b-footer__list-item1 col sm-offset-1 sm-2 xl-offset-0">
 					<p class="text bold">О НАС</p>
 					<ul>
-						<li><a href="#">СПА-центре</a></li>
-						<li><a href="#">Новости</a></li>
-						<li><a href="#">Мастера</a></li>
-						<li><a href="#">Галерея</a></li>
-						<li><a href="#">Сертификаты</a></li>
-						<li><a href="#">Награды</a></li>
+						<li><a href="#" class="text">СПА-центре</a></li>
+						<li><a href="#" class="text">Новости</a></li>
+						<li><a href="#" class="text">Мастера</a></li>
+						<li><a href="#" class="text">Галерея</a></li>
+						<li><a href="#" class="text">Сертификаты</a></li>
+						<li><a href="#" class="text">Награды</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item2 col lg-4">
+				<div class="b-footer__list-item2 col sm-2">
 					<p class="text bold">Услуги</p>
 					<ul>
-						<li><a href="#">Для тела</a></li>
-						<li><a href="#">Для лица</a></li>
-						<li><a href="#">Для глаз</a></li>
-						<li><a href="#">Для ног и рук</a></li>
-						<li><a href="#">Общее омоложение</a></li>
-						<li><a href="#">СПА</a></li>
-						<li><a href="#">Бьюти зона</a></li>
-						<li><a href="#">Косметология</a></li>
-						<li><a href="#">Медицинская косметология</a></li>
+						<li><a href="#" class="text">СПА-зона</a></li>
+						<li><a href="#" class="text">Косметология</a></li>
+						<li><a href="#" class="text">Эстетическая медицина</a></li>
+						<li><a href="#" class="text">Бьюти зона</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item3 col lg-4">
-					<p class="text bold">Косметика</p>
+				<div class="b-footer__list-item2 col sm-2">
+					<p class="text bold">SPA-пакеты</p>
 					<ul>
-						<li><a href="#">Klapp</a></li>
-						<li><a href="#">Thermal</a></li>
-						<li><a href="#">Holy Land</a></li>
-						<li><a href="#">Keraskin</a></li>
-						<li><a href="#">STYX Naturcosmetic</a></li>
-						<li><a href="#">L'Oreal Professionnel</a></li>
-						<li><a href="#">Kerastase ритуалы в салоне</a></li>
-						<li><a href="#">Kerastase домашний уход</a></li>
-						<li><a href="#">Inoa</a></li>
-						<li><a href="#">LCN</a></li>
+						<li><a href="#" class="text">СПА-зона</a></li>
+						<li><a href="#" class="text">Косметология</a></li>
+						<li><a href="#" class="text">Эстетическая медицина</a></li>
+						<li><a href="#" class="text">Бьюти зона</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item4 col lg-2">
-					<p class="text bold">Контакты</p>
+				<div class="b-footer__list-item4 col sm-5 md-offset-1 xl-offset-2 md-4">
+					<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
 					<ul>
-						<li><a href="#" id="address">Сумы, ул. Октябрьская (Покровская),16/1,</a></li>
-						<li><a href="#">050 353-32-32</a></li>
-						<li><a href="#">067 456-55-55</a></li>
-						<li><a href="#">(0542) 700-818, 700-817</a></li>
-						<li><a href="#" class="show-map">Показать в на карте</a></li>
+						<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
+						<li><a href="#" class="text">050 353-32-32</a></li>
+						<li><a href="#" class="text">067 456-55-55</a></li>
+						<li><a href="#" class="text">(0542) 700-818, 700-817</a></li>
+						<li class="wrap__show-map"><a href="#" class="text show-map">Показать на карте</a></li>
 					</ul>
 				</div>
 			</div>
-			<p class="b-footer__bottom">
-				<span>© 2016 СПА-центр Велюр</span>
-				<a href="#">Сrafted with love by crisp</a>
+			<p class="b-footer__bottom row">
+				<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
+				<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+				<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
+							<a href="#" class="icon-vk"></a>
+							<a href="#" class="icon-fb"></a>
+							<a href="#" class="icon-inst"></a>
+						</span>
 			</p>
 		</div>
 	</footer>

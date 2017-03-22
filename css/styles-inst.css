@@ -17,6 +17,21 @@ html {
 }
 #instafeed .item-insta {
   position: relative;
+  display: block;
+}
+#instafeed .item-insta:hover img {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+#instafeed .item-insta:hover .insta-header {
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  transform: translateZ(1px);
 }
 #instafeed .item-insta .insta-header {
   position: absolute;
@@ -65,6 +80,11 @@ html {
 }
 #instafeed .item-insta img {
   max-width: 100%;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -moz-transition: -moz-transform 0.2s ease;
+  -o-transition: -o-transform 0.2s ease;
+  -ms-transition: -ms-transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 #instafeed .item-insta .insta-caption {
   padding-top: 20px;

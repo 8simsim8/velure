@@ -12,6 +12,15 @@ html {
 	.item-insta {
 		& {
 			position: relative;
+			display: block;
+		}
+		&:hover {
+			img {
+				transform: scale(1.05);
+			}
+			.insta-header {
+				transform: translateZ(1px);
+			}
 		}
 		.insta-header {
 			& {
@@ -49,6 +58,7 @@ html {
 		}
 		img {
 			max-width: 100%;
+			transition: transform 0.2s ease;
 		}
 		.insta-caption {
 			& {

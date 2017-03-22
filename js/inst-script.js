@@ -26,10 +26,10 @@ window.addEventListener("load", function load(event){
             },
             after: function(){
             },
-            template: '<div class="item-insta col xs-6 sm-3' +
-            ' lg-3"><p class="insta-header"><span class="insta-logo icon-logo text bold">VelurSpaSumy</span><span' +
-            ' class="insta-date-create">{{model.data_create}}</span></p><img' +
-            ' src="{{image}}"/></div>',
+            template: '<a href="{{model.link}}" class="item-insta col xs-6 sm-3' +
+            ' lg-3"><img src="{{image}}"/><p class="insta-header"><span class="insta-logo icon-logo text' +
+            ' bold">VelurSpaSumy</span><span' +
+            ' class="insta-date-create">{{model.data_create}}</span></p></a>'
         });
 
         feed.run();

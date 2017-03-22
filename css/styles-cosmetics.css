@@ -1,0 +1,73 @@
+.b-title__logo-text {
+  margin-bottom: 5vh;
+}
+.b-title__logo-ligature svg {
+  height: 40px;
+}
+.b-cosmetics {
+  padding: 90px 0 30px;
+}
+.b-cosmetics h2 {
+  margin-bottom: 1.3em;
+  text-align: center;
+  color: #a823a3;
+}
+.b-cosmetics .lead {
+  margin-bottom: 4.3em;
+  text-align: center;
+}
+.b-cosmetics__logos {
+  margin: 0 20px;
+}
+.b-cosmetics__logos-item {
+  height: 210px;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: auto 148px;
+  -moz-background-size: auto 148px;
+  background-size: auto 148px;
+  border-bottom: 1px solid #ababab;
+}
+.b-form {
+  padding-bottom: 90px;
+}
+.b-form__wrap {
+  position: relative;
+  padding: 53px 17% 33px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  z-index: 4;
+}
+.b-form .icon-ligature-half {
+  margin-bottom: 0.8em;
+  font-size: 32px;
+  color: #a823a3;
+  text-align: center;
+}
+.b-form form h3 {
+  margin-bottom: 1.25em;
+  text-align: center;
+}
+.b-form form .normal {
+  margin-bottom: 5px;
+  text-align: center;
+}
+.b-form form button {
+  margin-top: 50px;
+  width: 100%;
+}
+.b-form form button + .normal {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #5e4f5c;
+}
+@media all and (max-width: 1150px) {
+  .b-cosmetics__logos-item {
+    height: 210px;
+    -webkit-background-size: auto 120px;
+    -moz-background-size: auto 120px;
+    background-size: auto 120px;
+  }
+}
