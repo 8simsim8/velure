@@ -184,7 +184,7 @@
 			height: 100%;
 			width: 100%;
 			background-color: rgba(0,0,0,0.5);
-			z-index: 9998;
+			z-index: 9;
 		}
 		.b-title__logo-inner {
 			margin: 0 auto 50vh;
@@ -197,11 +197,19 @@
 			text-align: center;
 		}
 		.b-title__logo-ligature,
-		.b-title__logo-text {
+		.b-title__logo-text,
+		.b-title__logo-address {
 			opacity: 0;
 			-webkit-transform: translate(0, 50px);
 			transform: translate(0, 50px);
 		}
+		
+		.b-title__logo-social a {
+			opacity: 0;
+			-webkit-transform: translate(-50px, 0);
+			transform: translate(-50px, 0);
+		}
+		
 		.b-title__logo-ligature {
 			-webkit-transition: -webkit-transform 0.8s ease 0.9s,
 			opacity 0.8s ease 0.9s;
@@ -215,12 +223,50 @@
 			opacity 0.8s ease 0.7s;
 		}
 		
+		.b-title__logo-address {
+			-webkit-transition: -webkit-transform 0.8s ease 1.1s,
+			opacity 0.8s ease 1.1s;
+			transition: transform 0.8s ease 1.1s,
+			opacity 0.8s ease 1.1s;
+		}
+		
+		.b-title__logo-social a {
+			-webkit-transition: -webkit-transform 0.8s ease,
+								opacity 0.8s ease;
+			transition: transform 0.8s ease,
+						opacity 0.8s ease;
+		}
+		
+		.b-title__logo-social a:nth-child(1) {
+			-webkit-transition: -webkit-transform 0.8s ease 1.7s,
+								opacity 0.8s ease 1.7s;
+			transition: transform 0.8s ease 1.7s,
+						opacity 0.8s ease 1.7s;
+		}
+		
+		.b-title__logo-social a:nth-child(2) {
+			-webkit-transition: -webkit-transform 0.8s ease 2.1s,
+								opacity 0.8s ease 2.1s;
+			transition: transform 0.8s ease 2.1s,
+						opacity 0.8s ease 2.1s;
+		}
+		
+		.b-title__logo-social a:nth-child(3) {
+			-webkit-transition: -webkit-transform 0.8s ease 2.5s,
+								opacity 0.8s ease 2.5s;
+			transition: transform 0.8s ease 2.5s,
+						opacity 0.8s ease 2.5s;
+		}
+		
 		.finish-load .b-title__logo-ligature,
-		.finish-load .b-title__logo-text {
+		.finish-load .b-title__logo-text,
+		.finish-load .b-title__logo-address,
+		.finish-load .b-title__logo-social a{
 			opacity: 1;
 			-webkit-transform: translate(0, 0);
 			transform: translate(0, 0);
 		}
+		
 		.b-title__poster {
 			position: absolute;
 			top: 0;
@@ -234,26 +280,7 @@
 		.hidden.b-title__poster {
 			display:none;
 		}
-		.b-title__img {
-			position: absolute;
-			bottom: -110px;
-			left: calc(50% - 348px);
-			height: 50vh;
-			width: 696px;
-			background: url('img/spa-complex.png') no-repeat center;
-			background-size: auto 100%;
-			z-index: 9998;
-		}
-		@media all and (max-width: 1440px) {
-			.b-title__img {
-				bottom : -7vw;
-			}
-		}
-		@media all and (max-width: 1230px) {
-				.b-title__img {
-					bottom : -90px;
-				}
-			}
+		
 	</style>
 	
 	<link rel="stylesheet" href="css/reset-min.css">
@@ -262,7 +289,7 @@
 	<link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
 	<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
 	<link rel="stylesheet" href="css/styles-common.css">
-	<link rel="preload" href="css/styles-cosmetics.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/styles-contact.css" as="style" onload="this.rel='stylesheet'">
 	
 	
 	<script defer>
@@ -495,32 +522,32 @@
 	</div>
 
 	<nav class="l-navigation b-navigation">
-	<header class="b-navigation__header">
-		<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
-		<p class="b-navigation__header-links">
-			<a href="#" class="">О центре</a>
-			<a href="spa.html" class="">SPA-комплекс</a>
-			<a href="#" class="">Косметология</a>
-			<a href="#" class="">Бьюти-зона</a>
-			<a href="cosmetics.html" class="">Косметика</a>
-			<a href="contact.html" class="">Контакты</a>
-			<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
-			<a href="tel:+380542700818" class="">(0542) 700-818</a>
-			<button class="btn arrow online-record">онлайн-запись</button>
-		</p>
-	</header>
-	<div class="b-navigation__side">
-		<div class="b-navigation__side-left">
-			<a href="#" class="icon-inst"></a>
-			<a href="#" class="icon-vk"></a>
-			<a href="#" class="icon-fb"></a>
+		<header class="b-navigation__header">
+			<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
+			<p class="b-navigation__header-links">
+				<a href="#" class="">О центре</a>
+				<a href="spa.html" class="">SPA-комплекс</a>
+				<a href="#" class="">Косметология</a>
+				<a href="#" class="">Бьюти-зона</a>
+				<a href="cosmetics.html" class="">Косметика</a>
+				<a href="#" class="">Контакты</a>
+				<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
+				<a href="tel:+380542700818" class="">(0542) 700-818</a>
+				<button class="btn arrow online-record">онлайн-запись</button>
+			</p>
+		</header>
+		<div class="b-navigation__side">
+			<div class="b-navigation__side-left">
+				<a href="#" class="icon-inst"></a>
+				<a href="#" class="icon-vk"></a>
+				<a href="#" class="icon-fb"></a>
+			</div>
+			<div class="b-navigation__side-right">
+				<a href="#" class="current">RU</a>
+				<a href="#">EN</a>
+			</div>
 		</div>
-		<div class="b-navigation__side-right">
-			<a href="#" class="current">RU</a>
-			<a href="#">EN</a>
-		</div>
-	</div>
-</nav>
+	</nav>
 	
 	<main class="l-content">
 		
@@ -533,94 +560,83 @@
 				</video>
 				<div class="b-title__logo">
 					<div class="b-title__logo-inner">
-						<p class="b-title__logo-text">Косметика</p>
+						<p class="b-title__logo-text">Добро пожаловать в Велюр!</p>
 						<p class="b-title__logo-ligature">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143.5 38"><path fill="#FFF" d="M84.6 38c-5-2.1-10.3-4.5-15.9-7.1l-.3-.1c-.6-.3-1.3-.6-1.9-.8-.6-.3-1.2-.5-1.8-.8H64.4c-.7.2-1.2.4-1.7.6-.8.3-1.5.5-2.4.8-10.7 3.4-19.8 5.5-26.9 6.5-2.9.4-5.2.6-7.1.6-2.2 0-4.4-.1-6.4-.4-3.7-.5-7-1.4-10-2.7-1.3-.6-2.5-1.2-3.6-2-1.9-1.3-3.6-2.7-4.7-4.3-1-1.4-1.6-2.6-1.6-3.6v-.2C0 22.6 0 20 2.2 18c.6-.6 1.3-1.1 2.2-1.5 1.9-1 4.5-1.6 7.9-2 1.3-.2 3-.3 5.2-.3h.4l.1-.4c.4-2.8 2.5-5.4 5.8-7.3 1.8-1.1 4-2 6.3-2.6 1.2-.3 2.4-.5 3.7-.7 1.3-.2 2.6-.2 3.9-.2 5 0 11.8 1.5 19.6 4.3 3.6 1.3 7.4 2.9 12.4 5.2l.1.1h.2c4.1-1.3 7.9-2.8 11.7-4.2 4.7-1.8 9.2-3.5 13.8-4.8 7.4-2 15.1-3.4 19.6-3.4h1.4c1.5 0 2.9.1 4.3.4 2.3.3 3.9.8 5.2 1.5 2 1.1 3.4 3 4 5.6l.1.3h.3c3.3.4 5.7 1 7.5 2 3.5 1.8 5.4 4.8 5.7 8.7.1 2-.6 4-2 5.8-.7.8-1.4 1.6-2.4 2.4-.9.7-2 1.4-3.1 2-4.1 2.2-9.2 3.6-13.5 3.6h-.8c-2.1-.1-5-.6-8.7-1.5-3.5-.9-7.4-2.1-11.5-3.5-4.4-1.5-9.2-3.5-14.7-6H86.6l-3.2 1.1c-3.4 1.2-9.6 3.4-16.7 5.8l-1.2.4s2.9 1.3 3.3 1.5l1.2.6c5.3 2.4 10.3 4.7 15 6.7l-.4.4zM17.3 14.7c-2 .1-3.6.2-4.9.3-3.2.4-5.8 1.1-7.7 2-.8.4-1.5.9-2.1 1.4-1 .9-1.6 1.9-1.8 3.1-.2.9-.2 1.8-.2 2.7v.3c0 .7.4 1.9 1.4 3.3.5.7 1.2 1.4 1.9 2.1.7.7 1.6 1.4 2.7 2.1 2.3 1.5 5 2.7 8 3.5 1.7.5 3.5.8 5.4 1.1 2.1.3 4.2.4 6.3.4 7.6 0 16.9-2.2 28.3-6.8 1.6-.6 2.5-1 3.5-1.5.5-.2 1-.4 1.6-.7l1-.5-1-.5c-1-.4-1.9-.9-2.9-1.3l-6-2.7-.6-.2-2.1.6c-1.9.6-3.8 1.1-5.5 1.5-4.1 1-7 1.5-8.8 1.5-1.9 0-3.8-.3-5.7-.9-1.8-.6-3.6-1.5-5.1-2.5-1.6-1.1-2.9-2.4-3.7-3.7-.8-1.2-1.3-2.6-1.4-4.1v-.5h-.6zm106.5-4.4c-4.8.2-13.6 2.8-20.1 5-5.6 1.8-9.9 3.4-13.4 4.7l-2.8 1 1.1.5c4.4 1.9 8.8 3.7 13.2 5.2 4.1 1.4 8 2.6 11.5 3.5 3.6.9 6.5 1.4 8.5 1.5h.8c1.9 0 4-.3 6.1-.8 2.5-.6 4.9-1.5 7.1-2.7 1.1-.6 2.1-1.3 3-2 .9-.7 1.7-1.5 2.3-2.3.7-.8 1.1-1.7 1.5-2.6.3-1 .5-1.9.4-2.8-.1-1.9-.7-3.4-1.8-4.6-1-1.1-2.3-1.9-4.1-2.5-1.6-.5-3.5-.8-6.4-1h-.5v1.7c-.2 1-.4 1.9-.8 2.8-.4.9-.8 1.8-1.4 2.6-.5.8-1.1 1.5-1.8 2.3-.7.7-1.4 1.4-2.2 2-.8.6-1.6 1.1-2.5 1.5-.9.4-1.8.8-2.7 1-.9.2-1.8.4-2.7.4h-.5c-1.5 0-2.9-.2-4.2-.5-1.3-.3-2.4-.9-3.3-1.6-.9-.6-1.5-1.3-2-2.1-.4-.7-.6-1.5-.6-2.1.1-1.3.9-2 1.5-2.2h1.2c1.4 0 2.6 1.2 2.6 2.6 0 1.2-.9 2.3-2.2 2.5l-1.2.2 1 .7c.9.6 1.9 1.1 3.1 1.4 1.3.3 2.6.5 4.1.5h.5c.8 0 1.7-.2 2.6-.4.9-.2 1.7-.6 2.5-1 1.6-.8 3.1-2 4.5-3.4.7-.8 1.3-1.5 1.8-2.2 1.1-1.6 1.8-3.4 2.1-5.1 0-.3.1-.5.1-.8v-.9l-1.5-.1c-1.1-.1-2.3-.1-3.5-.1h-.5c-.2.2-.3.2-.4.2zM73.4 15c-5.3 2.1-11.9 4.4-18.3 6.4-.5.2-.9.3-1.4.4-.4.1-.8.2-1.3.4l-1.3.4 1.3.5c2.3 1 4.7 2 6.9 3l2.1.9h.1c5.8-2.2 10.8-4.2 16.1-6.4l4-1.6-1-.5-1.2-.6c-.5-.2-1-.4-1.4-.7-.9-.5-1.8-.9-2.7-1.4-.6-.3-1.1-.5-1.7-.8h-.2zm-55-.3v.5c.2 2.6 2 5.3 4.8 7.3 3 2.1 6.9 3.3 10.5 3.3.6 0 1.7-.2 2.9-.5l1.5-.3c1.4-.3 2.7-.7 4.1-1.2.8-.3 1.8-.6 2.7-1 .6-.2 1.1-.4 1.6-.6l1.2-.5s-2.2-.9-2.7-1c-1-.4-2.1-.8-3.1-1.2-9.3-3.3-16.8-4.9-22.9-4.9l-.6.1zm.8-.6c2.3 0 4.5.2 6.6.5 4.8.7 10.1 2.2 16.5 4.4 1.8.6 3.6 1.4 5.4 2.1l.9.4h.1c.8-.3 1.5-.6 2.2-.8 1.1-.4 2.3-.8 3.4-1.3 4.5-1.8 7.9-3.4 11.3-5l3.5-1.6-1-.5C60.4 8.6 52.9 6 46.6 4.6c-1.9-.4-3.4-.7-4.7-.9-1.4-.2-2.8-.3-4.2-.3-2.6 0-5.1.3-7.5.9-2.3.6-4.3 1.4-6.2 2.5-1 .6-1.7 1.1-2.4 1.7-1.6 1.4-2.7 3.1-3.1 4.9l-.1.6.8.1zM115.9.6c-4.9.1-14.8 3.5-20.3 5.5-8.2 3-16.2 6.4-19.2 7.8-.1 0-.3.1-.5.2s-.4.1-.5.2l-1 .4.9.5c.4.2.9.5 1.4.7.6.3 1.2.6 1.7.9.7.4 1.6.8 2.4 1.2.6.3 1.1.5 1.7.8l.1.1h.2c13.5-4.8 28-9.7 43.1-11.2.5 0 1.1.1 1.6.2.4 0 .8.1 1.1.1l.8.1-.3-.7c-.7-2.1-2.2-3.6-4.5-4.8-1-.5-2.3-.9-3.9-1.2-1.7-.6-3.2-.7-4.8-.8z"/></svg>
+						</p>
+						<div class="wrap row">
+							<div class="b-title__logo-address address_top col md-offset-2 md-8">
+								<h3>Сумы, ул. Покровская, 16/1</h3>
+								<a href="#" class="icon-marker button-text show-map">ОТКРЫТЬ КАРТУ</a>
+							</div>
+						</div>
+						<div class="wrap row">
+							<p class="b-title__logo-address address_bottom col md-offset-2 md-8">
+								<span><a href="tel:+380503533232" class="text">050 353-32-32</a><span>Vodafone</span></span>
+								<span><a href="tel:+380973533232" class="text">097 353-32-32</a><span>Kyivstar</span></span>
+								<a href="tel:+380542333232" class="text">0542 33-32-32</a>
+							</p>
+						</div>
+						<p class="wrap b-title__logo-social">
+							<a href="#" class="icon-vk"></a>
+							<a href="#" class="icon-fb"></a>
+							<a href="#" class="icon-inst"></a>
 						</p>
 					</div>
 				</div>
 				<div class="b-title__poster"></div>
-			</div>
-			<div class="b-title__img"></div>
-		</section>
-
-		<section class="b-cosmetics">
-			<div class="wrap">
-				<h2>Полная релаксация души и тела</h2>
-				<p class="lead">Продукция известных брендов выбранная нашими професионалами это бережная забота о вашей красоте. Вся косметика и препараты используемые в салоне поставляются только проверенными и сертефицированными  производителями.</p>
-				<div class="b-cosmetics__logos row row-wrap">
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/loreal.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/lcn.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/green-light.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/allergan.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/suda.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/selvert.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/restyline.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/kerastase.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/cnd.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/palsmo.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/mitchel.png');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/marcia.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/holy.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/exel.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/academie.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/jbp.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/emet.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/aptos.jpg');"></a>
-					<a href="#" class="b-cosmetics__logos-item col xs-6 sm-4 md-3" style="background-image:
-					url('img/logos/meso.jpg');"></a>
-				</div>
-				<p style="height:1px;position:relative;top:-1px;background-color:#FFFFFF;"></p>
-				
 			</div>
 		</section>
 		
 		<section class="b-form">
 			<div class="wrap row">
 				<div class="col sm-offset-1 sm-10 md-offset-2 md-8 lg-offset-3 lg-6">
-					<div class="b-form__wrap form">
+					<div class="b-form__wrap form img-flover__form">
 						<p class="icon-ligature-half"></p>
 						<form action="" name="form-online-record">
 							<input name="title" value="Бесплатная консультация" hidden />
-							<h3>Бесплатная консультация</h3>
-							<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+							<h3>Задать вопрос</h3>
 							<span class="input input--akira">
-									<input class="input__field input__field--akira value-input" type="text" id="name"
-									       name="name"
-									       required/>
-									<label class="input__label input__label--akira" for="name">
-										<span class="input__label-content input__label-content--akira text">Имя</span>
-									</label>
-								</span>
+								<input class="input__field input__field--akira value-input"
+								    type="text"
+								    id="name"
+									name="name"
+									required/>
+								<label class="input__label input__label--akira" for="name">
+									<span class="input__label-content input__label-content--akira text">Имя</span>
+								</label>
+							</span>
 							<span class="input input--akira">
-									<input class="input__field input__field--akira value-input" type="tel" id="phone"
-									       name="phone" pattern="(\+?\d[- .]*){7,13}" required/>
-									<label class="input__label input__label--akira" for="phone">
-										<span class="input__label-content input__label-content--akira text">Телефон</span>
-									</label>
-								</span>
+								<input class="input__field input__field--akira value-input"
+									type="tel"
+									id="phone"
+									name="phone"
+									pattern="(\+?\d[- .]*){7,13}"
+									required/>
+								<label class="input__label input__label--akira" for="phone">
+									<span class="input__label-content input__label-content--akira text">Телефон</span>
+								</label>
+							</span>
+							<span class="input input--akira">
+								<input class="input__field input__field--akira value-input"
+								       type="email"
+								       id="email"
+								       name="email"
+								       required/>
+								<label class="input__label input__label--akira" for="email">
+									<span class="input__label-content input__label-content--akira text">Адрес электронной почты</span>
+								</label>
+							</span>
+							
+							<span class="input input--akira">
+								<textarea class="input__field input__field--akira value-input"
+								          name="message" id="message" data-autoresize></textarea>
+								<label class="input__label input__label--akira" for="email">
+									<span class="input__label-content input__label-content--akira text">Текст сообщения</span>
+								</label>
+							</span>
 														
 							<button type="button" class="btn btn__big btn__submit">отправить</button>
-							
-							<p class="normal text">или звоните (050) 111-22-33</p>
 						</form>
 					</div>
 				</div>
@@ -630,7 +646,7 @@
 	</main>
 	
 	<section class="b-popup">
-		<div class="b-popup__map img-flover__form" data-map>
+		<div class="b-popup__map img-flover__form" data-nohide data-map>
 			<p class="b-popup__button-close button-close"></p>
 			<div class="b-popup__map-left">
 				<div id="map" class="google-map"></div>
@@ -647,46 +663,6 @@
 				</ul>
 			</div>
 		</div>
-		<!--<div class="b-popup__contact img-flover__form form" data-contact>-->
-		<!--<p class="b-popup__button-close button-close"></p>-->
-		<!--<p class="icon-ligature-half"></p>-->
-		<!--<form action="" name="contact">-->
-		<!--<input name="title" value="Онлайн покупка" hidden />-->
-		<!--<h3>Онлайн-покупка</h3>-->
-		<!--<h4></h4>-->
-		<!--&lt;!&ndash;<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>&ndash;&gt;-->
-		<!--<span class="input input&#45;&#45;akira">-->
-		<!--<input class="input__field input__field&#45;&#45;akira value-input"-->
-		<!--type="text"-->
-		<!--id="name"-->
-		<!--name="name"-->
-		<!--required/>-->
-		<!--<label class="input__label input__label&#45;&#45;akira" for="name">-->
-		<!--<span class="input__label-content input__label-content&#45;&#45;akira text">Имя</span>-->
-		<!--</label>-->
-		<!--</span>-->
-		<!--<span class="input input&#45;&#45;akira">-->
-		<!--<input class="input__field input__field&#45;&#45;akira value-input"-->
-		<!--type="tel"-->
-		<!--id="phone"-->
-		<!--name="phone"-->
-		<!--pattern="(\+?\d[- .]*){7,13}"-->
-		<!--required/>-->
-		<!--<label class="input__label input__label&#45;&#45;akira" for="phone">-->
-		<!--<span class="input__label-content input__label-content&#45;&#45;akira text">Телефон</span>-->
-		<!--</label>-->
-		<!--</span>-->
-		<!--<input name="services" value="" hidden />-->
-		<!--<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"-->
-		<!--placeholder="Время" required>-->
-		<!--<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"-->
-		<!--placeholder="Дата" required>-->
-		<!---->
-		<!--<button type="button" class="btn btn__big btn__submit">отправить</button>-->
-		<!---->
-		<!--<p class="normal text">или звоните (050) 111-22-33</p>-->
-		<!--</form>-->
-		<!--</div>-->
 		<div class="b-popup__online img-flover__form form" data-online-record>
 			<p class="b-popup__button-close button-close"></p>
 			<p class="icon-ligature-half"></p>
@@ -802,7 +778,7 @@
 	<script src="js/select.js"></script>
 	<script src="js/validation.js"></script>
 	<script src="js/common.js"></script>
-	<script src="js/scripts-cosmetics.js"></script>
+	<script src="js/scripts-contact.js"></script>
 	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script>
 </body>
 </html>

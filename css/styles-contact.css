@@ -1,0 +1,130 @@
+.b-title__logo-text {
+  margin-bottom: 5vh;
+}
+.b-title__logo-ligature {
+  margin-bottom: 50px;
+}
+.b-title__logo-ligature svg {
+  height: 40px;
+}
+.b-title__logo-address {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: baseline;
+  -moz-box-align: baseline;
+  -o-box-align: baseline;
+  -ms-flex-align: baseline;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(224,224,224,0.3);
+}
+.b-title__logo-address.address_top {
+  border-top: 1px solid rgba(224,224,224,0.3);
+  padding: 9px 0 20px;
+}
+.b-title__logo-address h3 {
+  margin: 0;
+}
+.b-title__logo-address h3,
+.b-title__logo-address a {
+  color: #fff;
+}
+.b-title__logo-address .text {
+  margin: 0;
+}
+.b-title__logo-address .show-map:before {
+  margin-right: 10px;
+  color: #a823a3;
+  -webkit-transition: font 0.2s ease;
+  -moz-transition: font 0.2s ease;
+  -o-transition: font 0.2s ease;
+  -ms-transition: font 0.2s ease;
+  transition: font 0.2s ease;
+}
+.b-title__logo-address .show-map:hover {
+  color: #e1e1e1;
+}
+.b-title__logo-address .show-map:hover:before {
+  font-size: 1.1em;
+}
+.b-title__logo-address.address_bottom {
+  padding: 13px 0 20px;
+}
+.b-title__logo-address.address_bottom a {
+  font-size: 20px;
+  font-weight: bold;
+}
+.b-title__logo-address.address_bottom a + span {
+  color: rgba(255,255,255,0.5);
+  margin-left: 10px;
+}
+.b-title__logo-social {
+  margin-top: 70px;
+  text-align: center;
+}
+.b-title__logo-social a {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  width: 64px;
+  height: 64px;
+  margin: 0 30px;
+  color: #fff;
+  background-color: rgba(168,35,163,0.9);
+  border-radius: 50%;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  -ms-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+.b-title__logo-social a:before {
+  margin: auto;
+}
+.b-title__logo-social a:hover {
+  background-color: #a823a3;
+}
+.b-title__logo-social .icon-vk {
+  font-size: 15px;
+}
+.b-title__logo-social .icon-fb {
+  font-size: 22px;
+}
+.b-title__logo-social .icon-inst {
+  font-size: 22px;
+}
+.b-form {
+  position: relative;
+  margin-top: -90px;
+  margin-bottom: 60px;
+  z-index: 10;
+}
+.b-form .wrap {
+  background: url("../img/imprint-velur.png") no-repeat right bottom;
+}
+.b-form__wrap {
+  -webkit-box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+  box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+}
+.b-popup,
+[data-map] {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}

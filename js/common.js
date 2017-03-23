@@ -2,13 +2,14 @@ window.addEventListener('load', function() {
 
     const header = document.getElementsByClassName('l-navigation')[0];
 
+    const isShowMap = document.querySelector('[data-map]').hasAttribute('data-nohide');
+
     var ticking = false;
     var scrollPage;
     var scrollLeft;
     var updateMap = false;
 
     window.addEventListener('scroll', handlerScrollWindow);
-
 
     var isTouch;
 
@@ -27,6 +28,11 @@ window.addEventListener('load', function() {
     */
     map();
 
+    /*
+    *   Открытие попапа для записи
+    */
+    preparePopupToContact(isShowMap);
+
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
@@ -37,7 +43,10 @@ window.addEventListener('load', function() {
                 // } else {
                 //     header.style.left = '';
                 // }
-                prepareMapScroll(scrollPage);
+                // Необходимо скрывать карту
+                if(!isShowMap) {
+                    prepareMapScroll(scrollPage);
+                }
                 ticking = false;
             });
         }
@@ -54,6 +63,7 @@ window.addEventListener('load', function() {
                     var popup = document.getElementsByClassName('b-popup')[0];
 
                     popup.style.display = 'flex';
+                    popup.querySelector('[data-map]').style.display = 'flex';
 
                     myMap();
 
@@ -66,6 +76,7 @@ window.addEventListener('load', function() {
             if(updateMap) {
                 updateMap = false;
                 document.getElementsByClassName('b-popup')[0].style.display = '';
+                document.getElementsByClassName('b-popup')[0].querySelector('[data-map]').style.display = '';
             }
         }
     }
@@ -75,19 +86,34 @@ window.addEventListener('load', function() {
     */
     function map() {
 
-        var buttonMap = document.getElementsByClassName('show-map')[0];
+        var buttonMap = document.getElementsByClassName('show-map');
 
-        buttonMap.addEventListener('click', handlerShowMap);
-        buttonMap.addEventListener('mouseenter', prepareShowMap);
-        buttonMap.addEventListener('mouseleave', cancelPrepareShowMap);
+        // Нету необходимости скрывать карту
+        if(!updateMap && isShowMap) {
+            document.querySelector('[data-map]').style.opacity = '0';
+            myMap();
+            google.maps.event.trigger(map, 'resize');
+            updateMap = true;
+        }
+
+        for(var i = 0, len = buttonMap.length; i < len; i++) {
+            buttonMap[i].addEventListener('click', handlerShowMap);
+            buttonMap[i].addEventListener('mouseenter', prepareShowMap);
+            buttonMap[i].addEventListener('mouseleave', cancelPrepareShowMap);
+        }
 
         function handlerShowMap(e) {
-            var buttonCloseMap = document.getElementsByClassName('b-popup__map-button-close')[0];
+            var popup = document.getElementsByClassName('b-popup')[0];
+            var mapBlock = popup.querySelector('[data-map]');
+
+            var buttonCloseMap = mapBlock.getElementsByClassName('b-popup__button-close')[0];
             buttonCloseMap.addEventListener('click', handlerCloseMap);
             buttonCloseMap.addEventListener('mouseenter', prepareCloseMap);
             buttonCloseMap.addEventListener('mouseleave', cancelPrepareCloseMap);
 
-            var popup = document.getElementsByClassName('b-popup')[0];
+            if(isShowMap) {
+                document.querySelector('[data-map]').style.opacity = '1';
+            }
 
             document.body.classList.toggle('open-popup');
 
@@ -107,6 +133,9 @@ window.addEventListener('load', function() {
             }
 
             function handlerCloseMap() {
+                if(isShowMap) {
+                    document.querySelector('[data-map]').style.opacity = '0';
+                }
                 document.body.classList.toggle('open-popup');
                 this.removeEventListener('click', handlerCloseMap);
             }
@@ -205,42 +234,6 @@ function prepareToAnim(classAnimEl) {
         }
 
     }
-}
-
-/*
-*   Скролл к элементу с анимацией
-*/
-function aminScroll(e, time) {
-
-    var duration = time;
-    var bringIntoView_started = Date.now();
-    var bringIntoView_ends = bringIntoView_started + duration;
-
-    var bringIntoView_y = (window.pageYOffset || document.documentElement.scrollTop) + e.getBoundingClientRect().top - document.querySelector('.b-navigation__header').offsetHeight + 5;
-
-    window.requestAnimationFrame(bringIntoView_tick);
-
-    function bringIntoView_tick() {
-
-        var distanceLeft, dt, t, travel, temp, scrollY;
-        t = Date.now();
-
-        scrollY = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (t <= bringIntoView_ends) {
-            dt = t - bringIntoView_started;
-            temp = EasingFunctions.easeInQuart(dt/duration);
-            distanceLeft = bringIntoView_y - scrollY;
-            travel = distanceLeft * temp;
-
-            window.scrollTo(0, scrollY + travel);
-
-            window.requestAnimationFrame(bringIntoView_tick);
-        } else {
-            window.scrollTo(0, bringIntoView_y);
-        }
-    }
-
 }
 
 //*** Work with property will-change ***//
@@ -350,7 +343,6 @@ function MakeAccordeon(elem, time){
             prevElem.classList.toggle("active");
             window.requestAnimationFrame(bringSlideUp.bind(null,prevElem, true));
         } else if(prevElem && prevElem == self) {
-            console.log(self);
             window.requestAnimationFrame(bringSlideUp.bind(null,self, false));
         } else {
             window.requestAnimationFrame(bringSlideDown.bind(null,self));
@@ -378,6 +370,10 @@ function MakeAccordeon(elem, time){
                     bringStarted = Date.now();
                     bringEndsDown = bringStarted + durationDown;
                     window.requestAnimationFrame(bringSlideDown.bind(null,element.querySelector(".active")));
+                } else {
+                    if(buttonBlock.getBoundingClientRect().top < 0) {
+                        aminScroll(buttonBlock, time);
+                    }
                 }
             }
         }
@@ -401,6 +397,9 @@ function MakeAccordeon(elem, time){
                 window.requestAnimationFrame(bringSlideDown.bind(null,buttonBlock));
             } else {
                 panel.style.height = Math.floor(panel.scrollHeight) + 'px';
+                if(buttonBlock.getBoundingClientRect().top < 0) {
+                    aminScroll(buttonBlock, time);
+                }
             }
         }
     }
@@ -487,7 +486,7 @@ function makeSlider(wrapClass, delayAutoplay){
 }
 
 /*
-*   Создание и контроль inputs, droplist
+*   Создание и контроль inputs, droplist, textarea
 */
 function controlInputs() {
 
@@ -495,28 +494,34 @@ function controlInputs() {
 
     createDroplists('droplist');
 
+    controlHeightTextArea();
+
     const timePick = createTime('input-time');
 
     const datePick = createDate('input-date');
 
-    /*
-     * Валидация формы записи
-     */
-    var validation = new MakeValidationForm(
-        document.getElementsByTagName('form')[0],      // Form DOM
-        '/mailer/PHPmailer.php',                       // Path to Mailer
-        textError = {                                  // Text error messages
-            'services': {
-                'required'  :   'Выберите услугу',
+    var forms = document.getElementsByTagName('form');
+
+    for(var i = 0, len = forms.length; i < len; i++) {
+        /*
+         * Валидация формы записи
+         */
+        var validation = new MakeValidationForm(
+            forms[i],                                     // Form DOM
+            '/mailer/PHPmailer.php',                       // Path to Mailer
+            textError = {                                  // Text error messages
+                'services': {
+                    'required'  :   'Выберите услугу',
+                }
+            },
+            settings = {
+                // duringShowError : 2000                       // Duration show error messages
+            },
+            function(options){                               // Callback function
+                console.log("ок");
             }
-        },
-        settings = {
-            // duringShowError : 2000                       // Duration show error messages
-        },
-        function(options){                               // Callback function
-            console.log("ок");
-        }
-    );
+        );
+    }
 
 }
 
@@ -555,7 +560,7 @@ function animTextInput(className) {
 *   Создание выбора даты
 */
 function createDate(classDate) {
-    const dateInput = document.getElementsByClassName(classDate);
+    const dateInput = document.querySelectorAll('.'+classDate);
     var datePick = [];
     for(var i = 0, len = dateInput.length; i < len; i++) {
         datePick[i] = new Flatpickr(dateInput[i], {
@@ -590,13 +595,11 @@ function createTime(classTime) {
 *   classNameDroplists          - класс-вызова дроплиста
 */
 function createDroplists(classNameDroplists) {
-    var droplistsSelect = document.getElementsByClassName(classNameDroplists);
+    var droplistsSelect = document.querySelectorAll('.'+classNameDroplists);
     var droplists = [];
 
     for (var i = 0, len = droplistsSelect.length; i < len; i++) {
-
         droplists[i] = makeDroplist(droplistsSelect[i]);
-
     }
 }
 
@@ -606,10 +609,9 @@ function createDroplists(classNameDroplists) {
 */
 function makeDroplist(elem) {
 
-    var id = '#' + elem.id;
     var isDisableOnLoad = elem.hasAttribute('data-next-select-id');
 
-    return droplist = new Select(id, {
+    return droplist = new Select(elem, {
         // auto show the live filter
         filtered: 'auto',
         // auto show the live filter when the options >= 10
@@ -624,6 +626,35 @@ function makeDroplist(elem) {
     );
 }
 
+/*
+*   Поддержка высоты текстового поля ввода
+*/
+function controlHeightTextArea() {
+
+    var textarea = document.querySelectorAll('textarea[data-autoresize]');
+
+    var heightInput = [];
+    var defaultHeight = [];
+
+    var resizeTextarea = function(index) {
+        var self = this;
+
+        if(self.scrollHeight > defaultHeight[index]) {
+            if(heightInput[index] !== null && self.scrollHeight > heightInput[index]) {
+                self.parentNode.style.transition = 'height 0.2s ease';
+                self.parentNode.style.height = self.scrollHeight + 12 + 'px';
+            }
+            self.parentNode.style.lineHeight = '1.75em';
+            self.style.height = self.scrollHeight + 'px';
+        }
+    };
+
+    for(var i = 0, len = textarea.length; i < len; i++) {
+        defaultHeight[i] = textarea[i].offsetHeight;
+        heightInput[i] = textarea[i].parentNode.classList.contains('input') ? textarea[i].parentNode.offsetHeight : null;
+        textarea[i].addEventListener('keyup', resizeTextarea.bind(textarea[i], i));
+    }
+}
 /*
 *   Полифил для поиска вхождения элемента в группу
 */
@@ -677,6 +708,42 @@ function myMap() {
     map.setStreetView(panorama);
 }
 
+/*
+*   Скролл к элементу с анимацией
+*/
+function aminScroll(e, time) {
+
+    var duration = time;
+    var bringIntoView_started = Date.now();
+    var bringIntoView_ends = bringIntoView_started + duration;
+
+    var bringIntoView_y = (window.pageYOffset || document.documentElement.scrollTop) + e.getBoundingClientRect().top - document.querySelector('.b-navigation__header').offsetHeight + 5;
+
+    window.requestAnimationFrame(bringIntoView_tick);
+
+    function bringIntoView_tick() {
+
+        var distanceLeft, dt, t, travel, temp, scrollY;
+        t = Date.now();
+
+        scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (t <= bringIntoView_ends) {
+            dt = t - bringIntoView_started;
+            temp = EasingFunctions.easeInQuart(dt/duration);
+            distanceLeft = bringIntoView_y - scrollY;
+            travel = distanceLeft * temp;
+
+            window.scrollTo(0, scrollY + travel);
+
+            window.requestAnimationFrame(bringIntoView_tick);
+        } else {
+            window.scrollTo(0, bringIntoView_y);
+        }
+    }
+
+}
+
 var EasingFunctions = {
     // no easing, no acceleration
     linear: function (t) { return t },
@@ -705,4 +772,84 @@ var EasingFunctions = {
     // acceleration until halfway, then deceleration
     easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
 };
+
+function preparePopupToContact(isShowMap) {
+    var buttonToOpenPopupContact = document.getElementsByClassName('button-record');
+    var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('online-record')[0];
+
+    for(var i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
+        buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
+        buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup);
+    }
+
+    buttonToOpenPopupOnlineRecord.addEventListener('click', handlerOpenPopupOnlineRecord);
+    buttonToOpenPopupOnlineRecord.addEventListener('mouseenter', prepareOpenWrapPopup);
+
+    function handlerOpenPopupContact(e) {
+        var popup = document.getElementsByClassName('b-popup')[0];
+        var formWrap = popup.querySelector('[data-contact]');
+
+        var node = this;
+
+        while(node.nodeName != 'TR') {
+            node = node.parentNode;
+        }
+
+        formWrap.querySelector('h4').innerHTML = node.querySelector('.name').innerHTML;
+        formWrap.querySelector('[name=services]').value = node.querySelector('.name').innerHTML;
+
+        openWrapPopup(popup, formWrap);
+
+        e.preventDefault();
+    }
+
+    function handlerOpenPopupOnlineRecord(e) {
+        var popup = document.getElementsByClassName('b-popup')[0];
+        var formWrap = popup.querySelector('[data-online-record]');
+
+        openWrapPopup(popup, formWrap);
+
+        e.preventDefault();
+    }
+
+    function openWrapPopup(popup, wrap) {
+        if(isShowMap) {
+            document.querySelector('[data-map]').style.display = 'none';
+        }
+
+        wrap.style.display = 'block';
+
+        popup.style.display = 'flex';
+        document.body.classList.toggle('open-popup');
+
+        var buttonClosePopup = wrap.querySelector('.b-popup__button-close');
+        buttonClosePopup.addEventListener('click', handlerClosePopup);
+
+        function handlerClosePopup() {
+            popup.style.display = '';
+            wrap.style.display = '';
+            if(isShowMap) {
+                document.querySelector('[data-map]').style.display = '';
+            }
+            document.body.classList.toggle('open-popup');
+            this.removeEventListener('click', handlerClosePopup);
+        }
+    }
+
+    function prepareOpenWrapPopup() {
+        var popup = document.getElementsByClassName('b-popup')[0];
+        popup.style.display = 'flex';
+        willChangeSwitch(popup, 'opacity');
+
+        this.addEventListener('mouseleave', handlerCancelPrepareToOpenWrapPopup);
+
+        function handlerCancelPrepareToOpenWrapPopup() {
+            popup.style.display = '';
+            removeWillChange.call(popup);
+            this.removeEventListener('mouseleave', handlerCancelPrepareToOpenWrapPopup);
+        }
+
+    }
+
+}
 

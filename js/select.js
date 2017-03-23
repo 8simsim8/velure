@@ -25,7 +25,6 @@ var Select = function(target, settings, callback) {
 		this.settings = this.getSettings(settings);
 		this.buildSelect();
 
-
 		this.target.parentNode.replaceChild(this.select, this.target);
 		this.target.style.display = 'none';
 		this.select.appendChild(this.target);
@@ -259,7 +258,7 @@ var Select = function(target, settings, callback) {
 	};
 
 	this.handleClickOff = function(e) {
-		if(!this.select.contains(e.target)) {
+		if(!this.select.contains(e.target) && this.list.classList.contains('open')) {
 			this.closeList();
 		}
 	};

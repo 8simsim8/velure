@@ -34,6 +34,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-marker:before {
+  content: "\e914";
+}
 .icon-acc-minus:before {
   content: "\e900";
 }
@@ -644,13 +647,16 @@ input:focus:-ms-input-placeholder {
   transition: color 0.1s ease;
 }
 .input-checkbox input[type='checkbox']:checked + span:before {
-  content: "\e910";
+  content: "\e906";
 }
 .input-checkbox span:hover,
 .input-checkbox span:hover:before {
   opacity: 1;
   -ms-filter: none;
   filter: none;
+}
+textarea.input__field.input__field--akira {
+  overflow: hidden;
 }
 textarea::-webkit-input-placeholder {
   text-align: center;

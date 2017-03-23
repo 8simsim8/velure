@@ -59,7 +59,9 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-
+.icon-marker:before {
+	content: "\e914";
+}
 .icon-acc-minus:before {
 	content: "\e900";
 }
@@ -580,7 +582,7 @@ input {
 		&:checked + span {
 		}
 		&:checked + span:before{
-			content: "\e910";
+			content: "\e906";
 		}
 	}
 	span:hover,
@@ -590,6 +592,9 @@ input {
 }
 
 textarea {
+	&.input__field.input__field--akira {
+		overflow: hidden;
+	}
 	&::-webkit-input-placeholder {text-align: center; padding: 15px 0; color:#40363e;}
 	&::-moz-placeholder          {text-align: center; padding: 15px 0; color:#40363e;}
 	&:-moz-placeholder           {text-align: center; padding: 15px 0; color:#40363e;}

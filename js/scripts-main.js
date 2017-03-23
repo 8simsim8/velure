@@ -2,14 +2,6 @@ window.addEventListener('load', function(){
 
     document.body.addEventListener(transitionEnd, loaderAnimation);
 
-    /*
-    * Scroll on click record button
-    */
-    const buttonOnlineRecord = document.querySelector('.online-record');
-    buttonOnlineRecord.addEventListener('click', function handlerOnlineRecordButton(e){
-        aminScroll(document.querySelector('.b-form'), 1000);
-    });
-
     window.addEventListener('scroll', handlerScrollWindow);
 
     openCircle();
@@ -134,7 +126,7 @@ function openCircle() {
         parent.classList.add('open-table');
 
         if(necessaryTable) {
-
+            necessaryTable.classList.add('current-open-table');
             necessaryTable.style.pointerEvents = 'auto';
             necessaryTable.style.opacity = '1';
         }
@@ -154,6 +146,7 @@ function openCircle() {
         if(necessaryTable) {
             necessaryTable.style.pointerEvents = '';
             necessaryTable.style.opacity = '';
+            necessaryTable.classList.remove('current-open-table');
         }
 
         this.removeEventListener('click', closeTable);

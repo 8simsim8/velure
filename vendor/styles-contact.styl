@@ -1,0 +1,120 @@
+@import 'nib'
+
+.b-title {
+	&__logo {
+		&-text {
+			margin-bottom: 5vh;
+		}
+		&-ligature {
+			& {
+				margin-bottom: 50px;
+			}
+			svg {
+				height: 40px;
+			}
+		}
+		&-address {
+			& {
+				display : flex;
+				justify-content : space-between;
+				align-items : baseline;
+				border-bottom: 1px solid rgba(224, 224, 224, 0.3);
+			}
+			&.address_top {
+				border-top: 1px solid rgba(224, 224, 224, 0.3);
+				padding: 9px 0 20px;
+			}
+			h3 {
+				margin: 0;
+			}
+			h3,
+			a {
+				color: #FFFFFF;
+			}
+			.text {
+				margin: 0;
+			}
+			.show-map {
+				& {
+					&:before {
+						margin-right: 10px;
+						color: #a823a3;
+						transition: font 0.2s ease;
+					}
+				}
+				&:hover {
+					color: #E1E1E1;
+				}
+				&:hover:before {
+					font-size: 1.1em;
+				}
+			}
+			&.address_bottom {
+				& {
+					padding: 13px 0 20px;
+				}
+				a {
+					font-size: 20px;
+					font-weight: bold;
+				}
+				a + span {
+					color: rgba(255,255,255,0.5);
+					margin-left: 10px;
+				}
+			}
+		}
+		&-social {
+			& {
+				margin-top : 70px;
+				text-align : center;
+			}
+			a {
+				display: inline-flex;
+				width: 64px;
+				height: @width;
+				margin: 0 30px;
+				color: #FFFFFF;
+				background-color: rgba(168, 35, 163, 0.9);
+				border-radius: 50%;
+				transition: background 0.2s ease;
+			}
+			a:before {
+				margin: auto;
+			}
+			a:hover {
+				background-color: rgba(168, 35, 163, 1);
+			}
+			.icon-vk {
+				font-size: 15px;
+			}
+			.icon-fb {
+				font-size: 22px;
+			}
+			.icon-inst {
+				font-size: 22px;
+			}
+
+		}
+	}
+}
+
+
+.b-form {
+	& {
+		position: relative;
+		margin-top: -90px;
+		margin-bottom: 60px;
+		z-index: 10;
+	}
+	.wrap {
+		background: url('../img/imprint-velur.png') no-repeat right bottom;
+	}
+	&__wrap {
+		box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+	}
+}
+
+.b-popup,
+[data-map] {
+	display: flex;
+}
