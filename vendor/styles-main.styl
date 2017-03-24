@@ -498,46 +498,8 @@
 							position: absolute;
 							left: 0;
 							top: 0;
-							counter-reset : counter-recomendation;
-							width : 100%;
 							opacity: 0;
 							pointer-events: none;
-						}
-						tr {
-							& {
-								counter-increment : counter-recomendation;
-							}
-							&:nth-child(odd) {
-								background-color : rgba(224, 224, 224, 0.3);
-							}
-							&:nth-child(even) {
-								background-color : transparent;
-							}
-							&:before {
-								content : counter(counter-recomendation);
-								display : table-cell;
-								padding : 20px;
-								vertical-align : middle;
-								text-align : right;
-								font-weight : bold;
-								color : #A823A3;
-							}
-							.name {
-								width : 57%;
-								line-height : 0;
-								color : #4D344A;
-							}
-							.price {
-								padding : 20px 10px;
-								line-height : 0;
-								color : #000000;
-								min-width: 100px;
-							}
-							.button-record {
-								padding : 20px 20px 20px 10px;
-								text-transform: uppercase;
-								line-height : 0;
-							}
 						}
 					}
 				}

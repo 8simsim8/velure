@@ -31,6 +31,10 @@
 .b-form {
   padding-bottom: 90px;
 }
+.b-form__wrap {
+  -webkit-box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+  box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+}
 @media all and (max-width: 1150px) {
   .b-cosmetics__logos-item {
     height: 210px;

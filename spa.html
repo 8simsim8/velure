@@ -377,6 +377,7 @@
                 }
                 if(isFinishLoaderOneCicle && isFinishNotLoadVideo) {
                     poster.remove();
+                    enableScroll();
                     startPlayBg();
                     video.removeEventListener('canplaythrough', videoLoad);
                 }
@@ -396,6 +397,7 @@
                 video.currentTime = 0;
                 video.muted = true;
                 video.play();
+                window.isVideoPlay = true;
             }
 
             //*** Work with property will-change ***//

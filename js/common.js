@@ -44,6 +44,16 @@ window.addEventListener('load', function() {
                 //     header.style.left = '';
                 // }
                 // Необходимо скрывать карту
+
+                // Старт/пауза видео
+                switchPlayVideoOnScroll();
+
+                // Старт и подготовка анимаций при скролле
+                if(document.body.classList.contains('finish-load')) {
+                    prepareToAnim();
+                    scrollAnim('start');
+                }
+
                 if(!isShowMap) {
                     prepareMapScroll(scrollPage);
                 }
@@ -185,6 +195,29 @@ window.addEventListener('load', function() {
 });
 
 /*
+*   Отслдеить исчезновение прелоадера
+*/
+document.querySelector('.preloader').addEventListener(transitionEnd, loaderAnimation);
+
+/*
+*   Остановка воспроизведения видео, когда скрыто
+*/
+function switchPlayVideoOnScroll() {
+    var video = document.querySelector('video');
+    if(video && video.getBoundingClientRect().bottom < 0) {
+        if(window.isVideoPlay) {
+            video.pause();
+            window.isVideoPlay = false;
+        }
+    } else {
+        if(!window.isVideoPlay) {
+            video.play();
+            window.isVideoPlay = true;
+        }
+    }
+}
+
+/*
 *   Отслеживание старта анимации элементов при скроле
 */
 function scrollAnim(classAnimEl, classAfterFinish) {
@@ -236,7 +269,11 @@ function prepareToAnim(classAnimEl) {
     }
 }
 
-//*** Work with property will-change ***//
+/*
+*   Создание слоя комнозиции с помощью will-change перед анимацией
+*   elem                        - анимируемый элемент
+*   prop                        - свойства, которые необходимо подготовить
+*/
 function willChangeSwitch(elem, prop) {
 
     if(elem.length) {
@@ -248,7 +285,9 @@ function willChangeSwitch(elem, prop) {
     }
 }
 
-//*** Delete composition layer ***//
+/*
+*   Удаление слоя из композиции
+*/
 function removeWillChange(){
     var self = this;
 
@@ -499,11 +538,11 @@ function controlInputs() {
 
     animTextInput('input__field');
 
-    createDroplists('droplist');
-
     controlHeightTextArea();
 
     const timePick = createTime('input-time');
+
+    createDroplists('droplist');
 
     const datePick = createDate('input-date');
 
@@ -587,14 +626,43 @@ function createTime(classTime) {
     const timeInput = document.getElementsByClassName(classTime);
     var timePick = [];
     for(var i = 0, len = timeInput.length; i < len; i++) {
-        timePick[i] = new Flatpickr(timeInput[i], {
-            noCalendar: true,
-            enableTime: true,
-            time_24hr: true,
-            disableMobile: true
-        });
+        createSelectTime(timeInput[i]);
     }
+
     return timePick;
+
+    function createSelectTime(input) {
+
+        var label = document.createElement('label');
+
+        var select = document.createElement('select');
+        select.name = input.name;
+        select.setAttribute('data-placeholder', input.placeholder);
+        select.setAttribute('data-nofilter', '');
+        select.className += input.className + ' droplist';
+
+        if(input.required) {
+            select.setAttribute('required','');
+        }
+
+        var from = +input.getAttribute('data-from') || 9;
+        var to = +input.getAttribute('data-to') || 19;
+        var step = +input.getAttribute('data-step') || 1;
+
+        var i = from;
+        while(i <= to) {
+            var option = document.createElement("option");
+            option.text = i + ':00';
+            select.add(option);
+            i += step;
+        }
+
+        label.append(select);
+
+        input.parentNode.insertBefore(label, input);
+
+        input.remove();
+    }
 }
 
 /*
@@ -608,6 +676,8 @@ function createDroplists(classNameDroplists) {
     for (var i = 0, len = droplistsSelect.length; i < len; i++) {
         droplists[i] = makeDroplist(droplistsSelect[i]);
     }
+
+    return droplists;
 }
 
 /*
@@ -618,9 +688,12 @@ function makeDroplist(elem) {
 
     var isDisableOnLoad = elem.hasAttribute('data-next-select-id');
 
+    var isFilter = elem.hasAttribute('data-nofilter') ? false : 'auto';
+
     return droplist = new Select(elem, {
         // auto show the live filter
-        filtered: 'auto',
+        // filtered: 'auto',
+        filtered: isFilter,
         // auto show the live filter when the options >= 10
         filter_threshold: 10,
         // custom placeholder
@@ -784,6 +857,16 @@ function aminScroll(e, delta, time, timingEase) {
         easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
     };
 
+}
+
+/*
+*   Старт анимации при загрузке, если на нужном обьекте
+*/
+function loaderAnimation() {
+    if(document.body.classList.contains('finish-load')) {
+        scrollAnim('start');
+    }
+    document.querySelector('.preloader').removeEventListener(transitionEnd, loaderAnimation);
 }
 
 function preparePopupToContact(isShowMap) {

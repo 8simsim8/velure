@@ -409,7 +409,7 @@
                     document.body.classList.add('finish-load');
                     document.body.classList.remove('no-scroll');
                     poster.remove();
-
+                    enableScroll();
                     startPlayBg();
                     video.removeEventListener('canplaythrough', videoLoad);
                 }
@@ -426,6 +426,7 @@
 				video.currentTime = 0;
 				video.muted = true;
 				video.play();
+				window.isVideoPlay = true;
 			}
 		
 			//*** Work with property will-change ***//
@@ -640,6 +641,13 @@
 						</form>
 					</div>
 				</div>
+			</div>
+			<div class="b-form__bg start">
+				<div class="b-form__bg-item1" style="background-image: url('../img/img-detox-salt.png');"></div>
+				<div class="b-form__bg-item2" style="background-image: url('../img/img-oil.png');"></div>
+				<div class="b-form__bg-item3" style="background-image: url('../img/img-peeling-salt.png');"></div>
+				<div class="b-form__bg-item4" style="background-image: url('../img/img-picture.png');"></div>
+				<div class="b-form__bg-item5" style="background-image: url('../img/img-pot.png');"></div>
 			</div>
 		</section>
 		

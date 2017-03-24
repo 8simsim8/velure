@@ -390,8 +390,8 @@
                             document.body.classList.add('finish-load');
                             document.body.classList.remove('load-poster');
                             document.body.classList.remove('no-scroll');
-                            enableScroll();
                         },500);
+                        enableScroll();
                         poster.remove();
                         startPlayBg();
                         video.removeEventListener('canplaythrough', videoLoad);
@@ -400,8 +400,8 @@
                         titleLogo.classList.add('transition');
                         document.body.classList.add('finish-load');
                         document.body.classList.remove('no-scroll');
+                        enableScroll();
                         poster.remove();
-                        
                         startPlayBg();
                         video.removeEventListener('canplaythrough', videoLoad);
                     }
@@ -462,6 +462,7 @@
                     video.currentTime = 0;
                     video.muted = true;
                     video.play();
+                    window.isVideoPlay = true;
                 }
 
                 //*** Work with property will-change ***//

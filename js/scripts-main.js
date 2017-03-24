@@ -1,9 +1,5 @@
 window.addEventListener('load', function(){
 
-    document.body.addEventListener(transitionEnd, loaderAnimation);
-
-    window.addEventListener('scroll', handlerScrollWindow);
-
     openCircle();
 
     /*
@@ -34,35 +30,9 @@ window.addEventListener('load', function(){
             }
         });
 
-    var ticking = false;
-    var scrollPage;
-    var scrollLeft;
-
-    var isScrollAnimFinish = false;
-
-    function handlerScrollWindow() {
-        scrollPage = window.pageYOffset || document.documentElement.scrollTop;
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        if (!ticking) {
-            window.requestAnimationFrame(function () {
-                if(document.body.classList.contains('finish-load')) {
-                    prepareToAnim();
-                    scrollAnim('start');
-                }
-                ticking = false;
-            });
-        }
-        ticking = true;
-    }
-
 });
 
-function loaderAnimation() {
-    if(document.body.classList.contains('finish-load')) {
-        scrollAnim('start');
-    }
-    document.body.removeEventListener(transitionEnd, loaderAnimation);
-}
+
 
 function openCircle() {
     var circlesWrap = document.querySelector('.circles-wrap');

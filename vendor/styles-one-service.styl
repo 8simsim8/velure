@@ -80,7 +80,7 @@
 	}
 	.lead {
 		margin-bottom: 70px;
-		color: #40363E;
+		color: #474747;
 	}
 	&__slider {
 		& {
@@ -116,10 +116,9 @@
 
 	&__detail {
 		& {
-			margin-bottom: 65px;
 		}
 		&-item {
-			& {
+			&:not(:last-child) {
 				margin-bottom: 35px;
 			}
 			h4 {
@@ -130,18 +129,28 @@
 				color: #40363e;
 				margin-bottom: 1.5em;
 			}
+			p.text:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
 
-.b-prices {}
+.b-prices {
+	& {
+		padding-top: 65px;
+	}
+	h3 {
+		margin-bottom: 0.7em;
+	}
+}
 
 .b-faq {
 	& {
-		margin-bottom: 70px;
+		padding-top: 68px;
 	}
 	h3 {
-		margin-bottom: 40px;
+		margin-bottom: 0.7em;
 	}
 	&__accordeon {
 		.acc-hidden-element__wrap {
@@ -166,22 +175,36 @@
 
 .b-packages {
 	& {
-		margin-bottom: 70px;
+		padding-top: 65px;
 	}
 	h3 {
-		margin-bottom: 40px;
+		margin-bottom: 0.7em;
 	}
 	&__accordeon {
 		.acc-hidden-element {
 			& {
 			}
 		}
+		.acc-item .acc-hidden-element__wrap.two-col {
+			& {
+				flex-direction : column;
+			}
+			& > * {
+				width: 100%;
+			}
+			.swiper-container {
+				height: 500px;
+			}
+		}
 	}
 }
 .b-other-services {
-	& {}
+	& {
+		padding-top: 65px;
+		padding-bottom: 50px;
+	}
 	h3 {
-		margin-bottom: 40px;
+		margin-bottom: 0.7em;
 	}
 	&__links {
 		& {
@@ -215,6 +238,27 @@
 			}
 		}
 	}
+}
+
+
+.b-side {
+	& {
+		position: relative;
+	}
+	&__bar {
+		& {
+			position: absolute;
+			top: -110px;
+			left: 10px;
+			width: calc(100% - 20px);
+			z-index: 9998;
+		}
+		&.form {
+			padding: 35px;
+			box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+		}
+	}
+
 }
 
 @media all and (max-height: 680px) {

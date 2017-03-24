@@ -1005,9 +1005,48 @@ video::-webkit-media-controls-panel {
   border: none;
 }
 .select .list ul li {
+  text-align: center;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
   color: #40363e;
+}
+.item-table {
+  counter-reset: counter-recomendation;
+  width: 100%;
+}
+.item-table tr {
+  counter-increment: counter-recomendation;
+}
+.item-table tr:nth-child(odd) {
+  background-color: rgba(224,224,224,0.3);
+}
+.item-table tr:nth-child(even) {
+  background-color: transparent;
+}
+.item-table tr:before {
+  content: counter(counter-recomendation);
+  display: table-cell;
+  padding: 20px;
+  vertical-align: middle;
+  text-align: right;
+  font-weight: bold;
+  color: #a823a3;
+}
+.item-table tr .name {
+  width: 57%;
+  line-height: 0;
+  color: #4d344a;
+}
+.item-table tr .price {
+  padding: 20px 10px;
+  line-height: 0;
+  color: #000;
+  min-width: 100px;
+}
+.item-table tr .button-record {
+  padding: 20px 20px 20px 10px;
+  text-transform: uppercase;
+  line-height: 0;
 }
 .wrap-error {
   position: absolute;

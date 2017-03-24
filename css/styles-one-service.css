@@ -62,7 +62,7 @@
 }
 .b-about .lead {
   margin-bottom: 70px;
-  color: #40363e;
+  color: #474747;
 }
 .b-about__slider {
   margin-bottom: 50px;
@@ -87,10 +87,7 @@
 .b-about__slider .swiper-controls-next {
   right: 50px;
 }
-.b-about__detail {
-  margin-bottom: 65px;
-}
-.b-about__detail-item {
+.b-about__detail-item:not(:last-child) {
   margin-bottom: 35px;
 }
 .b-about__detail-item h4 {
@@ -101,11 +98,20 @@
   color: #40363e;
   margin-bottom: 1.5em;
 }
+.b-about__detail-item p.text:last-child {
+  margin-bottom: 0;
+}
+.b-prices {
+  padding-top: 65px;
+}
+.b-prices h3 {
+  margin-bottom: 0.7em;
+}
 .b-faq {
-  margin-bottom: 70px;
+  padding-top: 68px;
 }
 .b-faq h3 {
-  margin-bottom: 40px;
+  margin-bottom: 0.7em;
 }
 .b-faq__accordeon .acc-hidden-element__wrap {
   padding: 30px 40px 30px 70px;
@@ -119,13 +125,31 @@
   list-style-type: disc;
 }
 .b-packages {
-  margin-bottom: 70px;
+  padding-top: 65px;
 }
 .b-packages h3 {
-  margin-bottom: 40px;
+  margin-bottom: 0.7em;
+}
+.b-packages__accordeon .acc-item .acc-hidden-element__wrap.two-col {
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.b-packages__accordeon .acc-item .acc-hidden-element__wrap.two-col > * {
+  width: 100%;
+}
+.b-packages__accordeon .acc-item .acc-hidden-element__wrap.two-col .swiper-container {
+  height: 500px;
+}
+.b-other-services {
+  padding-top: 65px;
+  padding-bottom: 50px;
 }
 .b-other-services h3 {
-  margin-bottom: 40px;
+  margin-bottom: 0.7em;
 }
 .b-other-services__links {
   display: -webkit-box;
@@ -164,6 +188,21 @@
 }
 .b-other-services__links-item.row8 {
   width: 100%;
+}
+.b-side {
+  position: relative;
+}
+.b-side__bar {
+  position: absolute;
+  top: -110px;
+  left: 10px;
+  width: calc(100% - 20px);
+  z-index: 9998;
+}
+.b-side__bar.form {
+  padding: 35px;
+  -webkit-box-shadow: 0 4px 8px rgba(224,224,224,0.75);
+  box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 }
 @media all and (max-height: 680px) {
   .b-title__logo {
