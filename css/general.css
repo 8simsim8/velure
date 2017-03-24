@@ -618,6 +618,7 @@ input:focus:-ms-input-placeholder {
   -webkit-align-items: center;
   align-items: center;
   height: 24px;
+  color: #5e4f5c;
 }
 .input-checkbox input[type='checkbox'] + span:before {
   position: relative;
@@ -626,7 +627,7 @@ input:focus:-ms-input-placeholder {
   width: 24px;
   margin-right: 15px;
   content: " ";
-  color: #a8238e;
+  color: #fff;
   font-family: 'icon-velur';
   font-size: 16px;
   speak: none;
@@ -635,7 +636,7 @@ input:focus:-ms-input-placeholder {
   font-variant: normal;
   text-transform: none;
   -webkit-font-smoothing: antialiased;
-  border: 1px solid #ccc;
+  background-color: rgba(94,79,92,0.3);
   border-radius: 4px;
 }
 .input-checkbox input[type='checkbox'] + span,

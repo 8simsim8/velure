@@ -894,20 +894,23 @@
 				<div class="col sm-8">
 					<h3>Другие услуги в зоне SPA</h3>
 					<div class="b-other-services__links">
-						<a href="#" class="b-other-services__links-item row4" style="background-image:
-						url('img/temp/salt-grotto.jpg');">
+						<a href="#" class="b-other-services__links-item row4">
+							<p class="services__links_img"
+							   style="background-image: url('img/temp/salt-grotto.jpg');"></p>
 							<h4>Соляной грот</h4>
 						</a>
-						<a href="#" class="b-other-services__links-item row4" style="background-image:
-						url('img/temp/berber-hammam.jpg');">
+						<a href="#" class="b-other-services__links-item row4">
+							<p class="services__links_img"
+							   style="background-image:	url('img/temp/berber-hammam.jpg');"></p>
 							<h4>Берберский Хаммам</h4>
 						</a>
-						<a href="#" class="b-other-services__links-item row5" style="background-image:
-						url('img/temp/javanese-lulur.jpg');">
+						<a href="#" class="b-other-services__links-item row5">
+							<p class="services__links_img" style="background-image:
+							url('img/temp/javanese-lulur.jpg');"></p>
 							<h4>Яванский Лулур</h4>
 						</a>
-						<a href="#" class="b-other-services__links-item row3" style="background-image:
-						url('img/temp/hammam.jpg');">
+						<a href="#" class="b-other-services__links-item row3">
+							<p class="services__links_img" style="background-image: url('img/temp/hammam.jpg');"></p>
 							<h4>Хаммам</h4>
 						</a>
 					</div>
@@ -918,116 +921,116 @@
 	</main>
 
 	<section class="b-popup">
-	<div class="b-popup__map img-flover__form" data-map>
-		<p class="b-popup__button-close button-close"></p>
-		<div class="b-popup__map-left">
-			<div id="map" class="google-map"></div>
+		<div class="b-popup__map img-flover__form" data-map>
+			<p class="b-popup__button-close button-close"></p>
+			<div class="b-popup__map-left">
+				<div id="map" class="google-map"></div>
+			</div>
+			<div class="b-popup__map-right">
+				<div id="pano" class="street-view"></div>
+				<h4>Сумы, ул. Покровская, 16/1</h4>
+				<ul>
+					<li
+							class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+									</span></li>
+					<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+					<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="b-popup__map-right">
-			<div id="pano" class="street-view"></div>
-			<h4>Сумы, ул. Покровская, 16/1</h4>
-			<ul>
-				<li
-						class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
-								</span></li>
-				<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
-				<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
-			</ul>
+		<div class="b-popup__contact img-flover__form form" data-contact>
+			<p class="b-popup__button-close button-close"></p>
+			<p class="icon-ligature-half"></p>
+			<form action="" name="contact">
+				<input name="title" value="Онлайн запись" hidden />
+				<h3>Онлайн-запись</h3>
+				<h4></h4>
+				<!--<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>-->
+				<span class="input input--akira">
+							<input class="input__field input__field--akira value-input"
+							       type="text"
+							       id="name"
+							       name="name"
+							       required/>
+							<label class="input__label input__label--akira" for="name">
+								<span class="input__label-content input__label-content--akira text">Имя</span>
+						    </label>
+						</span>
+				<span class="input input--akira">
+							<input class="input__field input__field--akira value-input"
+							       type="tel"
+							       id="phone"
+							       name="phone"
+							       pattern="(\+?\d[- .]*){7,13}"
+							       required/>
+							<label class="input__label input__label--akira" for="phone">
+								<span class="input__label-content input__label-content--akira text">Телефон</span>
+							</label>
+						</span>
+				<input name="services" value="" hidden />
+				<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+				       placeholder="Время" required>
+				<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+				       placeholder="Дата" required>
+				
+				<button type="button" class="btn btn__big btn__submit">отправить</button>
+				
+				<p class="normal text">или звоните (050) 111-22-33</p>
+			</form>
 		</div>
-	</div>
-	<div class="b-popup__contact img-flover__form form" data-contact>
-		<p class="b-popup__button-close button-close"></p>
-		<p class="icon-ligature-half"></p>
-		<form action="" name="contact">
-			<input name="title" value="Онлайн запись" hidden />
-			<h3>Онлайн-запись</h3>
-			<h4></h4>
-			<!--<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>-->
-			<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="text"
-						       id="name"
-						       name="name"
-						       required/>
-						<label class="input__label input__label--akira" for="name">
-							<span class="input__label-content input__label-content--akira text">Имя</span>
-					    </label>
-					</span>
-			<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="tel"
-						       id="phone"
-						       name="phone"
-						       pattern="(\+?\d[- .]*){7,13}"
-						       required/>
-						<label class="input__label input__label--akira" for="phone">
-							<span class="input__label-content input__label-content--akira text">Телефон</span>
-						</label>
-					</span>
-			<input name="services" value="" hidden />
-			<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-			       placeholder="Время" required>
-			<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-			       placeholder="Дата" required>
-			
-			<button type="button" class="btn btn__big btn__submit">отправить</button>
-			
-			<p class="normal text">или звоните (050) 111-22-33</p>
-		</form>
-	</div>
-	<div class="b-popup__online img-flover__form form" data-online-record>
-		<p class="b-popup__button-close button-close"></p>
-		<p class="icon-ligature-half"></p>
-		<form action="" name="contact">
-			<input name="title" value="Онлайн запись" hidden />
-			<h3>Онлайн-запись</h3>
-			<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
-			<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="text"
-						       id="name"
-						       name="name"
-						       required/>
-						<label class="input__label input__label--akira" for="name">
-							<span class="input__label-content input__label-content--akira text">Имя</span>
-					    </label>
-					</span>
-			<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="tel"
-						       id="phone"
-						       name="phone"
-						       pattern="(\+?\d[- .]*){7,13}"
-						       required/>
-						<label class="input__label input__label--akira" for="phone">
-							<span class="input__label-content input__label-content--akira text">Телефон</span>
-						</label>
-					</span>
-			<select name="services" data-placeholder="Услуга" required
-			        class="input droplist img-arrow forcibly-placeholder value-input">
-				<!--<option>Услуга</option>-->
-				<option>Услуга 1</option>
-				<option>Услуга 2</option>
-				<option>Услуга 3</option>
-				<option>Услуга 4</option>
-				<option>Услуга 5</option>
-				<option>Услуга 6</option>
-				<option>Услуга 7</option>
-				<option>Услуга 8</option>
-				<option>Услуга 9</option>
-				<option>Услуга 10</option>
-			</select>
-			<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-			       placeholder="Время" required>
-			<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-			       placeholder="Дата" required>
-			
-			<button type="button" class="btn btn__big btn__submit">отправить</button>
-			
-			<p class="normal text">или звоните (050) 111-22-33</p>
-		</form>
-	</div>
-</section>
+		<div class="b-popup__online img-flover__form form" data-online-record>
+			<p class="b-popup__button-close button-close"></p>
+			<p class="icon-ligature-half"></p>
+			<form action="" name="contact">
+				<input name="title" value="Онлайн запись" hidden />
+				<h3>Онлайн-запись</h3>
+				<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+				<span class="input input--akira">
+							<input class="input__field input__field--akira value-input"
+							       type="text"
+							       id="name"
+							       name="name"
+							       required/>
+							<label class="input__label input__label--akira" for="name">
+								<span class="input__label-content input__label-content--akira text">Имя</span>
+						    </label>
+						</span>
+				<span class="input input--akira">
+							<input class="input__field input__field--akira value-input"
+							       type="tel"
+							       id="phone"
+							       name="phone"
+							       pattern="(\+?\d[- .]*){7,13}"
+							       required/>
+							<label class="input__label input__label--akira" for="phone">
+								<span class="input__label-content input__label-content--akira text">Телефон</span>
+							</label>
+						</span>
+				<select name="services" data-placeholder="Услуга" required
+				        class="input droplist img-arrow forcibly-placeholder value-input">
+					<!--<option>Услуга</option>-->
+					<option>Услуга 1</option>
+					<option>Услуга 2</option>
+					<option>Услуга 3</option>
+					<option>Услуга 4</option>
+					<option>Услуга 5</option>
+					<option>Услуга 6</option>
+					<option>Услуга 7</option>
+					<option>Услуга 8</option>
+					<option>Услуга 9</option>
+					<option>Услуга 10</option>
+				</select>
+				<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+				       placeholder="Время" required>
+				<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+				       placeholder="Дата" required>
+				
+				<button type="button" class="btn btn__big btn__submit">отправить</button>
+				
+				<p class="normal text">или звоните (050) 111-22-33</p>
+			</form>
+		</div>
+	</section>
 	
 	<footer class="l-footer b-footer">
 		<div class="wrap img-footer__bg">

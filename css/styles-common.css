@@ -527,10 +527,10 @@ section .icon-ligature {
   margin-bottom: 1.4em;
   text-align: center;
   font-size: 40px;
-  color: #7f7f7f;
+  color: #a823a3;
 }
 section .icon-ligature + h2 {
-  margin-bottom: 1.25em;
+  margin-bottom: 1em;
 }
 .wrap {
   max-width: 1415px;
@@ -567,23 +567,28 @@ video::-webkit-media-controls-panel {
   position: relative;
   height: 304px;
   padding: 10px;
-  -webkit-background-clip: content;
-  -moz-background-clip: content;
-  background-clip: content-box;
+}
+[class*="services__links-item"] [class*="services__links_img"] {
+  position: absolute;
+  display: block;
+  top: 10px;
+  left: 10px;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 4px;
 }
-[class*="services__links-item"]:after {
+[class*="services__links-item"] [class*="services__links_img"]:after {
   position: absolute;
   display: block;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  padding: 10px;
+  bottom: 0;
+  right: 0;
   content: '';
   -webkit-background-clip: content;
   -moz-background-clip: content;
@@ -592,6 +597,7 @@ video::-webkit-media-controls-panel {
   opacity: 0.2;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
+  border-radius: 4px;
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
@@ -599,7 +605,7 @@ video::-webkit-media-controls-panel {
   transition: opacity 0.2s ease;
   z-index: 1;
 }
-[class*="services__links-item"]:hover:after {
+[class*="services__links-item"]:hover [class*="services__links_img"]:after {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -853,6 +859,8 @@ video::-webkit-media-controls-panel {
   -ms-flex-align: baseline;
   -webkit-align-items: baseline;
   align-items: baseline;
+  margin: 0;
+  max-width: 100%;
   padding: 1em 0 1em 15px;
 }
 .accordeon .acc-item .acc-button-element > *:first-child {

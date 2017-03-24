@@ -265,7 +265,7 @@ function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
     const slidersElem = document.getElementsByClassName(classNameSlidersContainer);
     var sliders = [];
     for(var i = 0, len = slidersElem.length; i < len; i++) {
-        if(isClosest(slidersElem[i], '.'+classNameWrappAccordeon)) {
+        if(isClosest(slidersElem[i], '.'+classNameWrappAccordeon) || isClosest(slidersElem[i], '[data-autoSlide=false]')) {
             sliders[i] = makeSlider(slidersElem[i]);
         } else {
             sliders[i] = makeSlider(slidersElem[i],5000);
@@ -341,14 +341,14 @@ function MakeAccordeon(elem, time){
 
         if (prevElem && prevElem != self) {
             prevElem.classList.toggle("active");
-            window.requestAnimationFrame(bringSlideUp.bind(null,prevElem, true));
+            window.requestAnimationFrame(bringSlideUp.bind(null,self,prevElem, true));
         } else if(prevElem && prevElem == self) {
-            window.requestAnimationFrame(bringSlideUp.bind(null,self, false));
+            window.requestAnimationFrame(bringSlideUp.bind(null,self,self, false));
         } else {
             window.requestAnimationFrame(bringSlideDown.bind(null,self));
         }
 
-        function bringSlideUp(buttonBlock, callBack) {
+        function bringSlideUp(newActiveButton, buttonBlock, callBack) {
 
             var panel = buttonBlock.nextElementSibling;
 
@@ -362,7 +362,20 @@ function MakeAccordeon(elem, time){
 
                 panel.style.height = (panel.scrollHeight - Math.floor(panel.scrollHeight*temp) ) + 'px' ;
 
-                window.requestAnimationFrame(bringSlideUp.bind(null,buttonBlock,callBack));
+                if(newActiveButton.getBoundingClientRect().top < 0) {
+
+                    var bringIntoView_y = (window.pageYOffset || document.documentElement.scrollTop) + newActiveButton.getBoundingClientRect().top - document.querySelector('.b-navigation__header').offsetHeight + 5;
+
+                    window.scrollTo(0, bringIntoView_y);
+
+                    setTimeout(function(){
+                        window.requestAnimationFrame(bringSlideUp.bind(null,self,buttonBlock,callBack));
+                    },30);
+
+                } else {
+                    window.requestAnimationFrame(bringSlideUp.bind(null,self,buttonBlock,callBack));
+                }
+
             } else {
                 panel.style.height = '0px';
                 panel.style.display = 'none';
@@ -370,10 +383,6 @@ function MakeAccordeon(elem, time){
                     bringStarted = Date.now();
                     bringEndsDown = bringStarted + durationDown;
                     window.requestAnimationFrame(bringSlideDown.bind(null,element.querySelector(".active")));
-                } else {
-                    if(buttonBlock.getBoundingClientRect().top < 0) {
-                        aminScroll(buttonBlock, time);
-                    }
                 }
             }
         }
@@ -395,11 +404,9 @@ function MakeAccordeon(elem, time){
                 panel.style.height = Math.floor(panel.scrollHeight*temp) + 'px';
 
                 window.requestAnimationFrame(bringSlideDown.bind(null,buttonBlock));
+
             } else {
                 panel.style.height = Math.floor(panel.scrollHeight) + 'px';
-                if(buttonBlock.getBoundingClientRect().top < 0) {
-                    aminScroll(buttonBlock, time);
-                }
             }
         }
     }
@@ -710,14 +717,20 @@ function myMap() {
 
 /*
 *   Скролл к элементу с анимацией
+*   e - элемент до которого скролл
+*   delta - отступ от верха окна до элемента
+*   time - колличество мс
+*   timingEase - ease функция анимации
 */
-function aminScroll(e, time) {
+function aminScroll(e, delta, time, timingEase) {
 
-    var duration = time;
+    var deltaTop = delta || (document.querySelector('.b-navigation__header').offsetHeight + 5);
+    var duration = time || 0;
+    var ease = timingEase || 'linear';
     var bringIntoView_started = Date.now();
     var bringIntoView_ends = bringIntoView_started + duration;
 
-    var bringIntoView_y = (window.pageYOffset || document.documentElement.scrollTop) + e.getBoundingClientRect().top - document.querySelector('.b-navigation__header').offsetHeight + 5;
+    var bringIntoView_y = (window.pageYOffset || document.documentElement.scrollTop) + e.getBoundingClientRect().top - deltaTop;
 
     window.requestAnimationFrame(bringIntoView_tick);
 
@@ -730,7 +743,7 @@ function aminScroll(e, time) {
 
         if (t <= bringIntoView_ends) {
             dt = t - bringIntoView_started;
-            temp = EasingFunctions.easeInQuart(dt/duration);
+            temp = EasingFunctions[ease](dt/duration);
             distanceLeft = bringIntoView_y - scrollY;
             travel = distanceLeft * temp;
 
@@ -742,36 +755,36 @@ function aminScroll(e, time) {
         }
     }
 
-}
+    var EasingFunctions = {
+        // no easing, no acceleration
+        linear: function (t) { return t },
+        // accelerating from zero velocity
+        easeInQuad: function (t) { return t*t },
+        // decelerating to zero velocity
+        easeOutQuad: function (t) { return t*(2-t) },
+        // acceleration until halfway, then deceleration
+        easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+        // accelerating from zero velocity
+        easeInCubic: function (t) { return t*t*t },
+        // decelerating to zero velocity
+        easeOutCubic: function (t) { return (--t)*t*t+1 },
+        // acceleration until halfway, then deceleration
+        easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+        // accelerating from zero velocity
+        easeInQuart: function (t) { return t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+        // acceleration until halfway, then deceleration
+        easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+        // accelerating from zero velocity
+        easeInQuint: function (t) { return t*t*t*t*t },
+        // decelerating to zero velocity
+        easeOutQuint: function (t) { return 1+(--t)*t*t*t*t; },
+        // acceleration until halfway, then deceleration
+        easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+    };
 
-var EasingFunctions = {
-    // no easing, no acceleration
-    linear: function (t) { return t },
-    // accelerating from zero velocity
-    easeInQuad: function (t) { return t*t },
-    // decelerating to zero velocity
-    easeOutQuad: function (t) { return t*(2-t) },
-    // acceleration until halfway, then deceleration
-    easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-    // accelerating from zero velocity
-    easeInCubic: function (t) { return t*t*t },
-    // decelerating to zero velocity
-    easeOutCubic: function (t) { return (--t)*t*t+1 },
-    // acceleration until halfway, then deceleration
-    easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-    // accelerating from zero velocity
-    easeInQuart: function (t) { return t*t*t*t },
-    // decelerating to zero velocity
-    easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-    // acceleration until halfway, then deceleration
-    easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-    // accelerating from zero velocity
-    easeInQuint: function (t) { return t*t*t*t*t },
-    // decelerating to zero velocity
-    easeOutQuint: function (t) { return 1+(--t)*t*t*t*t; },
-    // acceleration until halfway, then deceleration
-    easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
-};
+}
 
 function preparePopupToContact(isShowMap) {
     var buttonToOpenPopupContact = document.getElementsByClassName('button-record');
