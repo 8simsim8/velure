@@ -8,6 +8,8 @@ window.addEventListener('load', function(){
     var scrollLeft;
     const sideBar = document.getElementsByClassName('b-side__bar')[0];
     const deafultTopSideBar = sideBar.offsetTop;
+	window.paddingLeftParentBar = parseInt(window.getComputedStyle(sideBar.parentNode).getPropertyValue("padding-left"));
+	window.paddingRightParentBar = parseInt(window.getComputedStyle(sideBar.parentNode).getPropertyValue("padding-right"));
     window.sideBarFixed = false;
 
     // Sliders
@@ -16,12 +18,15 @@ window.addEventListener('load', function(){
     // Accordeons
     var accordeons = createAccordeons(accordeonClassName, true);
 
-    // Плавающая боковая форма
-    initScrollSideBar(sideBar, deafultTopSideBar);
+	// Плавающая боковая форма
+	initScrollSideBar(sideBar, deafultTopSideBar);
+	document.querySelector('.preloader').addEventListener(transitionEnd, function finishPreload() {
+		initScrollSideBar(sideBar, deafultTopSideBar);
+		window.addEventListener('scroll', handlerScrollSideBar);
 
-    window.addEventListener('scroll', handlerScrollSideBar);
-
-    window.addEventListener('resize', handlerResizeSideBar.bind(null, sideBar));
+		window.addEventListener('resize', handlerResizeSideBar.bind(null, sideBar));
+		document.querySelector('.preloader').removeEventListener(transitionEnd, finishPreload);
+	});
 
     function handlerScrollSideBar() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -40,8 +45,10 @@ window.addEventListener('load', function(){
 });
 
 function initScrollSideBar(sideBar, deafultTopSideBar) {
+	console.dir();
+	
     var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
-    window.scrollTo(0,scrollPage+1);
+    flowSideBar(scrollPage,sideBar, deafultTopSideBar);
 }
 
 function handlerResizeSideBar(sideBar) {
@@ -50,13 +57,13 @@ function handlerResizeSideBar(sideBar) {
         if(window.sideBarToBottom) {
             sideBar.style.position = 'absolute';
             sideBar.style.bottom = '50px';
-            sideBar.style.left = '10px';
+            sideBar.style.left = window.paddingLeftParentBar + 'px';
             sideBar.style.top = 'auto';
-            sideBar.style.right = '10px';
+            sideBar.style.right = window.paddingRightParentBar + 'px';
             sideBar.style.width = '';
         } else {
-            sideBar.style.left = sideBar.parentNode.offsetLeft + 10 + 'px';
-            sideBar.style.width = sideBar.parentNode.clientWidth - 20 + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
             sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 20 + 'px';
         }
     }
@@ -68,8 +75,8 @@ function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
 
         if(!window.sideBarFixed) {
             sideBar.style.position = 'fixed';
-            sideBar.style.left = sideBar.parentNode.offsetLeft + 10 + 'px';
-            sideBar.style.width = sideBar.parentNode.clientWidth - 20 + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.width = sideBar.parentNode.clientWidth -  ( window.paddingLeftParentBar + window.paddingRightParentBar )  + 'px';
             sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 20 + 'px';
             sideBar.style.bottom = 'auto';
             window.sideBarFixed = true;
@@ -88,17 +95,17 @@ function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
         if(sideBar.parentNode.getBoundingClientRect().bottom <= document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 70 + sideBar.offsetHeight) {
             sideBar.style.position = 'absolute';
             sideBar.style.bottom = '50px';
-            sideBar.style.left = '10px';
+            sideBar.style.left = window.paddingLeftParentBar + 'px';
             sideBar.style.top = 'auto';
-            sideBar.style.right = '10px';
+            sideBar.style.right = window.paddingRightParentBar + 'px';
             sideBar.style.width = '';
             window.sideBarToBottom = true;
         } else {
             sideBar.style.position = 'fixed';
             sideBar.style.bottom = 'auto';
             sideBar.style.right = 'auto';
-            sideBar.style.left = sideBar.parentNode.offsetLeft + 10 + 'px';
-            sideBar.style.width = sideBar.parentNode.clientWidth - 20 + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
             sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 20 + 'px';
             window.sideBarToBottom = false;
         }
