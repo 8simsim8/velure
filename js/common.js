@@ -206,11 +206,13 @@ function switchPlayVideoOnScroll() {
     var video = document.querySelector('video');
     if(video && video.getBoundingClientRect().bottom < 0) {
         if(window.isVideoPlay) {
+			video.muted = true;
             video.pause();
             window.isVideoPlay = false;
         }
     } else {
         if(!window.isVideoPlay) {
+			video.muted = true;
             video.play();
             window.isVideoPlay = true;
         }
@@ -949,3 +951,17 @@ function preparePopupToContact(isShowMap) {
 
 }
 
+(function() {
+
+  // проверяем поддержку
+  if (!Element.prototype.matches) {
+
+    // определяем свойство
+    Element.prototype.matches = Element.prototype.matchesSelector ||
+      Element.prototype.webkitMatchesSelector ||
+      Element.prototype.mozMatchesSelector ||
+      Element.prototype.msMatchesSelector;
+
+  }
+
+})();
