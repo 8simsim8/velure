@@ -62,6 +62,9 @@
   margin-bottom: 15px;
   color: #40363e;
 }
+.b-staffs__list-item h4 > span {
+  display: block;
+}
 .b-staffs__list-item .text {
   text-align: center;
   color: #665c64;
@@ -118,6 +121,7 @@
 }
 .b-certificate .lead {
   margin-bottom: 4.1em;
+  text-align: center;
 }
 .b-certificate .row {
   position: relative;
@@ -162,11 +166,9 @@
 .b-certificate__form .select .form-control:before {
   margin-right: 0;
 }
-.b-certificate__form .select .wrap-error {
-  top: 0;
-}
-.b-certificate__form .select .wrap-error span.error {
-  top: 0;
+.b-certificate__form .wrap-error span.error {
+  top: -50px;
+  left: 5px;
 }
 .b-certificate__form-input {
   border: none;
@@ -204,4 +206,34 @@
 }
 .b-also {
   padding: 70px 0 55px;
+}
+@media all and (max-width: 1024px) {
+  .b-procedures h2,
+  .b-packages h2,
+  .b-staffs h2,
+  .b-certificate h2,
+  .b-massage h2,
+  .b-procedures .lead,
+  .b-packages .lead,
+  .b-staffs .lead,
+  .b-certificate .lead,
+  .b-massage .lead,
+  .b-procedures article,
+  .b-packages article,
+  .b-staffs article,
+  .b-certificate article,
+  .b-massage article {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .b-staffs__reviews.wrap {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .b-certificate {
+    margin-top: 105px;
+  }
+  .b-certificate .wrap {
+    padding: 106px 0 0;
+  }
 }

@@ -18,7 +18,7 @@
 		<link rel="manifest" href="favicons/manifest.json">
 		<link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
 		<meta name="theme-color" content="#ffffff">
-		
+
 		<script>
             (function(w){
                 "use strict";
@@ -426,7 +426,11 @@
                     document.addEventListener("webkitfullscreenchange", onfullscreenchange);
                     document.addEventListener("mozfullscreenchange",    onfullscreenchange);
                     document.addEventListener("fullscreenchange",       onfullscreenchange);
+                    
+                    poster.remove();
+                    alert('play');
                     launchFullScreen(video);
+//                    video.play();
                     setTimeout(function(){
                         setTimeout(function(){
                             video.style.opacity = '1';
@@ -485,11 +489,16 @@
                 //Запустить отображение в полноэкранном режиме
                 function launchFullScreen(element) {
                     if(element.requestFullScreen) {
+                        alert('element.requestFullScreen');
                         element.requestFullScreen();
                     } else if(element.mozRequestFullScreen) {
+                        alert('element.mozRequestFullScreen');
                         element.mozRequestFullScreen();
                     } else if(element.webkitRequestFullScreen) {
+                        alert('element.webkitRequestFullScreen');
                         element.webkitRequestFullScreen();
+                    } else {
+                        return false;
                     }
                 }
 
@@ -552,7 +561,7 @@
                 return transitionEnd;
             }
 		</script>
-	
+
 	</head>
 
 	<body class="no-scroll">
@@ -600,10 +609,10 @@
 			
 			<section class="b-title">
 				<div class="video-wrapp">
-					<video class="b-title__video" loop="loop" preload >
-						<source src="video/velur.mp4" type="video/mp4" />
-						<source src="video/velur.webm" type="video/webm" />
-						<source src="video/velur.ogg" type="video/ogg" />
+					<video class="b-title__video" loop="loop" preload controls>
+						<source src="video/velur-1024.mp4" type="video/mp4" />
+						<source src="video/velur-1024.webm" type="video/webm" />
+						<source src="video/velur-1024.ogg" type="video/ogg" />
 					</video>
 					<div class="b-title__logo">
 						<div class="b-title__logo-inner">
@@ -797,7 +806,7 @@
 							<h3>SPA-комплекс</h3>
 							<p class="normal">Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости
 								и сил</p>
-							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							<p class="center"><a href="spa.html" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 						</div>
 						<div class="b-programs__cards-item card_cosmetology col sm-4">
 							<h3>Косметология</h3>
@@ -816,15 +825,15 @@
 			<section class="b-parallax">
 				<div class="b-parallax-back"></div>
 				<div class="b-parallax-base wrap row no-row">
-					<h3 class="col lg-offset-2 lg-8">Эстетическая медицина</h3>
-					<p class="col lg-offset-2 lg-8 normal">Идеальная внешность перестает быть просто мечтой. Мы используем безопасные, проверенные эффективные методики и препараты высоких технологий для достижения эффекта омоложения кожи лица и тела, исправления дефектов.</p>
+					<h3 class="">Эстетическая медицина</h3>
+					<p class="normal">Идеальная внешность перестает быть просто мечтой. Мы используем безопасные, проверенные эффективные методики и препараты высоких технологий для достижения эффекта омоложения кожи лица и тела, исправления дефектов.</p>
 					<p class="center"><a href="#" class="btn btn__white arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 				</div>
 			</section>
 			
 			<section class="b-slider">
-				<div class="wrap row no-row">
-					<p class="col lg-offset-2 lg-8 lead">Теперь не нужно путешествовать для того, чтобы насладиться аюрведическими процедурами, балинезийскими массажами, стоунтерапией, турецкими пилингами и обертываниями в хамаме – все это теперь можно сделать у нас.</p>
+				<div class="wrap">
+					<p class="lead">Теперь не нужно путешествовать для того, чтобы насладиться аюрведическими процедурами, балинезийскими массажами, стоунтерапией, турецкими пилингами и обертываниями в хамаме – все это теперь можно сделать у нас.</p>
 				</div>
 				<div class="b-slider__viewport swiper-container">
 					<div class="b-slider__viewport-wrap swiper-wrapper">
@@ -866,7 +875,8 @@
 								<h3>Онлайн-запись</h3>
 								<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
 								<span class="input input--akira">
-									<input class="input__field input__field--akira value-input" type="text" id="name"
+									<input class="input__field input__field--akira value-input"
+									       type="text"
 									       name="name"
 									       required/>
 									<label class="input__label input__label--akira" for="name">
@@ -874,8 +884,11 @@
 									</label>
 								</span>
 								<span class="input input--akira">
-									<input class="input__field input__field--akira value-input" type="tel" id="phone"
-									       name="phone" pattern="(\+?\d[- .]*){7,13}" required/>
+									<input class="input__field input__field--akira value-input"
+									       type="tel"
+									       name="phone"
+									       pattern="(\+?\d[- .]*){7,13}"
+									       required/>
 									<label class="input__label input__label--akira" for="phone">
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
@@ -946,7 +959,6 @@
 					<span class="input input--akira">
 						<input class="input__field input__field--akira value-input"
 							type="text"
-						    id="name"
 							name="name"
 							required/>
 						<label class="input__label input__label--akira" for="name">
@@ -956,7 +968,6 @@
 					<span class="input input--akira">
 						<input class="input__field input__field--akira value-input"
 						    type="tel"
-						    id="phone"
 							name="phone"
 							pattern="(\+?\d[- .]*){7,13}"
 							required/>
@@ -965,10 +976,18 @@
 						</label>
 					</span>
 					<input name="services" value="" hidden />
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время" required>
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата" required>
+					<input type="time"
+					       name="time"
+					       class="input img-arrow input-time forcibly-placeholder value-input"
+					       placeholder="Время"
+					       required
+					       data-clearAfterSend>
+					<input type="date"
+					       name="date"
+					       class="input img-arrow input-date forcibly-placeholder value-input"
+					       placeholder="Дата"
+					       required
+					       data-clearAfterSend>
 					
 					<button type="button" class="btn btn__big btn__submit">отправить</button>
 					
@@ -985,7 +1004,6 @@
 					<span class="input input--akira">
 						<input class="input__field input__field--akira value-input"
 						       type="text"
-						       id="name"
 						       name="name"
 						       required/>
 						<label class="input__label input__label--akira" for="name">
@@ -995,7 +1013,6 @@
 					<span class="input input--akira">
 						<input class="input__field input__field--akira value-input"
 						       type="tel"
-						       id="phone"
 						       name="phone"
 						       pattern="(\+?\d[- .]*){7,13}"
 						       required/>

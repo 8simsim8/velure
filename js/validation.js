@@ -1,5 +1,7 @@
 function MakeValidationForm(form, path, messagesSetting, settings, callback) {
 
+    this.form = form;
+
     var isSumbit = false;
 
     const buttonSubm = form.querySelector('[type=submit]') || form.querySelector('button');
@@ -7,6 +9,9 @@ function MakeValidationForm(form, path, messagesSetting, settings, callback) {
 
     const DELAY_HIDE_MESSAGE_ERROR = settings.duringShowError || null;                // Время до скрытия сообщения об
     // ошибке
+
+    const clearAfterSend = settings.clearAfterSend.length ? settings.clearAfterSend : null;                    // Очищать inputs после
+    // отправки и давать возможность еще раз отправить
 
     var messDefault = {
         'name'  :   {
@@ -226,12 +231,19 @@ function MakeValidationForm(form, path, messagesSetting, settings, callback) {
                 isSumbit = false;
                 console.log(xhr.status + ': ' + xhr.statusText);
             } else {
+                clearInputs(clearAfterSend);
                 if(typeof callback === 'function') {
-                    callback('Message send');
+                    callback();
                 }
-                isSumbit = true;
+                isSumbit = !clearAfterSend;
             }
         };
+    }
+
+    function clearInputs(elems) {
+        for(var i = 0, len = elems.length; i < len; i++ ) {
+            elems[i].value = '';
+        }
     }
 
     function createErrorBlock(input, message){

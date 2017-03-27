@@ -7,7 +7,7 @@ window.addEventListener('load', function() {
     var ticking = false;
     var scrollPage;
     var scrollLeft;
-    var updateMap = false;
+    window.updateMap = false;
 
     window.addEventListener('scroll', handlerScrollWindow);
 
@@ -68,7 +68,7 @@ window.addEventListener('load', function() {
     */
     function prepareMapScroll(scrollPage) {
         if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
-            if(!updateMap) {
+            if(!window.updateMap) {
                 setTimeout(function(){
                     var popup = document.getElementsByClassName('b-popup')[0];
 
@@ -80,11 +80,11 @@ window.addEventListener('load', function() {
                     google.maps.event.trigger(map, 'resize');
 
                 },100);
-                updateMap = true;
+                window.updateMap = true;
             }
         } else {
-            if(updateMap) {
-                updateMap = false;
+            if(window.updateMap) {
+                window.updateMap = false;
                 document.getElementsByClassName('b-popup')[0].style.display = '';
                 document.getElementsByClassName('b-popup')[0].querySelector('[data-map]').style.display = '';
             }
@@ -99,11 +99,11 @@ window.addEventListener('load', function() {
         var buttonMap = document.getElementsByClassName('show-map');
 
         // Нету необходимости скрывать карту
-        if(!updateMap && isShowMap) {
+        if(!window.updateMap && isShowMap) {
             document.querySelector('[data-map]').style.opacity = '0';
             myMap();
             google.maps.event.trigger(map, 'resize');
-            updateMap = true;
+            window.updateMap = true;
         }
 
         for(var i = 0, len = buttonMap.length; i < len; i++) {
@@ -121,18 +121,27 @@ window.addEventListener('load', function() {
             buttonCloseMap.addEventListener('mouseenter', prepareCloseMap);
             buttonCloseMap.addEventListener('mouseleave', cancelPrepareCloseMap);
 
+            for(var i = 0, len = popup.children.length; i < len; i++) {
+                if(popup.children[i] != mapBlock) {
+                    popup.children[i].style.opacity = '';
+                    popup.children[i].style.display = '';
+                }
+            }
+
             if(isShowMap) {
                 document.querySelector('[data-map]').style.opacity = '1';
             }
 
-            document.body.classList.toggle('open-popup');
+            document.body.classList.add('open-popup');
 
-            if(!updateMap) {
+            if(!window.updateMap) {
                 myMap();
                 google.maps.event.trigger(map, 'resize');
             }
 
             e.preventDefault();
+
+            popup.addEventListener('click', closePopup);
 
             function prepareCloseMap(e) {
                 willChangeSwitch(popup, 'opacity');
@@ -142,12 +151,23 @@ window.addEventListener('load', function() {
                 removeWillChange.call(popup);
             }
 
-            function handlerCloseMap() {
+            function handlerCloseMap(e) {
                 if(isShowMap) {
                     document.querySelector('[data-map]').style.opacity = '0';
                 }
-                document.body.classList.toggle('open-popup');
+                document.body.classList.remove('open-popup');
+                e.stopPropagation();
                 this.removeEventListener('click', handlerCloseMap);
+            }
+
+
+            function closePopup(e) {
+                var target = e.target;
+                if(target == popup) {
+                    handlerCloseMap(e);
+                    popup.removeEventListener('click', closePopup);
+                    e.stopPropagation();
+                }
             }
         }
 
@@ -376,18 +396,24 @@ function MakeAccordeon(elem, time){
         var durationUp = 500;
         var bringEndsUp = bringStarted + durationUp;
 
-        var prevElem = element.querySelector(".active");
-
-        self.classList.toggle("active");
-
-        if (prevElem && prevElem != self) {
-            prevElem.classList.toggle("active");
-            window.requestAnimationFrame(bringSlideUp.bind(null,self,prevElem, true));
-        } else if(prevElem && prevElem == self) {
+        if (self.classList.contains('active')) {
             window.requestAnimationFrame(bringSlideUp.bind(null,self,self, false));
         } else {
             window.requestAnimationFrame(bringSlideDown.bind(null,self));
         }
+
+        var prevElem = element.querySelector(".active");
+
+        self.classList.toggle("active");
+
+        // if (prevElem && prevElem != self) {
+        //     prevElem.classList.toggle("active");
+        //     window.requestAnimationFrame(bringSlideUp.bind(null,self,prevElem, true));
+        // } else if(prevElem && prevElem == self) {
+        //     window.requestAnimationFrame(bringSlideUp.bind(null,self,self, false));
+        // } else {
+        //     window.requestAnimationFrame(bringSlideDown.bind(null,self));
+        // }
 
         function bringSlideUp(newActiveButton, buttonBlock, callBack) {
 
@@ -551,6 +577,7 @@ function controlInputs() {
     var forms = document.getElementsByTagName('form');
 
     for(var i = 0, len = forms.length; i < len; i++) {
+
         /*
          * Валидация формы записи
          */
@@ -559,13 +586,14 @@ function controlInputs() {
             '/mailer/PHPmailer.php',                       // Path to Mailer
             textError = {                                  // Text error messages
                 'services': {
-                    'required'  :   'Выберите услугу',
+                    'required'  :   'Выберите услугу'
                 }
             },
             settings = {
-                // duringShowError : 2000                       // Duration show error messages
+                // duringShowError : 2000                                            // Duration show error messages
+                clearAfterSend : forms[i].querySelectorAll('[data-clearAfterSend]')  // Убрать значения после отправки
             },
-            function(options){                               // Callback function
+            function(){                               // Callback function
                 console.log("ок");
             }
         );
@@ -585,7 +613,7 @@ function animTextInput(className) {
         input[i].addEventListener('focus', handlerClickInput);
     }
 
-    function handlerClickInput() {
+    function handlerClickInput(e) {
         this.parentNode.classList.add('input--filled');
         if (this.value == '') {
             this.parentNode.querySelector('.input__label-content').style.opacity = '';
@@ -638,7 +666,12 @@ function createTime(classTime) {
         var label = document.createElement('label');
 
         var select = document.createElement('select');
-        select.name = input.name;
+        var attributes = Array.prototype.slice.call(input.attributes);
+        for(var i = 0, len = attributes.length; i < len; i++) {
+            if(attributes[i].name != 'placeholder') {
+                select.setAttribute(attributes[i].name, attributes[i].value);
+            }
+        }
         select.setAttribute('data-placeholder', input.placeholder);
         select.setAttribute('data-nofilter', '');
         select.className += input.className + ' droplist';
@@ -651,7 +684,7 @@ function createTime(classTime) {
         var to = +input.getAttribute('data-to') || 19;
         var step = +input.getAttribute('data-step') || 1;
 
-        var i = from;
+        i = from;
         while(i <= to) {
             var option = document.createElement("option");
             option.text = i + ':00';
@@ -737,16 +770,26 @@ function controlHeightTextArea() {
         textarea[i].addEventListener('keyup', resizeTextarea.bind(textarea[i], i));
     }
 }
+
 /*
 *   Полифил для поиска вхождения элемента в группу
 */
-function isClosest(el, css) {
+function isClosest(el, crit) {
     var node = el;
-    while (node) {
-        if (node.matches(css)) return true;
-        else node = node.parentElement;
+    if(typeof crit == 'string') {
+        while (node) {
+            if (node.matches(crit)) return true;
+            else node = node.parentElement;
+        }
+        return false;
     }
-    return false;
+    if(typeof crit == 'object') {
+        while (node) {
+            if (node == crit) return true;
+            else node = node.parentElement;
+        }
+        return false;
+    }
 }
 
 /*
@@ -911,6 +954,14 @@ function preparePopupToContact(isShowMap) {
     }
 
     function openWrapPopup(popup, wrap) {
+
+        for(var i = 0, len = popup.children.length; i < len; i++) {
+            if(popup.children[i] != wrap) {
+                popup.children[i].style.opacity = '';
+                popup.children[i].style.display = '';
+            }
+        }
+
         if(isShowMap) {
             document.querySelector('[data-map]').style.display = 'none';
         }
@@ -918,19 +969,46 @@ function preparePopupToContact(isShowMap) {
         wrap.style.display = 'block';
 
         popup.style.display = 'flex';
-        document.body.classList.toggle('open-popup');
+        document.body.classList.add('open-popup');
+
+        popup.addEventListener('click', closePopup);
 
         var buttonClosePopup = wrap.querySelector('.b-popup__button-close');
         buttonClosePopup.addEventListener('click', handlerClosePopup);
 
-        function handlerClosePopup() {
+        function closePopup(e) {
+            var target = e.target;
+            if(target == popup) {
+                popup.removeEventListener('click', closePopup);
+                handlerClosePopup(e);
+            }
+        }
+
+        function handlerClosePopup(e) {
             popup.style.display = '';
             wrap.style.display = '';
             if(isShowMap) {
                 document.querySelector('[data-map]').style.display = '';
             }
-            document.body.classList.toggle('open-popup');
+            document.body.classList.remove('open-popup');
+            e.stopPropagation();
             this.removeEventListener('click', handlerClosePopup);
+
+            var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
+            if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
+                setTimeout(function(){
+                    var popup = document.getElementsByClassName('b-popup')[0];
+
+                    popup.style.display = 'flex';
+                    popup.querySelector('[data-map]').style.display = 'flex';
+
+                    myMap();
+
+                    google.maps.event.trigger(map, 'resize');
+
+                },100);
+                window.updateMap = true;
+            }
         }
     }
 
@@ -953,15 +1031,43 @@ function preparePopupToContact(isShowMap) {
 
 (function() {
 
-  // проверяем поддержку
-  if (!Element.prototype.matches) {
+    // проверяем поддержку 'matches'
+    var matches = function() {
+        if (!Element.prototype.matches) {
+            // определяем свойство
+            Element.prototype.matches = Element.prototype.matchesSelector ||
+                Element.prototype.webkitMatchesSelector ||
+                Element.prototype.mozMatchesSelector ||
+                Element.prototype.msMatchesSelector;
+        }
+    };
 
-    // определяем свойство
-    Element.prototype.matches = Element.prototype.matchesSelector ||
-      Element.prototype.webkitMatchesSelector ||
-      Element.prototype.mozMatchesSelector ||
-      Element.prototype.msMatchesSelector;
+    // проверяем requestAnimationFrame
+    var requestAnimationFrame = function() {
+        var lastTime = 0;
+        var vendors = ['ms', 'moz', 'webkit', 'o'];
+        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+                || window[vendors[x]+'CancelRequestAnimationFrame'];
+        }
+        if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function(callback, element) {
+                var currTime = new Date().getTime();
+                var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                    timeToCall);
+                lastTime = currTime + timeToCall;
+                return id;
+            };
+        if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function(id) {
+                clearTimeout(id);
+            };
+    };
 
-  }
+    matches();
+
+    requestAnimationFrame();
 
 })();

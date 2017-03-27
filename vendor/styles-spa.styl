@@ -89,12 +89,14 @@
 				margin-bottom: 15px;
 				color: #40363e;
 			}
+			h4 > span {
+				display: block;
+			}
 			.text {
 				text-align: center;
 				color: #665c64;
 			}
 		}
-
 	}
 	&__reviews {
 		& {
@@ -160,6 +162,7 @@
 	}
 	.lead {
 		margin-bottom: 4.1em;
+		text-align: center;
 	}
 	.row {
 		& {
@@ -208,12 +211,10 @@
 					margin-right: 0;
 				}
 			}
-			.wrap-error {
-				top: 0;
-			}
-			.wrap-error span.error {
-				top :0;
-			}
+		}
+		.wrap-error span.error {
+			top : -50px;
+			left: 5px;
 		}
 		&-input {
 			border: none;
@@ -262,5 +263,36 @@
 .b-also {
 	& {
 		padding: 70px 0 55px;
+	}
+}
+
+@media all and (max-width: 1024px) {
+	.b-procedures,
+	.b-packages,
+	.b-staffs,
+	.b-certificate,
+	.b-massage {
+		h2,
+		.lead,
+		article {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+	}
+	.b-staffs {
+		&__reviews.wrap {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+	}
+	.b-certificate {
+		& {
+			margin-top : 105px;
+		}
+		.wrap {
+			& {
+				padding : 106px 0 0;
+			}
+		}
 	}
 }

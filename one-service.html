@@ -582,8 +582,8 @@
 			</div>
 		</section>
 
-		<div class="row">
-			<div class="col md-8">
+		<div class="row wrap">
+			<div class="col md-12 lg-8">
 				<section class="b-about">
 					<div class="wrap">
 						<h2>Полная релаксация души и тела</h2>
@@ -935,45 +935,44 @@
 				</section>
 			</div>
 			
-			<div class="b-side col md-4">
+			<div class="b-side col md-hidden lg-4">
 				<section class="b-side__bar img-flover__form form">
 					<p class="icon-ligature-half"></p>
 					<form action="" name="contact">
 						<input name="title" value="Онлайн запись" hidden />
 						<h3>Онлайн-запись</h3>
-						<h4></h4>
-						<!--<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>-->
+						<h4>Гидромассажная ванна</h4>
 						<span class="input input--akira">
-				<input class="input__field input__field--akira value-input"
-				       type="text"
-				       id="name"
-				       name="name"
-				       required/>
-				<label class="input__label input__label--akira" for="name">
-					<span class="input__label-content input__label-content--akira text">Имя</span>
-			    </label>
-			</span>
+							<input class="input__field input__field--akira value-input"
+							       type="text"
+							       name="name"
+							       required/>
+							<label class="input__label input__label--akira" for="name">
+								<span class="input__label-content input__label-content--akira text">Имя</span>
+						    </label>
+						</span>
 						<span class="input input--akira">
-				<input class="input__field input__field--akira value-input"
-				       type="tel"
-				       id="phone"
-				       name="phone"
-				       pattern="(\+?\d[- .]*){7,13}"
-				       required/>
-				<label class="input__label input__label--akira" for="phone">
-					<span class="input__label-content input__label-content--akira text">Телефон</span>
-				</label>
-			</span>
+							<input class="input__field input__field--akira value-input"
+							       type="tel"
+							       name="phone"
+							       pattern="(\+?\d[- .]*){7,13}"
+							       required/>
+							<label class="input__label input__label--akira" for="phone">
+								<span class="input__label-content input__label-content--akira text">Телефон</span>
+							</label>
+						</span>
 						<input type="time"
-						       name="time"
-						       class="input img-arrow input-time forcibly-placeholder value-input"
-						       placeholder="Время"
-						       required>
+						        name="time"
+						        class="input img-arrow input-time forcibly-placeholder value-input"
+						        placeholder="Время"
+						        required
+						        data-clearAfterSend />
 						<input type="date"
 						       name="date"
 						       class="input img-arrow input-date forcibly-placeholder value-input"
 						       placeholder="Дата"
-						       required>
+						       required
+						       data-clearAfterSend />
 						
 						<button type="button" class="btn btn__big btn__submit">отправить</button>
 						
@@ -1011,11 +1010,9 @@
 				<input name="title" value="Онлайн запись" hidden />
 				<h3>Онлайн-запись</h3>
 				<h4></h4>
-				<!--<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>-->
 				<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="text"
-							       id="name"
 							       name="name"
 							       required/>
 							<label class="input__label input__label--akira" for="name">
@@ -1025,7 +1022,6 @@
 				<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="tel"
-							       id="phone"
 							       name="phone"
 							       pattern="(\+?\d[- .]*){7,13}"
 							       required/>
@@ -1035,9 +1031,11 @@
 						</span>
 				<input name="services" value="" hidden />
 				<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-				       placeholder="Время" required>
+				       placeholder="Время" required
+				       data-clearAfterSend>
 				<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-				       placeholder="Дата" required>
+				       placeholder="Дата" required
+				       data-clearAfterSend>
 				
 				<button type="button" class="btn btn__big btn__submit">отправить</button>
 				
@@ -1054,7 +1052,6 @@
 				<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="text"
-							       id="name"
 							       name="name"
 							       required/>
 							<label class="input__label input__label--akira" for="name">
@@ -1064,7 +1061,6 @@
 				<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="tel"
-							       id="phone"
 							       name="phone"
 							       pattern="(\+?\d[- .]*){7,13}"
 							       required/>
@@ -1072,8 +1068,8 @@
 								<span class="input__label-content input__label-content--akira text">Телефон</span>
 							</label>
 						</span>
-				<select name="services" data-placeholder="Услуга" required
-				        class="input droplist img-arrow forcibly-placeholder value-input">
+				<select name="services" data-placeholder="Услуга"
+				        class="input droplist img-arrow forcibly-placeholder value-input" required/>
 					<!--<option>Услуга</option>-->
 					<option>Услуга 1</option>
 					<option>Услуга 2</option>
@@ -1087,9 +1083,9 @@
 					<option>Услуга 10</option>
 				</select>
 				<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-				       placeholder="Время" required>
+				       placeholder="Время" required data-clearAfterSend>
 				<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-				       placeholder="Дата" required>
+				       placeholder="Дата" required data-clearAfterSend>
 				
 				<button type="button" class="btn btn__big btn__submit">отправить</button>
 				

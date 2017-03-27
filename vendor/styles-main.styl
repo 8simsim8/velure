@@ -107,7 +107,7 @@
 		}
 		&:before {
 			font-size: 340px;
-			text-shadow: 0 6px 12px rgba(0,0,0,0.5);
+			text-shadow: 4px 16px 19px rgb(220, 220, 220);
 			transition: text-shadow 1.5s ease 0.5s;
 		}
 	}
@@ -115,7 +115,7 @@
 		& {
 		}
 		&:before {
-			text-shadow: 0 20px 36px rgba(0,0,0,0.5);
+			text-shadow: 4px 0px 19px rgb(220, 220, 220);
 		}
 
 	}
@@ -169,10 +169,10 @@
 				width: 100%;
 			}
 			.circles-wrap {
-				transition: opacity 0.05s ease 0.3s;
+				transition: opacity 0.05s ease 0.2s;
 			}
 			&.close-table .circles-wrap {
-				transition: opacity 0.2s ease 0.4s;
+				transition: opacity 0.1s ease 0.1s;
 			}
 			&.open-table .circles-wrap {
 				opacity: 0;
@@ -440,7 +440,7 @@
 
 			&.close-table .tables-wrap {
 				transition: transform 0.3s ease,
-							opacity 0.3s ease 0.05s;
+							opacity 0.1s ease 0.05s;
 			}
 			&.open-table .tables-wrap {
 				opacity : 1;
@@ -458,8 +458,7 @@
 					transform: translate(0, 100px);
 					opacity: 0;
 					pointer-events: none;
-					transition: transform 0.3s ease 0.3s,
-								opacity 0.1s ease 0.3s;
+					transition: transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
 				}
 				h3 {
 					margin-bottom : 1.4em;
@@ -944,3 +943,51 @@
 	}
 }
 
+@media all and (max-width: 1024px) {
+	.b-programs {
+		h2,
+		.lead {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		&__circles-right .circles-wrap {
+			left: -3vw;
+		}
+	}
+	.b-parallax {
+		& {
+			position : relative;
+			padding : 140px 0 110px;
+		}
+		h3,
+		.normal {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		&-back {
+			position : absolute;
+			top : 0;
+			left : 0;
+			right : 0;
+			bottom : 0;
+			background-image : url('../img/velur-bg.jpg');
+			background-color : transparent;
+			background-size : cover;
+			background-repeat : repeat-y;
+			background-attachment: inherit;
+		}
+	}
+	.b-slider {
+		& {
+			padding : 140px 0 0;
+		}
+		h2 {
+			text-align : center;
+			color : #A823A3;
+		}
+		p.lead {
+			margin-left : 20px;
+			margin-right : 20px;
+		}
+	}
+}

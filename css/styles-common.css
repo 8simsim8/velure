@@ -218,6 +218,7 @@
 .b-navigation__side-right:before {
   position: absolute;
   content: '';
+  left: 50%;
   height: 115px;
   border-left: 1px solid #ccc;
 }
@@ -567,6 +568,7 @@ video::-webkit-media-controls-panel {
   position: relative;
   height: 304px;
   padding: 10px;
+  overflow: hidden;
 }
 [class*="services__links-item"] [class*="services__links_img"] {
   position: absolute;
@@ -581,6 +583,11 @@ video::-webkit-media-controls-panel {
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 4px;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -moz-transition: -moz-transform 0.3s ease;
+  -o-transition: -o-transform 0.3s ease;
+  -ms-transition: -ms-transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 [class*="services__links-item"] [class*="services__links_img"]:after {
   position: absolute;
@@ -604,6 +611,13 @@ video::-webkit-media-controls-panel {
   -ms-transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   z-index: 1;
+}
+[class*="services__links-item"]:hover [class*="services__links_img"] {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
 }
 [class*="services__links-item"]:hover [class*="services__links_img"]:after {
   opacity: 0;
@@ -1034,7 +1048,6 @@ video::-webkit-media-controls-panel {
 }
 .item-table tr .name {
   width: 57%;
-  line-height: 0;
   color: #4d344a;
 }
 .item-table tr .price {
@@ -1049,14 +1062,16 @@ video::-webkit-media-controls-panel {
   line-height: 0;
 }
 .wrap-error {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  position: relative;
+  pointer-events: none;
 }
 .wrap-error span.error {
-  top: 0;
+  position: absolute;
+  top: -40px;
   left: 0;
+  color: #f00;
+  font-size: 12px;
+  pointer-events: none;
 }
 .input-date + .wrap-error,
 .input-time + .wrap-error {
@@ -1064,7 +1079,7 @@ video::-webkit-media-controls-panel {
   top: -42px;
 }
 .input-date + .wrap-error {
-  top: 25px;
+  top: 65px;
 }
 .select .wrap-error {
   top: auto;
@@ -1235,7 +1250,7 @@ video::-webkit-media-controls-panel {
     letter-spacing: 0.1em;
   }
 }
-@media all and (max-height: 690px) {
+@media all and (max-height: 710px) {
   .b-popup__map {
     height: 90vh;
   }

@@ -1,4 +1,6 @@
 .b-title__logo-text {
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 5vh;
 }
 .b-title__logo-ligature {
@@ -26,6 +28,8 @@
   -ms-flex-align: baseline;
   -webkit-align-items: baseline;
   align-items: baseline;
+  margin-left: 20px;
+  margin-right: 20px;
   border-bottom: 1px solid rgba(224,224,224,0.3);
 }
 .b-title__logo-address.address_top {
@@ -236,6 +240,15 @@
   .b-form__bg-item5 {
     right: -7vw;
     width: 389px;
+  }
+}
+@media all and (max-width: 1024px) {
+  .b-title__logo-social {
+    margin-top: 50px;
+    text-align: center;
+  }
+  .b-form {
+    margin-top: -60px;
   }
 }
 @media all and (max-height: 850px) {

@@ -101,7 +101,7 @@
 }
 .b-programs__shadow:before {
   font-size: 340px;
-  text-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  text-shadow: 4px 16px 19px #dcdcdc;
   -webkit-transition: text-shadow 1.5s ease 0.5s;
   -moz-transition: text-shadow 1.5s ease 0.5s;
   -o-transition: text-shadow 1.5s ease 0.5s;
@@ -109,7 +109,7 @@
   transition: text-shadow 1.5s ease 0.5s;
 }
 .b-programs__shadow.start:before {
-  text-shadow: 0 20px 36px rgba(0,0,0,0.5);
+  text-shadow: 4px 0px 19px #dcdcdc;
 }
 .b-programs .normal {
   margin-bottom: 3.8em;
@@ -186,18 +186,18 @@
   width: 100%;
 }
 .b-programs__circles-right .circles-wrap {
-  -webkit-transition: opacity 0.05s ease 0.3s;
-  -moz-transition: opacity 0.05s ease 0.3s;
-  -o-transition: opacity 0.05s ease 0.3s;
-  -ms-transition: opacity 0.05s ease 0.3s;
-  transition: opacity 0.05s ease 0.3s;
+  -webkit-transition: opacity 0.05s ease 0.2s;
+  -moz-transition: opacity 0.05s ease 0.2s;
+  -o-transition: opacity 0.05s ease 0.2s;
+  -ms-transition: opacity 0.05s ease 0.2s;
+  transition: opacity 0.05s ease 0.2s;
 }
 .b-programs__circles-right.close-table .circles-wrap {
-  -webkit-transition: opacity 0.2s ease 0.4s;
-  -moz-transition: opacity 0.2s ease 0.4s;
-  -o-transition: opacity 0.2s ease 0.4s;
-  -ms-transition: opacity 0.2s ease 0.4s;
-  transition: opacity 0.2s ease 0.4s;
+  -webkit-transition: opacity 0.1s ease 0.1s;
+  -moz-transition: opacity 0.1s ease 0.1s;
+  -o-transition: opacity 0.1s ease 0.1s;
+  -ms-transition: opacity 0.1s ease 0.1s;
+  transition: opacity 0.1s ease 0.1s;
 }
 .b-programs__circles-right.open-table .circles-wrap {
   opacity: 0;
@@ -532,11 +532,11 @@
   color: #afbed6;
 }
 .b-programs__circles-right.close-table .tables-wrap {
-  -webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease 0.05s;
-  -moz-transition: -moz-transform 0.3s ease, opacity 0.3s ease 0.05s;
-  -o-transition: -o-transform 0.3s ease, opacity 0.3s ease 0.05s;
-  -ms-transition: -ms-transform 0.3s ease, opacity 0.3s ease 0.05s;
-  transition: transform 0.3s ease, opacity 0.3s ease 0.05s;
+  -webkit-transition: -webkit-transform 0.3s ease, opacity 0.1s ease 0.05s;
+  -moz-transition: -moz-transform 0.3s ease, opacity 0.1s ease 0.05s;
+  -o-transition: -o-transform 0.3s ease, opacity 0.1s ease 0.05s;
+  -ms-transition: -ms-transform 0.3s ease, opacity 0.1s ease 0.05s;
+  transition: transform 0.3s ease, opacity 0.1s ease 0.05s;
 }
 .b-programs__circles-right.open-table .tables-wrap {
   opacity: 1;
@@ -580,11 +580,11 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
   pointer-events: none;
-  -webkit-transition: -webkit-transform 0.3s ease 0.3s, opacity 0.1s ease 0.3s;
-  -moz-transition: -moz-transform 0.3s ease 0.3s, opacity 0.1s ease 0.3s;
-  -o-transition: -o-transform 0.3s ease 0.3s, opacity 0.1s ease 0.3s;
-  -ms-transition: -ms-transform 0.3s ease 0.3s, opacity 0.1s ease 0.3s;
-  transition: transform 0.3s ease 0.3s, opacity 0.1s ease 0.3s;
+  -webkit-transition: -webkit-transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
+  -moz-transition: -moz-transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
+  -o-transition: -o-transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
+  -ms-transition: -ms-transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
+  transition: transform 705.767ms cubic-bezier(0, 0.61, 0.19, 1.04) 179.264ms, opacity 0.2s ease 0.2s;
 }
 .b-programs__circles-right .tables-wrap h3 {
   margin-bottom: 1.4em;
@@ -974,5 +974,49 @@
   }
   .b-slider .swiper-controls-prev {
     left: 120px;
+  }
+}
+@media all and (max-width: 1024px) {
+  .b-programs h2,
+  .b-programs .lead {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .b-programs__circles-right .circles-wrap {
+    left: -3vw;
+  }
+  .b-parallax {
+    position: relative;
+    padding: 140px 0 110px;
+  }
+  .b-parallax h3,
+  .b-parallax .normal {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .b-parallax-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../img/velur-bg.jpg");
+    background-color: transparent;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-attachment: inherit;
+  }
+  .b-slider {
+    padding: 140px 0 0;
+  }
+  .b-slider h2 {
+    text-align: center;
+    color: #a823a3;
+  }
+  .b-slider p.lead {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }

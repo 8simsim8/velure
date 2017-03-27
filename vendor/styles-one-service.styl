@@ -26,6 +26,8 @@
 			}
 		}
 		&-text {
+			margin-left: 20px
+			margin-right: 20px
 			margin-bottom: 7vh;
 		}
 		&-ligature {
@@ -37,7 +39,7 @@
 			}
 		}
 		&-note {
-			margin: 0 auto 12vh;
+			margin: 0 20px 12vh;
 			max-width: 930px;
 			text-align: center;
 			color: #FFFFFF
@@ -253,6 +255,7 @@
 			position: absolute;
 			top: -110px;
 			left: 10px;
+			margin-top: 20px;
 			width: calc(100% - 20px);
 			z-index: 9998;
 		}
@@ -264,16 +267,67 @@
 
 }
 
-@media all and (max-height: 680px) {
+
+@media all and (max-width: 1024px) {
+	.b-about {
+		& {
+		}
+		h2,
+		.lead {
+			text-align: center;
+		}
+		&__detail,
+		h2,
+		.lead {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+	}
+}
+
+@media all and (max-height: 780px) {
+	.b-side__bar {
+		& {
+			margin-top: 10px;
+		}
+		&.form {
+			top: -80px;
+			padding : 20px 20px 10px;
+		}
+		.icon-ligature-half {
+			display: none;
+		}
+		h3 {
+			margin-bottom: 5px;
+			font-size: 26px;
+		}
+		h4 {
+			margin-bottom: 0;
+			font-size: 18px;
+		}
+		button {
+			margin-top: 20px;
+		}
+		button + .normal {
+			margin-top: 10px;
+			font-size: 12px;
+		}
+	}
+}
+
+@media all and (max-height: 710px) {
 	.b-title {
 		&__logo {
 			& {
-				padding: 60px 0 0 0;
+				padding: 70px 0 0 0;
 			}
 			&-breadcrumbs {
 				& {
 					margin-bottom: 4vh;
 				}
+			}
+			&-ligature svg {
+				height: 30px;
 			}
 			&-text {
 				margin-bottom: 5vh;
@@ -284,7 +338,22 @@
 				}
 			}
 			&-note {
-				margin: 0 auto 9vh;
+				margin: 0 auto 3vh;
+			}
+			&-feature span {
+				& {
+					padding-top: 60px;
+				}
+				&:before {
+					font-size : 30px;
+					line-height: 60px;
+				}
+				&:not(:last-child):after {
+					height: 80px;
+				}
+				&.icon-all-body:before {
+					font-size : 45px;
+				}
 			}
 		}
 	}
