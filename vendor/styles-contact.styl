@@ -194,10 +194,11 @@
 	}
 }
 
-.b-popup,
-[data-map] {
+.b-popup[data-map],
+.b-popup[data-map] .b-popup__map {
 	display: flex;
 }
+
 
 @media all and (max-width: 1620px) {
 	.b-form {
@@ -239,6 +240,11 @@
 @media all and (max-width: 1024px) {
 	.b-title {
 		&__logo {
+			&-address {
+				h3 {
+					font-size: 32px;
+				}
+			}
 			&-social {
 				& {
 					margin-top : 50px;

@@ -1,5 +1,7 @@
 window.addEventListener('load', function(){
 
+    const WIDTH_HIDE_FORM = 992;
+
     const accordeonClassName = 'accordeon';
     const sliderClassName = 'swiper-container';
 
@@ -7,10 +9,12 @@ window.addEventListener('load', function(){
     var scrollPage;
     var scrollLeft;
     const sideBar = document.getElementsByClassName('b-side__bar')[0];
-    const deafultTopSideBar = sideBar.offsetTop;
-	// window.marginHeaderSideBar = 20;
+    var buttonOpenSideBar = document.querySelector('.b-side__bar-open');
+
+    const deafultTopSideBar = -90;
+
 	window.marginHeaderSideBar = parseInt(window.getComputedStyle(sideBar).getPropertyValue("margin-top"));
-	console.log();
+
 	window.paddingLeftParentBar = parseInt(window.getComputedStyle(sideBar.parentNode).getPropertyValue("padding-left"));
 	window.paddingRightParentBar = parseInt(window.getComputedStyle(sideBar.parentNode).getPropertyValue("padding-right"));
     window.sideBarFixed = false;
@@ -21,16 +25,23 @@ window.addEventListener('load', function(){
     // Accordeons
     var accordeons = createAccordeons(accordeonClassName, true);
 
-	// Плавающая боковая форма
-	initScrollSideBar(sideBar, deafultTopSideBar);
-	document.querySelector('.preloader').addEventListener(transitionEnd, function finishPreload() {
-		var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
-		flowSideBar(scrollPage,sideBar, deafultTopSideBar);
-		window.addEventListener('scroll', handlerScrollSideBar);
+    if(WIDTH_HIDE_FORM < window.innerWidth) {
+        // Плавающая боковая форма
+        initScrollSideBar(sideBar, deafultTopSideBar);
+        if(document.querySelector('.preloader')) {
+            document.querySelector('.preloader').addEventListener(transitionEnd, finishPreload);
+        } else {
+            finishPreload();
+        }
+    } else {
+        buttonOpenSideBar.addEventListener('click', openSideBar);
+    }
 
-		window.addEventListener('resize', handlerResizeSideBar.bind(null, sideBar));
-		document.querySelector('.preloader').removeEventListener(transitionEnd, finishPreload);
-	});
+    window.addEventListener('resize',resizeBar);
+
+    function openSideBar() {
+        document.querySelector('.b-side__bar').classList.toggle('open-side-bar');
+    }
 
     function handlerScrollSideBar() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
@@ -44,6 +55,31 @@ window.addEventListener('load', function(){
             });
         }
         ticking = true;
+    }
+
+    function resizeBar() {
+        if(WIDTH_HIDE_FORM < window.innerWidth) {
+            buttonOpenSideBar.removeEventListener('click', openSideBar);
+            initScrollSideBar(sideBar, deafultTopSideBar);
+            handlerResizeSideBar(sideBar);
+            window.addEventListener('scroll', handlerScrollSideBar);
+        } else {
+            sideBar.style.position = '';
+            sideBar.style.right = '';
+            sideBar.style.top = '';
+            sideBar.style.left = '';
+            sideBar.style.bottom = '';
+            sideBar.style.width = '';
+            window.removeEventListener('scroll', handlerScrollSideBar);
+
+            buttonOpenSideBar.addEventListener('click', openSideBar);
+        }
+    }
+
+    function finishPreload() {
+        var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
+        flowSideBar(scrollPage, sideBar, deafultTopSideBar);
+        window.addEventListener('scroll', handlerScrollSideBar);
     }
 
 });

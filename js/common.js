@@ -43,7 +43,6 @@ window.addEventListener('load', function() {
                 // } else {
                 //     header.style.left = '';
                 // }
-                // Необходимо скрывать карту
 
                 // Старт/пауза видео
                 switchPlayVideoOnScroll();
@@ -54,7 +53,8 @@ window.addEventListener('load', function() {
                     scrollAnim('start');
                 }
 
-                if(!isShowMap) {
+                // Необходимо скрывать карту
+                if(!isShowMap && !document.body.classList.contains('open-popup')) {
                     prepareMapScroll(scrollPage);
                 }
                 ticking = false;
@@ -70,10 +70,10 @@ window.addEventListener('load', function() {
         if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
             if(!window.updateMap) {
                 setTimeout(function(){
-                    var popup = document.getElementsByClassName('b-popup')[0];
+                    var popup = document.querySelector('[data-map]');
 
                     popup.style.display = 'flex';
-                    popup.querySelector('[data-map]').style.display = 'flex';
+                    popup.children[0].style.display = 'flex';
 
                     myMap();
 
@@ -85,8 +85,8 @@ window.addEventListener('load', function() {
         } else {
             if(window.updateMap) {
                 window.updateMap = false;
-                document.getElementsByClassName('b-popup')[0].style.display = '';
-                document.getElementsByClassName('b-popup')[0].querySelector('[data-map]').style.display = '';
+                document.querySelector('[data-map]').style.display = '';
+                document.querySelector('[data-map]').children[0].style.display = '';
             }
         }
     }
@@ -100,7 +100,7 @@ window.addEventListener('load', function() {
 
         // Нету необходимости скрывать карту
         if(!window.updateMap && isShowMap) {
-            document.querySelector('[data-map]').style.opacity = '0';
+            document.querySelector('[data-map]').children[0].style.opacity = '0';
             myMap();
             google.maps.event.trigger(map, 'resize');
             window.updateMap = true;
@@ -113,26 +113,20 @@ window.addEventListener('load', function() {
         }
 
         function handlerShowMap(e) {
-            var popup = document.getElementsByClassName('b-popup')[0];
-            var mapBlock = popup.querySelector('[data-map]');
+            var popup = document.querySelector('[data-map]');
+            var mapBlock = popup.children[0];
 
             var buttonCloseMap = mapBlock.getElementsByClassName('b-popup__button-close')[0];
             buttonCloseMap.addEventListener('click', handlerCloseMap);
             buttonCloseMap.addEventListener('mouseenter', prepareCloseMap);
             buttonCloseMap.addEventListener('mouseleave', cancelPrepareCloseMap);
 
-            for(var i = 0, len = popup.children.length; i < len; i++) {
-                if(popup.children[i] != mapBlock) {
-                    popup.children[i].style.opacity = '';
-                    popup.children[i].style.display = '';
-                }
-            }
-
             if(isShowMap) {
-                document.querySelector('[data-map]').style.opacity = '1';
+                mapBlock.style.opacity = '1';
             }
 
             document.body.classList.add('open-popup');
+            popup.classList.add('open');
 
             if(!window.updateMap) {
                 myMap();
@@ -153,9 +147,10 @@ window.addEventListener('load', function() {
 
             function handlerCloseMap(e) {
                 if(isShowMap) {
-                    document.querySelector('[data-map]').style.opacity = '0';
+                    document.querySelector('[data-map]').children[0].style.opacity = '0';
                 }
                 document.body.classList.remove('open-popup');
+                popup.classList.remove('open');
                 e.stopPropagation();
                 this.removeEventListener('click', handlerCloseMap);
             }
@@ -227,12 +222,14 @@ function switchPlayVideoOnScroll() {
     if(video && video.getBoundingClientRect().bottom < 0) {
         if(window.isVideoPlay) {
 			video.muted = true;
+            video.controls = false;
             video.pause();
             window.isVideoPlay = false;
         }
     } else {
         if(!window.isVideoPlay) {
 			video.muted = true;
+            video.controls = false;
             video.play();
             window.isVideoPlay = true;
         }
@@ -916,19 +913,19 @@ function loaderAnimation() {
 
 function preparePopupToContact(isShowMap) {
     var buttonToOpenPopupContact = document.getElementsByClassName('button-record');
-    var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('online-record')[0];
+    var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('button-online-record')[0];
 
     for(var i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
         buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
-        buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup);
+        buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupContact[i],'[data-contact]'));
     }
 
     buttonToOpenPopupOnlineRecord.addEventListener('click', handlerOpenPopupOnlineRecord);
-    buttonToOpenPopupOnlineRecord.addEventListener('mouseenter', prepareOpenWrapPopup);
+    buttonToOpenPopupOnlineRecord.addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord,'[data-online-record]'));
 
     function handlerOpenPopupContact(e) {
-        var popup = document.getElementsByClassName('b-popup')[0];
-        var formWrap = popup.querySelector('[data-contact]');
+        var popup = document.querySelector('[data-contact]');
+        var formWrap = popup.children[0];
 
         var node = this;
 
@@ -945,8 +942,8 @@ function preparePopupToContact(isShowMap) {
     }
 
     function handlerOpenPopupOnlineRecord(e) {
-        var popup = document.getElementsByClassName('b-popup')[0];
-        var formWrap = popup.querySelector('[data-online-record]');
+        var popup = document.querySelector('[data-online-record]');
+        var formWrap = popup.children[0];
 
         openWrapPopup(popup, formWrap);
 
@@ -955,21 +952,12 @@ function preparePopupToContact(isShowMap) {
 
     function openWrapPopup(popup, wrap) {
 
-        for(var i = 0, len = popup.children.length; i < len; i++) {
-            if(popup.children[i] != wrap) {
-                popup.children[i].style.opacity = '';
-                popup.children[i].style.display = '';
-            }
-        }
-
-        if(isShowMap) {
-            document.querySelector('[data-map]').style.display = 'none';
-        }
-
         wrap.style.display = 'block';
 
-        popup.style.display = 'flex';
         document.body.classList.add('open-popup');
+        popup.classList.add('open');
+
+        popup.style.display = 'flex';
 
         popup.addEventListener('click', closePopup);
 
@@ -986,40 +974,26 @@ function preparePopupToContact(isShowMap) {
 
         function handlerClosePopup(e) {
             popup.style.display = '';
+
             wrap.style.display = '';
-            if(isShowMap) {
-                document.querySelector('[data-map]').style.display = '';
-            }
+
             document.body.classList.remove('open-popup');
+            popup.classList.remove('open');
             e.stopPropagation();
             this.removeEventListener('click', handlerClosePopup);
-
-            var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
-            if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
-                setTimeout(function(){
-                    var popup = document.getElementsByClassName('b-popup')[0];
-
-                    popup.style.display = 'flex';
-                    popup.querySelector('[data-map]').style.display = 'flex';
-
-                    myMap();
-
-                    google.maps.event.trigger(map, 'resize');
-
-                },100);
-                window.updateMap = true;
-            }
         }
     }
 
-    function prepareOpenWrapPopup() {
-        var popup = document.getElementsByClassName('b-popup')[0];
+    function prepareOpenWrapPopup(attr) {
+
+        var popup = document.querySelector(attr);
         popup.style.display = 'flex';
+
         willChangeSwitch(popup, 'opacity');
 
-        this.addEventListener('mouseleave', handlerCancelPrepareToOpenWrapPopup);
+        this.addEventListener('mouseleave', handlerCancelPrepareToOpenWrapPopup.bind(this, popup));
 
-        function handlerCancelPrepareToOpenWrapPopup() {
+        function handlerCancelPrepareToOpenWrapPopup(popup) {
             popup.style.display = '';
             removeWillChange.call(popup);
             this.removeEventListener('mouseleave', handlerCancelPrepareToOpenWrapPopup);

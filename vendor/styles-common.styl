@@ -217,7 +217,7 @@
 }
 
 
-.open-popup .b-popup {
+.open-popup .open.b-popup {
 	display: flex;
 	opacity: 1;
 	pointer-events: auto;
@@ -309,7 +309,7 @@
 				font-size: 24px;
 			}
 			ul {
-				margin-top: 50px;
+				margin-top: 20px;
 			}
 			li {
 				& {
@@ -317,7 +317,8 @@
 					margin: 12px 0;
 				}
 				a {
-					min-width: 150px;
+					min-width: 130px;
+					font-size: 18px;
 					color: #4d344a;
 				}
 				span {
@@ -412,7 +413,7 @@
 					}
 				}
 				a {
-					font-size : 16px;
+					font-size : 14px;
 					line-height: 2.15em;
 					color : #c7a7c2;
 				}
@@ -531,23 +532,32 @@ video {
 	& {
 		display: flex;
 		position: relative;
-		height: 304px;
+		height: 305px;
 		padding: 10px;
-		overflow: hidden;
 	}
-	[class*="services__links_img"] {
+	.services__links_wrap {
+		position : absolute;
+		top: 10px;
+		left: 10px;
+		bottom: 10px;
+		right: 10px;
+		font-size: 0;
+		overflow: hidden;
+		border-radius : 4px;
+		transform: translateZ(1px);
+	}
+	.services__links_img {
 		& {
 			position : absolute;
-			display: block;
-			top: 10px;
-			left: 10px;
-			height: calc(100% - 20px);
-			width: calc(100% - 20px);
+			display : block;
+			height : 100%;
+			width : 100%;
+			max-width : 100%;
+			border-radius : 4px;
 			background-position : center;
 			background-size : cover;
 			background-repeat : no-repeat;
-			border-radius : 4px;
-			transition: transform 0.3s ease;
+			transition : transform 0.3s ease;
 		}
 		&:after{
 			position : absolute;
@@ -557,17 +567,15 @@ video {
 			bottom: 0;
 			right: 0;
 			content: '';
-			background-clip: content-box;
 			background-color: #000000;
 			opacity: 0.2;
-			border-radius: 4px;
 			transition: opacity 0.2s ease;
 			z-index: 1;
 		}
 	}
-	&:hover [class*="services__links_img"] {
+	&:hover .services__links_img {
 		& {
-			transform: scale(1.05);
+			transform: translateZ(0) scale(1.05);
 		}
 		&:after {
 			opacity: 0;
@@ -979,6 +987,8 @@ video {
 	}
 }
 
+
+// Выпадающий список
 .select {
 	& {
 		height : 40px;
@@ -1009,14 +1019,39 @@ video {
 			border: none;
 		}
 	}
-	.list ul li {
-		text-align: center;
-		font-family: 'Raleway', sans-serif;
-		font-size: 16px;
-		color: #40363e;
+	.list {
+		& {
+			border-radius: 4px;
+		}
+		ul {
+			& {
+			}
+			li {
+				text-align: center;
+				font-family: 'Raleway', sans-serif;
+				font-size: 16px;
+				color: #40363e;
+			}
+		}
 	}
 }
 
+
+// Календарь
+.flatpickr {
+	&-calendar {
+		padding: 50px;
+		width: 415px;
+		border-radius: 4px;
+		box-shadow: 0 0 30px rgba(0,0,0,0.1);
+	}
+	&-month {
+		margin-bottom: 20px;
+	}
+	&-days {
+		width: auto;
+	}
+}
 
 .item-table {
 	& {
@@ -1454,9 +1489,6 @@ video {
 		}
 		&-right {
 			h4 {
-				margin-top: 7vh;
-			}
-			ul {
 				margin-top: 7vh;
 			}
 		}

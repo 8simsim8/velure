@@ -19,6 +19,26 @@ html {
   position: relative;
   display: block;
 }
+#instafeed .item-insta .insta__wrap-img {
+  height: 100%;
+  width: 100%;
+  font-size: 0;
+  overflow: hidden;
+}
+#instafeed .item-insta .insta__wrap-img img {
+  width: 100%;
+  object-fit: cover;
+  -webkit-transform-origin: center;
+  -moz-transform-origin: center;
+  -o-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
+  -webkit-transition: -webkit-transform 0.2s;
+  -moz-transition: -moz-transform 0.2s;
+  -o-transition: -o-transform 0.2s;
+  -ms-transition: -ms-transform 0.2s;
+  transition: transform 0.2s;
+}
 #instafeed .item-insta:hover img {
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
@@ -26,18 +46,12 @@ html {
   -ms-transform: scale(1.05);
   transform: scale(1.05);
 }
-#instafeed .item-insta:hover .insta-header {
-  -webkit-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  -ms-transform: translateZ(1px);
-  transform: translateZ(1px);
-}
 #instafeed .item-insta .insta-header {
   position: absolute;
-  bottom: 10px;
-  left: 24px;
-  right: 24px;
+  padding: 0 24px 10px;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
   height: 40px;
   display: -webkit-box;
   display: -moz-box;
@@ -59,9 +73,15 @@ html {
   align-items: center;
   font-weight: bold;
   font-size: 14px;
+  background: -webkit-linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: -moz-linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: -o-linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: -ms-linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
 }
 #instafeed .item-insta .insta-header .insta-logo {
   font-size: 13px;
+  margin: 0;
   color: #fff;
 }
 #instafeed .item-insta .insta-header .insta-logo:before {
@@ -77,14 +97,6 @@ html {
 }
 #instafeed .item-insta .insta-header .insta-date-create {
   color: #ababab;
-}
-#instafeed .item-insta img {
-  max-width: 100%;
-  -webkit-transition: -webkit-transform 0.2s ease;
-  -moz-transition: -moz-transform 0.2s ease;
-  -o-transition: -o-transform 0.2s ease;
-  -ms-transition: -ms-transform 0.2s ease;
-  transition: transform 0.2s ease;
 }
 #instafeed .item-insta .insta-caption {
   padding-top: 20px;

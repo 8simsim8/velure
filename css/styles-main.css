@@ -20,6 +20,7 @@
   -moz-background-size: 48px;
   background-size: 48px;
   border-radius: 6px;
+  border: 1px solid #e0e0e0;
   cursor: pointer;
   -webkit-transition: box-shadow 0.3s ease;
   -moz-transition: box-shadow 0.3s ease;
@@ -650,12 +651,6 @@
 .b-programs__cards-item .center {
   margin-top: auto;
 }
-.b-programs__cards-item .btn {
-  border: 1px solid #e0e0e0;
-}
-.b-programs__cards-item .btn:hover {
-  border: 1px solid #a823a3;
-}
 .b-programs__cards-item:before {
   display: block;
   content: '';
@@ -747,15 +742,6 @@
 }
 .b-slider__details {
   padding-top: 50px;
-}
-.b-slider__details .btn {
-  color: #000;
-  border-color: #000;
-}
-.b-slider__details .btn:hover {
-  color: #fff;
-  background-color: #a823a3;
-  border: 1px solid #a823a3;
 }
 .b-inst {
   padding-top: 55px;

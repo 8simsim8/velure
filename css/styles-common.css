@@ -269,7 +269,7 @@
 .b-navigation__side-right a.current:hover {
   color: #373737;
 }
-.open-popup .b-popup {
+.open-popup .open.b-popup {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -371,7 +371,7 @@
   font-size: 24px;
 }
 .b-popup__map-right ul {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .b-popup__map-right li {
   display: -webkit-box;
@@ -383,7 +383,8 @@
   margin: 12px 0;
 }
 .b-popup__map-right li a {
-  min-width: 150px;
+  min-width: 130px;
+  font-size: 18px;
   color: #4d344a;
 }
 .b-popup__map-right li span {
@@ -472,7 +473,7 @@
   color: #c125bc;
 }
 .b-footer__list ul li a {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 2.15em;
   color: #c7a7c2;
 }
@@ -566,30 +567,43 @@ video::-webkit-media-controls-panel {
   display: box;
   display: flex;
   position: relative;
-  height: 304px;
+  height: 305px;
   padding: 10px;
-  overflow: hidden;
 }
-[class*="services__links-item"] [class*="services__links_img"] {
+[class*="services__links-item"] .services__links_wrap {
   position: absolute;
-  display: block;
   top: 10px;
   left: 10px;
-  height: calc(100% - 20px);
-  width: calc(100% - 20px);
+  bottom: 10px;
+  right: 10px;
+  font-size: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  transform: translateZ(1px);
+}
+[class*="services__links-item"] .services__links_img {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 4px;
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 4px;
   -webkit-transition: -webkit-transform 0.3s ease;
   -moz-transition: -moz-transform 0.3s ease;
   -o-transition: -o-transform 0.3s ease;
   -ms-transition: -ms-transform 0.3s ease;
   transition: transform 0.3s ease;
 }
-[class*="services__links-item"] [class*="services__links_img"]:after {
+[class*="services__links-item"] .services__links_img:after {
   position: absolute;
   display: block;
   top: 0;
@@ -597,14 +611,10 @@ video::-webkit-media-controls-panel {
   bottom: 0;
   right: 0;
   content: '';
-  -webkit-background-clip: content;
-  -moz-background-clip: content;
-  background-clip: content-box;
   background-color: #000;
   opacity: 0.2;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
-  border-radius: 4px;
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
@@ -612,14 +622,14 @@ video::-webkit-media-controls-panel {
   transition: opacity 0.2s ease;
   z-index: 1;
 }
-[class*="services__links-item"]:hover [class*="services__links_img"] {
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -o-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  transform: scale(1.05);
+[class*="services__links-item"]:hover .services__links_img {
+  -webkit-transform: translateZ(0) scale(1.05);
+  -moz-transform: translateZ(0) scale(1.05);
+  -o-transform: translateZ(0) scale(1.05);
+  -ms-transform: translateZ(0) scale(1.05);
+  transform: translateZ(0) scale(1.05);
 }
-[class*="services__links-item"]:hover [class*="services__links_img"]:after {
+[class*="services__links-item"]:hover .services__links_img:after {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -1018,11 +1028,27 @@ video::-webkit-media-controls-panel {
   background-repeat: no-repeat;
   border: none;
 }
+.select .list {
+  border-radius: 4px;
+}
 .select .list ul li {
   text-align: center;
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
   color: #40363e;
+}
+.flatpickr-calendar {
+  padding: 50px;
+  width: 415px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 30px rgba(0,0,0,0.1);
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+.flatpickr-month {
+  margin-bottom: 20px;
+}
+.flatpickr-days {
+  width: auto;
 }
 .item-table {
   counter-reset: counter-recomendation;
@@ -1255,9 +1281,6 @@ video::-webkit-media-controls-panel {
     height: 90vh;
   }
   .b-popup__map-right h4 {
-    margin-top: 7vh;
-  }
-  .b-popup__map-right ul {
     margin-top: 7vh;
   }
   .b-popup__contact,

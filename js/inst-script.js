@@ -27,7 +27,10 @@ window.addEventListener("load", function load(event){
             after: function(){
             },
             template: '<a href="{{model.link}}" class="item-insta col xs-6 sm-3' +
-            ' lg-3"><img src="{{image}}"/><p class="insta-header"><span class="insta-logo icon-logo text' +
+            ' lg-3"><p class="insta__wrap-img"><img src="{{image}}"/></p><p class="insta-header"><span' +
+            ' class="insta-logo' +
+            ' icon-logo' +
+            ' text' +
             ' bold">VelurSpaSumy</span><span' +
             ' class="insta-date-create">{{model.data_create}}</span></p></a>'
         });

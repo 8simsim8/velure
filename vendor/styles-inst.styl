@@ -14,30 +14,47 @@ html {
 			position: relative;
 			display: block;
 		}
+		.insta__wrap-img {
+			& {
+				height : 100%;
+				width : 100%;
+				font-size: 0;
+				overflow: hidden;
+			}
+			img {
+				width: 100%;
+				object-fit: cover;
+				transform-origin: center;
+				transition: transform 0.2s;
+			}
+		}
 		&:hover {
 			img {
+
 				transform: scale(1.05);
 			}
 			.insta-header {
-				transform: translateZ(1px);
 			}
 		}
 		.insta-header {
 			& {
 				position : absolute;
-				bottom: 10px;
-				left: 24px;
-				right: 24px;
+				padding: 0 24px 10px;
+				bottom: 0;
+				left: 10px;
+				right: 10px;
 				height: 40px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				font-weight: bold;
 				font-size: 14px;
+				background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
 			}
 			.insta-logo {
 				& {
 					font-size: 13px;
+					margin: 0;
 					color: #FFFFFF;
 				}
 				&:before {
@@ -55,10 +72,6 @@ html {
 			.insta-date-create {
 				color: #ababab;
 			}
-		}
-		img {
-			max-width: 100%;
-			transition: transform 0.2s ease;
 		}
 		.insta-caption {
 			& {

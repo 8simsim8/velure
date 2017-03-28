@@ -259,14 +259,52 @@
 			width: calc(100% - 20px);
 			z-index: 9998;
 		}
+		&-open {
+			position: absolute;
+			display: none;
+			left: -60px;
+			top: 30px;
+			height: 60px;
+			width: 60px;
+			background-color: #5A009D;
+			cursor: pointer;
+		}
 		&.form {
 			padding: 35px;
 			box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 		}
 	}
-
 }
 
+
+@media all and (max-width: 992px) {
+	body {
+		overflow-x: hidden;
+	}
+	.b-side {
+		&__bar {
+			& {
+				position: fixed;
+				top: 80px;
+				right: 0;
+				left: auto;
+				bottom: auto;
+				width: 400px;
+				transform: translate(100%, 0);
+				z-index: 10000;
+				transition: transform 0.3s ease;
+			}
+			&.open-side-bar {
+				transform: translate(0, 0);
+			}
+			&-open {
+				display : block;
+			}
+			&.form {
+			}
+		}
+	}
+}
 
 @media all and (max-width: 1024px) {
 	.b-about {

@@ -133,8 +133,8 @@
 				left: 0;
 				right: 0;
 				bottom: 0;
-				-webkit-transition: opacity 0.4s ease;
-				transition: opacity 0.4s ease;
+				-webkit-transition: opacity 0.2s ease;
+				transition: opacity 0.2s ease;
 				z-index: 10000;
 			}
 				.finish-load .preloader {
@@ -169,8 +169,10 @@
 					width: 100%;
 					height: 100%;
 					object-fit: cover;
-					-webkit-transition: all 0.5s ease;
-					transition: all 0.5s ease;
+					-webkit-transition: height 0.5s ease,
+										width 0.5s ease;
+					transition: height 0.5s ease,
+								width 0.5s ease;
 				}
 				.b-title__logo {
 					position: absolute;
@@ -293,29 +295,34 @@
 			document.addEventListener('DOMContentLoaded', handlerStart);
 			
 			function handlerStart() {
-				var prelaoder = document.getElementsByClassName('preloader')[0];
 				var nav = document.getElementsByClassName('l-navigation')[0];
 				var poster = document.getElementsByClassName('b-title__poster')[0];
 
+                var preloader = document.getElementsByClassName('preloader')[0];
+				
+                var isFinishNotLoadVideo = false;
+				
                 var video = document.getElementsByTagName('video')[0];
                 var buttonPlay = document.getElementById('play');
                 var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
 				
-                var timeOutVideoLoad;
-				var isFullScreen = false;
+				var isFullScreen = false,
+					isSupportFullScreen = true;
+				
 				var isFinishLoaderOneCicle = false,
 					isFinishLoadPoster = false,
-					isFinishLoadVideo = false,
-					isFinishNotLoadVideo = false;
+					isFinishLoadVideo = false;
 
+                var timeOutVideoLoad = setTimeout(function(){
+                    willChangeSwitch(preloader, 'opacity');
+                    isFinishNotLoadVideo = true;
+                },1000);
+                
+                preloader.addEventListener(transitionEnd, deletePreloader);
+				
                 var svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
 
                 disableScroll();
-                
-                timeOutVideoLoad = setTimeout(function(){
-                    willChangeSwitch(prelaoder, 'opacity');
-                    isFinishNotLoadVideo = true;
-                },3000);
                 
                 //*** 0 Ожидать прохода одного цикла анимации ***//
                 svgAnim.addEventListener("webkitAnimationIteration", handlerFinishLoader);
@@ -323,6 +330,18 @@
 				
                 //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
                 checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
+
+                cehckFullScreen();
+                
+                function cehckFullScreen() {
+                    var video = document.createElement('video');
+                    isSupportFullScreen = launchFullScreen(video);
+                    video.remove();
+                }
+                
+                if(!isSupportFullScreen) {
+                    buttonPlay.remove();
+                }
                 
 				//*** 2 После загрузки видео убрать прелоадер ***//
 				video.addEventListener('canplaythrough',videoLoad);
@@ -345,7 +364,7 @@
                 
                 function checkLoadBg(el) {
                     
-                    willChangeSwitch(prelaoder, 'opacity');
+                    willChangeSwitch(preloader, 'opacity');
 	                
                     var image = document.createElement('img');
                     image.src = getBgUrl(el);
@@ -357,7 +376,7 @@
                         image.removeEventListener('load', loadImg);
                         if(isFinishLoaderOneCicle) {
                             document.body.classList.add('load-poster');
-                            prelaoder.addEventListener(transitionEnd, removeWillChange);
+                            preloader.addEventListener(transitionEnd, removeWillChange);
                         }
                     }
 
@@ -374,13 +393,19 @@
                     }
                 }
 
+                function deletePreloader() {
+                    removeWillChange.call(this);
+                    preloader.remove();
+                    this.removeEventListener(transitionEnd, deletePreloader);
+                }
+                
                 function videoLoad(e) {
                     isFinishLoadVideo = true;
                     clearTimeout(timeOutVideoLoad);
                     if(isFinishLoaderOneCicle && !isFinishNotLoadVideo) {
                         
                         // Если видео загрузилось быстро и постер не успел загрузиться
-                        willChangeSwitch(prelaoder, 'opacity');
+                        willChangeSwitch(preloader, 'opacity');
                         setTimeout(function(){
                             willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
                                 'opacity, transition');
@@ -409,13 +434,6 @@
                 
                 var animLogo = document.querySelectorAll(".b-title__logo-inner p");
                 animLogo[animLogo.length-1].addEventListener(transitionEnd, handlerAnimLogo);
-                
-                function handlerAnimLogo(){
-                    prelaoder.remove();
-                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-                    buttonPlay.addEventListener('click', handlerPlay);
-                    this.removeEventListener(transitionEnd, handlerAnimLogo);
-                }
 
                 function handlerPlay(){
                     video.currentTime = 0;
@@ -423,23 +441,31 @@
                     nav.style.opacity = '0';
                     buttonPlay.style.opacity = '0';
                     video.style.opacity = '0';
-                    document.addEventListener("webkitfullscreenchange", onfullscreenchange);
-                    document.addEventListener("mozfullscreenchange",    onfullscreenchange);
-                    document.addEventListener("fullscreenchange",       onfullscreenchange);
-                    
-                    poster.remove();
-                    alert('play');
-                    launchFullScreen(video);
-//                    video.play();
-                    setTimeout(function(){
-                        setTimeout(function(){
-                            video.style.opacity = '1';
-                            video.muted = false;
-                            setTimeout(function(){
-                                video.play();
-                            },300);
-                        },600);
-                    },500);
+	                    
+                    if(isSupportFullScreen) {
+
+                        launchFullScreen(video);
+                        
+                        document.addEventListener("webkitfullscreenchange", onfullscreenchange);
+                        document.addEventListener("mozfullscreenchange",    onfullscreenchange);
+                        document.addEventListener("fullscreenchange",       onfullscreenchange);
+                        
+                        poster.remove();
+                    } else {
+                        poster.remove();
+                        video.controls = true;
+	                    titleLogo.parentNode.style.pointerEvents = 'none';
+	                    buttonPlay.style.pointerEvents = 'none';
+	                    video.style.position = 'fixed';
+	                    video.style.top = 0;
+	                    video.style.left = 0;
+	                    video.style.width = window.innerWidth;
+	                    video.style.height = window.innerHeight;
+	                    video.style.opacity = '1';
+	                    video.style.zIndex = '10001';
+	                    video.muted = false;
+//	                    video.play();
+	                }
                 }
                 
                 function onfullscreenchange(e) {
@@ -449,24 +475,62 @@
                     video.muted = true;
                     video.pause();
                     if(!isFullScreen) {
-                        video.style.opacity = '0';
+                        video.controls = false;
+                        titleLogo.parentNode.style.opacity = '';
+                        nav.style.opacity = '';
+                        buttonPlay.style.opacity = '';
                         setTimeout(function() {
                             video.style.opacity = '1';
-                            titleLogo.parentNode.style.opacity = '';
-                            nav.style.opacity = '';
-                            buttonPlay.style.opacity = '';
                             setTimeout(function() {
                                 video.play();
                             },500);
                         },500);
+
+                        document.removeEventListener("webkitfullscreenchange", onfullscreenchange);
+                        document.removeEventListener("mozfullscreenchange",    onfullscreenchange);
+                        document.removeEventListener("fullscreenchange",       onfullscreenchange);
+                        
+                    } else {
+                        video.style.opacity = '1';
+                        setTimeout(function() {
+                            video.controls = true;
+                            
+                            video.muted = false;
+                            video.play();
+                        },600);
                     }
                 }
 
+                function handlerAnimLogo(){
+                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
+                    buttonPlay.addEventListener('click', handlerPlay);
+                    this.removeEventListener(transitionEnd, handlerAnimLogo);
+                }
+                
                 function startPlayBg() {
                     video.currentTime = 0;
                     video.muted = true;
+                    if(isSupportFullScreen) {
+                        video.controls = false;
+                    }
                     video.play();
                     window.isVideoPlay = true;
+                }
+
+                //Запустить отображение в полноэкранном режиме
+                function launchFullScreen(element) {
+                    if(element.requestFullScreen) {
+                        element.requestFullScreen();
+                        return true;
+                    } else if(element.mozRequestFullScreen) {
+                        element.mozRequestFullScreen();
+                        return true;
+                    } else if(element.webkitRequestFullScreen) {
+                        element.webkitRequestFullScreen();
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
 
                 //*** Work with property will-change ***//
@@ -479,29 +543,13 @@
                         elem.style.willChange = prop;
                     }
                 }
-                
+
                 //*** Delete composition layer ***//
                 function removeWillChange(e){
                     willChangeSwitch(this, 'auto');
                     this.removeEventListener(transitionEnd, removeWillChange);
                 }
-
-                //Запустить отображение в полноэкранном режиме
-                function launchFullScreen(element) {
-                    if(element.requestFullScreen) {
-                        alert('element.requestFullScreen');
-                        element.requestFullScreen();
-                    } else if(element.mozRequestFullScreen) {
-                        alert('element.mozRequestFullScreen');
-                        element.mozRequestFullScreen();
-                    } else if(element.webkitRequestFullScreen) {
-                        alert('element.webkitRequestFullScreen');
-                        element.webkitRequestFullScreen();
-                    } else {
-                        return false;
-                    }
-                }
-
+                
                 // *** Disable scroll ***//
                 // left: 37, up: 38, right: 39, down: 40,
                 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
@@ -540,7 +588,7 @@
                 }
                 // *** /Disable scroll ***
 			}
-
+			
             function whichTransitionEvent(){
                 var t;
                 var el = document.createElement('fakeelement');
@@ -589,7 +637,7 @@
 					<a href="contact.html" class="">Контакты</a>
 					<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
 					<a href="tel:+380542700818" class="">(0542) 700-818</a>
-					<button class="btn arrow online-record">онлайн-запись</button>
+					<button class="btn arrow button-online-record">онлайн-запись</button>
 				</p>
 			</header>
 			<div class="b-navigation__side">
@@ -610,9 +658,9 @@
 			<section class="b-title">
 				<div class="video-wrapp">
 					<video class="b-title__video" loop="loop" preload controls>
-						<source src="video/velur-1024.mp4" type="video/mp4" />
-						<source src="video/velur-1024.webm" type="video/webm" />
-						<source src="video/velur-1024.ogg" type="video/ogg" />
+						<source src="video/velur.mp4" type="video/mp4" />
+						<source src="video/velur.webm" type="video/webm" />
+						<source src="video/velur.ogg" type="video/ogg" />
 					</video>
 					<div class="b-title__logo">
 						<div class="b-title__logo-inner">
@@ -806,17 +854,17 @@
 							<h3>SPA-комплекс</h3>
 							<p class="normal">Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости
 								и сил</p>
-							<p class="center"><a href="spa.html" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							<p class="center"><a href="spa.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 						</div>
 						<div class="b-programs__cards-item card_cosmetology col sm-4">
 							<h3>Косметология</h3>
 							<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
-							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							<p class="center"><a href="#" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 						</div>
 						<div class="b-programs__cards-item card_beauty-zone col sm-4">
 							<h3>Бьюти-зона</h3>
 							<p class="normal">Быть красивой всегда - легко, вместе с нашей командой профессиональных бьюти-мастеров</p>
-							<p class="center"><a href="#" class="btn btn__purple arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							<p class="center"><a href="#" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 						</div>
 					</div>
 				</div>
@@ -852,7 +900,7 @@
 					<p class="swiper-pagination"></p>
 				</div>
 				<p
-						class="b-slider__details center"><a href="#" class="btn btn__purple arrow">ПОДРОБНЕЕ О
+						class="b-slider__details center"><a href="#" class="btn btn__base arrow">ПОДРОБНЕЕ О
 					SPA-центре</a></p>
 			</section>
 			
@@ -930,176 +978,179 @@
 			
 		</main>
 	
-		<section class="b-popup">
-			<div class="b-popup__map img-flover__form" data-map>
-				<p class="b-popup__button-close button-close"></p>
-				<div class="b-popup__map-left">
-					<div id="map" class="google-map"></div>
+		<section>
+			<div class="b-popup" data-map>
+				<div class="b-popup__map img-flover__form">
+					<p class="b-popup__button-close button-close"></p>
+					<div class="b-popup__map-left">
+						<div id="map" class="google-map"></div>
+					</div>
+					<div class="b-popup__map-right">
+						<div id="pano" class="street-view"></div>
+						<h4>Сумы, ул. Покровская, 16/1</h4>
+						<ul>
+							<li
+									class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+											</span></li>
+							<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+							<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="b-popup__map-right">
-					<div id="pano" class="street-view"></div>
-					<h4>Сумы, ул. Покровская, 16/1</h4>
+			</div>
+			<div class="b-popup" data-contact>
+				<div class="b-popup__contact img-flover__form form" >
+					<p class="b-popup__button-close button-close"></p>
+					<p class="icon-ligature-half"></p>
+					<form action="" name="contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<h4></h4>
+						<span class="input input--akira">
+								<input class="input__field input__field--akira value-input"
+								       type="text"
+								       name="name"
+								       required/>
+								<label class="input__label input__label--akira" for="name">
+									<span class="input__label-content input__label-content--akira text">Имя</span>
+							    </label>
+							</span>
+						<span class="input input--akira">
+								<input class="input__field input__field--akira value-input"
+								       type="tel"
+								       name="phone"
+								       pattern="(\+?\d[- .]*){7,13}"
+								       required/>
+								<label class="input__label input__label--akira" for="phone">
+									<span class="input__label-content input__label-content--akira text">Телефон</span>
+								</label>
+							</span>
+						<input name="services" value="" hidden />
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время" required
+						       data-clearAfterSend>
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата" required
+						       data-clearAfterSend>
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните (050) 111-22-33</p>
+					</form>
+				</div>
+			</div>
+			<div class="b-popup" data-online-record>
+				<div class="b-popup__online img-flover__form form">
+					<p class="b-popup__button-close button-close"></p>
+					<p class="icon-ligature-half"></p>
+					<form action="" name="contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="text"
+									       name="name"
+									       required/>
+									<label class="input__label input__label--akira" for="name">
+										<span class="input__label-content input__label-content--akira text">Имя</span>
+								    </label>
+								</span>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="tel"
+									       name="phone"
+									       pattern="(\+?\d[- .]*){7,13}"
+									       required/>
+									<label class="input__label input__label--akira" for="phone">
+										<span class="input__label-content input__label-content--akira text">Телефон</span>
+									</label>
+								</span>
+						<select name="services" data-placeholder="Услуга" required
+						        class="input droplist img-arrow forcibly-placeholder value-input">
+							<!--<option>Услуга</option>-->
+							<option>Услуга 1</option>
+							<option>Услуга 2</option>
+							<option>Услуга 3</option>
+							<option>Услуга 4</option>
+							<option>Услуга 5</option>
+							<option>Услуга 6</option>
+							<option>Услуга 7</option>
+							<option>Услуга 8</option>
+							<option>Услуга 9</option>
+							<option>Услуга 10</option>
+						</select>
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время" required>
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата" required>
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните (050) 111-22-33</p>
+					</form>
+				</div>
+			</div>
+		</section>
+	
+		<footer class="l-footer b-footer">
+		<div class="wrap img-footer__bg">
+			<div class="b-footer__list row">
+				<div class="b-footer__list-item1 col sm-offset-1 sm-2 xl-offset-0">
+					<p class="text bold">О НАС</p>
 					<ul>
-						<li
-								class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
-								</span></li>
-						<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
-						<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+						<li><a href="#" class="text">СПА-центре</a></li>
+						<li><a href="#" class="text">Новости</a></li>
+						<li><a href="#" class="text">Мастера</a></li>
+						<li><a href="#" class="text">Галерея</a></li>
+						<li><a href="#" class="text">Сертификаты</a></li>
+						<li><a href="#" class="text">Награды</a></li>
+					</ul>
+				</div>
+				<div class="b-footer__list-item2 col sm-2">
+					<p class="text bold">Услуги</p>
+					<ul>
+						<li><a href="#" class="text">СПА-зона</a></li>
+						<li><a href="#" class="text">Косметология</a></li>
+						<li><a href="#" class="text">Эстетическая медицина</a></li>
+						<li><a href="#" class="text">Бьюти зона</a></li>
+					</ul>
+				</div>
+				<div class="b-footer__list-item2 col sm-2">
+					<p class="text bold">SPA-пакеты</p>
+					<ul>
+						<li><a href="#" class="text">Антистресс №1</a></li>
+						<li><a href="#" class="text">Горячий шоколад</a></li>
+						<li><a href="#" class="text">Антистресс №2</a></li>
+						<li><a href="#" class="text">Молочный шоколад</a></li>
+						<li><a href="#" class="text">Секреты Клеопатры</a></li>
+						<li><a href="#" class="text">Аромасимфония</a></li>
+						<li><a href="#" class="text">Роман с камнем</a></li>
+						<li><a href="#" class="text">Моделирование силуэта</a></li>
+					</ul>
+				</div>
+				<div class="b-footer__list-item4 col sm-5 md-offset-1 xl-offset-2 md-4">
+					<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+					<ul>
+						<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
+						<li><a href="#" class="text">050 353-32-32</a></li>
+						<li><a href="#" class="text">067 456-55-55</a></li>
+						<li><a href="#" class="text">(0542) 700-818, 700-817</a></li>
+						<li class="wrap__show-map"><a href="#" class="text show-map">Показать на карте</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="b-popup__contact img-flover__form form" data-contact>
-				<p class="b-popup__button-close button-close"></p>
-				<p class="icon-ligature-half"></p>
-				<form action="" name="contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<h4></h4>
-					<!--<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>-->
-					<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-							type="text"
-							name="name"
-							required/>
-						<label class="input__label input__label--akira" for="name">
-							<span class="input__label-content input__label-content--akira text">Имя</span>
-					    </label>
-					</span>
-					<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						    type="tel"
-							name="phone"
-							pattern="(\+?\d[- .]*){7,13}"
-							required/>
-						<label class="input__label input__label--akira" for="phone">
-							<span class="input__label-content input__label-content--akira text">Телефон</span>
-						</label>
-					</span>
-					<input name="services" value="" hidden />
-					<input type="time"
-					       name="time"
-					       class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время"
-					       required
-					       data-clearAfterSend>
-					<input type="date"
-					       name="date"
-					       class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата"
-					       required
-					       data-clearAfterSend>
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните (050) 111-22-33</p>
-				</form>
-			</div>
-			<div class="b-popup__online img-flover__form form" data-online-record>
-				<p class="b-popup__button-close button-close"></p>
-				<p class="icon-ligature-half"></p>
-				<form action="" name="contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
-					<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="text"
-						       name="name"
-						       required/>
-						<label class="input__label input__label--akira" for="name">
-							<span class="input__label-content input__label-content--akira text">Имя</span>
-					    </label>
-					</span>
-					<span class="input input--akira">
-						<input class="input__field input__field--akira value-input"
-						       type="tel"
-						       name="phone"
-						       pattern="(\+?\d[- .]*){7,13}"
-						       required/>
-						<label class="input__label input__label--akira" for="phone">
-							<span class="input__label-content input__label-content--akira text">Телефон</span>
-						</label>
-					</span>
-					<select name="services" data-placeholder="Услуга" required
-					        class="input droplist img-arrow forcibly-placeholder value-input">
-						<!--<option>Услуга</option>-->
-						<option>Услуга 1</option>
-						<option>Услуга 2</option>
-						<option>Услуга 3</option>
-						<option>Услуга 4</option>
-						<option>Услуга 5</option>
-						<option>Услуга 6</option>
-						<option>Услуга 7</option>
-						<option>Услуга 8</option>
-						<option>Услуга 9</option>
-						<option>Услуга 10</option>
-					</select>
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время" required>
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата" required>
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните (050) 111-22-33</p>
-				</form>
-			</div>
-		</section>
-		
-		<footer class="l-footer b-footer">
-			<div class="wrap img-footer__bg">
-				<div class="b-footer__list row">
-					<div class="b-footer__list-item1 col sm-offset-1 sm-2 xl-offset-0">
-						<p class="text bold">О НАС</p>
-						<ul>
-							<li><a href="#" class="text">СПА-центре</a></li>
-							<li><a href="#" class="text">Новости</a></li>
-							<li><a href="#" class="text">Мастера</a></li>
-							<li><a href="#" class="text">Галерея</a></li>
-							<li><a href="#" class="text">Сертификаты</a></li>
-							<li><a href="#" class="text">Награды</a></li>
-						</ul>
-					</div>
-					<div class="b-footer__list-item2 col sm-2">
-						<p class="text bold">Услуги</p>
-						<ul>
-							<li><a href="#" class="text">СПА-зона</a></li>
-							<li><a href="#" class="text">Косметология</a></li>
-							<li><a href="#" class="text">Эстетическая медицина</a></li>
-							<li><a href="#" class="text">Бьюти зона</a></li>
-						</ul>
-					</div>
-					<div class="b-footer__list-item2 col sm-2">
-						<p class="text bold">SPA-пакеты</p>
-						<ul>
-							<li><a href="#" class="text">СПА-зона</a></li>
-							<li><a href="#" class="text">Косметология</a></li>
-							<li><a href="#" class="text">Эстетическая медицина</a></li>
-							<li><a href="#" class="text">Бьюти зона</a></li>
-						</ul>
-					</div>
-					<div class="b-footer__list-item4 col sm-5 md-offset-1 xl-offset-2 md-4">
-						<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
-						<ul>
-							<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
-							<li><a href="#" class="text">050 353-32-32</a></li>
-							<li><a href="#" class="text">067 456-55-55</a></li>
-							<li><a href="#" class="text">(0542) 700-818, 700-817</a></li>
-							<li class="wrap__show-map"><a href="#" class="text show-map">Показать на карте</a></li>
-						</ul>
-					</div>
-				</div>
-				<p class="b-footer__bottom row">
-					<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-					<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
-					<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
-						<a href="#" class="icon-vk"></a>
-						<a href="#" class="icon-fb"></a>
-						<a href="#" class="icon-inst"></a>
-					</span>
-				</p>
-			</div>
-		</footer>
+			<p class="b-footer__bottom row">
+				<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
+				<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+				<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
+							<a href="#" class="icon-vk"></a>
+							<a href="#" class="icon-fb"></a>
+							<a href="#" class="icon-inst"></a>
+						</span>
+			</p>
+		</div>
+	</footer>
 		
 		<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>
 		<script src="js/swiper.min.js"></script>

@@ -211,8 +211,8 @@
   -ms-transform: translate(0, 60px);
   transform: translate(0, 60px);
 }
-.b-popup,
-[data-map] {
+.b-popup[data-map],
+.b-popup[data-map] .b-popup__map {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -243,6 +243,9 @@
   }
 }
 @media all and (max-width: 1024px) {
+  .b-title__logo-address h3 {
+    font-size: 32px;
+  }
   .b-title__logo-social {
     margin-top: 50px;
     text-align: center;
