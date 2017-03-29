@@ -872,12 +872,6 @@
     width: 389px;
   }
 }
-@media all and (max-width: 1450px) {
-  .b-slider .swiper-controls {
-    height: 40px;
-    width: 40px;
-  }
-}
 @media all and (max-width: 1400px) {
   .b-programs__circles-right-item.cards-item[data-recommendation=slim] {
     width: 140px;

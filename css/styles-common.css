@@ -801,17 +801,29 @@ video::-webkit-media-controls-panel {
   object-fit: cover;
 }
 .swiper-container .swiper-controls {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  padding: 10px;
+  height: auto;
+  width: auto;
   color: #fff;
   font-size: 28px;
   border: none;
-  background: none;
+  background: rgba(0,0,0,0.3);
   -webkit-box-shadow: none;
   box-shadow: none;
-  -webkit-transition: color 0.5s ease;
-  -moz-transition: color 0.5s ease;
-  -o-transition: color 0.5s ease;
-  -ms-transition: color 0.5s ease;
-  transition: color 0.5s ease;
+  -webkit-transition: color 0.2s ease, background 0.2s ease;
+  -moz-transition: color 0.2s ease, background 0.2s ease;
+  -o-transition: color 0.2s ease, background 0.2s ease;
+  -ms-transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.swiper-container .swiper-controls:before {
+  margin: auto;
 }
 .swiper-container .swiper-controls.swiper-button-disabled {
   opacity: 0.5;
@@ -821,10 +833,11 @@ video::-webkit-media-controls-panel {
 }
 .swiper-container .swiper-controls:hover {
   color: #e8e8e8;
+  background: rgba(0,0,0,0.5);
 }
 .swiper-container .swiper-controls:active {
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   color: #a8a8a8;
 }
 .swiper-container .swiper-controls-prev {

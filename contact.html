@@ -133,8 +133,8 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			-webkit-transition: opacity 0.2s ease;
-			transition: opacity 0.2s ease;
+			-webkit-transition: opacity 0.5s ease;
+			transition: opacity 0.5s ease;
 			z-index: 10000;
 		}
 		.finish-load .preloader {
@@ -290,231 +290,6 @@
 	<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
 	<link rel="stylesheet" href="css/styles-common.css">
 	<link rel="preload" href="css/styles-contact.css" as="style" onload="this.rel='stylesheet'">
-	
-	
-	<script defer>
-        window.transitionEnd = whichTransitionEvent();
-        
-        document.addEventListener('DOMContentLoaded', handlerStart);
-        
-	    function handlerStart(){
-			const preloader = document.getElementsByClassName('preloader')[0];
-            const nav = document.getElementsByClassName('l-navigation')[0];
-            const poster = document.getElementsByClassName('b-title__poster')[0];
-
-            const video = document.getElementsByTagName('video')[0];
-            const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
-			
-			var timeOutVideoLoad;
-			var isFinishLoaderOneCicle = false,
-				isFinishLoadPoster = false,
-				isFinishLoadVideo = false,
-				isFinishNotLoadVideo = false;
-			
-			const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
-			
-			disableScroll();
-			
-			// Если видео не загрузилось на протяжении 3с, не ожидать
-			timeOutVideoLoad = setTimeout(function(){
-				willChangeSwitch(preloader, 'opacity');
-				isFinishNotLoadVideo = true;
-			},1000);
-
-            preloader.addEventListener(transitionEnd, deletePreloader);
-			
-			//*** 0 Ожидать прохода одного цикла анимации ***//
-			svgAnim.addEventListener("webkitAnimationIteration",    handlerFinishLoader);
-			svgAnim.addEventListener("animationiteration",          handlerFinishLoader);
-			
-			//*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
-			checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
-			
-			//*** 2 После загрузки видео убрать прелоадер ***//
-			video.addEventListener('canplaythrough',videoLoad);
-
-			//*** 3 Окончание анимации стартового текста, удалить preloader
-            const animLogo = document.querySelectorAll(".b-title__logo-inner p");
-            animLogo[animLogo.length - 1].addEventListener(transitionEnd, handlerAnimLogo);
-		    
-			function handlerFinishLoader(e) {
-                isFinishLoaderOneCicle = true;
-                if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
-                    videoLoad();
-                } else  if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishNotLoadVideo) {
-                    setTimeout(function(){
-                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
-                            'opacity, transition');
-                        titleLogo.classList.add('transition');
-                        document.body.classList.add('finish-load');
-                        document.body.classList.remove('no-scroll');
-                        enableScroll();
-                    },200);
-                }
-            }
-
-            function deletePreloader() {
-                removeWillChange.call(this);
-                preloader.remove();
-                this.removeEventListener(transitionEnd, deletePreloader);
-            }
-            
-			function checkLoadBg(el) {
-			
-				willChangeSwitch(preloader, 'opacity');
-			
-				var image = document.createElement('img');
-				image.src = getBgUrl(el);
-				image.addEventListener('load', loadImg);
-			
-				function loadImg() {
-					isFinishLoadPoster = true;
-					image.remove();
-					image.removeEventListener('load', loadImg);
-					if(isFinishLoaderOneCicle) {
-						document.body.classList.add('load-poster');
-						preloader.addEventListener(transitionEnd, removeWillChange);
-					}
-				}
-			
-				function getBgUrl(el) {
-					var bg = "";
-					if (el.currentStyle) { // IE
-						bg = el.currentStyle.backgroundImage;
-					} else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
-						bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
-					} else { // try and get inline style
-						bg = el.style.backgroundImage;
-					}
-					return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
-				}
-			}
-
-            function videoLoad(e) {
-                isFinishLoadVideo = true;
-                clearTimeout(timeOutVideoLoad);
-                if(isFinishLoaderOneCicle && !isFinishNotLoadVideo) {
-
-                    // Если видео загрузилось быстро и постер не успел загрузиться
-                    willChangeSwitch(preloader, 'opacity');
-                    setTimeout(function(){
-                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
-                            'opacity, transition');
-                        document.body.classList.add('load-poster');
-                        poster.classList.add('hidden');
-                        titleLogo.classList.add('transition');
-                        document.body.classList.add('finish-load');
-                        document.body.classList.remove('load-poster');
-                        document.body.classList.remove('no-scroll');
-                    },500);
-                    enableScroll();
-                    poster.remove();
-                    startPlayBg();
-                    video.removeEventListener('canplaythrough', videoLoad);
-                }
-                if(isFinishLoaderOneCicle && isFinishNotLoadVideo) {
-                    titleLogo.classList.add('transition');
-                    document.body.classList.add('finish-load');
-                    document.body.classList.remove('no-scroll');
-                    enableScroll();
-                    poster.remove();
-                    startPlayBg();
-                    video.removeEventListener('canplaythrough', videoLoad);
-                }
-            }
-			
-			function handlerAnimLogo(){
-				willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
-				
-				this.removeEventListener(transitionEnd, handlerAnimLogo);
-			}
-		    		
-			function startPlayBg() {
-				video.currentTime = 0;
-				video.muted = true;
-                video.controls = false;
-				video.play();
-				window.isVideoPlay = true;
-			}
-		
-			//*** Work with property will-change ***//
-			function willChangeSwitch(elem, prop) {
-				if(elem.length) {
-					for(var i=0; i < elem.length; i++) {
-						elem[i].style.willChange = prop;
-					}
-				} else {
-					elem.style.willChange = prop;
-				}
-			}
-		
-			//*** Delete composition layer ***//
-			function removeWillChange(e){
-				willChangeSwitch(this, 'auto');
-				this.removeEventListener(transitionEnd, removeWillChange);
-			}
-		    
-			// *** Disable scroll ***//
-			// left: 37, up: 38, right: 39, down: 40,
-			// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-			const keys = {37: 1, 38: 1, 39: 1, 40: 1};
-			
-			function preventDefault(e) {
-				e = e || window.event;
-				if (e.preventDefault)
-					e.preventDefault();
-				e.returnValue = false;
-			}
-			
-			function preventDefaultForScrollKeys(e) {
-				if (keys[e.keyCode]) {
-					preventDefault(e);
-					return false;
-				}
-			}
-			
-			function disableScroll() {
-				if (window.addEventListener) // older FF
-					window.addEventListener('DOMMouseScroll', preventDefault, false);
-				window.onwheel = preventDefault; // modern standard
-				window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-				window.ontouchmove  = preventDefault; // mobile
-				document.onkeydown  = preventDefaultForScrollKeys;
-			}
-			
-			function enableScroll() {
-				if (window.removeEventListener)
-					window.removeEventListener('DOMMouseScroll', preventDefault, false);
-				window.onmousewheel = document.onmousewheel = null;
-				window.onwheel = null;
-				window.ontouchmove = null;
-				document.onkeydown = null;
-			}
-		// *** /Disable scroll ***
-		}
-
-        function whichTransitionEvent(){
-            var t;
-            var el = document.createElement('fakeelement');
-            var resTransitionEnd;
-
-            var transitionsEnd = {
-                'OTransition':'oTransitionEnd',
-                'MozTransition':'transitionend',
-                'WebkitTransition':'webkitTransitionEnd',
-                'transition':'transitionend'
-            };
-
-            for(t in transitionsEnd){
-                if( el.style[t] !== undefined ){
-                    resTransitionEnd = transitionsEnd[t];
-                }
-            }
-
-            return resTransitionEnd;
-        }
-	
-	</script>
 
 </head>
 
@@ -598,6 +373,288 @@
 				<div class="b-title__poster"></div>
 			</div>
 		</section>
+		
+		<script>
+            window.transitionEnd = whichTransitionEvent();
+
+            handlerStart();
+
+            function handlerStart(){
+                const preloader = document.getElementsByClassName('preloader')[0];
+                const nav = document.getElementsByClassName('l-navigation')[0];
+                const poster = document.getElementsByClassName('b-title__poster')[0];
+
+                const video = document.getElementsByTagName('video')[0];
+                const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+
+                var timeOutVideoLoad;
+                var isFinishLoaderOneCicle = false,
+                    isFinishLoadPoster = false,
+                    isFinishLoadVideo = false,
+                    isFinishNotLoadVideo = false;
+
+                const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
+
+                disableScroll();
+
+                // Если видео не загрузилось на протяжении 3с, не ожидать
+                timeOutVideoLoad = setTimeout(function(){
+                    willChangeSwitch(preloader, 'opacity');
+                    isFinishNotLoadVideo = true;
+                },1000);
+
+                //*** 0 Ожидать прохода одного цикла анимации ***//
+                svgAnim.addEventListener("webkitAnimationIteration",    handlerFinishLoader);
+                svgAnim.addEventListener("animationiteration",          handlerFinishLoader);
+
+                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
+                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
+
+                //*** 2 После загрузки видео убрать прелоадер ***//
+                canPlay(video, videoLoad);
+
+                //*** 3 Окончание анимации стартового текста, удалить preloader
+                const animLogo = document.querySelectorAll(".b-title__logo-inner p");
+                animLogo[animLogo.length - 1].addEventListener(transitionEnd, handlerAnimLogo);
+
+                function handlerAnimLogo(){
+                    
+                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
+
+                    deletePreloader(preloader);
+
+                    this.removeEventListener(transitionEnd, handlerAnimLogo);
+                }
+
+                function handlerFinishLoader(e) {
+                    isFinishLoaderOneCicle = true;
+                    if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
+                        videoLoad();
+                    } else  if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishNotLoadVideo) {
+                        setTimeout(function(){
+                            willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                                'opacity, transition');
+                            titleLogo.classList.add('transition');
+                            document.body.classList.add('finish-load');
+                            document.body.classList.remove('no-scroll');
+                            enableScroll();
+                        },200);
+                    }
+                }
+
+                function checkLoadBg(el) {
+
+                    willChangeSwitch(preloader, 'opacity');
+
+                    var  image = document.createElement('img');
+                    image.src = getBgUrl(el);
+                    image.addEventListener('load', loadImg);
+
+                    function loadImg() {
+                        isFinishLoadPoster = true;
+                        image.remove();
+                        image.removeEventListener('load', loadImg);
+                        if(isFinishLoaderOneCicle) {
+                            document.body.classList.add('load-poster');
+                            preloader.addEventListener(transitionEnd, removeWillChange);
+                        }
+                    }
+
+                    function getBgUrl(el) {
+                        var  bg = "";
+                        if (el.currentStyle) { // IE
+                            bg = el.currentStyle.backgroundImage;
+                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
+                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
+                        } else { // try and get inline style
+                            bg = el.style.backgroundImage;
+                        }
+                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                    }
+                }
+
+                function videoLoad() {
+                    isFinishLoadVideo = true;
+                    clearTimeout(timeOutVideoLoad);
+                    poster.remove();
+                    if(isFinishLoaderOneCicle && !isFinishNotLoadVideo) {
+
+                        // Если видео загрузилось быстро и постер не успел загрузиться
+                        willChangeSwitch(preloader, 'opacity');
+                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                            'opacity, transition');
+                        document.body.classList.add('load-poster');
+                        poster.classList.add('hidden');
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('load-poster');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        startPlayBg();
+                    }
+                    if(isFinishLoaderOneCicle && isFinishNotLoadVideo) {
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        startPlayBg();
+                    }
+                }
+
+                function deletePreloader(preloader) {
+                    removeWillChange.call(preloader);
+                    setTimeout(function(){
+                        preloader.remove();
+                    },200);
+                }
+
+                function startPlayBg() {
+                    video.currentTime = 0;
+                    video.muted = true;
+                    video.controls = false;
+
+                    var waitTime = 20;
+
+                    setTimeout(function () {
+                        // Resume play if the element if is paused.
+                        if (video.paused) {
+                            video.play();
+                        }
+                    }, waitTime);
+
+                    window.isVideoPlay = true;
+                }
+
+                //*** Work with property will-change ***//
+                function willChangeSwitch(elem, prop) {
+                    if(elem.length) {
+                        for(var i=0; i < elem.length; i++) {
+                            elem[i].style.willChange = prop;
+                        }
+                    } else {
+                        elem.style.willChange = prop;
+                    }
+                }
+
+                //*** Delete composition layer ***//
+                function removeWillChange(e){
+                    willChangeSwitch(this, 'auto');
+                    this.removeEventListener(transitionEnd, removeWillChange);
+                }
+
+                // *** Disable scroll ***//
+                // left: 37, up: 38, right: 39, down: 40,
+                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+                const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+                function preventDefault(e) {
+                    e = e || window.event;
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    e.returnValue = false;
+                }
+
+                function preventDefaultForScrollKeys(e) {
+                    if (keys[e.keyCode]) {
+                        preventDefault(e);
+                        return false;
+                    }
+                }
+
+                function disableScroll() {
+                    if (window.addEventListener) // older FF
+                        window.addEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onwheel = preventDefault; // modern standard
+                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+                    window.ontouchmove  = preventDefault; // mobile
+                    document.onkeydown  = preventDefaultForScrollKeys;
+                }
+
+                function enableScroll() {
+                    if (window.removeEventListener)
+                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onmousewheel = document.onmousewheel = null;
+                    window.onwheel = null;
+                    window.ontouchmove = null;
+                    document.onkeydown = null;
+                }
+                // *** /Disable scroll ***
+            }
+
+            function whichTransitionEvent(){
+                var t;
+                var el = document.createElement('fakeelement');
+                var resTransitionEnd;
+
+                var transitionsEnd = {
+                    'OTransition':'oTransitionEnd',
+                    'MozTransition':'transitionend',
+                    'WebkitTransition':'webkitTransitionEnd',
+                    'transition':'transitionend'
+                };
+
+                for(t in transitionsEnd){
+                    if( el.style[t] !== undefined ){
+                        resTransitionEnd = transitionsEnd[t];
+                    }
+                }
+
+                return resTransitionEnd;
+            }
+
+            function canPlay(video, callback) {
+                var i = 0,
+                    volume = video.volume,
+                    onCanPlay = function () {
+                        video.removeEventListener ( "canplaythrough", onCanPlay );
+                        callback( null );
+                    };
+
+                //firefox canplay events fix
+
+                var waitTime = 150;
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.volume = 0;
+                    }
+                }, waitTime);
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.play();
+                    }
+                }, waitTime);
+                video.pause();
+                video.currentTime = 0;
+                video.volume = volume;
+
+                if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
+                    onCanPlay();
+                }
+
+                else if ( "oncanplaythrough" in video ) {
+                    return video.addEventListener ( "canplaythrough", onCanPlay );
+                }
+                else {
+                    (function waitCanPlay() {
+
+                        if ( video.readyState == video.HAVE_ENOUGH_DATA ) {
+                            return callback( null );
+                        }
+
+                        else if ( ++i == 15 ) {
+                            return callback ( "Failed download video" );
+                        }
+
+                        setTimeout( waitCanPlay, 300 );
+                    } () );
+                }
+            };
+		
+		</script>
 		
 		<section class="b-form">
 			<div class="wrap row">

@@ -97,6 +97,7 @@
 }
 .b-staffs__reviews .swiper-controls {
   color: #ababab;
+  background: none;
   top: 77px;
   left: 50%;
   right: auto;
