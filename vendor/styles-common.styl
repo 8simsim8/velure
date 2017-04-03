@@ -134,6 +134,14 @@
 					color : #FFFFFF;
 					background-color: #A823A3;
 				}
+			&__open-menu {
+				display: none;
+			}
+		}
+
+		.menu__list_tablet {
+			display : flex;
+			justify-content : space-between;
 		}
 	}
 	&__side {
@@ -544,7 +552,6 @@ video {
 		font-size: 0;
 		overflow: hidden;
 		border-radius : 4px;
-		transform: translateZ(1px);
 	}
 	.services__links_img {
 		& {
@@ -587,6 +594,7 @@ video {
 		padding: 20px;
 		text-align: center;
 		color : #FFFFFF;
+		transform: translateZ(1px);
 		z-index: 2;
 	}
 }
@@ -1156,7 +1164,26 @@ video {
 		}
 	}
 }
-
+@media all and (max-width: 1470px) {
+	main {
+	}
+	.wrap {
+	//max-width: calc(1280px - 10vw);
+	}
+	.b-navigation {
+		&__header {
+			&-links {
+				a {
+					margin-right : 25px;
+					font-size : 12px;
+				}
+				a[class*="icon-"]:before {
+					top : -0.5em;
+				}
+			}
+		}
+	}
+}
 @media all and (max-width: 1440px) {
 	main {
 	}
@@ -1291,10 +1318,10 @@ video {
 			}
 			&-links {
 				& {
+					margin-right: 20px;
 				}
 				a {
 					margin-right: 15px;
-					font-size: 10px;
 					letter-spacing: 0.12em;
 				}
 				button {
@@ -1309,6 +1336,18 @@ video {
 }
 
 @media all and (max-width: 1230px) {
+	.b-navigation {
+		&__header {
+			&-links {
+				a {
+					font-size : 11px;
+				}
+				a[class*="icon-"]:before {
+					top : -0.5em;
+				}
+			}
+		}
+	}
 	.b-popup {
 		& {
 		}
@@ -1407,6 +1446,9 @@ video {
 				}
 				a {
 				}
+				button {
+					font-size: 10px;
+				}
 			}
 		}
 		&__side {
@@ -1443,6 +1485,9 @@ video {
 					font-size: 10px;
 					letter-spacing: 0.1em;
 				}
+			}
+			&__open-menu {
+				display: block;
 			}
 		}
 		&__side {

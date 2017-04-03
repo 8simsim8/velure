@@ -262,8 +262,8 @@
 		&-open {
 			position: absolute;
 			display: none;
-			left: -60px;
-			top: 30px;
+			left: calc(50% - 30px);
+			top: -60px;
 			height: 60px;
 			width: 60px;
 			background-color: #5A009D;
@@ -277,7 +277,7 @@
 }
 
 
-@media all and (max-width: 992px) {
+@media all and (max-width: 1200px) {
 	body {
 		overflow-x: hidden;
 	}
@@ -285,12 +285,12 @@
 		&__bar {
 			& {
 				position: fixed;
-				top: 80px;
-				right: 0;
-				left: auto;
-				bottom: auto;
+				top: auto;
+				right: auto;
+				left: calc(50% - 200px);
+				bottom: 0;
 				width: 400px;
-				transform: translate(100%, 0);
+				transform: translate(0, 100%);
 				z-index: 10000;
 				transition: transform 0.3s ease;
 			}
@@ -329,7 +329,7 @@
 			margin-top: 10px;
 		}
 		&.form {
-			top: -80px;
+			top: auto;
 			padding : 20px 20px 10px;
 		}
 		.icon-ligature-half {

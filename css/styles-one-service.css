@@ -207,8 +207,8 @@
 .b-side__bar-open {
   position: absolute;
   display: none;
-  left: -60px;
-  top: 30px;
+  left: calc(50% - 30px);
+  top: -60px;
   height: 60px;
   width: 60px;
   background-color: #5a009d;
@@ -219,22 +219,22 @@
   -webkit-box-shadow: 0 4px 8px rgba(224,224,224,0.75);
   box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 }
-@media all and (max-width: 992px) {
+@media all and (max-width: 1200px) {
   body {
     overflow-x: hidden;
   }
   .b-side__bar {
     position: fixed;
-    top: 80px;
-    right: 0;
-    left: auto;
-    bottom: auto;
+    top: auto;
+    right: auto;
+    left: calc(50% - 200px);
+    bottom: 0;
     width: 400px;
-    -webkit-transform: translate(100%, 0);
-    -moz-transform: translate(100%, 0);
-    -o-transform: translate(100%, 0);
-    -ms-transform: translate(100%, 0);
-    transform: translate(100%, 0);
+    -webkit-transform: translate(0, 100%);
+    -moz-transform: translate(0, 100%);
+    -o-transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+    transform: translate(0, 100%);
     z-index: 10000;
     -webkit-transition: -webkit-transform 0.3s ease;
     -moz-transition: -moz-transform 0.3s ease;
@@ -270,7 +270,7 @@
     margin-top: 10px;
   }
   .b-side__bar.form {
-    top: -80px;
+    top: auto;
     padding: 20px 20px 10px;
   }
   .b-side__bar .icon-ligature-half {

@@ -172,6 +172,23 @@
   color: #fff;
   background-color: #a823a3;
 }
+.b-navigation__header-links__open-menu {
+  display: none;
+}
+.b-navigation__header .menu__list_tablet {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
 .b-navigation__side {
   display: -webkit-box;
   display: -moz-box;
@@ -579,11 +596,6 @@ video::-webkit-media-controls-panel {
   font-size: 0;
   overflow: hidden;
   border-radius: 4px;
-  -webkit-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  -ms-transform: translateZ(1px);
-  transform: translateZ(1px);
 }
 [class*="services__links-item"] .services__links_img {
   position: absolute;
@@ -640,6 +652,11 @@ video::-webkit-media-controls-panel {
   padding: 20px;
   text-align: center;
   color: #fff;
+  -webkit-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  transform: translateZ(1px);
   z-index: 2;
 }
 .half-circle__block {
@@ -1136,6 +1153,15 @@ video::-webkit-media-controls-panel {
     margin-right: 30px;
   }
 }
+@media all and (max-width: 1470px) {
+  .b-navigation__header-links a {
+    margin-right: 25px;
+    font-size: 12px;
+  }
+  .b-navigation__header-links a[class*="icon-"]:before {
+    top: -0.5em;
+  }
+}
 @media all and (max-width: 1440px) {
   .b-navigation__header {
     height: 5vw;
@@ -1215,13 +1241,21 @@ video::-webkit-media-controls-panel {
   .b-navigation__header-logo:before {
     font-size: 2vw;
   }
+  .b-navigation__header-links {
+    margin-right: 20px;
+  }
   .b-navigation__header-links a {
     margin-right: 15px;
-    font-size: 10px;
     letter-spacing: 0.12em;
   }
 }
 @media all and (max-width: 1230px) {
+  .b-navigation__header-links a {
+    font-size: 11px;
+  }
+  .b-navigation__header-links a[class*="icon-"]:before {
+    top: -0.5em;
+  }
   .b-popup__map-button-close {
     position: absolute;
     top: 0;
@@ -1268,6 +1302,9 @@ video::-webkit-media-controls-panel {
   .b-navigation__header-links {
     margin-right: 20px;
   }
+  .b-navigation__header-links button {
+    font-size: 10px;
+  }
 }
 @media all and (max-width: 1024px) {
   .b-navigation__header-links {
@@ -1277,6 +1314,9 @@ video::-webkit-media-controls-panel {
     margin-right: 10px;
     font-size: 10px;
     letter-spacing: 0.1em;
+  }
+  .b-navigation__header__open-menu {
+    display: block;
   }
 }
 @media all and (max-width: 1100px) {

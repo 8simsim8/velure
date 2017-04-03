@@ -1,6 +1,6 @@
 window.addEventListener('load', function(){
 
-    const WIDTH_HIDE_FORM = 992;
+    const WIDTH_HIDE_FORM = 1200;
 
     const accordeonClassName = 'accordeon';
     const sliderClassName = 'swiper-container';

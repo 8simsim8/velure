@@ -1,0 +1,561 @@
+<!DOCTYPE HTML><html><head><meta charset="utf-8"><title>Velur SPA</title><meta http-equiv="Cache-Control" content="max-age=7200, must-revalidate"><meta name="keywords" content=""><meta name="description" content=""><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"><meta name="theme-color" content="#ffffff"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-rim-auto-match" content="none"><!--Favicons--><link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png"><link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16"><link rel="manifest" href="favicons/manifest.json"><link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5"><meta name="theme-color" content="#ffffff"><script>(function(w){
+            "use strict";
+            var loadCSS = function( href, before, media ){
+                var doc = w.document;
+                var ss = doc.createElement( "link" );
+                var ref;
+                if( before ){
+                    ref = before;
+                }
+                else {
+                    var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+                    ref = refs[ refs.length - 1];
+                }
+                var sheets = doc.styleSheets;
+                ss.rel = "stylesheet";
+                ss.href = href;
+                ss.media = "only x";
+                function ready( cb ){
+                    if( doc.body ){
+                        return cb();
+                    }
+                    setTimeout(function(){
+                        ready( cb );
+                    });
+                }
+                ready( function(){
+                    ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+                });
+                var onloadcssdefined = function( cb ){
+                    var resolvedHref = ss.href;
+                    var i = sheets.length;
+                    while( i-- ){
+                        if( sheets[ i ].href === resolvedHref ){
+                            return cb();
+                        }
+                    }
+                    setTimeout(function() {
+                        onloadcssdefined( cb );
+                    });
+                };
+
+                function loadCB(){
+                    if( ss.addEventListener ){
+                        ss.removeEventListener( "load", loadCB );
+                    }
+                    ss.media = media || "all";
+                }
+                if( ss.addEventListener ){
+                    ss.addEventListener( "load", loadCB);
+                }
+                ss.onloadcssdefined = onloadcssdefined;
+                onloadcssdefined( loadCB );
+                return ss;
+            };
+            if( typeof exports !== "undefined" ){
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }( typeof global !== "undefined" ? global : this ));
+        (function( w ){
+            if( !w.loadCSS ){
+                return;
+            }
+            var rp = loadCSS.relpreload = {};
+            rp.support = function(){
+                try {
+                    return w.document.createElement("link").relList.supports( "preload" );
+                } catch (e) {}
+            };
+            rp.poly = function(){
+                var links = w.document.getElementsByTagName( "link" );
+                for( var i = 0; i < links.length; i++ ){
+                    var link = links[ i ];
+                    if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+                        w.loadCSS( link.href, link );
+                        link.rel = null;
+                    }
+                }
+            };
+            if( !rp.support() ){
+                rp.poly();
+                var run = w.setInterval( rp.poly, 300 );
+                if( w.addEventListener ){
+                    w.addEventListener( "load", function(){
+                        w.clearInterval( run );
+                    } )
+                }
+            }
+        }( this ));</script><style>body.no-scroll {
+			overflow-y: hidden;
+		}
+		body.no-scroll::-webkit-scrollbar {
+			background-color: rgba(255,255,255,0.95);
+		}
+		body.no-scroll::-webkit-scrollbar-track {
+			background-color: rgba(255,255,255,0.95);
+		}
+		body.no-scroll::-webkit-scrollbar-thumb {
+			background-color: rgba(255,255,255,0.95);
+		}
+		.preloader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			-webkit-transition: opacity 0.5s ease;
+			transition: opacity 0.5s ease;
+			z-index: 10000;
+		}
+		.finish-load .preloader {
+			pointer-events: none;
+			opacity: 0;
+		}
+		.preloader__bg {
+			height: 100%;
+			width: 100%;
+			background-color: #FFFFFF;
+			-webkit-transition: opacity 0.5s ease;
+			transition: opacity 0.5s ease;
+		}
+		.preloader p {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: -webkit-flex;
+			display: flex;
+			width: 100%;
+			height: 100%;
+		}
+		.preloader p svg {
+			margin: auto;
+			height: 18vh;
+		}
+		.video-wrapp {
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+		}
+		.b-title {
+			position: relative;
+		}
+		.b-title__video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			-webkit-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+		.b-title__logo {
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding-top: 20vh;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 9;
+		}
+		.b-title__logo-inner {
+			margin: 0 auto 50vh;
+		}
+		.b-title__logo-ligature,
+		.b-title__logo-text {
+			font-family : 'Playfair Display', sans-serif;
+			color: #FFFFFF;
+			font-size: 60px;
+			text-align: center;
+		}
+		.b-title__logo-ligature,
+		.b-title__logo-text,
+		.b-title__logo-address {
+			opacity: 0;
+			-webkit-transform: translate(0, 50px);
+			transform: translate(0, 50px);
+		}
+		
+		.b-title__logo-social a {
+			opacity: 0;
+			-webkit-transform: translate(-50px, 0);
+			transform: translate(-50px, 0);
+		}
+		
+		.b-title__logo-ligature {
+			-webkit-transition: -webkit-transform 0.8s ease 0.9s,
+			opacity 0.8s ease 0.9s;
+			transition: transform 0.8s ease 0.9s,
+			opacity 0.8s ease 0.9s;
+		}
+		.b-title__logo-text {
+			-webkit-transition: -webkit-transform 0.8s ease 0.7s,
+			opacity 0.8s ease 0.7s;
+			transition: transform 0.8s ease 0.7s,
+			opacity 0.8s ease 0.7s;
+		}
+		
+		.b-title__logo-address {
+			-webkit-transition: -webkit-transform 0.8s ease 1.1s,
+			opacity 0.8s ease 1.1s;
+			transition: transform 0.8s ease 1.1s,
+			opacity 0.8s ease 1.1s;
+		}
+		
+		.b-title__logo-social a {
+			-webkit-transition: -webkit-transform 0.8s ease,
+								opacity 0.8s ease;
+			transition: transform 0.8s ease,
+						opacity 0.8s ease;
+		}
+		
+		.b-title__logo-social a:nth-child(1) {
+			-webkit-transition: -webkit-transform 0.8s ease 1.7s,
+								opacity 0.8s ease 1.7s;
+			transition: transform 0.8s ease 1.7s,
+						opacity 0.8s ease 1.7s;
+		}
+		
+		.b-title__logo-social a:nth-child(2) {
+			-webkit-transition: -webkit-transform 0.8s ease 2.1s,
+								opacity 0.8s ease 2.1s;
+			transition: transform 0.8s ease 2.1s,
+						opacity 0.8s ease 2.1s;
+		}
+		
+		.b-title__logo-social a:nth-child(3) {
+			-webkit-transition: -webkit-transform 0.8s ease 2.5s,
+								opacity 0.8s ease 2.5s;
+			transition: transform 0.8s ease 2.5s,
+						opacity 0.8s ease 2.5s;
+		}
+		
+		.finish-load .b-title__logo-ligature,
+		.finish-load .b-title__logo-text,
+		.finish-load .b-title__logo-address,
+		.finish-load .b-title__logo-social a{
+			opacity: 1;
+			-webkit-transform: translate(0, 0);
+			transform: translate(0, 0);
+		}
+		
+		.b-title__poster {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height : 100%;
+			width: 100%;
+			background-image: url('video/poster-main.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.hidden.b-title__poster {
+			display:none;
+		}</style><link rel="stylesheet" href="css/reset-min.css"><link rel="stylesheet" href="css/gird-column.css"><link rel="preload" href="css/select.min.css" as="style" onload="this.rel='stylesheet'"><link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'"><link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'"><link rel="stylesheet" href="css/styles-common.css"><link rel="preload" href="css/styles-contact.css" as="style" onload="this.rel='stylesheet'"></head><body class="no-scroll"><!--<body class="finish-load">--><!--<div class="preloader" hidden>--><div class="preloader"><div class="preloader__bg"></div></div><nav class="l-navigation b-navigation"><header class="b-navigation__header"><a href="index.html" class="b-navigation__header-logo icon-logo"></a><p class="b-navigation__header-links"><a href="#" class="">О центре</a> <a href="spa.html" class="">SPA-комплекс</a> <a href="#" class="">Косметология</a> <a href="#" class="">Бьюти-зона</a> <a href="cosmetics.html" class="">Косметика</a> <a href="#" class="">Контакты</a> <a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a> <a href="tel:+380542700818" class="">(0542) 700-818</a> <button class="btn arrow button-online-record">онлайн-запись</button></p></header><div class="b-navigation__side"><div class="b-navigation__side-left"><a href="#" class="icon-inst"></a> <a href="#" class="icon-vk"></a> <a href="#" class="icon-fb"></a></div><div class="b-navigation__side-right"><a href="#" class="current">RU</a> <a href="#">EN</a></div></div></nav><main class="l-content"><section class="b-title"><div class="video-wrapp"><video class="b-title__video" loop="loop" preload poster="video/poster-main.jpg"><source src="video/velur.mp4" type="video/mp4"><source src="video/velur.webm" type="video/webm"><source src="video/velur.ogg" type="video/ogg"></video><div class="b-title__logo"><div class="b-title__logo-inner"><p class="b-title__logo-text">Добро пожаловать в Велюр!</p><p class="b-title__logo-ligature"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143.5 38"><path fill="#FFF" d="M84.6 38c-5-2.1-10.3-4.5-15.9-7.1l-.3-.1c-.6-.3-1.3-.6-1.9-.8-.6-.3-1.2-.5-1.8-.8H64.4c-.7.2-1.2.4-1.7.6-.8.3-1.5.5-2.4.8-10.7 3.4-19.8 5.5-26.9 6.5-2.9.4-5.2.6-7.1.6-2.2 0-4.4-.1-6.4-.4-3.7-.5-7-1.4-10-2.7-1.3-.6-2.5-1.2-3.6-2-1.9-1.3-3.6-2.7-4.7-4.3-1-1.4-1.6-2.6-1.6-3.6v-.2C0 22.6 0 20 2.2 18c.6-.6 1.3-1.1 2.2-1.5 1.9-1 4.5-1.6 7.9-2 1.3-.2 3-.3 5.2-.3h.4l.1-.4c.4-2.8 2.5-5.4 5.8-7.3 1.8-1.1 4-2 6.3-2.6 1.2-.3 2.4-.5 3.7-.7 1.3-.2 2.6-.2 3.9-.2 5 0 11.8 1.5 19.6 4.3 3.6 1.3 7.4 2.9 12.4 5.2l.1.1h.2c4.1-1.3 7.9-2.8 11.7-4.2 4.7-1.8 9.2-3.5 13.8-4.8 7.4-2 15.1-3.4 19.6-3.4h1.4c1.5 0 2.9.1 4.3.4 2.3.3 3.9.8 5.2 1.5 2 1.1 3.4 3 4 5.6l.1.3h.3c3.3.4 5.7 1 7.5 2 3.5 1.8 5.4 4.8 5.7 8.7.1 2-.6 4-2 5.8-.7.8-1.4 1.6-2.4 2.4-.9.7-2 1.4-3.1 2-4.1 2.2-9.2 3.6-13.5 3.6h-.8c-2.1-.1-5-.6-8.7-1.5-3.5-.9-7.4-2.1-11.5-3.5-4.4-1.5-9.2-3.5-14.7-6H86.6l-3.2 1.1c-3.4 1.2-9.6 3.4-16.7 5.8l-1.2.4s2.9 1.3 3.3 1.5l1.2.6c5.3 2.4 10.3 4.7 15 6.7l-.4.4zM17.3 14.7c-2 .1-3.6.2-4.9.3-3.2.4-5.8 1.1-7.7 2-.8.4-1.5.9-2.1 1.4-1 .9-1.6 1.9-1.8 3.1-.2.9-.2 1.8-.2 2.7v.3c0 .7.4 1.9 1.4 3.3.5.7 1.2 1.4 1.9 2.1.7.7 1.6 1.4 2.7 2.1 2.3 1.5 5 2.7 8 3.5 1.7.5 3.5.8 5.4 1.1 2.1.3 4.2.4 6.3.4 7.6 0 16.9-2.2 28.3-6.8 1.6-.6 2.5-1 3.5-1.5.5-.2 1-.4 1.6-.7l1-.5-1-.5c-1-.4-1.9-.9-2.9-1.3l-6-2.7-.6-.2-2.1.6c-1.9.6-3.8 1.1-5.5 1.5-4.1 1-7 1.5-8.8 1.5-1.9 0-3.8-.3-5.7-.9-1.8-.6-3.6-1.5-5.1-2.5-1.6-1.1-2.9-2.4-3.7-3.7-.8-1.2-1.3-2.6-1.4-4.1v-.5h-.6zm106.5-4.4c-4.8.2-13.6 2.8-20.1 5-5.6 1.8-9.9 3.4-13.4 4.7l-2.8 1 1.1.5c4.4 1.9 8.8 3.7 13.2 5.2 4.1 1.4 8 2.6 11.5 3.5 3.6.9 6.5 1.4 8.5 1.5h.8c1.9 0 4-.3 6.1-.8 2.5-.6 4.9-1.5 7.1-2.7 1.1-.6 2.1-1.3 3-2 .9-.7 1.7-1.5 2.3-2.3.7-.8 1.1-1.7 1.5-2.6.3-1 .5-1.9.4-2.8-.1-1.9-.7-3.4-1.8-4.6-1-1.1-2.3-1.9-4.1-2.5-1.6-.5-3.5-.8-6.4-1h-.5v1.7c-.2 1-.4 1.9-.8 2.8-.4.9-.8 1.8-1.4 2.6-.5.8-1.1 1.5-1.8 2.3-.7.7-1.4 1.4-2.2 2-.8.6-1.6 1.1-2.5 1.5-.9.4-1.8.8-2.7 1-.9.2-1.8.4-2.7.4h-.5c-1.5 0-2.9-.2-4.2-.5-1.3-.3-2.4-.9-3.3-1.6-.9-.6-1.5-1.3-2-2.1-.4-.7-.6-1.5-.6-2.1.1-1.3.9-2 1.5-2.2h1.2c1.4 0 2.6 1.2 2.6 2.6 0 1.2-.9 2.3-2.2 2.5l-1.2.2 1 .7c.9.6 1.9 1.1 3.1 1.4 1.3.3 2.6.5 4.1.5h.5c.8 0 1.7-.2 2.6-.4.9-.2 1.7-.6 2.5-1 1.6-.8 3.1-2 4.5-3.4.7-.8 1.3-1.5 1.8-2.2 1.1-1.6 1.8-3.4 2.1-5.1 0-.3.1-.5.1-.8v-.9l-1.5-.1c-1.1-.1-2.3-.1-3.5-.1h-.5c-.2.2-.3.2-.4.2zM73.4 15c-5.3 2.1-11.9 4.4-18.3 6.4-.5.2-.9.3-1.4.4-.4.1-.8.2-1.3.4l-1.3.4 1.3.5c2.3 1 4.7 2 6.9 3l2.1.9h.1c5.8-2.2 10.8-4.2 16.1-6.4l4-1.6-1-.5-1.2-.6c-.5-.2-1-.4-1.4-.7-.9-.5-1.8-.9-2.7-1.4-.6-.3-1.1-.5-1.7-.8h-.2zm-55-.3v.5c.2 2.6 2 5.3 4.8 7.3 3 2.1 6.9 3.3 10.5 3.3.6 0 1.7-.2 2.9-.5l1.5-.3c1.4-.3 2.7-.7 4.1-1.2.8-.3 1.8-.6 2.7-1 .6-.2 1.1-.4 1.6-.6l1.2-.5s-2.2-.9-2.7-1c-1-.4-2.1-.8-3.1-1.2-9.3-3.3-16.8-4.9-22.9-4.9l-.6.1zm.8-.6c2.3 0 4.5.2 6.6.5 4.8.7 10.1 2.2 16.5 4.4 1.8.6 3.6 1.4 5.4 2.1l.9.4h.1c.8-.3 1.5-.6 2.2-.8 1.1-.4 2.3-.8 3.4-1.3 4.5-1.8 7.9-3.4 11.3-5l3.5-1.6-1-.5C60.4 8.6 52.9 6 46.6 4.6c-1.9-.4-3.4-.7-4.7-.9-1.4-.2-2.8-.3-4.2-.3-2.6 0-5.1.3-7.5.9-2.3.6-4.3 1.4-6.2 2.5-1 .6-1.7 1.1-2.4 1.7-1.6 1.4-2.7 3.1-3.1 4.9l-.1.6.8.1zM115.9.6c-4.9.1-14.8 3.5-20.3 5.5-8.2 3-16.2 6.4-19.2 7.8-.1 0-.3.1-.5.2s-.4.1-.5.2l-1 .4.9.5c.4.2.9.5 1.4.7.6.3 1.2.6 1.7.9.7.4 1.6.8 2.4 1.2.6.3 1.1.5 1.7.8l.1.1h.2c13.5-4.8 28-9.7 43.1-11.2.5 0 1.1.1 1.6.2.4 0 .8.1 1.1.1l.8.1-.3-.7c-.7-2.1-2.2-3.6-4.5-4.8-1-.5-2.3-.9-3.9-1.2-1.7-.6-3.2-.7-4.8-.8z"/></svg></p><div class="wrap row"><div class="b-title__logo-address address_top col md-offset-2 md-8"><h3>Сумы, ул. Покровская, 16/1</h3><a href="#" class="icon-marker button-text show-map">ОТКРЫТЬ КАРТУ</a></div></div><div class="wrap row"><p class="b-title__logo-address address_bottom col md-offset-2 md-8"><span><a href="tel:+380503533232" class="text">050 353-32-32</a><span>Vodafone</span></span> <span><a href="tel:+380973533232" class="text">097 353-32-32</a><span>Kyivstar</span></span> <a href="tel:+380542333232" class="text">0542 33-32-32</a></p></div><p class="wrap b-title__logo-social"><a href="#" class="icon-vk"></a> <a href="#" class="icon-fb"></a> <a href="#" class="icon-inst"></a></p></div></div><!--<div class="b-title__poster"></div>--></div></section><script>window.transitionEnd = whichTransitionEvent();
+
+            handlerStart();
+
+            function handlerStart(){
+                const preloader = document.getElementsByClassName('preloader')[0];
+                const nav = document.getElementsByClassName('l-navigation')[0];
+//                const poster = document.getElementsByClassName('b-title__poster')[0];
+
+                const video = document.getElementsByTagName('video')[0];
+                const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+
+                var timeOutVideoLoad;
+                var isFinishLoaderOneCicle = false,
+                    isFinishLoadPoster = false,
+                    isFinishLoadVideo = false,
+                    isFinishNotLoadVideo = false;
+
+//                const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
+
+                disableScroll();
+//
+//                // Если видео не загрузилось на протяжении 3с, не ожидать
+//                timeOutVideoLoad = setTimeout(function(){
+//                    willChangeSwitch(preloader, 'opacity');
+//                    isFinishNotLoadVideo = true;
+//                },1000);
+//
+//                //*** 0 Ожидать прохода одного цикла анимации ***//
+//                svgAnim.addEventListener("webkitAnimationIteration",    handlerFinishLoader);
+//                svgAnim.addEventListener("animationiteration",          handlerFinishLoader);
+//
+//                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
+//                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
+
+                checkPosterVideo(video);
+	            
+                //*** 2 После загрузки видео убрать прелоадер ***//
+                canPlay(video, videoLoad);
+
+                //*** 3 Окончание анимации стартового текста, удалить preloader
+                const animLogo = document.querySelectorAll(".b-title__logo-inner p");
+                animLogo[animLogo.length - 1].addEventListener(transitionEnd, handlerAnimLogo);
+
+                function handlerAnimLogo(){
+                    
+                    willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
+
+                    deletePreloader(preloader);
+
+                    this.removeEventListener(transitionEnd, handlerAnimLogo);
+                }
+
+                function handlerFinishLoader(e) {
+                    isFinishLoaderOneCicle = true;
+                    if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishLoadVideo) {
+                        videoLoad();
+                    } else  if(isFinishLoaderOneCicle && isFinishLoadPoster && isFinishNotLoadVideo) {
+                        setTimeout(function(){
+                            willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                                'opacity, transition');
+                            titleLogo.classList.add('transition');
+                            document.body.classList.add('finish-load');
+                            document.body.classList.remove('no-scroll');
+                            enableScroll();
+                        },200);
+                    }
+                }
+
+                function checkLoadBg(el) {
+
+                    willChangeSwitch(preloader, 'opacity');
+
+                    var  image = document.createElement('img');
+                    image.src = getBgUrl(el);
+                    image.addEventListener('load', loadImg);
+
+                    function loadImg() {
+                        isFinishLoadPoster = true;
+                        image.remove();
+                        image.removeEventListener('load', loadImg);
+                        if(isFinishLoaderOneCicle) {
+                            document.body.classList.add('load-poster');
+                            preloader.addEventListener(transitionEnd, removeWillChange);
+                        }
+                    }
+
+                    function getBgUrl(el) {
+                        var  bg = "";
+                        if (el.currentStyle) { // IE
+                            bg = el.currentStyle.backgroundImage;
+                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
+                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
+                        } else { // try and get inline style
+                            bg = el.style.backgroundImage;
+                        }
+                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                    }
+                }
+
+                function checkPosterVideo(video) {
+                    if(video.hasAttribute('poster')) {
+                        var poster = video.getAttribute('poster');
+                        var image = new Image();
+                        image.src = poster;
+                        image.addEventListener('load', handlerLoadPoster);
+                    }
+
+                    function handlerLoadPoster() {
+                        this.removeEventListener('load', handlerLoadPoster);
+                        this.remove();
+                        isFinishLoadPoster = true;
+                        if(isFinishLoadVideo) {
+                            videoLoad();
+                        } else {
+                            setTimeout(function(){
+                                willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                                    'opacity, transition');
+                                titleLogo.classList.add('transition');
+                                document.body.classList.add('finish-load');
+                                document.body.classList.remove('no-scroll');
+                                enableScroll();
+                            },200);
+                        }
+                    }
+                }
+
+                function videoLoad() {
+                    isFinishLoadVideo = true;
+                    clearTimeout(timeOutVideoLoad);
+//                    poster.remove();
+                    if(!isFinishLoadPoster) {
+
+                        // Если видео загрузилось быстро и постер не успел загрузиться
+                        willChangeSwitch(preloader, 'opacity');
+                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                            'opacity, transition');
+                        document.body.classList.add('load-poster');
+//                        poster.classList.add('hidden');
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('load-poster');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        startPlayBg();
+                    }
+                    if(isFinishLoadPoster) {
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        startPlayBg();
+                    }
+                }
+
+                function deletePreloader(preloader) {
+                    removeWillChange.call(preloader);
+                    setTimeout(function(){
+                        preloader.remove();
+                    },200);
+                }
+
+                function startPlayBg() {
+                    video.currentTime = 0;
+                    video.muted = true;
+                    video.controls = false;
+
+                    var waitTime = 20;
+
+                    setTimeout(function () {
+                        // Resume play if the element if is paused.
+                        if (video.paused) {
+                            video.play();
+                        }
+                    }, waitTime);
+
+                    window.isVideoPlay = true;
+                }
+
+                //*** Work with property will-change ***//
+                function willChangeSwitch(elem, prop) {
+                    if(elem.length) {
+                        for(var i=0; i < elem.length; i++) {
+                            elem[i].style.willChange = prop;
+                        }
+                    } else {
+                        elem.style.willChange = prop;
+                    }
+                }
+
+                //*** Delete composition layer ***//
+                function removeWillChange(e){
+                    willChangeSwitch(this, 'auto');
+                    this.removeEventListener(transitionEnd, removeWillChange);
+                }
+
+                // *** Disable scroll ***//
+                // left: 37, up: 38, right: 39, down: 40,
+                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+                const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+                function preventDefault(e) {
+                    e = e || window.event;
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    e.returnValue = false;
+                }
+
+                function preventDefaultForScrollKeys(e) {
+                    if (keys[e.keyCode]) {
+                        preventDefault(e);
+                        return false;
+                    }
+                }
+
+                function disableScroll() {
+                    if (window.addEventListener) // older FF
+                        window.addEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onwheel = preventDefault; // modern standard
+                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+                    window.ontouchmove  = preventDefault; // mobile
+                    document.onkeydown  = preventDefaultForScrollKeys;
+                }
+
+                function enableScroll() {
+                    if (window.removeEventListener)
+                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onmousewheel = document.onmousewheel = null;
+                    window.onwheel = null;
+                    window.ontouchmove = null;
+                    document.onkeydown = null;
+                }
+                // *** /Disable scroll ***
+            }
+
+            function whichTransitionEvent(){
+                var t;
+                var el = document.createElement('fakeelement');
+                var resTransitionEnd;
+
+                var transitionsEnd = {
+                    'OTransition':'oTransitionEnd',
+                    'MozTransition':'transitionend',
+                    'WebkitTransition':'webkitTransitionEnd',
+                    'transition':'transitionend'
+                };
+
+                for(t in transitionsEnd){
+                    if( el.style[t] !== undefined ){
+                        resTransitionEnd = transitionsEnd[t];
+                    }
+                }
+
+                return resTransitionEnd;
+            }
+
+            function canPlay(video, callback) {
+                var i = 0,
+                    volume = video.volume,
+                    onCanPlay = function () {
+                        video.removeEventListener ( "canplaythrough", onCanPlay );
+                        callback( null );
+                    };
+
+                //firefox canplay events fix
+
+                var waitTime = 150;
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.volume = 0;
+                    }
+                }, waitTime);
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.play();
+                    }
+                }, waitTime);
+                video.pause();
+                video.currentTime = 0;
+                video.volume = volume;
+
+                if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
+                    onCanPlay();
+                }
+
+                else if ( "oncanplaythrough" in video ) {
+                    return video.addEventListener ( "canplaythrough", onCanPlay );
+                }
+                else {
+                    (function waitCanPlay() {
+
+                        if ( video.readyState == video.HAVE_ENOUGH_DATA ) {
+                            return callback( null );
+                        }
+
+                        else if ( ++i == 15 ) {
+                            return callback ( "Failed download video" );
+                        }
+
+                        setTimeout( waitCanPlay, 300 );
+                    } () );
+                }
+            };</script><section class="b-form"><div class="wrap row"><div class="col sm-offset-1 sm-10 md-offset-2 md-8 lg-offset-3 lg-6"><div class="b-form__wrap form img-flover__form"><p class="icon-ligature-half"></p><form action="" name="form-online-record"><input name="title" value="Бесплатная консультация" hidden><h3>Задать вопрос</h3><span class="input input--akira"><input class="input__field input__field--akira value-input" type="text" name="name" required><label class="input__label input__label--akira" for="name"><span class="input__label-content input__label-content--akira text">Имя</span></label></span><span class="input input--akira"><input class="input__field input__field--akira value-input" type="tel" name="phone" pattern="(\+?\d[- .]*){7,13}" required><label class="input__label input__label--akira" for="phone"><span class="input__label-content input__label-content--akira text">Телефон</span></label></span><span class="input input--akira"><input class="input__field input__field--akira value-input" type="email" name="email" required><label class="input__label input__label--akira" for="email"><span class="input__label-content input__label-content--akira text">Адрес электронной почты</span></label></span><span class="input input--akira"><textarea class="input__field input__field--akira value-input" name="message" data-autoresize></textarea><label class="input__label input__label--akira" for="email"><span class="input__label-content input__label-content--akira text">Текст сообщения</span></label></span><button type="button" class="btn btn__big btn__submit">отправить</button></form></div></div></div><div class="b-form__bg start"><div class="b-form__bg-item1" style="background-image: url('../img/img-detox-salt.png')"></div><div class="b-form__bg-item2" style="background-image: url('../img/img-oil.png')"></div><div class="b-form__bg-item3" style="background-image: url('../img/img-peeling-salt.png')"></div><div class="b-form__bg-item4" style="background-image: url('../img/img-picture.png')"></div><div class="b-form__bg-item5" style="background-image: url('../img/img-pot.png')"></div></div></section></main><section><div class="b-popup" data-map data-nohide><div class="b-popup__map img-flover__form"><p class="b-popup__button-close button-close"></p><div class="b-popup__map-left"><div id="map" class="google-map"></div></div><div class="b-popup__map-right"><div id="pano" class="street-view"></div><h4>Сумы, ул. Покровская, 16/1</h4><ul><li class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone</span></li><li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li><li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li></ul></div></div></div><div class="b-popup" data-online-record><div class="b-popup__online img-flover__form form"><p class="b-popup__button-close button-close"></p><p class="icon-ligature-half"></p><form action="" name="contact"><input name="title" value="Онлайн запись" hidden><h3>Онлайн-запись</h3><p class="normal">После заявки администратор свяжется с вами и согласует детали</p><span class="input input--akira"><input class="input__field input__field--akira value-input" type="text" name="name" required><label class="input__label input__label--akira" for="name"><span class="input__label-content input__label-content--akira text">Имя</span></label></span><span class="input input--akira"><input class="input__field input__field--akira value-input" type="tel" name="phone" pattern="(\+?\d[- .]*){7,13}" required><label class="input__label input__label--akira" for="phone"><span class="input__label-content input__label-content--akira text">Телефон</span></label></span><select name="services" data-placeholder="Услуга" required class="input droplist img-arrow forcibly-placeholder value-input"><!--<option>Услуга</option>--><option>Услуга 1</option><option>Услуга 2</option><option>Услуга 3</option><option>Услуга 4</option><option>Услуга 5</option><option>Услуга 6</option><option>Услуга 7</option><option>Услуга 8</option><option>Услуга 9</option><option>Услуга 10</option></select><input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input" placeholder="Время" required> <input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input" placeholder="Дата" required> <button type="button" class="btn btn__big btn__submit">отправить</button><p class="normal text">или звоните (050) 111-22-33</p></form></div></div></section><footer class="l-footer b-footer"><div class="wrap img-footer__bg"><div class="b-footer__list row"><div class="b-footer__list-item1 col sm-offset-1 sm-2 xl-offset-0"><p class="text bold">О НАС</p><ul><li><a href="#" class="text">СПА-центре</a></li><li><a href="#" class="text">Новости</a></li><li><a href="#" class="text">Мастера</a></li><li><a href="#" class="text">Галерея</a></li><li><a href="#" class="text">Сертификаты</a></li><li><a href="#" class="text">Награды</a></li></ul></div><div class="b-footer__list-item2 col sm-2"><p class="text bold">Услуги</p><ul><li><a href="#" class="text">СПА-зона</a></li><li><a href="#" class="text">Косметология</a></li><li><a href="#" class="text">Эстетическая медицина</a></li><li><a href="#" class="text">Бьюти зона</a></li></ul></div><div class="b-footer__list-item2 col sm-2"><p class="text bold">SPA-пакеты</p><ul><li><a href="#" class="text">Антистресс №1</a></li><li><a href="#" class="text">Горячий шоколад</a></li><li><a href="#" class="text">Антистресс №2</a></li><li><a href="#" class="text">Молочный шоколад</a></li><li><a href="#" class="text">Секреты Клеопатры</a></li><li><a href="#" class="text">Аромасимфония</a></li><li><a href="#" class="text">Роман с камнем</a></li><li><a href="#" class="text">Моделирование силуэта</a></li></ul></div><div class="b-footer__list-item4 col sm-5 md-offset-1 xl-offset-2 md-4"><p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p><ul><li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li><li><a href="#" class="text">050 353-32-32</a></li><li><a href="#" class="text">067 456-55-55</a></li><li><a href="#" class="text">(0542) 700-818, 700-817</a></li><li class="wrap__show-map"><a href="#" class="text show-map">Показать на карте</a></li></ul></div></div><p class="b-footer__bottom row"><span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span> <a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a> <span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4"><a href="#" class="icon-vk"></a> <a href="#" class="icon-fb"></a> <a href="#" class="icon-inst"></a></span></p></div></footer><!--<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>--><script src="js/flatpickr.min.js"></script><script src="js/ru.js"></script><script src="js/select.js"></script><script src="js/validation.js"></script><script src="js/common.js"></script><script src="js/scripts-contact.js"></script><script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script></body></html>
