@@ -28,7 +28,7 @@ window.addEventListener('load', function(){
     if(WIDTH_HIDE_FORM < window.innerWidth) {
         // Плавающая боковая форма
         initScrollSideBar(sideBar, deafultTopSideBar);
-        if(document.querySelector('.preloader')) {
+        if(document.querySelector('.preloader') && document.querySelector('.preloader').length > 0) {
             document.querySelector('.preloader').addEventListener(transitionEnd, finishPreload);
         } else {
             finishPreload();
@@ -79,6 +79,7 @@ window.addEventListener('load', function(){
     function finishPreload() {
         var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         flowSideBar(scrollPage, sideBar, deafultTopSideBar);
+
         window.addEventListener('scroll', handlerScrollSideBar);
     }
 
