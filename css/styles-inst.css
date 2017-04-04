@@ -18,6 +18,7 @@ html {
 #instafeed .item-insta {
   position: relative;
   display: block;
+  padding: 10px;
 }
 #instafeed .item-insta .insta__wrap-img {
   height: 100%;
@@ -49,7 +50,7 @@ html {
 #instafeed .item-insta .insta-header {
   position: absolute;
   padding: 0 24px 10px;
-  bottom: 0;
+  bottom: 10px;
   left: 10px;
   right: 10px;
   height: 40px;

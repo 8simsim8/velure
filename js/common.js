@@ -1,6 +1,14 @@
+window.scrollBy(0, 1);
+
 window.addEventListener('load', function() {
 
+
+    const breakPointTablet = 1024;
+
     const header = document.getElementsByClassName('l-navigation')[0];
+
+    const burgerMenuButton = document.getElementsByClassName('burger__button')[0];
+    burgerMenuButton.addEventListener('click', handlerOpenBurgerMenu);
 
     const isShowMap = document.querySelector('[data-map]').hasAttribute('data-nohide');
 
@@ -44,6 +52,63 @@ window.addEventListener('load', function() {
     */
     preparePopupToContact(isShowMap);
 
+    swipeDetect();
+
+    function swipeDetect() {
+
+        var startX,
+            startY,
+            dist,
+            touchobj,
+            threshold = 150, //required min distance traveled to be considered swipe
+            allowedTime = 200, // maximum time allowed to travel that distance
+            elapsedTime,
+            startTime;
+
+        var distanceYStart = null;
+
+        window.addEventListener('touchstart', function(e){
+            touchobj = e.changedTouches[0];
+            distanceYStart = null;
+            dist = 0;
+            startX = touchobj.pageX;
+            startY = touchobj.pageY;
+            startTime = new Date().getTime(); // record time when finger first makes contact with surface
+        }, true);
+
+        window.addEventListener('touchmove', function(e){
+            if(!distanceYStart) {
+                distanceYStart = e.changedTouches[0].pageY;
+            }
+            var current = distanceYStart - e.changedTouches[0].pageY;
+            if(current > 30) {
+                console.log(current);
+            }
+
+        },true);
+
+        window.addEventListener('touchend', function(e){
+            var touchobj = e.changedTouches[0];
+            dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
+            elapsedTime = new Date().getTime() - startTime; // get time elapsed
+            // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+
+            if(elapsedTime > allowedTime && touchobj.pageY - startY < 0) {
+                console.log('fixed ', touchobj.pageY - startY);
+                setTimeout(function(){
+                    document.getElementsByClassName('b-navigation')[0].style.position = 'fixed';
+                },100);
+            }
+            if(elapsedTime > allowedTime && touchobj.pageY - startY > 30) {
+                console.log('no-fixed ', touchobj.pageY - startY);
+                setTimeout(function(){
+                    document.getElementsByClassName('b-navigation')[0].style.position = '';
+                },100);
+            }
+        }, true);
+
+    }
+
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
@@ -55,8 +120,19 @@ window.addEventListener('load', function() {
                 //     header.style.left = '';
                 // }
 
-                // Старт/пауза видео
-                switchPlayVideoOnScroll();
+                // Старт/пауза видео если не мобильный
+                if(window.innerWidth > breakPointTablet) {
+                    switchPlayVideoOnScroll();
+                }
+
+                if(window.innerWidth <= breakPointTablet) {
+                    if(scrollPage >= window.innerHeight*0.1) {
+                        // document.getElementsByClassName('b-navigation')[0].style.position = 'fixed';
+                    } else {
+                        // document.getElementsByClassName('b-navigation')[0].style.position = '';
+                    }
+                }
+
 
                 // Старт и подготовка анимаций при скролле
                 if(document.body.classList.contains('finish-load')) {
@@ -219,6 +295,15 @@ window.addEventListener('load', function() {
 
     }
 });
+
+/*
+*   Открытие/закрытие бургер меню в режиме "tablet"
+*/
+function handlerOpenBurgerMenu() {
+    var burgerMenuList = document.getElementsByClassName('b-navigation__main')[0];
+    burgerMenuList.classList.toggle('open-burger');
+    this.classList.toggle('open-burger');
+}
 
 /*
 *   Остановка воспроизведения видео, когда скрыто
@@ -935,15 +1020,19 @@ function loaderAnimation() {
 
 function preparePopupToContact(isShowMap) {
     var buttonToOpenPopupContact = document.getElementsByClassName('button-record');
-    var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('button-online-record')[0];
+    var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('button-online-record');
+    var i, len;
 
-    for(var i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
+    for(i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
         buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
         buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupContact[i],'[data-contact]'));
     }
 
-    buttonToOpenPopupOnlineRecord.addEventListener('click', handlerOpenPopupOnlineRecord);
-    buttonToOpenPopupOnlineRecord.addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord,'[data-online-record]'));
+    for(i = 0, len = buttonToOpenPopupOnlineRecord.length; i < len; i++) {
+        buttonToOpenPopupOnlineRecord[i].addEventListener('click', handlerOpenPopupOnlineRecord);
+        buttonToOpenPopupOnlineRecord[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord[i],'[data-online-record]'));
+    }
+
 
     function handlerOpenPopupContact(e) {
         var popup = document.querySelector('[data-contact]');
@@ -964,6 +1053,9 @@ function preparePopupToContact(isShowMap) {
     }
 
     function handlerOpenPopupOnlineRecord(e) {
+
+        console.log('sdf');
+
         var popup = document.querySelector('[data-online-record]');
         var formWrap = popup.children[0];
 

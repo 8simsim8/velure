@@ -23,9 +23,9 @@ window.addEventListener('load', function(){
         breakpoints: {
             1024: {
                 slidesPerView: 1,
-                spaceBetween: 0,
-                loop: false,
-                centeredSlides: false
+                spaceBetween: 0
+                // loop: false,
+                // centeredSlides: false
                 }
             }
         });
@@ -94,6 +94,7 @@ function openCircle() {
         tablesWrap.addEventListener(transitionEnd, afterEndAnimationCircle);
 
         parent.classList.add('open-table');
+        parent.parentNode.querySelector('.b-programs__circles-left').classList.add('open-table');
 
         if(necessaryTable) {
             necessaryTable.classList.add('current-open-table');
@@ -110,6 +111,7 @@ function openCircle() {
 
         parent.classList.add('close-table');
         parent.classList.remove('open-table');
+        parent.parentNode.querySelector('.b-programs__circles-left').classList.remove('open-table');
 
         circlesWrap.addEventListener(transitionEnd, deleteClassAfterEndAnimation);
 
