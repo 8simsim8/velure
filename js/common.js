@@ -52,63 +52,6 @@ window.addEventListener('load', function() {
     */
     preparePopupToContact(isShowMap);
 
-    swipeDetect();
-
-    function swipeDetect() {
-
-        var startX,
-            startY,
-            dist,
-            touchobj,
-            threshold = 150, //required min distance traveled to be considered swipe
-            allowedTime = 200, // maximum time allowed to travel that distance
-            elapsedTime,
-            startTime;
-
-        var distanceYStart = null;
-
-        window.addEventListener('touchstart', function(e){
-            touchobj = e.changedTouches[0];
-            distanceYStart = null;
-            dist = 0;
-            startX = touchobj.pageX;
-            startY = touchobj.pageY;
-            startTime = new Date().getTime(); // record time when finger first makes contact with surface
-        }, true);
-
-        window.addEventListener('touchmove', function(e){
-            if(!distanceYStart) {
-                distanceYStart = e.changedTouches[0].pageY;
-            }
-            var current = distanceYStart - e.changedTouches[0].pageY;
-            if(current > 30) {
-                console.log(current);
-            }
-
-        },true);
-
-        window.addEventListener('touchend', function(e){
-            var touchobj = e.changedTouches[0];
-            dist = touchobj.pageX - startX; // get total dist traveled by finger while in contact with surface
-            elapsedTime = new Date().getTime() - startTime; // get time elapsed
-            // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
-
-            if(elapsedTime > allowedTime && touchobj.pageY - startY < 0) {
-                console.log('fixed ', touchobj.pageY - startY);
-                setTimeout(function(){
-                    document.getElementsByClassName('b-navigation')[0].style.position = 'fixed';
-                },100);
-            }
-            if(elapsedTime > allowedTime && touchobj.pageY - startY > 30) {
-                console.log('no-fixed ', touchobj.pageY - startY);
-                setTimeout(function(){
-                    document.getElementsByClassName('b-navigation')[0].style.position = '';
-                },100);
-            }
-        }, true);
-
-    }
-
     function handlerScrollWindow() {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
@@ -124,15 +67,6 @@ window.addEventListener('load', function() {
                 if(window.innerWidth > breakPointTablet) {
                     switchPlayVideoOnScroll();
                 }
-
-                if(window.innerWidth <= breakPointTablet) {
-                    if(scrollPage >= window.innerHeight*0.1) {
-                        // document.getElementsByClassName('b-navigation')[0].style.position = 'fixed';
-                    } else {
-                        // document.getElementsByClassName('b-navigation')[0].style.position = '';
-                    }
-                }
-
 
                 // Старт и подготовка анимаций при скролле
                 if(document.body.classList.contains('finish-load')) {
@@ -678,12 +612,14 @@ function controlInputs() {
 
     var forms = document.getElementsByTagName('form');
 
+    var validation = [];
+
     for(var i = 0, len = forms.length; i < len; i++) {
 
         /*
          * Валидация формы записи
          */
-        var validation = new MakeValidationForm(
+        validation[i] = new MakeValidationForm(
             forms[i],                                     // Form DOM
             '/mailer/PHPmailer.php',                       // Path to Mailer
             textError = {                                  // Text error messages
@@ -695,9 +631,62 @@ function controlInputs() {
                 // duringShowError : 2000                                            // Duration show error messages
                 clearAfterSend : forms[i].querySelectorAll('[data-clearAfterSend]')  // Убрать значения после отправки
             },
-            function(){                               // Callback function
-                console.log("ок");
+            function() {
+                // Callback function
+
+                var form = this;
+                var sendWindow = this.parentNode.querySelector('.form-sent');
+                sendWindow.style.display = 'block';
+                sendWindow.classList.add('show-message');
+
+                var buttonClose = sendWindow.querySelector('.button-close');
+
+                console.log(buttonClose);
+
+                if (buttonClose) {
+                    var clearTime;
+
+                    buttonClose.addEventListener('click', closePopup);
+
+                    function closePopup() {
+                        clearTimeout(clearTime);
+                        timeOut();
+                    }
+
+                    clearTime = setTimeout(timeOut, 5000);
+
+                    function timeOut() {
+                        var popup;
+                        var node = form;
+
+                        while (node) {
+                            if (node.classList.contains('b-popup')) {
+                                popup = node;
+                                break;
+                            }
+                            node = node.parentNode;
+                        }
+
+                        var wrap = popup.children[0];
+
+                        popup.style.display = '';
+
+                        wrap.style.display = '';
+
+                        document.body.classList.remove('open-popup');
+                        popup.classList.remove('open');
+                        sendWindow.classList.remove('show-message');
+
+                        sendWindow.addEventListener(transitionEnd, removeBlock);
+                    }
+
+                    function removeBlock() {
+                        this.removeEventListener(transitionEnd, removeBlock);
+                        sendWindow.style.display = '';
+                    }
+                }
             }
+
         );
     }
 
@@ -1053,8 +1042,6 @@ function preparePopupToContact(isShowMap) {
     }
 
     function handlerOpenPopupOnlineRecord(e) {
-
-        console.log('sdf');
 
         var popup = document.querySelector('[data-online-record]');
         var formWrap = popup.children[0];

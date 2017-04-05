@@ -1,5 +1,7 @@
 function MakeValidationForm(form, path, messagesSetting, settings, callback) {
 
+    const self = this;
+
     this.form = form;
 
     var isSumbit = false;
@@ -231,9 +233,11 @@ function MakeValidationForm(form, path, messagesSetting, settings, callback) {
                 isSumbit = false;
                 console.log(xhr.status + ': ' + xhr.statusText);
             } else {
-                clearInputs(clearAfterSend);
+                if(clearAfterSend) {
+                    clearInputs(clearAfterSend);
+                }
                 if(typeof callback === 'function') {
-                    callback();
+                    callback.call(self.form);
                 }
                 isSumbit = !clearAfterSend;
             }

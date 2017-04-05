@@ -1152,52 +1152,61 @@
 			<div class="b-popup__online img-flover__form form">
 				<p class="b-popup__button-close button-close"></p>
 				<p class="icon-ligature-half"></p>
-				<form action="" name="contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
-					<span class="input input--akira">
-							<input class="input__field input__field--akira value-input"
-							       type="text"
-							       name="name"
-							       required/>
-							<label class="input__label input__label--akira" for="name">
-								<span class="input__label-content input__label-content--akira text">Имя</span>
-						    </label>
-						</span>
-					<span class="input input--akira">
-							<input class="input__field input__field--akira value-input"
-							       type="tel"
-							       name="phone"
-							       pattern="(\+?\d[- .]*){7,13}"
-							       required/>
-							<label class="input__label input__label--akira" for="phone">
-								<span class="input__label-content input__label-content--akira text">Телефон</span>
-							</label>
-						</span>
-					<select name="services" data-placeholder="Услуга" required
-					        class="input droplist img-arrow forcibly-placeholder value-input">
-						<!--<option>Услуга</option>-->
-						<option>Услуга 1</option>
-						<option>Услуга 2</option>
-						<option>Услуга 3</option>
-						<option>Услуга 4</option>
-						<option>Услуга 5</option>
-						<option>Услуга 6</option>
-						<option>Услуга 7</option>
-						<option>Услуга 8</option>
-						<option>Услуга 9</option>
-						<option>Услуга 10</option>
-					</select>
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время" required>
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата" required>
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните (050) 111-22-33</p>
-				</form>
+				<div class="form-wrap">
+					<form action="" name="online-contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="text"
+									       name="name"
+									       required/>
+									<label class="input__label input__label--akira" for="name">
+										<span class="input__label-content input__label-content--akira text">Имя</span>
+								    </label>
+								</span>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="tel"
+									       name="phone"
+									       pattern="(\+?\d[- .]*){7,13}"
+									       required/>
+									<label class="input__label input__label--akira" for="phone">
+										<span class="input__label-content input__label-content--akira text">Телефон</span>
+									</label>
+								</span>
+						<select name="services" data-placeholder="Услуга" required
+						        class="input droplist img-arrow forcibly-placeholder value-input">
+							<!--<option>Услуга</option>-->
+							<option>Услуга 1</option>
+							<option>Услуга 2</option>
+							<option>Услуга 3</option>
+							<option>Услуга 4</option>
+							<option>Услуга 5</option>
+							<option>Услуга 6</option>
+							<option>Услуга 7</option>
+							<option>Услуга 8</option>
+							<option>Услуга 9</option>
+							<option>Услуга 10</option>
+						</select>
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время" required>
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата" required>
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните (050) 111-22-33</p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

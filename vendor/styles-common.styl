@@ -42,8 +42,7 @@ body {
 
 .b-navigation {
 	& {
-		//position : fixed;
-		position : absolute;
+		position : fixed;
 		top : 0;
 		left : 0;
 		right : 0;
@@ -283,7 +282,6 @@ body {
 	}
 }
 
-
 .open-popup .open.b-popup {
 	display: flex;
 	opacity: 1;
@@ -433,6 +431,7 @@ body {
 			color : #5E4F5C;
 		}
 	}
+
 }
 
 .b-footer {
@@ -1058,6 +1057,41 @@ video {
 		font-size : 14px;
 		color : #5E4F5C;
 	}
+	.form-wrap {
+		& {
+			position : relative;
+		}
+		.form-sent {
+			position : absolute;
+			display: none;
+			top : 0;
+			left : 0;
+			height : 100%;
+			width : 100%;
+			opacity : 0;
+			pointer-events: none;
+			background : #FFF;
+			z-index : 20;
+			transition: opacity 0.2s ease;
+		}
+		.show-message.form-sent {
+			opacity: 1;
+			pointer-events: auto;
+		}
+		.img-message-send {
+			height : 150px;
+			background-position : center;
+			background-size : auto 60px;
+		}
+		.button-close {
+			position: static;
+			display: block;
+			text-align: center;
+			margin-top: 90px;
+			width: 100%;
+			color: #a823a3;
+		}
+	}
 }
 
 
@@ -1560,7 +1594,8 @@ video {
 
 	.b-navigation {
 		& {
-
+			bottom: auto;
+			min-height: auto;
 		}
 		&__mobile {
 			display: flex;
@@ -1672,6 +1707,7 @@ video {
 				position: absolute;
 				top: 0;
 				left: 0;
+				height: 100vh;
 				opacity: 0;
 				pointer-events: none;
 				display: flex;
@@ -1679,14 +1715,18 @@ video {
 				align-items: center;
 				justify-content: space-around;
 				width: 100%;
-				height: 100%;
 				background-color: rgba(0,0,0,0.9);
-				tra
+				transition : opacity 0.5s ease,
+							 height 0.2s linear;
 			}
 			&.open-burger {
-				opacity: 1;
-				pointer-events: auto;
-				transition: opacity 0.5s ease;
+				& {
+					opacity : 1;
+					pointer-events : auto;
+				}
+				.b-navigation__header {
+					pointer-events: auto;
+				}
 			}
 			.b-navigation {
 				&__header {
@@ -1694,6 +1734,7 @@ video {
 						flex-direction: column;
 						align-items: center;
 						order: 1;
+						pointer-events: none;
 						width: auto;
 						height: 65vh;
 						background-color : transparent;
@@ -1842,6 +1883,9 @@ video {
 }
 
 @media all and (max-height: 710px) {
+	.b-navigation__header-logo.tablet {
+		display: none;
+	}
 	.b-popup__map {
 		& {
 			height : 90vh;
