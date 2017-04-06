@@ -57,7 +57,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+.icon-ok:before {
+	content: "\e915";
+}
 .icon-marker:before {
 	content: "\e914";
 }
@@ -355,13 +357,10 @@ a {
 	&.forcibly-placeholder {
 		&:before {
 			position: absolute;
-			background-color: #FFFFFF;
+			left: 30px;
 			content: attr(placeholder) !important;
-			font-family: Raleway;
-			font-size: 0.8rem;
 			line-height: 1.5em;
-			width: calc(100% - 30px);
-			margin-right: 0.5em;
+			width: calc(100% - 60px);
 		}
 		&:before,
 		&:after {

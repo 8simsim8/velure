@@ -3,20 +3,6 @@
 }
 .b-title__logo-breadcrumbs {
   margin-bottom: 6vh;
-  font-size: 14px;
-}
-.b-title__logo-breadcrumbs a {
-  color: rgba(255,255,255,0.3);
-}
-.b-title__logo-breadcrumbs a:hover {
-  color: rgba(255,255,255,0.7);
-}
-.b-title__logo-breadcrumbs a:not(:last-child) {
-  margin-right: 30px;
-}
-.b-title__logo-breadcrumbs a:not(:last-child):after {
-  content: '\003E';
-  margin-left: 30px;
 }
 .b-title__logo-text {
   margin-left: 20px;

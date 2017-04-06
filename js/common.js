@@ -1,9 +1,7 @@
-window.scrollBy(0, 1);
+const breakPointTablet = 1024;
+const breakPointMobile = 660;
 
 window.addEventListener('load', function() {
-
-
-    const breakPointTablet = 1024;
 
     const header = document.getElementsByClassName('l-navigation')[0];
 
@@ -246,31 +244,33 @@ function switchPlayVideoOnScroll() {
     var video = document.querySelector('video');
     var waitTime = 150;
 
-    if(video && video.getBoundingClientRect().bottom < 0) {
-        if(window.isVideoPlay) {
-			video.muted = true;
-            video.controls = false;
+    if(video) {
+        if(video.getBoundingClientRect().bottom < 0) {
+            if(window.isVideoPlay) {
+                video.muted = true;
+                video.controls = false;
 
-            setTimeout(function () {
-                // Resume play if the element if is paused.
-                if (video.played) {
-                    video.pause();
-                }
-            }, waitTime);
-            window.isVideoPlay = false;
-        }
-    } else {
-        if(!window.isVideoPlay) {
-			video.muted = true;
-            video.controls = false;;
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.played) {
+                        video.pause();
+                    }
+                }, waitTime);
+                window.isVideoPlay = false;
+            }
+        } else {
+            if(!window.isVideoPlay) {
+                video.muted = true;
+                video.controls = false;;
 
-            setTimeout(function () {
-                // Resume play if the element if is paused.
-                if (video.paused) {
-                    video.play();
-                }
-            }, waitTime);
-            window.isVideoPlay = true;
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.play();
+                    }
+                }, waitTime);
+                window.isVideoPlay = true;
+            }
         }
     }
 }
@@ -362,10 +362,12 @@ function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
     const slidersElem = document.getElementsByClassName(classNameSlidersContainer);
     var sliders = [];
     for(var i = 0, len = slidersElem.length; i < len; i++) {
-        if(isClosest(slidersElem[i], '.'+classNameWrappAccordeon) || isClosest(slidersElem[i], '[data-autoSlide=false]')) {
-            sliders[i] = makeSlider(slidersElem[i]);
-        } else {
-            sliders[i] = makeSlider(slidersElem[i],5000);
+        if (slidersElem[i].getElementsByClassName('swiper-slide').length > 1) {
+            if (isClosest(slidersElem[i], '.' + classNameWrappAccordeon) || isClosest(slidersElem[i], '[data-autoSlide=false]')) {
+                sliders[i] = makeSlider(slidersElem[i]);
+            } else {
+                sliders[i] = makeSlider(slidersElem[i], 5000);
+            }
         }
     }
     return sliders;
@@ -608,7 +610,21 @@ function controlInputs() {
 
     createDroplists('droplist');
 
-    const datePick = createDate('input-date');
+    if(window.innerWidth > breakPointMobile) {
+        const datePick = createDate('input-date');
+    } else {
+        var date = document.getElementsByClassName('input-date');
+
+        for(var i = 0, len = date.length; i < len; i++) {
+            date[i].addEventListener('change', function(){
+                if(this.value != '') {
+                    this.classList.add('full');
+                } else {
+                    this.classList.remove('full');
+                }
+            });
+        }
+    }
 
     var forms = document.getElementsByTagName('form');
 

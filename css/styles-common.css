@@ -47,8 +47,14 @@ body {
   pointer-events: none;
   z-index: 9999;
 }
+.b-navigation__main {
+  -webkit-box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+}
 .b-navigation__mobile {
   display: none;
+  -webkit-box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.1);
 }
 .b-navigation__mobile .burger__button {
   position: relative;
@@ -290,6 +296,8 @@ body {
   width: 80px;
   background-color: #fff;
   pointer-events: auto;
+  -webkit-box-shadow: 1px 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 1px 4px 8px rgba(0,0,0,0.1);
 }
 .b-navigation__side-left:after,
 .b-navigation__side-right:after,
@@ -336,6 +344,7 @@ body {
   padding: calc((100vh - 160px) / 2) 0;
 }
 .b-navigation__side-right a {
+  font-size: 14px;
   font-weight: bold;
   color: #bfb9be;
 }
@@ -410,6 +419,7 @@ body {
   position: relative;
   height: 680px;
   width: calc(100% - 160px);
+  max-width: 1300px;
   margin: auto;
   padding: 20px;
   display: none;
@@ -543,10 +553,10 @@ body {
   margin-top: 40px;
 }
 .b-footer__list ul li.wrap__show-map a {
-  color: #a823a3;
+  color: #ed0fe2;
 }
 .b-footer__list ul li.wrap__show-map a:hover {
-  color: #c125bc;
+  color: #e10ed7;
 }
 .b-footer__list ul li a {
   font-size: 14px;
@@ -635,6 +645,14 @@ video::-webkit-media-controls-panel {
 .center {
   text-align: center;
 }
+[class*="services__links"] {
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 [class*="services__links-item"] {
   display: -webkit-box;
   display: -moz-box;
@@ -683,9 +701,9 @@ video::-webkit-media-controls-panel {
   right: 0;
   content: '';
   background-color: #000;
-  opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-  filter: alpha(opacity=20);
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
@@ -699,11 +717,6 @@ video::-webkit-media-controls-panel {
   -o-transform: translateZ(0) scale(1.05);
   -ms-transform: translateZ(0) scale(1.05);
   transform: translateZ(0) scale(1.05);
-}
-[class*="services__links-item"]:hover .services__links_img:after {
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
 }
 [class*="services__links-item"] h4 {
   position: relative;
@@ -788,6 +801,20 @@ video::-webkit-media-controls-panel {
 }
 .breadcrumbs {
   text-align: center;
+  font-size: 14px;
+}
+.breadcrumbs a {
+  color: rgba(255,255,255,0.3);
+}
+.breadcrumbs a:hover {
+  color: rgba(255,255,255,0.7);
+}
+.breadcrumbs a:not(:last-child) {
+  margin-right: 30px;
+}
+.breadcrumbs a:not(:last-child):after {
+  content: '\003E';
+  margin-left: 30px;
 }
 .details-feature span {
   display: inline-block;
@@ -1040,6 +1067,21 @@ video::-webkit-media-controls-panel {
   color: #a823a3;
   margin-right: 10px;
 }
+.b-packages__accordeon-description .button-text {
+  font-size: 0.8rem;
+}
+.b-packages__accordeon-description ul {
+  margin-bottom: 55px;
+}
+.b-packages__accordeon-description ul li {
+  line-height: 1.5em;
+}
+.b-packages__accordeon-description ul li:before {
+  content: '\25CF';
+  font-size: 6px;
+  color: #a823a3;
+  margin-right: 10px;
+}
 .b-packages__slider p {
   line-height: 0;
   font-size: 0;
@@ -1085,6 +1127,10 @@ video::-webkit-media-controls-panel {
 .form button + .normal {
   margin-top: 30px;
   text-align: center;
+  font-size: 14px;
+  color: #5e4f5c;
+}
+.form .normal a {
   font-size: 14px;
   color: #5e4f5c;
 }
@@ -1351,7 +1397,7 @@ video::-webkit-media-controls-panel {
 }
 @media all and (max-width: 1230px) {
   .b-navigation__header-links a {
-    font-size: 11px;
+    font-size: 10px;
   }
   .b-navigation__header-links a[class*="icon-"]:before {
     top: -0.5em;
@@ -1410,7 +1456,6 @@ video::-webkit-media-controls-panel {
   }
   .b-navigation__header-links a {
     margin-right: 10px;
-    font-size: 10px;
     letter-spacing: 0.1em;
   }
 }
@@ -1616,7 +1661,9 @@ video::-webkit-media-controls-panel {
     filter: none;
     pointer-events: auto;
   }
-  .b-navigation .b-navigation__main.open-burger .b-navigation__header {
+  .b-navigation .b-navigation__main.open-burger .b-navigation__header,
+  .b-navigation .b-navigation__main.open-burger .b-navigation__side-left,
+  .b-navigation .b-navigation__main.open-burger .b-navigation__side-right {
     pointer-events: auto;
   }
   .b-navigation .b-navigation__main .b-navigation__header {
@@ -1683,6 +1730,7 @@ video::-webkit-media-controls-panel {
   .b-navigation .b-navigation__main .b-navigation__side-right {
     position: static;
     padding: 0;
+    pointer-events: none;
     -webkit-box-orient: horizontal;
     -moz-box-orient: horizontal;
     -o-box-orient: horizontal;
@@ -1776,6 +1824,38 @@ video::-webkit-media-controls-panel {
     padding-top: 20px;
   }
 }
+@media all and (max-width: 730px) {
+  .b-navigation__mobile .b-navigation__header-links a {
+    font-size: 12px;
+  }
+}
+@media all and (max-width: 660px) {
+  .b-navigation__mobile .b-navigation__header-links a {
+    display: none;
+  }
+  .b-popup__contact,
+  .b-popup__online {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .b-popup__button-close.button-close {
+    right: 0;
+    background-color: transparent;
+    z-index: 2;
+  }
+  .b-popup__button-close.button-close:before,
+  .b-popup__button-close.button-close:after {
+    background-color: rgba(0,0,0,0.8);
+  }
+  input[type=date] {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
 @media all and (max-height: 710px) {
   .b-navigation__header-logo.tablet {
     display: none;
@@ -1788,7 +1868,8 @@ video::-webkit-media-controls-panel {
   }
   .b-popup__contact,
   .b-popup__online {
-    padding: 10px 70px 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .b-popup__contact .icon-ligature-half,
   .b-popup__online .icon-ligature-half {
