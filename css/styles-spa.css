@@ -80,7 +80,7 @@
   text-align: center;
   color: #665c64;
 }
-b-reviews {
+.b-reviews {
   padding: 90px 20px 0;
 }
 .b-certificate {
@@ -91,13 +91,13 @@ b-reviews {
   padding: 106px 0 0;
 }
 .b-certificate h2 {
-  margin: 0 20px;
+  padding: 0 20px;
   margin-bottom: 1.25em;
   color: #000;
   text-align: center;
 }
 .b-certificate .lead {
-  margin: 0 20px;
+  padding: 0 20px;
   margin-bottom: 4.1em;
   text-align: center;
 }
