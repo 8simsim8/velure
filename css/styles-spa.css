@@ -18,7 +18,7 @@
   color: #40363e;
 }
 .b-packages {
-  padding-top: 100px;
+  padding: 100px 10px 0;
 }
 .b-packages h2,
 .b-packages .lead {
@@ -80,44 +80,8 @@
   text-align: center;
   color: #665c64;
 }
-.b-staffs__reviews {
-  padding-top: 90px;
-}
-.b-staffs__reviews h2 {
-  color: #a823a3;
-}
-.b-staffs__reviews-item.swiper-slide img {
-  margin-bottom: 25px;
-  height: 154px;
-  width: 154px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-.b-staffs__reviews-item.swiper-slide .name {
-  margin-bottom: 30px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  color: #000;
-}
-.b-staffs__reviews-item.swiper-slide .city {
-  margin-left: 10px;
-  color: #ababab;
-}
-.b-staffs__reviews-item.swiper-slide .note {
-  text-align: center;
-}
-.b-staffs__reviews .swiper-controls {
-  color: #ababab;
-  background: none;
-  top: 77px;
-  left: 50%;
-  right: auto;
-}
-.b-staffs__reviews .swiper-controls.swiper-controls-prev {
-  margin-left: -160px;
-}
-.b-staffs__reviews .swiper-controls.swiper-controls-next {
-  margin-left: 114px;
+b-reviews {
+  padding: 90px 20px 0;
 }
 .b-certificate {
   margin-top: 105px;
@@ -127,11 +91,13 @@
   padding: 106px 0 0;
 }
 .b-certificate h2 {
+  margin: 0 20px;
   margin-bottom: 1.25em;
   color: #000;
   text-align: center;
 }
 .b-certificate .lead {
+  margin: 0 20px;
   margin-bottom: 4.1em;
   text-align: center;
 }
@@ -238,7 +204,7 @@
     margin-left: 20px;
     margin-right: 20px;
   }
-  .b-staffs__reviews.wrap {
+  .b-reviews.wrap {
     margin-left: 20px;
     margin-right: 20px;
   }

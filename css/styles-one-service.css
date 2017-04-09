@@ -209,34 +209,18 @@
   body {
     overflow-x: hidden;
   }
-  .b-side__bar {
-    position: fixed;
-    top: auto;
-    right: auto;
-    left: calc(50% - 200px);
-    bottom: 0;
-    width: 400px;
-    -webkit-transform: translate(0, 100%);
-    -moz-transform: translate(0, 100%);
-    -o-transform: translate(0, 100%);
-    -ms-transform: translate(0, 100%);
-    transform: translate(0, 100%);
-    z-index: 10000;
-    -webkit-transition: -webkit-transform 0.3s ease;
-    -moz-transition: -moz-transform 0.3s ease;
-    -o-transition: -o-transform 0.3s ease;
-    -ms-transition: -ms-transform 0.3s ease;
-    transition: transform 0.3s ease;
+}
+@media all and (max-width: 1150px) {
+  .details-feature span {
+    margin: 0 25px;
   }
-  .b-side__bar.open-side-bar {
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    transform: translate(0, 0);
+  .details-feature span:not(:last-child):after {
+    right: -25px;
   }
-  .b-side__bar-open {
-    display: block;
+}
+@media all and (max-width: 1150px) {
+  .details-feature span {
+    font-size: 14px;
   }
 }
 @media all and (max-width: 1024px) {
@@ -276,6 +260,37 @@
   .b-side__bar button + .normal {
     margin-top: 10px;
     font-size: 12px;
+  }
+}
+@media all and (max-width: 991px) {
+  .b-side__bar {
+    position: fixed;
+    top: auto;
+    right: auto;
+    left: calc(50% - 200px);
+    bottom: 0;
+    width: 400px;
+    -webkit-transform: translate(0, 100%);
+    -moz-transform: translate(0, 100%);
+    -o-transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+    z-index: 10000;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    -moz-transition: -moz-transform 0.3s ease;
+    -o-transition: -o-transform 0.3s ease;
+    -ms-transition: -ms-transform 0.3s ease;
+    transition: transform 0.3s ease;
+  }
+  .b-side__bar.open-side-bar {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .b-side__bar-open {
+    display: block;
   }
 }
 @media all and (max-height: 710px) {

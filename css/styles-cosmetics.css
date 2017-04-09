@@ -5,7 +5,7 @@
   height: 40px;
 }
 .b-cosmetics {
-  padding: 90px 0 30px;
+  padding: 90px 20px 30px;
 }
 .b-cosmetics h2 {
   margin-bottom: 1.3em;
@@ -15,9 +15,6 @@
 .b-cosmetics .lead {
   margin-bottom: 4.3em;
   text-align: center;
-}
-.b-cosmetics__logos {
-  margin: 0 20px;
 }
 .b-cosmetics__logos-item {
   height: 210px;

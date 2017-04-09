@@ -267,27 +267,23 @@
 	body {
 		overflow-x: hidden;
 	}
-	.b-side {
-		&__bar {
-			& {
-				position: fixed;
-				top: auto;
-				right: auto;
-				left: calc(50% - 200px);
-				bottom: 0;
-				width: 400px;
-				transform: translate(0, 100%);
-				z-index: 10000;
-				transition: transform 0.3s ease;
-			}
-			&.open-side-bar {
-				transform: translate(0, 0);
-			}
-			&-open {
-				display : block;
-			}
-			&.form {
-			}
+}
+
+@media all and (max-width: 1150px) {
+	.details-feature span {
+		& {
+			margin: 0 25px;
+		}
+		&:not(:last-child):after {
+			right: -25px;
+		}
+	}
+}
+
+@media all and (max-width: 1150px) {
+	.details-feature span {
+		& {
+			font-size: 14px;
 		}
 	}
 }
@@ -335,6 +331,32 @@
 		button + .normal {
 			margin-top: 10px;
 			font-size: 12px;
+		}
+	}
+}
+
+@media all and (max-width: 991px) {
+	.b-side {
+		&__bar {
+			& {
+				position : fixed;
+				top : auto;
+				right : auto;
+				left : calc(50% - 200px);
+				bottom : 0;
+				width : 400px;
+				transform : translate(0, 100%);
+				z-index : 10000;
+				transition : transform 0.3s ease;
+			}
+			&.open-side-bar {
+				transform : translate(0, 0);
+			}
+			&-open {
+				display : block;
+			}
+			&.form {
+			}
 		}
 	}
 }

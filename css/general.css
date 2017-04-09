@@ -34,6 +34,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-about-ligature:before {
+  content: "\e916";
+}
 .icon-ok:before {
   content: "\e915";
 }
@@ -222,7 +225,6 @@ a {
   border: 1px solid #24bc7e;
 }
 .btn__purple {
-  background: #fff;
   border: 1px solid #a823a3;
   border-radius: 4px;
 }

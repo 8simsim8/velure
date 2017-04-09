@@ -32,7 +32,7 @@
 
 .b-packages {
 	& {
-		padding-top: 100px;
+		padding: 100px 10px 0;
 	}
 	h2,
 	.lead {
@@ -100,54 +100,12 @@
 			}
 		}
 	}
-	&__reviews {
-		& {
-			padding-top: 90px;
-		}
-		h2 {
-			color: #A823A3;
-		}
-		&-item.swiper-slide {
-			& {
-			}
-			img {
-				margin-bottom: 25px;
-				height: 154px;
-				width: 154px;
-				object-fit: cover;
-				border-radius: 50%;
-			}
-			.name {
-				margin-bottom: 30px;
-				letter-spacing : 1.6px;
-				text-transform : uppercase;
-				color: #000000;
-			}
-			.city {
-				margin-left: 10px;
-				color: #ABABAB;
-			}
-			.note {
-				text-align: center;
-			}
-		}
-		.swiper-controls {
-			& {
-				color : #ABABAB;
-				background: none;
-				top: 77px;
-				left : 50%;
-				right : auto;
-			}
-			&.swiper-controls-prev {
-				margin-left: -160px;
-			}
-			&.swiper-controls-next {
-				margin-left: 114px;
-			}
-		}
-	}
 }
+
+b-reviews {
+	padding: 90px 20px 0;
+}
+
 .b-certificate {
 	& {
 		margin-top: 105px;
@@ -159,11 +117,13 @@
 		}
 	}
 	h2 {
+		margin: 0 20px;
 		margin-bottom: 1.25em;
 		color: #000000;
 		text-align: center;
 	}
 	.lead {
+		margin: 0 20px;
 		margin-bottom: 4.1em;
 		text-align: center;
 	}
@@ -282,11 +242,9 @@
 			margin-right: 20px;
 		}
 	}
-	.b-staffs {
-		&__reviews.wrap {
-			margin-left: 20px;
-			margin-right: 20px;
-		}
+	.b-reviews.wrap {
+		margin-left: 20px;
+		margin-right: 20px;
 	}
 	.b-certificate {
 		& {
