@@ -539,39 +539,38 @@
 			&:before {
 				display: block;
 				content:'';
-				height: 280px;
+				//height: 280px;
+				padding-top: 80%;
 				width: 100%;
-				background-size: auto 227px;
-				background-position: center top;
+				max-width: 280px;
+				margin: 0 auto;
+				background-size: contain;
 				background-repeat: no-repeat;
+				background-position: center 18px;
 			}
 			&.card_ {
 				&spa-complex {
 					& {}
 					&:before {
 						background-image: url('../img/title-services/spa-complex-card.png');
-						background-position: center top;
 					}
 				}
 				&cosmetology {
 					& {}
 					&:before {
 						background-image: url('../img/title-services/cosmetology-card.png');
-						background-position: center 18px;
 					}
 				}
 				&beauty-zone {
 					& {}
 					&:before {
 						background-image: url('../img/title-services/beauty-zone-card.png');
-						background-position: center 18px;
 					}
 				}
 				&man-services {
 					& {}
 					&:before {
 						background-image: url('../img/title-services/man-services-card.png');
-						background-position: center 18px;
 					}
 				}
 			}
@@ -948,6 +947,13 @@
 	}
 }
 
+@media all and (max-width: 1199px) {
+	.b-programs__cards-item:before {
+		padding : 0;
+		height : 230px;
+	}
+}
+
 @media all and (max-width: 1024px) {
 	.b-programs {
 		h2,
@@ -1043,6 +1049,10 @@
 			& {}
 			h3 {
 				margin-bottom: 0.2em;
+			}
+			&:before {
+				padding: 0;
+				height: 240px;
 			}
 			.normal {
 				margin-bottom: 1.2em;
