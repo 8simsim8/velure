@@ -27,6 +27,9 @@
 		margin-bottom: 90px;
 		color : #40363E;
 	}
+	article {
+		padding: 0 20px;
+	}
 
 }
 
@@ -76,7 +79,7 @@
 	}
 	&__title {
 		& {
-			padding: 65px 20px 13%;
+			padding: 65px 0 13%;
 			background: url("../img/velur-bg.jpg") center;
 		}
 		h2,
@@ -96,21 +99,22 @@
 				max-width: 200px;
 			}
 			.staff-img-wrap {
-				position: relative;
 				display: block;
 				padding-top: 100%;
+				margin-top: -50%;
+				position: relative;
+				margin-bottom: 40px;
 			}
 			img {
 				position: absolute;
-				top: -50%;
-				height: 100%;
+				top: 0;
+				left: 0;
 				border-radius: 50%;
 				width: 100%;
-				margin-bottom: 40px;
+				height: 100%;
 				object-fit: cover;
 			}
 			h4 {
-				margin-top: calc(-50% + 40px);
 				text-align: center;
 				margin-bottom: 15px;
 				color: #40363e;
@@ -125,6 +129,7 @@
 		}
 	}
 }
+
 
 .b-reviews {
 	padding : 90px 20px 0;
@@ -230,10 +235,16 @@
 	& {
 		padding-top: 190px;
 	}
+	.col {
+		margin: 0 -10px;
+	}
 	h2 {
 		margin-bottom: 1.4em;
 	}
 	article {
+		& {
+
+		}
 		&:not(:last-child) {
 			margin-bottom: 40px;
 		}
@@ -253,25 +264,26 @@
 	}
 }
 
+
+.b-procedures,
+.b-packages,
+.b-staffs,
+.b-certificate,
+.b-massage {
+	h2,
+	.lead,
+	article {
+		padding: 0 20px;
+	}
+}
+.b-staffs {
+	&__reviews.wrap {
+		padding: 0 20px;
+	}
+}
+
+
 @media all and (max-width: 1024px) {
-	.b-procedures,
-	.b-packages,
-	.b-staffs,
-	.b-certificate,
-	.b-massage {
-		h2,
-		.lead,
-		article {
-			margin-left: 20px;
-			margin-right: 20px;
-		}
-	}
-	.b-staffs {
-		&__reviews.wrap {
-			margin-left: 20px;
-			margin-right: 20px;
-		}
-	}
 	.b-certificate {
 		& {
 			margin-top : 105px;
@@ -279,6 +291,53 @@
 		.wrap {
 			& {
 				padding : 106px 0 0;
+			}
+		}
+	}
+}
+
+@media all and (max-width: 768px) {
+	.b-staffs__title {
+		padding-bottom: 60px;
+	}
+	.b-staffs__slider {
+		width: 100%;
+	}
+	.b-staffs__list {
+		justify-content: flex-start;
+	}
+	.b-staffs__list-item.col {
+		flex: 0 0 auto;
+		max-width: 100%;
+	}
+	.b-staffs__list-item img {
+		position: static;
+		margin-top: 20px;
+		max-height: 200px;
+	}
+	.b-staffs__list-item .staff-img-wrap {
+		display: block;
+		margin: 0 auto;
+		padding-top: 0;
+		max-width: 200px;
+	}
+	.b-staffs__slider .swiper-pagination {
+		& {
+			margin-top: 40px;
+		}
+		&-bullet {
+			& {
+				height : 6px;
+				width : 6px;
+				margin : 0 5px;
+				cursor : pointer;
+				background-color : rgba(0, 0, 0, 0.2);
+			}
+			&:hover {
+				background-color : rgba(0, 0, 0, 0.5);
+			}
+			&-active {
+				background-color : rgba(0, 0, 0, 1);
 			}
 		}
 	}

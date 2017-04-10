@@ -58,7 +58,7 @@ window.addEventListener('load', function(){
     }
 
     function resizeBar() {
-        if(WIDTH_HIDE_FORM < window.innerWidth) {
+        if(WIDTH_HIDE_FORM > window.innerWidth) {
             buttonOpenSideBar.removeEventListener('click', openSideBar);
             initScrollSideBar(sideBar, deafultTopSideBar);
             handlerResizeSideBar(sideBar);
@@ -88,14 +88,14 @@ window.addEventListener('load', function(){
 function initScrollSideBar(sideBar, deafultTopSideBar) {
     var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
 
-	if(	scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation__header')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
-		if(sideBar.parentNode.getBoundingClientRect().bottom <= ( document.getElementsByClassName('b-navigation__header')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight)) {
+	if(	scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
+		if(sideBar.parentNode.getBoundingClientRect().bottom <= ( document.getElementsByClassName('b-navigation')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight)) {
 			sideBar.style.bottom = '0px';
 			sideBar.style.top = 'auto';
 			sideBar.style.width = '';
 		} else {
 			var distanceToTopBar = sideBar.parentNode.getBoundingClientRect().top;
-			sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight  - distanceToTopBar + 'px';
+			sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight  - distanceToTopBar + 'px';
 		}
 	}
 
@@ -116,20 +116,20 @@ function handlerResizeSideBar(sideBar) {
 			sideBar.style.bottom = 'auto';
             sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
         }
     }
 }
 
 function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
 
-    if(scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation__header')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
+    if(scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
 
         if(!window.sideBarFixed) {
             sideBar.style.position = 'fixed';
             sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth -  ( window.paddingLeftParentBar + window.paddingRightParentBar )  + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
             sideBar.style.bottom = 'auto';
             window.sideBarFixed = true;
         }
@@ -144,7 +144,7 @@ function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
     }
 
     if(window.sideBarFixed) {
-        if(sideBar.parentNode.getBoundingClientRect().bottom <= document.getElementsByClassName('b-navigation__header')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight) {
+        if(sideBar.parentNode.getBoundingClientRect().bottom <= document.getElementsByClassName('b-navigation')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight) {
             sideBar.style.position = 'absolute';
             sideBar.style.bottom = '0px';
             sideBar.style.left = window.paddingLeftParentBar + 'px';
@@ -158,7 +158,7 @@ function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
             sideBar.style.right = 'auto';
             sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation__header')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
             window.sideBarToBottom = false;
         }
     }

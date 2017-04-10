@@ -9,4 +9,7 @@ window.addEventListener('load', function(){
     // Accordeons
     var  accordeons = createAccordeons(accordeonClassName, true);
 
+    // Свай списка сотрудников
+    swipeForStaffs();
+
 });

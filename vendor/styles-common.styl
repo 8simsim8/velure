@@ -452,14 +452,29 @@ body {
 
 .b-footer {
 	& {
+		position: relative;
 		padding: 0 5vw;
 		background-image: url("../img/footer-bg.jpg");
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
 	.img-footer__bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
 		background-position: center bottom -100px;
 		background-size: auto 375px;
+		z-index: 1;
+		transition: opacity 0.5s ease 0.5s;
+	}
+	.start.img-footer__bg {
+		opacity: 0;
+	}
+	&__front {
+		position: relative;
+		z-index: 2;
 	}
 	&__list {
 		& {
@@ -1018,7 +1033,8 @@ video {
 		& {
 			padding: 35px;
 		}
-		p {
+		p.text,
+		p.button-text {
 			margin-bottom: 1.3em;
 		}
 		h4 {
@@ -1249,13 +1265,13 @@ video {
 		}
 		.name {
 			width : 57%;
-			color : #4D344A;
 		}
 		.price {
-			padding : 20px 10px;
+			padding : 20px 5px;
+			text-align: center;
 			line-height : 0;
 			color : #000000;
-			min-width: 100px;
+			min-width: 90px;
 		}
 		.button-record {
 			padding : 20px 20px 20px 10px;
@@ -1972,6 +1988,115 @@ video {
 }
 
 @media all and (max-width: 768px) {
+	.accordeon {
+		& {
+		}
+		.acc-item {
+			& {
+				border-bottom: 1px solid #e5e5e5;
+			}
+			&.accordeon-item .acc-button-element {
+				& {
+					color: #40363E;
+					cursor: pointer;
+				}
+				.details-feature {
+					color: #665c64;
+				}
+				&:before {
+					position: relative;
+					top: 0.1em;
+					margin-right: 25px;
+					font-size: 27px;
+					color: #998A97;
+					content: '\e901';
+				}
+				&.active:before {
+					content: "\e900";
+				}
+			}
+			&.accordeon-item .acc-hidden-element {
+			}
+			&:first-child {
+				border-top: 1px solid #e5e5e5;
+			}
+			.acc-button-element {
+				& {
+					display: flex;
+					align-items: baseline;
+				//justify-content: space-between;
+					margin: 0;
+					max-width: 100%;
+					padding: 1em 0 1em 15px;
+				}
+				h4 {
+					margin : 0;
+				}
+				& > *:first-child {
+					margin-right: auto;
+				}
+				&:after {
+				}
+				&:before {
+					content: '';
+				}
+			}
+			.acc-hidden-element {
+				& {
+					background-color: #fbfaf4;
+					color: #40363E;
+				}
+				&__wrap {
+					& {
+					}
+					&.two-col {
+						& {
+							flex-direction: column-reverse;
+						}
+						& > * {
+							width: 100%;
+						}
+						.swiper {
+							&-container {
+								height: 550px;
+							}
+							&-wrapper {
+								position: absolute;
+								top: 0;
+								bottom: 0;
+								height : 100%;
+							}
+							&-pagination {
+								& {
+									position : absolute;
+									bottom : 35px;
+									left : 0;
+									width : 100%;
+								}
+								&-bullet {
+									& {
+										background-color : rgba(102, 92, 100, 0.5);
+									}
+									&:hover {
+										background-color : rgba(102, 92, 100, 1);
+									}
+									&.swiper-pagination-bullet-active {
+										background-color : #A823A3;
+									}
+								}
+							}
+						}
+					}
+					.swiper-container {
+						& {}
+
+					}
+				}
+			}
+		}
+	}
+
+
 	.b-popup {
 		&__map {
 			& {

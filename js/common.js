@@ -1,5 +1,6 @@
-const breakPointTablet = 1024;
-const breakPointMobile = 660;
+window.breakPointTabletLandscape = 1024;
+window.breakPointTabletPortrait = 768;
+window.breakPointMobile = 660;
 
 window.addEventListener('load', function() {
 
@@ -62,7 +63,7 @@ window.addEventListener('load', function() {
                 // }
 
                 // Старт/пауза видео если не мобильный
-                if(window.innerWidth > breakPointTablet) {
+                if(window.innerWidth > breakPointTabletLandscape) {
                     switchPlayVideoOnScroll();
                 }
 
@@ -292,6 +293,7 @@ function scrollAnim(classAnimEl, classAfterFinish) {
         var posEl = el[i].getBoundingClientRect();
 
         if (posEl.top <= window.innerHeight - el[i].offsetHeight / 2) {
+
             el[i].classList.remove(start);
             el[i].addEventListener(transitionEnd, listenAnim);
         }
@@ -359,14 +361,21 @@ function removeWillChange(){
  *   classNameWrappAccordeon     - обертка аккордеона,
  */
 function createSliders(classNameSlidersContainer, classNameWrappAccordeon){
+    classNameWrappAccordeon = classNameWrappAccordeon || null;
+
+    var duration;
+
     const slidersElem = document.getElementsByClassName(classNameSlidersContainer);
     var sliders = [];
     for(var i = 0, len = slidersElem.length; i < len; i++) {
+
+        duration = slidersElem[i].hasAttributes('data-duration') ? parseInt(slidersElem[i].getAttribute('data-duration')) : null;
+
         if (slidersElem[i].getElementsByClassName('swiper-slide').length > 1) {
-            if (isClosest(slidersElem[i], '.' + classNameWrappAccordeon) || isClosest(slidersElem[i], '[data-autoSlide=false]')) {
+            if(classNameWrappAccordeon && isClosest(slidersElem[i], '.' + classNameWrappAccordeon) || isClosest(slidersElem[i], '[data-autoSlide=false]')) {
                 sliders[i] = makeSlider(slidersElem[i]);
             } else {
-                sliders[i] = makeSlider(slidersElem[i], 5000);
+                sliders[i] = makeSlider(slidersElem[i], duration);
             }
         }
     }
@@ -402,6 +411,8 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
  */
 function MakeAccordeon(elem, time){
 
+    const self = this;
+
     this.accordeonWrap = elem;
     this.time = time;
     this.items = elem.getElementsByClassName("acc-item");
@@ -418,7 +429,10 @@ function MakeAccordeon(elem, time){
             this.hidden[i].style.padding = 0;
             this.hidden[i].style.overflow = 'hidden';
             this.hidden[i].style.display = 'none';
+
         }
+
+        window.addEventListener('resize', resizeAccordeon.bind(self));
     };
 
     function handlerClick(e) {
@@ -531,7 +545,21 @@ function MakeAccordeon(elem, time){
         if(this.accordeonWrap.querySelector(".active")) {
             this.accordeonWrap.querySelector(".active").classList.remove('active');
         }
+
+        window.removeEventListener('resize', resizeAccordeon);
     };
+
+    function resizeAccordeon() {
+
+        var self        = this;
+        var actives     = self.accordeonWrap.querySelectorAll('.active');
+
+        for(var i = 0, len = actives.length; i < len; i++) {
+            var hidden = actives[i].nextElementSibling;
+            hidden.style.height = 0;
+            hidden.style.height = hidden.scrollHeight + 'px';
+        }
+    }
 
     var EasingFunctions = {
         // no easing, no acceleration
@@ -576,6 +604,8 @@ function makeSlider(wrapClass, delayAutoplay){
         prevButtonClass =   wrapClass.querySelector('.swiper-controls-prev') || null,
         paginElemClass =    wrapClass.querySelector('.swiper-pagination') || null;
 
+    var isLoop = !wrapClass.hasAttribute('data-no-loop');
+
     delayAutoplay = delayAutoplay || null;
 
     swipeSlide = new Swiper(wrapClass, {
@@ -587,7 +617,7 @@ function makeSlider(wrapClass, delayAutoplay){
         pagination: paginElemClass,
         paginationClickable: true,
         setWrapperSize: true,
-        loop: true
+        loop: isLoop
     });
 
     swipeSlide.wrapper[0].addEventListener('click', function () {
@@ -743,14 +773,17 @@ function animTextInput(className) {
 *   Создание выбора даты
 */
 function createDate(classDate) {
-    const dateInput = document.querySelectorAll('.'+classDate);
-    var datePick = [];
+    const dateInput     = document.querySelectorAll('.'+classDate);
+    var datePick        = [];
+
+    var language        = document.querySelector('.b-navigation__side-right .current').innerText;
+
     for(var i = 0, len = dateInput.length; i < len; i++) {
         datePick[i] = new Flatpickr(dateInput[i], {
             minDate: "today",
             altInput: true,
             disableMobile: true,
-            locale: 'ru'
+            locale: (language == 'RU') ? 'ru' : null
         });
     }
     return datePick;
@@ -1020,6 +1053,38 @@ function loaderAnimation() {
     }
     if(document.querySelector('.preloader')) {
         document.querySelector('.preloader').removeEventListener(transitionEnd, loaderAnimation);
+    }
+}
+
+
+/*
+*   Создание свайпа для списка сотрудников
+*/
+function swipeForStaffs() {
+    // Sliders staffs
+    var staffs = null;
+    var isSliderCreate = false;
+
+    resizeWindow();
+
+    window.addEventListener('resize', resizeWindow);
+
+    function resizeWindow() {
+
+        if (window.innerWidth <= window.breakPointTabletPortrait) {
+            // Sliders staffs
+            if (!isSliderCreate) {
+                staffs = createSliders('b-staffs__slider');
+                isSliderCreate = true;
+            }
+        } else {
+            if (isSliderCreate) {
+                for (var i = 0, len = staffs.length; i < len; i++) {
+                    staffs[i].destroy(false, true);
+                }
+                isSliderCreate = false;
+            }
+        }
     }
 }
 

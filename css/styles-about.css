@@ -91,6 +91,7 @@
 .b-feature__item-note-inner h3 {
   text-align: center;
   color: #a823a3;
+  line-height: 1.16em;
 }
 .b-feature__item-note-inner .icon-about-ligature {
   color: #ababab;

@@ -1,14 +1,20 @@
 window.addEventListener("load", function load(event){
     window.removeEventListener("load", load, false);
 
+    var isMobileUserAgent = false;
+
+    isMobileUserAgent = isMobile.any();
+
+    console.log(navigator.userAgent);
+
     var APP_ID = '4645070665';
     var APP_ACCES_TOKEN = '4645070665.af79c98.0666edaf12bb43858609d90c7637a4b1';
 
     var APP_LIMIT = 4;
 
-    blockInstagram();
+    blockInstagram(isMobileUserAgent);
 
-    function blockInstagram() {
+    function blockInstagram(isMobileUserAgent) {
 
         // window.addEventListener('resize',cutBlocks);
 
@@ -22,6 +28,8 @@ window.addEventListener("load", function load(event){
 
                 image.data_create = getTime(image.created_time*1000);
 
+                image.instaLink = isMobileUserAgent ? "instagram://user?username={{model.user.username}}" : "{{model.link}}";
+
                 return true;
             },
             after: function(){
@@ -33,7 +41,14 @@ window.addEventListener("load", function load(event){
             // ' text' +
             // ' bold">VelurSpaSumy</span><span' +
             // ' class="insta-date-create">{{model.data_create}}</span></p></a>'
-            template: '<a href="instagram://user?username={{model.user.username}}" class="item-insta col xs-6 sm-3' +
+            // template: '<a href="instagram://user?username={{model.user.username}}" class="item-insta col xs-6 sm-3' +
+            // ' lg-3"><p class="insta__wrap-img"><img src="{{image}}"/></p><p class="insta-header"><span' +
+            // ' class="insta-logo' +
+            // ' icon-logo' +
+            // ' text' +
+            // ' bold">VelurSpaSumy</span><span' +
+            // ' class="insta-date-create">{{model.data_create}}</span></p></a>'
+            template: '<a href={{model.instaLink}} class="item-insta col xs-6 sm-3' +
             ' lg-3"><p class="insta__wrap-img"><img src="{{image}}"/></p><p class="insta-header"><span' +
             ' class="insta-logo' +
             ' icon-logo' +
@@ -63,7 +78,9 @@ window.addEventListener("load", function load(event){
 
         function getTime(date) {
 
-            var actiondate = new Date(parseInt(date));
+            var language        = document.querySelector('.b-navigation__side-right .current').innerText;
+
+            var actiondate      = new Date(parseInt(date));
 
             var today = new Date();
             if(today.getDate() === actiondate.getDate() && today.getMonth() === actiondate.getMonth() && today.getYear() === actiondate.getYear()){
@@ -71,11 +88,23 @@ window.addEventListener("load", function load(event){
                 var minutessince =   today.getMinutes() - actiondate.getMinutes();
                 var secondssince =   today.getSeconds() - actiondate.getSeconds();
                 if(hourssince > 0){
-                    date = hourssince+'ч';
+                    if(language == 'RU') {
+                        date = hourssince + 'ч';
+                    } else {
+                        date = hourssince + 'h';
+                    }
                 }else if(minutessince > 0){
-                    date = minutessince+'мин';
+                    if(language == 'RU') {
+                        date = minutessince + 'мин';
+                    } else {
+                        date = minutessince + 'min';
+                    }
                 }else{
-                    date = secondssince+'сек';
+                    if(language == 'RU') {
+                        date = secondssince+'сек';
+                    } else {
+                        date = secondssince+'s';
+                    }
                 }
             }else{
                 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
@@ -87,12 +116,24 @@ window.addEventListener("load", function load(event){
 
                 if(diffDays >= 7){
                     if(diffMonth == 0) {
-                        date = Math.round(diffDays / 7)+'нед';
+                        if(language == 'RU') {
+                            date = Math.round(diffDays / 7)+'нед';
+                        } else {
+                            date = Math.round(diffDays / 7)+'w';
+                        }
                     } else {
                         if(diffMonth < 12) {
-                            date = Math.round(diffMonth) + 'мес';
+                            if(language == 'RU') {
+                                date = Math.round(diffMonth) + 'мес';
+                            } else {
+                                date = Math.round(diffMonth) + 'm';
+                            }
                         } else {
-                            date = Math.round(diffYear) + 'г';
+                            if(language == 'RU') {
+                                date = Math.round(diffYear) + 'г';
+                            } else {
+                                date = Math.round(diffYear) + 'y';
+                            }
                         }
                     }
 
@@ -100,7 +141,12 @@ window.addEventListener("load", function load(event){
                     if(diffDays == '0'){
                         diffDays = '1';
                     }
-                    date = diffDays+'д';
+                    if(language == 'RU') {
+                        date = diffDays+'д';
+                    } else {
+                        date = diffDays+'d';
+                    }
+
                 }
             }
             return date;
@@ -108,3 +154,24 @@ window.addEventListener("load", function load(event){
     }
 
 },false);
+
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i) ? true : false;
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i) ? true : false;
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
