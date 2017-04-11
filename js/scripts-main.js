@@ -1,6 +1,8 @@
 window.addEventListener('load', function(){
 
-    openCircle();
+    if(document.querySelector('.b-programs__circles')) {
+        openCircle();
+    }
 
     /*
     * Swipe block

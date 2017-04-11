@@ -119,68 +119,7 @@
 	}
 	&__bg {
 		& {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
 			bottom: -80px;
-			overflow: hidden;
-		}
-		&-item1,
-		&-item2,
-		&-item3,
-		&-item4,
-		&-item5 {
-			position: absolute;
-			top: 0;
-			height: 100%;
-			background-repeat: no-repeat;
-			background-size: contain;
-		}
-		&-item1 {
-			& {
-				left: calc(50% - 708px);
-				width: 546px;
-				background-position: left bottom 115px;
-				transition: transform 0.5s ease 0.5s;
-				z-index: 1;
-			}
-		}
-		&-item2 {
-			& {
-				left : calc(50% - 625px);
-				width : 862px;
-				background-position : left bottom 30px;
-				transition: transform 0.5s ease 0.7s;
-				z-index : 2;
-			}
-		}
-		&-item3 {
-			& {
-				left : calc(50% - 470px);
-				width : 599px;
-				background-position : left bottom 92px;
-				transition: transform 0.5s ease 0.6s;
-				z-index : 1;
-			}
-		}
-		&-item4 {
-			& {
-				right : calc(50% - 658px);
-				width : 475px;
-				background-position : left bottom 92px;
-				transition: transform 0.5s ease 0.75s;
-				z-index : 2;
-			}
-		}
-		&-item5 {
-			& {
-				right : calc(50% - 839px);
-				width : 472px;
-				background-position : right bottom 92px;
-				transition: transform 0.5s ease 0.65s;
-				z-index : 1;
-			}
 		}
 	}
 	.start.b-form__bg {
@@ -197,44 +136,6 @@
 .b-popup[data-map],
 .b-popup[data-map] .b-popup__map {
 	display: flex;
-}
-
-
-@media all and (max-width: 1620px) {
-	.b-form {
-		&__bg {
-			&-item1 {
-				& {
-					left : calc(50% - 46vw);
-					width : 448px;
-				}
-			}
-			&-item2 {
-				& {
-					left : calc(50% - 39vw);
-					width : 708px;
-				}
-			}
-			&-item3 {
-				& {
-					left : calc(50% - 26vw);
-					width : 496px;
-				}
-			}
-			&-item4 {
-				& {
-					right : 8vw;
-					width : 389px;
-				}
-			}
-			&-item5 {
-				& {
-					right : -7vw;
-					width : 389px;
-				}
-			}
-		}
-	}
 }
 
 @media all and (max-width: 1024px) {
@@ -255,7 +156,7 @@
 	}
 	.b-form {
 		& {
-			margin-top : -60px;
+			//margin-top : -60px;
 		}
 	}
 

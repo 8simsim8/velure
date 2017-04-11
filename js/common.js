@@ -682,12 +682,13 @@ function controlInputs() {
 
                 var form = this;
                 var sendWindow = this.parentNode.querySelector('.form-sent');
+                form.style.webkitTransition = 'opacity 0.2s ease';
+                form.style.transition = 'opacity 0.2s ease';
+                form.style.opacity = 0;
                 sendWindow.style.display = 'block';
                 sendWindow.classList.add('show-message');
 
                 var buttonClose = sendWindow.querySelector('.button-close');
-
-                console.log(buttonClose);
 
                 if (buttonClose) {
                     var clearTime;
@@ -714,6 +715,10 @@ function controlInputs() {
                         }
 
                         var wrap = popup.children[0];
+
+                        form.style.webkitTransition = '';
+                        form.style.transition = '';
+                        form.style.opacity = '';
 
                         popup.style.display = '';
 
@@ -783,6 +788,7 @@ function createDate(classDate) {
             minDate: "today",
             altInput: true,
             disableMobile: true,
+            defaultDate: "today",
             locale: (language == 'RU') ? 'ru' : null
         });
     }
@@ -1161,7 +1167,7 @@ function preparePopupToContact(isShowMap) {
 
             document.body.classList.remove('open-popup');
             popup.classList.remove('open');
-            e.stopPropagation();
+            // e.stopPropagation();
             this.removeEventListener('click', handlerClosePopup);
         }
     }

@@ -1091,9 +1091,12 @@ video {
 }
 
 
+// Общие стили для формы
 .form {
 	& {
-		padding: 50px 70px 45px;
+		width: 450px;
+		margin: auto;
+		padding: 40px 40px 20px;
 		background-color: #FFFFFF;
 		border-radius: 8px;
 		border: 1px solid #E5E5E5;
@@ -1104,8 +1107,8 @@ video {
 		background-size : auto 260px;
 	}
 	.icon-ligature-half {
-		margin-bottom: 0.8em;
-		font-size: 32px;
+		margin-bottom: 0;
+		font-size: 25px;
 		color: #a823a3;
 		text-align: center;
 	}
@@ -1149,7 +1152,6 @@ video {
 			width : 100%;
 			opacity : 0;
 			pointer-events: none;
-			background : #FFF;
 			z-index : 20;
 			transition: opacity 0.2s ease;
 		}
@@ -1174,11 +1176,91 @@ video {
 }
 
 
+// Позиционирование элементов-изображений под формой
+.b-form {
+	&__bg {
+		& {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 20px;
+			overflow: hidden;
+		}
+		&-item1,
+		&-item2,
+		&-item3,
+		&-item4,
+		&-item5 {
+			position: absolute;
+			top: 0;
+			height: 100%;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+		&-item1 {
+			& {
+				left: calc(50% - 708px);
+				width: 546px;
+				background-position: left bottom 115px;
+				transition: transform 0.5s ease 0.5s;
+				z-index: 1;
+			}
+		}
+		&-item2 {
+			& {
+				left : calc(50% - 575px);
+				width : 862px;
+				background-position : left bottom 30px;
+				transition: transform 0.5s ease 0.7s;
+				z-index : 2;
+			}
+		}
+		&-item3 {
+			& {
+				left : calc(50% - 340px);
+				width : 599px;
+				background-position : left bottom 92px;
+				transition: transform 0.5s ease 0.6s;
+				z-index : 1;
+			}
+		}
+		&-item4 {
+			& {
+				right : calc(50% - 658px);
+				width : 475px;
+				background-position : left bottom 92px;
+				transition: transform 0.5s ease 0.75s;
+				z-index : 2;
+			}
+		}
+		&-item5 {
+			& {
+				right : calc(50% - 839px);
+				width : 472px;
+				background-position : right bottom 92px;
+				transition: transform 0.5s ease 0.65s;
+				z-index : 1;
+			}
+		}
+	}
+	.start.b-form__bg {
+		.b-form__bg-item1,
+		.b-form__bg-item2,
+		.b-form__bg-item3,
+		.b-form__bg-item4,
+		.b-form__bg-item5 {
+			transform: translate(0, 60px);
+		}
+	}
+}
+
+
 // Выпадающий список
 .select {
 	& {
 		height : 40px;
-		margin-top : 1.5rem;
+		margin-top : 1rem;
 		background-color : transparent;
 		border-bottom : 1px solid #E5E5E5;
 	}
@@ -1227,15 +1309,17 @@ video {
 .flatpickr {
 	&-calendar {
 		padding: 50px;
-		width: 415px;
+		width: 380px;
 		border-radius: 4px;
 		box-shadow: 0 0 30px rgba(0,0,0,0.1);
+	}
+	&-rContainer {
+		margin: 0 auto;
 	}
 	&-month {
 		margin-bottom: 20px;
 	}
 	&-days {
-		width: auto;
 	}
 }
 
@@ -1388,6 +1472,44 @@ video {
 		}
 	}
 }
+
+@media all and (max-width: 1620px) {
+	.b-form {
+		&__bg {
+			&-item1 {
+				& {
+					left : calc(50% - 41vw);
+					width : 448px;
+				}
+			}
+			&-item2 {
+				& {
+					left : calc(50% - 34vw);
+					width : 708px;
+				}
+			}
+			&-item3 {
+				& {
+					left : calc(50% - 21vw);
+					width : 496px;
+				}
+			}
+			&-item4 {
+				& {
+					right : 8vw;
+					width : 389px;
+				}
+			}
+			&-item5 {
+				& {
+					right : -7vw;
+					width : 389px;
+				}
+			}
+		}
+	}
+}
+
 @media all and (max-width: 1470px) {
 	main {
 	}
@@ -2096,7 +2218,17 @@ video {
 		}
 	}
 
-
+	.b-popup__button-close.button-close {
+		& {
+			right: 0;
+			background-color : transparent;
+			z-index: 2;
+		}
+		&:before,
+		&:after {
+			background-color : rgba(0,0,0,0.8);
+		}
+	}
 	.b-popup {
 		&__map {
 			& {
@@ -2108,7 +2240,7 @@ video {
 		}
 		&__contact,
 		&__online {
-			width: 75vw;
+			//width: 75vw;
 		}
 	}
 	.b-footer {
@@ -2161,17 +2293,6 @@ video {
 		border-radius: 0;
 		padding-left: 20px;
 		padding-right: 20px;
-	}
-	.b-popup__button-close.button-close {
-		& {
-			right: 0;
-			background-color : transparent;
-			z-index: 2;
-		}
-		&:before,
-		&:after {
-			background-color : rgba(0,0,0,0.8);
-		}
 	}
 	input[type=date] {
 		width: 100%;

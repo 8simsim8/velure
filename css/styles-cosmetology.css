@@ -144,7 +144,16 @@
 }
 .b-certificate__form {
   position: relative;
+  margin-left: 50%;
   padding: 0 20px 40px;
+  width: 380px;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 0 0 380px;
+  -ms-flex: 0 0 380px;
+  flex: 0 0 380px;
   z-index: 1;
 }
 .b-certificate__form label {

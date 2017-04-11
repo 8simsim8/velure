@@ -4,6 +4,11 @@
 	margin-bottom: 50px;
 }
 
+.b-static {
+	width: calc(100% - 370px);
+	padding: 0 10px;
+}
+
 .b-title {
 	&__logo {
 		&-breadcrumbs {
@@ -234,26 +239,38 @@
 
 .b-side {
 	& {
+		margin: 0 10px;
+		width: 350px;
+		padding: 0;
 		position: relative;
+		flex: 0 0 350px;
 	}
 	&__bar {
 		& {
 			position: absolute;
 			top: -110px;
-			left: 10px;
+			left: 0;
 			margin-top: 20px;
-			width: calc(100% - 20px);
+			width: 100%;
 			z-index: 9998;
 		}
 		&-open {
 			position: absolute;
 			display: none;
-			left: calc(50% - 30px);
-			top: -60px;
-			height: 60px;
-			width: 60px;
-			background-color: #5A009D;
+			left: 4px;
+			top: -40px;
+			height: 40px;
+			width: calc(100% - 8px);
+			background-color: rgba(168,35,163,0.8);
+			color: #FFFFFF;
+			line-height: @height;
+			text-align: center;
 			cursor: pointer;
+			border-radius: 8px 8px 0 0;
+			transition: background-color 0.2s ease;
+		}
+		&-open:hover {
+			background-color: rgba(168,35,163,1);
 		}
 		&.form {
 			padding: 35px;
@@ -263,19 +280,108 @@
 }
 
 
-@media all and (max-width: 1200px) {
-	body {
-		overflow-x: hidden;
+body:not(.open-popup) {
+	.flatpickr-calendar {
+		margin-left: -35px;
+		width: 348px;
+		padding: 10px;
 	}
 }
 
+@media all and (max-width: 1350px) {
+
+}
+
 @media all and (max-width: 1150px) {
-	.details-feature span {
+	body {
+		overflow-x: hidden;
+	}
+	.b-static {
+		width: 100%;
+	}
+	.b-side {
 		& {
-			margin: 0 25px;
+			width: 0;
+			flex: 0 0 0;
 		}
-		&:not(:last-child):after {
-			right: -25px;
+		&:before {
+			content: '';
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background: rgba(0,0,0,0.7);
+			z-index: 9999;
+			transition: opacity 0.2s ease;
+		}
+		&__bar {
+			&.form {
+				position : fixed;
+				top : auto;
+				right : auto;
+				left : calc(50% - 175px);
+				bottom : 0;
+				width : 350px;
+				transform : translate(0, 100%);
+				z-index : 9990;
+				box-shadow: none;
+				transition : transform 0.3s ease;
+			}
+			&-open {
+				display : block;
+			}
+		}
+		&.open-side-bar {
+			&:before {
+				display: block;
+				opacity: 1;
+			}
+			.b-side__bar {
+				z-index : 10000;
+			}
+			.b-side__bar-open {
+				& {
+					position : absolute;
+					top : 0;
+					left: auto;
+					right : -70px;
+					height : 60px;
+					width : 60px;
+					font-size: 0;
+					border-radius : 9px;
+					background-color: rgba(0,0,0,0.8);
+					cursor : pointer;
+				}
+				&:hover {
+					& {
+						background-color : #000;
+					}
+					&:before,
+					&:after {
+						border-top: 2px solid #fff;
+					}
+				}
+				&:before,
+				&:after {
+					position: absolute;
+					left: 12px;
+					top: 28px;
+					content: '';
+					display: block;
+					width: 38px;
+					transform-origin : 50% 50%;
+					border-top: 2px solid rgba(255,255,255,0.5);
+					transition: border 0.2s ease;
+				}
+				&:before {
+					transform : rotate(-45deg);
+				}
+				&:after {
+					transform : rotate(45deg);
+				}
+			}
 		}
 	}
 }
@@ -331,32 +437,6 @@
 		button + .normal {
 			margin-top: 10px;
 			font-size: 12px;
-		}
-	}
-}
-
-@media all and (max-width: 991px) {
-	.b-side {
-		&__bar {
-			& {
-				position : fixed;
-				top : auto;
-				right : auto;
-				left : calc(50% - 200px);
-				bottom : 0;
-				width : 400px;
-				transform : translate(0, 100%);
-				z-index : 10000;
-				transition : transform 0.3s ease;
-			}
-			&.open-side-bar {
-				transform : translate(0, 0);
-			}
-			&-open {
-				display : block;
-			}
-			&.form {
-			}
 		}
 	}
 }

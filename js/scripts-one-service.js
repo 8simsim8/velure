@@ -1,6 +1,6 @@
 window.addEventListener('load', function(){
 
-    const WIDTH_HIDE_FORM = 991;
+    const WIDTH_HIDE_FORM = 1200;
 
     const accordeonClassName = 'accordeon';
     const sliderClassName = 'swiper-container';
@@ -9,6 +9,7 @@ window.addEventListener('load', function(){
     var scrollPage;
     var scrollLeft;
     const sideBar = document.getElementsByClassName('b-side__bar')[0];
+
     var buttonOpenSideBar = document.querySelector('.b-side__bar-open');
 
     const deafultTopSideBar = -90;
@@ -37,10 +38,38 @@ window.addEventListener('load', function(){
         buttonOpenSideBar.addEventListener('click', openSideBar);
     }
 
-    window.addEventListener('resize',resizeBar);
+    window.addEventListener('resize', resizeBar);
 
-    function openSideBar() {
-        document.querySelector('.b-side__bar').classList.toggle('open-side-bar');
+    function openSideBar(e) {
+
+        var barParent =  document.querySelector('.b-side');
+        var bar = document.querySelector('.b-side__bar');
+
+        barParent.classList.toggle('open-side-bar');
+        if(barParent.classList.contains('open-side-bar')) {
+            var topOn = window.innerHeight/2 - bar.offsetHeight/2;
+            bar.style.transform = 'translate(0, -' + topOn + 'px)';
+            bar.style.webkitTransform = 'translate(0, -' + topOn + 'px)';
+
+            barParent.addEventListener('click', closeBar);
+
+        } else {
+            bar.style.transform = '';
+            bar.style.webkitTransform = '';
+        }
+
+        function closeBar(e) {
+            var target = e.target;
+
+            if(target == barParent) {
+                barParent.removeEventListener('click', closeBar);
+                bar.style.transform = '';
+                bar.style.webkitTransform = '';
+                barParent.classList.remove('open-side-bar');
+            }
+        }
+
+       // e.stopPropagation();
     }
 
     function handlerScrollSideBar() {
@@ -58,8 +87,10 @@ window.addEventListener('load', function(){
     }
 
     function resizeBar() {
-        if(WIDTH_HIDE_FORM > window.innerWidth) {
+        if(WIDTH_HIDE_FORM < window.innerWidth) {
             buttonOpenSideBar.removeEventListener('click', openSideBar);
+            sideBar.style.transform = '';
+            sideBar.style.webkitTransform = '';
             initScrollSideBar(sideBar, deafultTopSideBar);
             handlerResizeSideBar(sideBar);
             window.addEventListener('scroll', handlerScrollSideBar);
@@ -88,14 +119,18 @@ window.addEventListener('load', function(){
 function initScrollSideBar(sideBar, deafultTopSideBar) {
     var scrollPage = window.pageYOffset || document.documentElement.scrollTop;
 
-	if(	scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
-		if(sideBar.parentNode.getBoundingClientRect().bottom <= ( document.getElementsByClassName('b-navigation')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight)) {
+	if(	scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation__main')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
+		if(sideBar.parentNode.getBoundingClientRect().bottom <= ( document.getElementsByClassName('b-navigation__main')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight)) {
 			sideBar.style.bottom = '0px';
 			sideBar.style.top = 'auto';
 			sideBar.style.width = '';
+            window.sideBarFixed = false;
+            window.sideBarToBottom = !window.sideBarFixed;
 		} else {
 			var distanceToTopBar = sideBar.parentNode.getBoundingClientRect().top;
-			sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight  - distanceToTopBar + 'px';
+			sideBar.style.top = document.getElementsByClassName('b-navigation__main')[0].offsetHeight  - distanceToTopBar + 'px';
+            window.sideBarFixed = true;
+            window.sideBarToBottom = !window.sideBarFixed;
 		}
 	}
 
@@ -103,62 +138,62 @@ function initScrollSideBar(sideBar, deafultTopSideBar) {
 
 function handlerResizeSideBar(sideBar) {
 
-    if(window.sideBarFixed) {
         if(window.sideBarToBottom) {
             sideBar.style.position = 'absolute';
             sideBar.style.bottom = '0px';
-            sideBar.style.left = window.paddingLeftParentBar + 'px';
+            sideBar.style.left = '';
             sideBar.style.top = 'auto';
-            sideBar.style.right = window.paddingRightParentBar + 'px';
+            sideBar.style.right = '';
             sideBar.style.width = '';
-        } else {
+        }
+        if(window.sideBarFixed) {
+            sideBar.style.position = 'fixed';
 			sideBar.style.right = 'auto';
 			sideBar.style.bottom = 'auto';
-            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation__main')[0].offsetHeight + 'px';
         }
-    }
+
 }
 
 function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
 
-    if(scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
+    if(scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation__main')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
 
         if(!window.sideBarFixed) {
             sideBar.style.position = 'fixed';
-            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth -  ( window.paddingLeftParentBar + window.paddingRightParentBar )  + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation__main')[0].offsetHeight + 'px';
             sideBar.style.bottom = 'auto';
             window.sideBarFixed = true;
         }
+
     } else {
-        if(window.sideBarFixed) {
-            sideBar.style.position = '';
-            sideBar.style.top = '';
-            sideBar.style.width = '';
-            sideBar.style.left = '';
-            window.sideBarFixed = false;
-        }
+        sideBar.style.position = '';
+        sideBar.style.top = '';
+        sideBar.style.width = '';
+        sideBar.style.left = '';
+        window.sideBarFixed = false;
     }
 
     if(window.sideBarFixed) {
-        if(sideBar.parentNode.getBoundingClientRect().bottom <= document.getElementsByClassName('b-navigation')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight) {
+        if(sideBar.parentNode.getBoundingClientRect().bottom <= document.getElementsByClassName('b-navigation__main')[0].offsetHeight + window.marginHeaderSideBar + sideBar.offsetHeight) {
             sideBar.style.position = 'absolute';
             sideBar.style.bottom = '0px';
-            sideBar.style.left = window.paddingLeftParentBar + 'px';
+            sideBar.style.left = '';
             sideBar.style.top = 'auto';
-            sideBar.style.right = window.paddingRightParentBar + 'px';
+            sideBar.style.right = '';
             sideBar.style.width = '';
             window.sideBarToBottom = true;
         } else {
             sideBar.style.position = 'fixed';
             sideBar.style.bottom = 'auto';
             sideBar.style.right = 'auto';
-            sideBar.style.left = sideBar.parentNode.offsetLeft + window.paddingLeftParentBar + 'px';
+            sideBar.style.left = sideBar.parentNode.offsetLeft + 'px';
             sideBar.style.width = sideBar.parentNode.clientWidth - ( window.paddingLeftParentBar + window.paddingRightParentBar ) + 'px';
-            sideBar.style.top = document.getElementsByClassName('b-navigation')[0].offsetHeight + 'px';
+            sideBar.style.top = document.getElementsByClassName('b-navigation__main')[0].offsetHeight + 'px';
             window.sideBarToBottom = false;
         }
     }

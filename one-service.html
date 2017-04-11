@@ -116,7 +116,7 @@
 	
 	<style>
 		body.no-scroll {
-			overflow-y: hidden;
+			/*overflow-y: hidden;*/
 		}
 		body.no-scroll::-webkit-scrollbar {
 			background-color: rgba(255,255,255,0.95);
@@ -159,6 +159,9 @@
 		.preloader p svg {
 			margin: auto;
 			height: 18vh;
+		}
+		.b-title {
+			background-color: #000000;
 		}
 		.video-wrapp {
 			position: relative;
@@ -253,12 +256,17 @@
 			left: 0;
 			height : 100%;
 			width: 100%;
-			background-image: url('video/poster-main.jpg');
 			background-repeat: no-repeat;
 			background-size: cover;
+			transform-origin: center;
+			transition: transform 0.7s ease,
+						opacity 0.4s ease;
 		}
-		.hidden.b-title__poster {
-			display:none;
+		body:not(.finish-load) .b-title__poster {
+			opacity: 0;
+			transform: scale(1.5);
+		}
+		.finish-load .b-title__poster {
 		}
 	</style>
 	
@@ -312,8 +320,8 @@
 			<a href="#" class="icon-fb"></a>
 		</div>
 		<div class="b-navigation__side-right">
-			<a href="#" class="current">RU</a>
-			<a href="#">EN</a>
+			<a href="index.html" class="current">RU</a>
+			<a href="index-en.html">EN</a>
 		</div>
 	</div>
 </nav>
@@ -322,11 +330,11 @@
 		
 		<section class="b-title">
 			<div class="video-wrapp">
-				<video class="b-title__video" loop="loop" preload poster="video/poster-main.jpg">
-					<source src="video/velur.mp4" type="video/mp4" />
-					<source src="video/velur.webm" type="video/webm" />
-					<source src="video/velur.ogg" type="video/ogg" />
-				</video>
+				<!--<video class="b-title__video" loop="loop" preload poster="video/poster-main.jpg">-->
+					<!--<source src="video/velur.mp4" type="video/mp4" />-->
+					<!--<source src="video/velur.webm" type="video/webm" />-->
+					<!--<source src="video/velur.ogg" type="video/ogg" />-->
+				<!--</video>-->
 				<div class="b-title__logo">
 					<div class="b-title__logo-inner">
 						<p class="b-title__logo-breadcrumbs breadcrumbs text">
@@ -345,7 +353,8 @@
 						</p>
 					</div>
 				</div>
-				<!--<div class="b-title__poster"></div>-->
+				<div class="b-title__poster" style="background-image: url('img/services/hydromassage-bath.jpg');"
+				     data-title-poster></div>
 			</div>
 		</section>
 		
@@ -357,14 +366,15 @@
             function handlerStart(){
                 const preloader = document.getElementsByClassName('preloader')[0];
                 const nav = document.getElementsByClassName('l-navigation')[0];
-//                const poster = document.getElementsByClassName('b-title__poster')[0];
+                const poster = document.getElementsByClassName('b-title__poster')[0];
 
                 const video = document.getElementsByTagName('video')[0];
                 const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+                const titleImg = document.getElementsByClassName('b-title__img')[0];
                 const featureItem = document.querySelectorAll('.b-title__logo-feature span');
 
-                var timeOutVideoLoad;
-                var isFinishLoaderOneCicle = false,
+                var timeOutLoad;
+                var isFinishLoadTitleImg = false,
                     isFinishLoadPoster = false,
                     isFinishLoadVideo = false,
                     isFinishNotLoadVideo = false;
@@ -386,24 +396,36 @@
                     }
                 }
 
-                // Если видео не загрузилось на протяжении 3с, не ожидать
-//                timeOutVideoLoad = setTimeout(function(){
-//                    willChangeSwitch(preloader, 'opacity');
-//                    isFinishNotLoadVideo = true;
-//                },1000);
+               // Если видео не загрузилось на протяжении 2с, не ожидать
+                timeOutLoad = setTimeout(function(){
+                    willChangeSwitch(preloader, 'opacity');
+                    isFinishNotLoadVideo = true;
+                    willChangeSwitch(preloader, 'opacity');
+
+                    titleLogo.classList.add('transition');
+                    document.body.classList.add('finish-load');
+                    document.body.classList.remove('no-scroll');
+                    enableScroll();
+                }, 2000);
 
                 //*** 0 Ожидать прохода одного цикла анимации ***//
 //                svgAnim.addEventListener("webkitAnimationIteration",    handlerFinishLoader);
 //                svgAnim.addEventListener("animationiteration",          handlerFinishLoader);
 
-                checkPosterVideo(video);
-                
-                //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
-//                checkLoadBg(document.getElementsByClassName('b-title__poster')[0]);
+                if(titleImg) {
+                    //*** 1 Загрузка картинки произошла ***//
+                    checkLoadBg(titleImg);
+                }
 
-                //*** 2 После загрузки видео убрать прелоадер ***//
-                canPlay(video, videoLoad);
+                if(video) {
+                    checkPosterVideo(video);
 
+                    //*** 2 После загрузки видео убрать прелоадер ***//
+                    canPlay(video, videoLoad);
+                } else {
+                    //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
+                    checkLoadBg(poster);
+                }
                 
                 const animLogo = document.querySelectorAll(".b-title__logo-inner p");
                 animLogo[3].addEventListener(transitionEnd, handlerAnimLogo);
@@ -433,17 +455,21 @@
                     image.addEventListener('load', loadImg);
 
                     function loadImg() {
-                        isFinishLoadPoster = true;
                         image.remove();
                         image.removeEventListener('load', loadImg);
-                        if(isFinishLoaderOneCicle) {
-                            document.body.classList.add('load-poster');
-                            preloader.addEventListener(transitionEnd, removeWillChange);
+                        preloader.addEventListener(transitionEnd, removeWillChange);
+                        if(el.hasAttribute('data-title-poster')) {
+                            isFinishLoadPoster = true;
                         }
+                        if(el.hasAttribute('data-title-img')) {
+                            isFinishLoadTitleImg = true;
+                        }
+                        loadPosters();
                     }
 
+
                     function getBgUrl(el) {
-                        var bg = "";
+                        var  bg = "";
                         if (el.currentStyle) { // IE
                             bg = el.currentStyle.backgroundImage;
                         } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
@@ -452,6 +478,21 @@
                             bg = el.style.backgroundImage;
                         }
                         return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                    }
+                }
+
+                function loadPosters(){
+
+                    if(isFinishLoadPoster && isFinishLoadTitleImg || isFinishLoadTitleImg && isFinishNotLoadVideo) {
+
+                        clearTimeout(timeOutLoad);
+
+                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                            'opacity, transition');
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
                     }
                 }
 
@@ -484,24 +525,20 @@
 
                 function videoLoad() {
                     isFinishLoadVideo = true;
-                    clearTimeout(timeOutVideoLoad);
-//                    poster.remove();
-                    if(!isFinishLoadPoster) {
-
-                        // Если видео загрузилось быстро и постер не успел загрузиться
+                    clearTimeout(timeOutLoad);
+                    if(!isFinishLoadPoster && isFinishLoadTitleImg) {
+                        // Если видео и изображение услиги загрузилось быстро, но постер не успел загрузиться
                         willChangeSwitch(preloader, 'opacity');
-                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
-                            'opacity, transition');
-                        document.body.classList.add('load-poster');
-//                        poster.classList.add('hidden');
+
                         titleLogo.classList.add('transition');
                         document.body.classList.add('finish-load');
-                        document.body.classList.remove('load-poster');
                         document.body.classList.remove('no-scroll');
                         enableScroll();
                         startPlayBg();
                     }
-                    if(isFinishLoadPoster) {
+                    if(isFinishLoadPoster && isFinishLoadTitleImg) {
+                        willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"),
+                            'opacity, transition');
                         titleLogo.classList.add('transition');
                         document.body.classList.add('finish-load');
                         document.body.classList.remove('no-scroll');
@@ -677,7 +714,7 @@
 		</script>
 		
 		<div class="row wrap">
-			<div class="col xs-12 md-7 lg-8">
+			<div class="b-static">
 				<section class="b-about">
 					<div class="wrap">
 						<h2>Полная релаксация души и тела</h2>
@@ -1033,7 +1070,7 @@
 				</section>
 			</div>
 			
-			<div class="b-side col md-5 lg-4">
+			<div class="b-side">
 				<section class="b-side__bar img-flover__form form">
 					<p class="b-side__bar-open">Записаться на процедуру</p>
 					<p class="icon-ligature-half"></p>
@@ -1218,7 +1255,7 @@
 	</section>
 
 	<footer class="l-footer b-footer">
-	<div class="wrap img-footer__bg start"></div>
+	<div class="img-footer__bg start"></div>
 	<div class="b-footer__front wrap">
 		<div class="b-footer__list row row-wrap">
 			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0">
