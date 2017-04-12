@@ -5,8 +5,6 @@ window.addEventListener("load", function load(event){
 
     isMobileUserAgent = isMobile.any();
 
-    console.log(navigator.userAgent);
-
     var APP_ID = '4645070665';
     var APP_ACCES_TOKEN = '4645070665.af79c98.0666edaf12bb43858609d90c7637a4b1';
 

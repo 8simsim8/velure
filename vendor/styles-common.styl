@@ -1851,6 +1851,8 @@ video {
 		& {
 			bottom: auto;
 			min-height: auto;
+			z-index: 10004;
+			transform: translateZ(2px);
 		}
 		&__mobile {
 			display: flex;
@@ -2288,11 +2290,12 @@ video {
 	}
 	.b-popup__contact,
 	.b-popup__online {
-		height: 100vh;
+		margin-top: 80px;
 		width: 100vw;
 		border-radius: 0;
 		padding-left: 20px;
 		padding-right: 20px;
+		transition: height 0.3s ease;
 	}
 	input[type=date] {
 		width: 100%;

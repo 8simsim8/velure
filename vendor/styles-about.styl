@@ -2,7 +2,6 @@
 
 .b-news {
 	& {
-		padding-top: 80px;
 	}
 	h2,
 	.lead {
@@ -64,7 +63,20 @@
 			flex-direction: row-reverse;
 		}
 		&-img {
-			object-fit: cover;
+			& {
+				position: relative;
+				overflow: hidden;
+			}
+			&-block {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 150%;
+				width: 100%;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
 		}
 		&-note {
 			& {
@@ -80,10 +92,26 @@
 					margin: auto;
 					padding: 80px 11% 80px;
 				}
+				p,
 				h3 {
+					transition: opacity 0.3s ease,
+								transform 0.7s ease-in;
+				}
+				&.start {
+					p,
+					h3 {
+						opacity: 0;
+						transform: translate(0, 40px);
+					}
+				}
+				h3 {
+					margin-bottom: 1.3em;
 					text-align: center;
 					color: #a823a3;
 					line-height: 1.16em;
+				}
+				.lead {
+					margin-bottom: 1.3em;
 				}
 				.icon-about-ligature {
 					color : #ABABAB;
@@ -93,7 +121,6 @@
 		}
 	}
 }
-
 
 .b-rewards {
 	& {
@@ -159,6 +186,7 @@
 	}
 }
 
+
 .b-form {
 	& {
 		margin-top: -100px;
@@ -184,6 +212,7 @@
 	}
 }
 
+
 @media all and (max-width: 1450px) {
 	.b-slider {
 		.swiper-controls {
@@ -208,6 +237,28 @@
 }
 
 @media all and (max-width: 1024px) {
+	.b-feature {
+		& {
+		}
+		&__item {
+			&-img {
+				& {
+					position : relative;
+					overflow : hidden;
+				}
+				&-block {
+					position : absolute;
+					bottom : 0;
+					left : 0;
+					height : 100%;
+					width : 100%;
+					background-position : center;
+					background-repeat : no-repeat;
+					background-size : cover;
+				}
+			}
+		}
+	}
 	.b-slider {
 		& {
 			padding : 140px 0 0;

@@ -1652,6 +1652,12 @@ video::-webkit-media-controls-panel {
   .b-navigation {
     bottom: auto;
     min-height: auto;
+    z-index: 10004;
+    -webkit-transform: translateZ(2px);
+    -moz-transform: translateZ(2px);
+    -o-transform: translateZ(2px);
+    -ms-transform: translateZ(2px);
+    transform: translateZ(2px);
   }
   .b-navigation__mobile {
     display: -webkit-box;
@@ -2121,11 +2127,16 @@ video::-webkit-media-controls-panel {
   }
   .b-popup__contact,
   .b-popup__online {
-    height: 100vh;
+    margin-top: 80px;
     width: 100vw;
     border-radius: 0;
     padding-left: 20px;
     padding-right: 20px;
+    -webkit-transition: height 0.3s ease;
+    -moz-transition: height 0.3s ease;
+    -o-transition: height 0.3s ease;
+    -ms-transition: height 0.3s ease;
+    transition: height 0.3s ease;
   }
   input[type=date] {
     width: 100%;
