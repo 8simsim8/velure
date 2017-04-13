@@ -110,7 +110,7 @@ function MakeValidationForm(form, path, messagesSetting, settings, callback) {
 
     function handlerValid(e) {
         for(i = 0; i < input.length; i++) {
-            if ((input[i].willValidate && input[i].checkValidity() == false) || (!input[i].willValidate && input[i].value == '')) {
+            if ((input[i].willValidate && input[i].checkValidity() == false)) {
                 printError(input[i], true);
                 if(DELAY_HIDE_MESSAGE_ERROR) {
                     hideError(input[i]);                // Убрать сообщение c задержкой

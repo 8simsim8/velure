@@ -385,7 +385,7 @@ body {
   height: 100%;
   width: 100%;
   background-color: rgba(0,0,0,0.7);
-  z-index: 10001;
+  z-index: 10004;
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
@@ -754,11 +754,6 @@ video::-webkit-media-controls-panel {
   padding: 20px;
   text-align: center;
   color: #fff;
-  -webkit-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  -ms-transform: translateZ(1px);
-  transform: translateZ(1px);
   z-index: 2;
 }
 .half-circle__block {
@@ -1146,6 +1141,7 @@ video::-webkit-media-controls-panel {
 }
 .form h3 {
   margin-bottom: 0.3em;
+  line-height: 1.2em;
   text-align: center;
   color: #a823a3;
 }
@@ -1155,6 +1151,7 @@ video::-webkit-media-controls-panel {
 }
 .form .normal {
   margin-bottom: 5px;
+  font-size: 0.9rem;
   text-align: center;
 }
 .form button {
@@ -1652,12 +1649,7 @@ video::-webkit-media-controls-panel {
   .b-navigation {
     bottom: auto;
     min-height: auto;
-    z-index: 10004;
-    -webkit-transform: translateZ(2px);
-    -moz-transform: translateZ(2px);
-    -o-transform: translateZ(2px);
-    -ms-transform: translateZ(2px);
-    transform: translateZ(2px);
+    z-index: 9999;
   }
   .b-navigation__mobile {
     display: -webkit-box;
@@ -2102,6 +2094,7 @@ video::-webkit-media-controls-panel {
   }
   .b-popup__map {
     height: 80vh;
+    padding-top: 50px;
   }
   .b-popup__map-left {
     height: 65%;
@@ -2114,6 +2107,23 @@ video::-webkit-media-controls-panel {
   }
   .b-footer__list-item {
     padding-top: 20px;
+  }
+  .b-form__bg-item1 {
+    display: none;
+  }
+  .b-form__bg-item2 {
+    left: calc(50% - 55vw);
+    width: 708px;
+  }
+  .b-form__bg-item3 {
+    left: calc(50% - 41vw);
+    width: 496px;
+  }
+  .b-form__bg-item4 {
+    display: none;
+  }
+  .b-form__bg-item5 {
+    right: -14vw;
   }
 }
 @media all and (max-width: 730px) {
@@ -2156,8 +2166,8 @@ video::-webkit-media-controls-panel {
   }
   .b-popup__contact,
   .b-popup__online {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
   }
   .b-popup__contact .icon-ligature-half,
   .b-popup__online .icon-ligature-half {

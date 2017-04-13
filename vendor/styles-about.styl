@@ -245,6 +245,7 @@
 				& {
 					position : relative;
 					overflow : hidden;
+					//height: 500px;
 				}
 				&-block {
 					position : absolute;
@@ -301,6 +302,24 @@
 }
 
 @media all and (max-width: 768px) {
+	.b-feature {
+		& {
+		}
+		&__tile {
+			height: 100%;
+		}
+		&__item {
+			&-img.col.xs-12,
+			&-note.col.xs-12 {
+				flex: 0 0 auto;
+			}
+			&-img {
+				& {
+					height: 500px;
+				}
+			}
+		}
+	}
 	.b-slider {
 		& {
 			padding : 140px 0 0;

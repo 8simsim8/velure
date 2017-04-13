@@ -1,6 +1,6 @@
 window.addEventListener('load', function(){
 
-    const WIDTH_HIDE_FORM = 1200;
+    const WIDTH_HIDE_FORM = 1150;
 
     const accordeonClassName = 'accordeon';
     const sliderClassName = 'swiper-container';
@@ -160,6 +160,8 @@ function handlerResizeSideBar(sideBar) {
 function flowSideBar(scrollPage,sideBar, deafultTopSideBar) {
 
     if(scrollPage >= (window.innerHeight - document.getElementsByClassName('b-navigation__main')[0].offsetHeight + deafultTopSideBar - window.marginHeaderSideBar)) {
+
+        console.log()
 
         if(!window.sideBarFixed) {
             sideBar.style.position = 'fixed';

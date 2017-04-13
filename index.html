@@ -375,11 +375,11 @@
 					<a href="index.html" class="b-navigation__header-logo icon-logo desktop"></a>
 					<a href="index.html" class="b-navigation__header-logo icon-full-logo tablet"></a>
 					<p class="b-navigation__header-links">
+						<a href="about.html" class="">О центре</a>
 						<a href="spa.html" class="">SPA-комплекс</a>
 						<a href="cosmetology.html" class="">Косметология</a>
 						<a href="#" class="">Бьюти-зона</a>
 						<a href="#" class="">Услуги для мужчин</a>
-						<a href="about.html" class="">О центре</a>
 						<a href="contact.html" class="">Контакты</a>
 						<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
 						<a href="tel:+380542700818" class="">(0542) 700-818</a>
@@ -490,6 +490,7 @@
                         willChangeSwitch(titleLogo.querySelectorAll("[class*='b-title__logo-']"), 'auto');
                         deletePreloader(preloader);
                         buttonPlay.addEventListener('click', handlerPlay);
+                        buttonPlay.addEventListener('touchend', handlerPlay);
                         this.removeEventListener(transitionEnd, handlerAnimLogo);
                     }
                     
@@ -611,34 +612,39 @@
                         } else {
                             video.style.opacity = '1';
                             titleLogo.parentNode.style.pointerEvents = 'none';
+                            buttonPlay.style.pointerEvents = 'none';
                             
                             var close = document.createElement('div');
                             close.classList.add('video-close');
                             
                             video.parentNode.append(close);
                             
-                            close.addEventListener('click', function(){
+                            video.muted = false;
+
+                            video.play();
+                            video.controls = true;
+
+                            close.addEventListener('click',closeVideo);
+                            close.addEventListener('touchend',closeVideo);
+                            
+                            function closeVideo() {
                                 video.controls = false;
 
                                 video.muted = true;
-                                
+
                                 video.pause();
                                 video.style.opacity = '1';
-                                titleLogo.parentNode.style.pointerEvents = 'none';
+                                titleLogo.parentNode.style.pointerEvents = '';
 
                                 video.currentTime = 0;
                                 titleLogo.parentNode.style.opacity = '';
                                 nav.style.opacity = '';
                                 buttonPlay.style.opacity = '';
+                                buttonPlay.style.pointerEvents = '';
                                 video.style.opacity = '';
-                                
+
                                 close.remove();
-                            });
-                            
-                            video.muted = false;
-                            
-                            video.play();
-                            video.controls = true;
+                            }
                         }
                     }
 
@@ -1057,7 +1063,7 @@
 				<div class="b-parallax-base wrap row no-row">
 					<h3 class="">Эстетическая медицина</h3>
 					<p class="normal">Идеальная внешность перестает быть просто мечтой. Мы используем безопасные, проверенные эффективные методики и препараты высоких технологий для достижения эффекта омоложения кожи лица и тела, исправления дефектов.</p>
-					<p class="center"><a href="#" class="btn btn__white arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+					<p class="center"><a href="aesthetic.html" class="btn btn__white arrow">УЗНАТЬ БОЛЬШЕ</a></p>
 				</div>
 			</section>
 			
@@ -1082,7 +1088,7 @@
 					<p class="swiper-pagination"></p>
 				</div>
 				<p
-						class="b-slider__details center"><a href="#" class="btn btn__base arrow">ПОДРОБНЕЕ О
+						class="b-slider__details center"><a href="about.html" class="btn btn__base arrow">ПОДРОБНЕЕ О
 					SPA-центре</a></p>
 			</section>
 			
@@ -1155,7 +1161,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="b-form__bg start xs-hidden">
+				<div class="b-form__bg start">
 					<div class="b-form__bg-item1" style="background-image: url('../img/img-detox-salt.png');"></div>
 					<div class="b-form__bg-item2" style="background-image: url('../img/img-oil.png');"></div>
 					<div class="b-form__bg-item3" style="background-image: url('../img/img-peeling-salt.png');"></div>
@@ -1358,7 +1364,7 @@
 			</div>
 		</footer>
 		
-		<!--<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>-->
+		<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>
 		<script src="js/swiper.min.js"></script>
 		<script src="js/instafeed.min.js"></script>
 		<script src="js/inst-script.js"></script>

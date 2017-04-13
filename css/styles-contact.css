@@ -1,6 +1,4 @@
 .b-title__logo-text {
-  margin-left: 20px;
-  margin-right: 20px;
   margin-bottom: 5vh;
 }
 .b-title__logo-ligature {
@@ -28,8 +26,6 @@
   -ms-flex-align: baseline;
   -webkit-align-items: baseline;
   align-items: baseline;
-  margin-left: 20px;
-  margin-right: 20px;
   border-bottom: 1px solid rgba(224,224,224,0.3);
 }
 .b-title__logo-address.address_top {
@@ -112,7 +108,7 @@
 }
 .b-form {
   position: relative;
-  margin-top: -90px;
+  margin-top: -13vh;
   margin-bottom: 60px;
   z-index: 10;
 }

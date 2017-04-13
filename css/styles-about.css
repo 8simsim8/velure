@@ -269,6 +269,22 @@
   }
 }
 @media all and (max-width: 768px) {
+  .b-feature__tile {
+    height: 100%;
+  }
+  .b-feature__item-img.col.xs-12,
+  .b-feature__item-note.col.xs-12 {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+  }
+  .b-feature__item-img {
+    height: 500px;
+  }
   .b-slider {
     padding: 140px 0 0;
   }

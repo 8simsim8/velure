@@ -186,11 +186,11 @@
   font-size: 80px;
   color: #fff;
   text-align: center;
-  -webkit-transition: opacity 0.5s ease 0.5s, -webkit-transform 0.5s ease 0.5s;
-  -moz-transition: opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
-  -o-transition: opacity 0.5s ease 0.5s, -o-transform 0.5s ease 0.5s;
-  -ms-transition: opacity 0.5s ease 0.5s, -ms-transform 0.5s ease 0.5s;
-  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+  -webkit-transition: opacity 0.5s ease 0.2s, -webkit-transform 0.5s ease 0.3s;
+  -moz-transition: opacity 0.5s ease 0.2s, -moz-transform 0.5s ease 0.3s;
+  -o-transition: opacity 0.5s ease 0.2s, -o-transform 0.5s ease 0.3s;
+  -ms-transition: opacity 0.5s ease 0.2s, -ms-transform 0.5s ease 0.3s;
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.3s;
 }
 .b-programs__circles-right {
   position: relative;
@@ -1390,23 +1390,6 @@
   }
   .b-popup[data-contact] {
     top: 0;
-    -webkit-transform: translate3d(0, 100%, 2px);
-    -moz-transform: translate3d(0, 100%, 2px);
-    -o-transform: translate3d(0, 100%, 2px);
-    -ms-transform: translate3d(0, 100%, 2px);
-    transform: translate3d(0, 100%, 2px);
-    -webkit-transition: -webkit-transform 0.2s ease;
-    -moz-transition: -moz-transform 0.2s ease;
-    -o-transition: -o-transform 0.2s ease;
-    -ms-transition: -ms-transform 0.2s ease;
-    transition: transform 0.2s ease;
-  }
-  .open.b-popup[data-contact] {
-    -webkit-transform: translate3d(0, 0, 2px);
-    -moz-transform: translate3d(0, 0, 2px);
-    -o-transform: translate3d(0, 0, 2px);
-    -ms-transform: translate3d(0, 0, 2px);
-    transform: translate3d(0, 0, 2px);
   }
 }
 @media all and (max-width: 660px) {

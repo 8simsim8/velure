@@ -256,6 +256,7 @@
   }
   .b-staffs__slider {
     width: 100%;
+    overflow: hidden;
   }
   .b-staffs__list {
     -webkit-box-pack: start;

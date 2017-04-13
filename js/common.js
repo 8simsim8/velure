@@ -7,7 +7,9 @@ window.addEventListener('load', function() {
     const header = document.getElementsByClassName('l-navigation')[0];
 
     const burgerMenuButton = document.getElementsByClassName('burger__button')[0];
-    burgerMenuButton.addEventListener('click', handlerOpenBurgerMenu);
+    if(burgerMenuButton) {
+        burgerMenuButton.addEventListener('click', handlerOpenBurgerMenu);
+    }
 
     const isShowMap = document.querySelector('[data-map]').hasAttribute('data-nohide');
 
@@ -19,8 +21,8 @@ window.addEventListener('load', function() {
     window.addEventListener('scroll', handlerScrollWindow);
 
     /*
-     *   Отслдеить исчезновение прелоадера
-     */
+    *   Отслдеить исчезновение прелоадера
+    */
     if(document.querySelector('.preloader')) {
         document.querySelector('.preloader').addEventListener(transitionEnd, loaderAnimation);
     } else {
@@ -29,22 +31,24 @@ window.addEventListener('load', function() {
         }
     }
 
-    var isTouch;
 
+    var isTouch;
     /*
     *   Инициализация браузера
     */
     initBrowser();
 
     /*
-    *   Инициализация формы
-    */
-    controlInputs();
-
-    /*
     *   Инициализация карты
     */
     map();
+
+    /*
+     *   Инициализация формы, если нету аккордеона
+     */
+    if(!document.querySelector('.accordeon')) {
+        controlInputs();
+    }
 
     /*
     *   Открытие попапа для записи
@@ -225,7 +229,6 @@ window.addEventListener('load', function() {
                 return false;
             }
         }
-
     }
 });
 
@@ -402,6 +405,13 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
 
     }
 
+    /*
+     *   Инициализация формы
+     */
+    if(document.querySelector('.accordeon')) {
+        controlInputs();
+    }
+
     return accordeons;
 }
 
@@ -409,7 +419,7 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
  *   Создание одного аккордеона
  *   elem                        - класс обертки аккордеона
  */
-function MakeAccordeon(elem, time){
+function MakeAccordeon(elem, time, callBack){
 
     const self = this;
 
@@ -433,6 +443,10 @@ function MakeAccordeon(elem, time){
         }
 
         window.addEventListener('resize', resizeAccordeon.bind(self));
+
+        if(typeof callBack == 'function') {
+            callBack();
+        }
     };
 
     function handlerClick(e) {
@@ -1062,6 +1076,27 @@ function loaderAnimation() {
     }
 }
 
+function initBrowser() {
+    var isTouch = detectTouch();
+    if (isTouch) {
+        document.body.classList.add('touch-device');
+    } else {
+        document.body.classList.remove('touch-device');
+    }
+
+    /*
+     *   Определение touch устройства
+     */
+    function detectTouch() {
+        try {
+            document.createEvent("TouchEvent");
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    }
+}
 
 /*
 *   Создание свайпа для списка сотрудников
@@ -1094,6 +1129,12 @@ function swipeForStaffs() {
     }
 }
 
+/*
+*   Открытие попапа записи
+*   .button-record          - класс на кнопке вызова попапа через описание пакета
+*   .button-online-record   - класс на кнопке вызова попапа онлайн регистрации
+*   .name                   - класс на названии сервиса, которое вписывается в форму запроса (через пакет)
+*/
 function preparePopupToContact(isShowMap) {
     var buttonToOpenPopupContact = document.getElementsByClassName('button-record');
     var buttonToOpenPopupOnlineRecord = document.getElementsByClassName('button-online-record');
@@ -1101,11 +1142,13 @@ function preparePopupToContact(isShowMap) {
 
     for(i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
         buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
+        buttonToOpenPopupContact[i].addEventListener('touchend', handlerOpenPopupContact);
         buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupContact[i],'[data-contact]'));
     }
 
     for(i = 0, len = buttonToOpenPopupOnlineRecord.length; i < len; i++) {
         buttonToOpenPopupOnlineRecord[i].addEventListener('click', handlerOpenPopupOnlineRecord);
+        buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
         buttonToOpenPopupOnlineRecord[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord[i],'[data-online-record]'));
     }
 
@@ -1113,15 +1156,27 @@ function preparePopupToContact(isShowMap) {
     function handlerOpenPopupContact(e) {
         var popup = document.querySelector('[data-contact]');
         var formWrap = popup.children[0];
+        var self = this;
+        var node;
 
-        var node = this;
+        var valueService;
 
-        while(node.nodeName != 'TR') {
-            node = node.parentNode;
+        node = self;
+        while(node.nodeName != 'TR' && node.parentNode) {
+          node = node.parentNode;
         }
 
-        formWrap.querySelector('h4').innerHTML = node.querySelector('.name').innerHTML;
-        formWrap.querySelector('[name=services]').value = node.querySelector('.name').innerHTML;
+        if(node.nodeName != 'TR') {
+            node = self;
+            while(!node.classList.contains('acc-item') && node.parentNode) {
+                node = node.parentNode;
+            }
+        }
+
+        valueService = node.querySelector('.name').innerHTML;
+
+        formWrap.querySelector('h4').innerHTML = valueService;
+        formWrap.querySelector('[name=services]').value = valueService;
 
         openWrapPopup(popup, formWrap);
 
@@ -1192,31 +1247,6 @@ function preparePopupToContact(isShowMap) {
 }
 
 (function() {
-
-    // проверяем поддержку 'append'
-    (function (arr) {
-        arr.forEach(function (item) {
-            if (item.hasOwnProperty('append')) {
-                return;
-            }
-            Object.defineProperty(item, 'append', {
-                configurable: true,
-                enumerable: true,
-                writable: true,
-                value: function append() {
-                    var argArr = Array.prototype.slice.call(arguments),
-                        docFrag = document.createDocumentFragment();
-
-                    argArr.forEach(function (argItem) {
-                        var isNode = argItem instanceof Node;
-                        docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
-                    });
-
-                    this.appendChild(docFrag);
-                }
-            });
-        });
-    })([Element.prototype, Document.prototype, DocumentFragment.prototype]);
 
     // проверяем поддержку 'matches'
     var matches = function() {
