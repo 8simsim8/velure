@@ -1,3 +1,7 @@
+.b-title .video-wrapp {
+  height: 100vh;
+  margin-bottom: 0;
+}
 .b-title__logo-text {
   margin-bottom: 5vh;
 }
@@ -108,7 +112,7 @@
 }
 .b-form {
   position: relative;
-  margin-top: -13vh;
+  margin-top: 55px;
   margin-bottom: 60px;
   z-index: 10;
 }
@@ -153,9 +157,6 @@
   }
 }
 @media all and (max-height: 850px) {
-  .b-title__logo {
-    padding-top: 15vh;
-  }
   .b-title__logo-ligature {
     margin-bottom: 5vh;
   }
@@ -173,9 +174,6 @@
   .b-title__logo-ligature {
     margin-bottom: 2vh;
     font-size: 40px;
-  }
-  .b-title__logo-social {
-    margin-top: 3vh;
   }
   .b-title__logo-social a {
     height: 60px;

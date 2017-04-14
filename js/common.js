@@ -2,6 +2,8 @@ window.breakPointTabletLandscape = 1024;
 window.breakPointTabletPortrait = 768;
 window.breakPointMobile = 660;
 
+var isScrollAnim = true;
+
 window.addEventListener('load', function() {
 
     const header = document.getElementsByClassName('l-navigation')[0];
@@ -27,7 +29,7 @@ window.addEventListener('load', function() {
         document.querySelector('.preloader').addEventListener(transitionEnd, loaderAnimation);
     } else {
         if(document.body.classList.contains('finish-load')) {
-            scrollAnim('start');
+            isScrollAnim = scrollAnim('start');
         }
     }
 
@@ -72,9 +74,9 @@ window.addEventListener('load', function() {
                 }
 
                 // Старт и подготовка анимаций при скролле
-                if(document.body.classList.contains('finish-load')) {
+                if(document.body.classList.contains('finish-load') && isScrollAnim) {
                     prepareToAnim();
-                    scrollAnim('start');
+                    isScrollAnim = scrollAnim('start');
                 }
 
                 // Необходимо скрывать карту
@@ -182,7 +184,7 @@ window.addEventListener('load', function() {
 
             function closePopup(e) {
                 var target = e.target;
-                if(target == popup) {
+                if(target === popup) {
                     handlerCloseMap(e);
                     popup.removeEventListener('click', closePopup);
                     e.stopPropagation();
@@ -265,7 +267,7 @@ function switchPlayVideoOnScroll() {
         } else {
             if(!window.isVideoPlay) {
                 video.muted = true;
-                video.controls = false;;
+                video.controls = false;
 
                 setTimeout(function () {
                     // Resume play if the element if is paused.
@@ -289,7 +291,7 @@ function scrollAnim(classAnimEl, classAfterFinish) {
 
     var el = document.querySelectorAll('.'+start);
 
-    if(el.length == 0) return;
+    if(el.length === 0) return false;
 
     for(var i = 0, len = el.length; i < len; i++) {
 
@@ -308,6 +310,8 @@ function scrollAnim(classAnimEl, classAfterFinish) {
         this.removeEventListener(transitionEnd, listenAnim);
     }
 
+    return true;
+
 }
 
 /*
@@ -318,13 +322,13 @@ function prepareToAnim(classAnimEl) {
 
     var el = document.querySelectorAll('.'+start);
 
-    if(el.length == 0) return;
+    if(el.length === 0) return;
 
     for(var i = 0, len = el.length; i < len; i++) {
 
         var posEl = el[i].getBoundingClientRect();
 
-        if (posEl.top <= window.innerHeight && el[i].style.willChange == '') {
+        if (posEl.top <= window.innerHeight && el[i].style.willChange === '') {
             willChangeSwitch(el[i], 'transition, opacity');
             el[i].addEventListener(transitionEnd, removeWillChange);
         }
@@ -646,6 +650,8 @@ function makeSlider(wrapClass, delayAutoplay){
 */
 function controlInputs() {
 
+    var i, len;
+
     animTextInput('input__field');
 
     controlHeightTextArea();
@@ -659,9 +665,9 @@ function controlInputs() {
     } else {
         var date = document.getElementsByClassName('input-date');
 
-        for(var i = 0, len = date.length; i < len; i++) {
+        for(i = 0, len = date.length; i < len; i++) {
             date[i].addEventListener('change', function(){
-                if(this.value != '') {
+                if(this.value !== '') {
                     this.classList.add('full');
                 } else {
                     this.classList.remove('full');
@@ -674,7 +680,7 @@ function controlInputs() {
 
     var validation = [];
 
-    for(var i = 0, len = forms.length; i < len; i++) {
+    for(i = 0, len = forms.length; i < len; i++) {
 
         /*
          * Валидация формы записи
@@ -771,14 +777,14 @@ function animTextInput(className) {
 
     function handlerClickInput(e) {
         this.parentNode.classList.add('input--filled');
-        if (this.value == '') {
+        if (this.value === '') {
             this.parentNode.querySelector('.input__label-content').style.opacity = '';
         }
         this.addEventListener('blur', handlerBlurInput);
     }
 
     function handlerBlurInput() {
-        if (this.value == '') {
+        if (this.value === '') {
             this.parentNode.classList.remove('input--filled');
             this.parentNode.querySelector('.input__label-content').style.opacity = '';
         } else if(!this.classList.contains('error')) {
@@ -936,16 +942,16 @@ function controlHeightTextArea() {
 */
 function isClosest(el, crit) {
     var node = el;
-    if(typeof crit == 'string') {
+    if(typeof crit === 'string') {
         while (node) {
             if (node.matches(crit)) return true;
             else node = node.parentElement;
         }
         return false;
     }
-    if(typeof crit == 'object') {
+    if(typeof crit === 'object') {
         while (node) {
-            if (node == crit) return true;
+            if (node === crit) return true;
             else node = node.parentElement;
         }
         return false;
@@ -1073,28 +1079,6 @@ function loaderAnimation() {
     }
     if(document.querySelector('.preloader')) {
         document.querySelector('.preloader').removeEventListener(transitionEnd, loaderAnimation);
-    }
-}
-
-function initBrowser() {
-    var isTouch = detectTouch();
-    if (isTouch) {
-        document.body.classList.add('touch-device');
-    } else {
-        document.body.classList.remove('touch-device');
-    }
-
-    /*
-     *   Определение touch устройства
-     */
-    function detectTouch() {
-        try {
-            document.createEvent("TouchEvent");
-            return true;
-        }
-        catch (e) {
-            return false;
-        }
     }
 }
 
