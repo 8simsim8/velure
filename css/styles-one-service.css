@@ -232,7 +232,7 @@
   box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 }
 body:not(.open-popup) .flatpickr-calendar {
-  margin-left: -35px;
+  margin-left: -20px;
   width: 348px;
   padding: 10px;
 }
