@@ -696,10 +696,8 @@
 .b-programs__cards-item .center {
   margin-top: auto;
 }
-.b-programs__cards-item:before {
+.b-programs__cards-item-img {
   display: block;
-  content: '';
-  padding-top: 80%;
   width: 100%;
   max-width: 280px;
   margin: 0 auto;
@@ -709,17 +707,10 @@
   background-repeat: no-repeat;
   background-position: center 18px;
 }
-.b-programs__cards-item.card_spa-complex:before {
-  background-image: url("../img/title-services/spa-complex-card.png");
-}
-.b-programs__cards-item.card_cosmetology:before {
-  background-image: url("../img/title-services/cosmetology-card.png");
-}
-.b-programs__cards-item.card_beauty-zone:before {
-  background-image: url("../img/title-services/beauty-zone-card.png");
-}
-.b-programs__cards-item.card_man-services:before {
-  background-image: url("../img/title-services/man-services-card.png");
+.b-programs__cards-item-img span {
+  display: block;
+  padding-top: 80%;
+  width: 100%;
 }
 .b-parallax {
   position: relative;
