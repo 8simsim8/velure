@@ -58,6 +58,12 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-chevrone-to-down:before {
+	content: "\e917";
+}
+.icon-close:before {
+	content: "\e918";
+}
 .icon-about-ligature:before {
 	content: "\e916";
 }
@@ -637,4 +643,35 @@ textarea {
 	&:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
 	&:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
 	&:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+}
+
+@media all and (max-width: 550px) {
+	h1 {
+		font-size: 28px;
+	}
+	h2 {
+		font-size: 24px;
+	}
+	h3 {
+		font-size: 20px;
+	}
+	h4 {
+		font-size: 18px;
+	}
+	.lead {
+		font-size: 16px;
+	}
+	.text {
+		font-size: 14px;
+	}
+	.normal {
+		font-size: 16px;
+	}
+	.button-text {
+		font-size: 14px;
+	}
+	.btn {
+		font-size: 12px;
+		width: 100%;
+	}
 }

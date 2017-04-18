@@ -53,7 +53,7 @@ body {
 		z-index : 9999;
 	}
 	&__main {
-		box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+		//box-shadow: 0 1px 8px rgba(0,0,0,0.1);
 	}
 	&__mobile {
 		& {
@@ -67,6 +67,7 @@ body {
 					display: none;
 					height: 100%;
 					min-width: 50px;
+					width: auto;
 					margin-left: 20px;
 					padding: 10px;
 					z-index: 2;
@@ -223,7 +224,7 @@ body {
 			width : 80px;
 			background-color : #FFFFFF;
 			pointer-events : auto;
-			box-shadow: 1px 4px 8px rgba(0,0,0,0.1);
+			//box-shadow: 1px 4px 8px rgba(0,0,0,0.1);
 		}
 		&-left:after,
 		&-right:after,
@@ -2118,6 +2119,9 @@ video {
 }
 
 @media all and (max-width: 768px) {
+	.b-navigation__header-links .button-online-record {
+		font-size: 13px;
+	}
 	.accordeon {
 		& {
 		}
@@ -2330,7 +2334,7 @@ video {
 	}
 	.b-popup__contact,
 	.b-popup__online {
-		margin-top: 80px;
+		top: 0;
 		width: 100vw;
 		border-radius: 0;
 		padding-left: 20px;
@@ -2341,6 +2345,83 @@ video {
 		width: 100%;
 		text-align: center;
 		border-bottom : 1px solid #E5E5E5;
+	}
+
+}
+
+@media all and (max-width: 550px) {
+	section .icon-ligature {
+		font-size: 26px;
+	}
+	.form {
+		& {
+			width: 100%;
+			padding: 10px 20px;
+		}
+		.icon-ligature-half {
+			margin-bottom: 10px;
+		}
+		h3 {
+			font-size: 24px;
+			margin-bottom: 1em;
+		}
+		h4 {
+			margin-bottom: 5px;
+			text-align: center;
+		}
+		.normal {
+			margin-bottom: 5px;
+			font-size: 0.9rem;
+			text-align: center;
+		}
+		button {
+			margin-top: 50px;
+			width: 100%;
+		}
+		button + .normal {
+			margin-top: 30px;
+			text-align: center;
+			font-size : 14px;
+			color : #5E4F5C;
+		}
+		.normal a {
+			font-size : 14px;
+			color: #5e4f5c
+		}
+		.form-wrap {
+			& {
+				position : relative;
+			}
+			.form-sent {
+				position : absolute;
+				display: none;
+				top : 0;
+				left : 0;
+				height : 100%;
+				width : 100%;
+				opacity : 0;
+				pointer-events: none;
+				z-index : 20;
+				transition: opacity 0.2s ease;
+			}
+			.show-message.form-sent {
+				opacity: 1;
+				pointer-events: auto;
+			}
+			.img-message-send {
+				height : 150px;
+				background-position : center;
+				background-size : auto 60px;
+			}
+			.button-close {
+				position: static;
+				display: block;
+				text-align: center;
+				margin-top: 90px;
+				width: 100%;
+				color: #a823a3;
+			}
+		}
 	}
 
 }

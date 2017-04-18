@@ -1,12 +1,12 @@
 window.addEventListener('load', function(){
 
     /*
-     * Swipe block
-     */
+    *   Swipe block photo
+    */
     const swipeElemClass = '.swiper-container';
-    const nextButtonClass = document.querySelector('.swiper-controls-next') || null,
-        prevButtonClass = document.querySelector('.swiper-controls-prev') || null,
-        paginElemClass =  document.querySelector('.swiper-pagination') || null;
+    const nextButtonClass = document.querySelector(swipeElemClass).querySelector('.swiper-controls-next') || null,
+        prevButtonClass = document.querySelector(swipeElemClass).querySelector('.swiper-controls-prev') || null,
+        paginElemClass =  document.querySelector(swipeElemClass).querySelector('.swiper-pagination') || null;
 
     const swipeSlide = new Swiper(swipeElemClass, {
         // spaceBetween: 20,
@@ -30,13 +30,94 @@ window.addEventListener('load', function(){
 
     if(document.querySelector('.b-programs__circles')) {
         openCircle();
+        createSwipeOnCirclesBlock();
+    }
 
-        var swipeSlideCircle,
-            isSwipeStart = false;
+    if(document.querySelectorAll('.b-reclame__item-link').length > 1) {
+        createSwipeOnReclame();
+    }
 
-        if(window.innerWidth <= window.breakPointTabletPortrait) {
+    toggleAccordeonCards();
+
+});
+
+/*
+*   Swipe block reclame
+*/
+function createSwipeOnReclame(){
+
+    var swipeSlideCircle,
+        isSwipeStart = false;
+
+    var paginElemClass =  document.getElementsByClassName('b-reclame')[0].querySelector('.swiper-pagination') || null;
+
+    toggleSwipe();
+
+    window.addEventListener('resize', toggleSwipe);
+
+    function toggleSwipe() {
+        if(window.innerWidth <= window.breakPointMobile) {
             if(!isSwipeStart) {
-                swipeSlideCircle = new Swiper('.b-programs__circles-right', {
+                swipeSlideCircle = new Swiper('.b-reclame', {
+                    slidesPerView: 1,
+                    lazyLoading: false,
+                    centeredSlides: false,
+                    pagination: paginElemClass,
+                    setWrapperSize: true
+                });
+                isSwipeStart = true;
+            }
+        } else {
+            if(isSwipeStart) {
+                swipeSlideCircle.destroy(false,true);
+                isSwipeStart = false;
+            }
+        }
+    }
+
+    // function changeSize(){
+    //     if(window.innerWidth <= window.breakPointTabletPortrait) {
+    //         if(!isSwipeStart) {
+    //             swipeSlideCircle = new Swiper('.b-programs__circles-right', {
+    //                 slidesPerView: 3,
+    //                 lazyLoading: false,
+    //                 centeredSlides: false,
+    //                 pagination: paginElemClass,
+    //                 setWrapperSize: true,
+    //                 breakpoints: {
+    //                     768: {
+    //                         slidesPerView: 3
+    //                     },
+    //                     550: {
+    //                         slidesPerView: 1,
+    //                         centeredSlides: true
+    //                     }
+    //                 }
+    //             });
+    //             isSwipeStart = true;
+    //         }
+    //     } else {
+    //         if(isSwipeStart) {
+    //             swipeSlideCircle.destroy(false,true);
+    //             isSwipeStart = false;
+    //         }
+    //     }
+    // }
+}
+
+/*
+*   Swipe block circles
+*/
+function createSwipeOnCirclesBlock(){
+
+    var swipeSlideCircle,
+        isSwipeStart = false;
+
+    var paginElemClass =  document.getElementsByClassName('b-programs__circles-right')[0].querySelector('.swiper-pagination') || null;
+
+    if(window.innerWidth <= window.breakPointTabletPortrait) {
+        if(!isSwipeStart) {
+            swipeSlideCircle = new Swiper('.b-programs__circles-right', {
                     slidesPerView: 3,
                     lazyLoading: false,
                     centeredSlides: false,
@@ -47,21 +128,23 @@ window.addEventListener('load', function(){
                             slidesPerView: 3
                         },
                         550: {
-                            slidesPerView: 1,
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                            loop: true,
                             centeredSlides: true
                         }
                     }
-                });
-                isSwipeStart = true;
-            }
+            });
+            isSwipeStart = true;
         }
+    }
 
-        window.addEventListener('resize', changeSize);
+    window.addEventListener('resize', changeSize);
 
-        function changeSize(){
-            if(window.innerWidth <= window.breakPointTabletPortrait) {
-                if(!isSwipeStart) {
-                    swipeSlideCircle = new Swiper('.b-programs__circles-right', {
+    function changeSize(){
+        if(window.innerWidth <= window.breakPointTabletPortrait) {
+            if(!isSwipeStart) {
+                swipeSlideCircle = new Swiper('.b-programs__circles-right', {
                         slidesPerView: 3,
                         lazyLoading: false,
                         centeredSlides: false,
@@ -76,21 +159,21 @@ window.addEventListener('load', function(){
                                 centeredSlides: true
                             }
                         }
-                    });
-                    isSwipeStart = true;
-                }
-            } else {
-                if(isSwipeStart) {
-                    swipeSlideCircle.destroy(false,true);
-                    isSwipeStart = false;
-                }
+                });
+                isSwipeStart = true;
+            }
+        } else {
+            if(isSwipeStart) {
+                 swipeSlideCircle.destroy(false,true);
+                 isSwipeStart = false;
             }
         }
-
     }
+}
 
-});
-
+/*
+*   ShowTable on circle click
+*/
 function openCircle() {
     var circlesWrap = document.querySelector('.circles-wrap');
     var tablesWrap = document.querySelector('.tables-wrap');
@@ -211,4 +294,35 @@ function openCircle() {
         this.addEventListener(transitionEnd, deleteClassAfterEndAnimation);
     }
 
+}
+
+/*
+*
+*/
+function toggleAccordeonCards() {
+
+    var cards = document.getElementsByClassName('accordeon-mobile');
+
+    // var items = cards.getElementsByClassName('acc-item');
+    var accordeons = [];
+    var i, len;
+
+    for(i = 0, len = cards.length; i < len; i++) {
+        accordeons[i] = new MakeAccordeon(cards[i], 500);
+    }
+
+    createAccordeon();
+
+    window.addEventListener('resize', createAccordeon);
+
+    function createAccordeon() {
+        for (i = 0, len = cards.length; i < len; i++) {
+            if (window.innerWidth <= window.breakPointMobile) {
+                accordeons[i].accordeonStart();
+                accordeons[i].button[0].click();
+            } else {
+                accordeons[i].accordeonStop();
+            }
+        }
+    }
 }

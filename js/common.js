@@ -1,6 +1,6 @@
 window.breakPointTabletLandscape = 1024;
 window.breakPointTabletPortrait = 768;
-window.breakPointMobile = 660;
+window.breakPointMobile = 550;
 
 var isScrollAnim = true;
 
@@ -448,7 +448,7 @@ function MakeAccordeon(elem, time, callBack){
 
         window.addEventListener('resize', resizeAccordeon.bind(self));
 
-        if(typeof callBack == 'function') {
+        if(typeof callBack === 'function') {
             callBack();
         }
     };

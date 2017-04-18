@@ -228,6 +228,7 @@
 					position: absolute;
 					opacity: 0;
 					left: 0;
+					padding: 0 20px;
 					width: 100%;
 					bottom: 14vh;
 					text-align: center;
@@ -843,8 +844,8 @@
 			</script>
 			
 			<section class="b-reclame">
-				<div class="wrap row row-wrap">
-					<div class="b-reclame__item col xs-12 sm-6">
+				<div class="wrap row row-wrap swiper-wrapper">
+					<div class="b-reclame__item col xs-12 sm-6 swiper-slide">
 						<a href="one-news.html" class="b-reclame__item-link icon-btn-right">
 							<div class="b-reclame__item-block">
 								<div class="b-reclame__item-img">
@@ -859,7 +860,7 @@
 						</a>
 					</div>
 					
-					<div class="b-reclame__item col xs-12 sm-6">
+					<div class="b-reclame__item col xs-12 sm-6 swiper-slide">
 						<a href="one-news.html" class="b-reclame__item-link icon-btn-right">
 							<div class="b-reclame__item-block">
 								<div class="b-reclame__item-img">
@@ -873,6 +874,7 @@
 						</a>
 					</div>
 				</div>
+				<p class="swiper-pagination"></p>
 			</section>
 			
 			<section class="b-programs">
@@ -1032,31 +1034,51 @@
 					</div>
 				</div>
 				<div class="b-programs__cards">
-					<div class="wrap row row-wrap">
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/spa-complex-card.png');"><span></span></p>
-							<h3>SPA-комплекс</h3>
-							<p class="normal">Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости
-								и сил</p>
-							<p class="center"><a href="spa.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+					<div class="wrap row row-wrap accordeon-mobile">
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>SPA-комплекс</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/spa-complex-card.png');"><span></span></p>
+								<p class="normal">Окунитесь в мир красоты, здоровья и гармонии и ощутите прилив бодрости
+									и сил</p>
+								<p class="center"><a href="spa.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/cosmetology-card.png');"><span></span></p>
-							<h3>Косметология</h3>
-							<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
-							<p class="center"><a href="cosmetology.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>Косметология</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/cosmetology-card.png');"><span></span></p>
+								<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
+								<p class="center"><a href="cosmetology.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/beauty-zone-card.png');"><span></span></p>
-							<h3>Бьюти-зона</h3>
-							<p class="normal">Быть красивой всегда - легко, вместе с нашей командой профессиональных бьюти-мастеров</p>
-							<p class="center"><a href="beauty.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>Бьюти-зона</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/beauty-zone-card.png');"><span></span></p>
+								<p class="normal">Быть красивой всегда - легко, вместе с нашей командой профессиональных бьюти-мастеров</p>
+								<p class="center"><a href="beauty.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/man-services-card.png');"><span></span></p>
-							<h3>Для мужчин</h3>
-							<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
-							<p class="center"><a href="for-men.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>Для мужчин</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/man-services-card.png');"><span></span></p>
+								<p class="normal">Омоложение, оздоровление и поддержание красоты вашей кожи по передовым мировым технологиям</p>
+								<p class="center"><a href="for-men.html" class="btn btn__base arrow">УЗНАТЬ БОЛЬШЕ</a></p>
+							</div>
 						</div>
 					</div>
 				</div>
