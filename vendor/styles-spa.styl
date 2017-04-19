@@ -1,18 +1,5 @@
 @import 'nib'
 
-.b-title {
-	&__logo {
-		&-text {
-			margin-bottom: 5vh;
-		}
-		&-ligature{
-			svg {
-				height: 40px;
-			}
-		}
-	}
-}
-
 .b-procedures {
 	& {
 		padding-top: 80px;
@@ -32,7 +19,7 @@
 
 .b-packages {
 	& {
-		padding: 100px 10px 0;
+		padding: 100px 0 0;
 	}
 	h2,
 	.lead {
@@ -115,102 +102,6 @@
 	padding: 90px 20px 0;
 }
 
-.b-certificate {
-	& {
-		margin-top: 105px;
-		background: url("../img/certificate-bg.jpg") no-repeat;
-	}
-	.wrap {
-		& {
-			padding : 106px 0 0;
-		}
-	}
-	h2 {
-		padding: 0 20px;
-		margin-bottom: 1.25em;
-		color: #000000;
-		text-align: center;
-	}
-	.lead {
-		padding: 0 20px;
-		margin-bottom: 4.1em;
-		text-align: center;
-	}
-	.row {
-		& {
-			position : relative;
-		}
-		&:before {
-			position :absolute;
-			display: block;
-			content: '';
-			bottom: -155px;
-			left: 0;
-			height: 461px;
-			width: 66%;
-			max-width: 900px;
-			background: url("../img/certificate.png") no-repeat right bottom;
-			background-size: 900px 461px;
-		}
-	}
-	&__form {
-		& {
-			position: relative;
-			padding: 0 20px 40px;
-			z-index: 1;
-		}
-		label {
-			position: relative;
-			display: block;
-			height: 50px;
-			margin-bottom: 20px;
-		}
-		.select {
-			& {
-				margin-top : 0;
-				height: 50px;
-			}
-			.form-control {
-				& {
-					padding-left : 20px;
-					padding-right : 30px;
-					text-align : left;
-					height : 50px;
-					background-color : #FFFFFF;
-					border-radius : 4px;
-				}
-				&:before {
-					margin-right: 0;
-				}
-			}
-		}
-		.wrap-error span.error {
-			top : -50px;
-			left: 5px;
-		}
-		&-input {
-			border: none;
-			outline: none;
-			width: 100%;
-			padding-left : 20px;
-			padding-right : 30px;
-			text-align : left;
-			font-size: 16px;
-			height : 50px;
-			background-color : #FFFFFF;
-			border-radius : 4px;
-		}
-		.input-checkbox {
-			margin-top: 30px;
-			padding-top: 0;
-		}
-
-		.btn {
-			width: 100%;
-		}
-	}
-}
-
 
 .b-massage {
 	& {
@@ -246,8 +137,7 @@
 .b-procedures,
 .b-packages,
 .b-staffs,
-.b-certificate,
-.b-massage {
+.b-certificate {
 	h2,
 	.lead,
 	article {
@@ -262,16 +152,6 @@
 
 
 @media all and (max-width: 1024px) {
-	.b-certificate {
-		& {
-			margin-top : 105px;
-		}
-		.wrap {
-			& {
-				padding : 106px 0 0;
-			}
-		}
-	}
 }
 
 @media all and (max-width: 768px) {
@@ -320,4 +200,69 @@
 			}
 		}
 	}
+}
+
+@media all and (max-width: 550px) {
+	.b-procedures {
+		& {
+			padding-top : 40px;
+		}
+		.lead {
+			margin-bottom: 40px;
+		}
+	}
+	.b-packages {
+		& {
+			padding: 40px 0 0;
+		}
+		h2,
+		.lead {
+			margin: 0 auto;
+			max-width: 930px;
+			text-align: center;
+		}
+		.lead {
+			margin-bottom: 100px;
+			color : #40363E;
+		}
+	}
+	.b-staffs {
+		&__list.swiper-wrapper {
+			flex-direction : row;
+		}
+		&__list-item.col {
+			min-width: auto;
+		}
+	}
+	.b-massage {
+		& {
+			padding-top: 40px;
+		}
+		.col {
+			margin: 0 -10px;
+		}
+		h2 {
+			text-align: center;
+			margin-bottom: 1.4em;
+		}
+		article {
+			&:not(:last-child) {
+				margin-bottom: 40px;
+			}
+			h4 {
+				text-align: center;
+				margin-bottom: 0.7em;
+			}
+			p.text:not(:last-child) {
+				margin-bottom: 1em;
+			}
+		}
+	}
+
+	.b-also {
+		& {
+			padding: 40px 0 10px;
+		}
+	}
+
 }

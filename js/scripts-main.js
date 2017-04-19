@@ -37,8 +37,6 @@ window.addEventListener('load', function(){
         createSwipeOnReclame();
     }
 
-    toggleAccordeonCards();
-
 });
 
 /*
@@ -294,35 +292,4 @@ function openCircle() {
         this.addEventListener(transitionEnd, deleteClassAfterEndAnimation);
     }
 
-}
-
-/*
-*
-*/
-function toggleAccordeonCards() {
-
-    var cards = document.getElementsByClassName('accordeon-mobile');
-
-    // var items = cards.getElementsByClassName('acc-item');
-    var accordeons = [];
-    var i, len;
-
-    for(i = 0, len = cards.length; i < len; i++) {
-        accordeons[i] = new MakeAccordeon(cards[i], 500);
-    }
-
-    createAccordeon();
-
-    window.addEventListener('resize', createAccordeon);
-
-    function createAccordeon() {
-        for (i = 0, len = cards.length; i < len; i++) {
-            if (window.innerWidth <= window.breakPointMobile) {
-                accordeons[i].accordeonStart();
-                accordeons[i].button[0].click();
-            } else {
-                accordeons[i].accordeonStop();
-            }
-        }
-    }
 }

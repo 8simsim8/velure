@@ -394,6 +394,7 @@ a:active {
 .input .input__label .input__label-content {
   position: relative;
   top: 1em;
+  font-size: 16px;
   display: block;
   width: 100%;
 }
@@ -842,5 +843,7 @@ textarea:focus:-ms-input-placeholder {
   .btn {
     font-size: 12px;
     width: 100%;
+    height: 50px;
+    line-height: 25px;
   }
 }

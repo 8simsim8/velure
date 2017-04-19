@@ -73,7 +73,7 @@
 	& {
 	}
 	h2 {
-		margin-bottom: 60px;
+		margin-bottom: 1.3em;
 	}
 	.lead {
 		margin-bottom: 70px;
@@ -257,7 +257,7 @@
 		&-open {
 			position: absolute;
 			display: none;
-			left: 4px;
+			left: calc((100vw - 100% ) / 2);
 			top: -40px;
 			height: 40px;
 			width: calc(100% - 8px);
@@ -403,8 +403,7 @@ body:not(.open-popup) {
 		&__detail,
 		h2,
 		.lead {
-			margin-left: 20px;
-			margin-right: 20px;
+
 		}
 	}
 }
@@ -504,6 +503,131 @@ body:not(.open-popup) {
 				}
 				&.icon-all-body:before {
 					font-size : 45px;
+				}
+			}
+		}
+	}
+}
+
+@media all and (max-width: 550px) {
+	.l-content {
+		margin-bottom: 10px;
+	}
+	.b-title {
+		&__logo {}
+		&__logo-feature span {
+			min-width: 0 !important;
+		}
+		&__logo-feature.details-feature span:after {
+			display : none;
+		}
+	}
+
+	.b-about {
+		.lead {
+			margin-bottom: 40px;
+		}
+		&__slider {
+			margin: 0 -10px;
+			width: calc(100% + 20px);
+		}
+		&__slider-wrap {
+			height: 200px;
+			margin-bottom: 20px;
+		}
+		.swiper-controls {
+			display: none;
+		}
+		&__detail {
+			padding-top: 40px;
+		}
+	}
+
+
+	.b-prices {
+		padding: 40px 0 0;
+	}
+	.b-faq {
+		& {
+			padding : 40px 0 0;
+		}
+		.acc-hidden-element__wrap {
+			padding: 20px;
+		}
+	}
+	.b-packages {
+		& {
+			padding-top: 40px;
+		}
+		h3 {
+			margin-bottom: 0.7em;
+		}
+		&__accordeon {
+			& {
+				padding: 0;
+			}
+			.acc-hidden-element {
+				& {
+				}
+			}
+			.acc-item .acc-hidden-element__wrap.two-col {
+				& {
+					padding: 0;
+				}
+				& > * {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.b-other-services {
+		& {
+			padding-top: 40px;
+		}
+		&__links {
+			margin: 0 -10px;
+			width: calc(100% + 20px);
+		}
+	}
+
+
+	.b-side {
+		&__bar {
+			& {
+				height: 100vh;
+			}
+			&-content {
+				width: 100%;
+				min-height: 100vh;
+				padding: 40px 20px 10px;
+			}
+			&.form {
+				padding: 0;
+				width: 100vw;
+				left: 0;
+				border-radius: 0;
+			}
+			&-open {
+				left : 4px;
+			}
+		}
+		&.open-side-bar {
+			.b-side__bar.form {
+				overflow-y: auto;
+				transform : translate(0, 0);
+			}
+			.b-side__bar-open {
+				& {
+					top : 0;
+					height : 40px;
+					width : 40px;
+				}
+				&:before,
+				&:after {
+					left: 10px;
+					top: 20px;
+					width: 24px;
 				}
 			}
 		}

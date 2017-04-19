@@ -2,25 +2,32 @@ window.breakPointTabletLandscape = 1024;
 window.breakPointTabletPortrait = 768;
 window.breakPointMobile = 550;
 
+var isiPad;
+var isTouch;
+/*
+ *   Инициализация браузера
+ */
+initBrowser();
+
+const header = document.getElementsByClassName('l-navigation')[0];
+
 var isScrollAnim = true;
 
+const isShowMap = document.querySelector('[data-map]').hasAttribute('data-nohide');
+
+var ticking = false;
+var scrollPage;
+var scrollLeft;
+window.updateMap = false;
+
+window.addEventListener('scroll', handlerScrollWindow);
+
+const burgerMenuButton = document.getElementsByClassName('burger__button')[0];
+if(burgerMenuButton) {
+    burgerMenuButton.addEventListener('click', handlerOpenBurgerMenu);
+}
+
 window.addEventListener('load', function() {
-
-    const header = document.getElementsByClassName('l-navigation')[0];
-
-    const burgerMenuButton = document.getElementsByClassName('burger__button')[0];
-    if(burgerMenuButton) {
-        burgerMenuButton.addEventListener('click', handlerOpenBurgerMenu);
-    }
-
-    const isShowMap = document.querySelector('[data-map]').hasAttribute('data-nohide');
-
-    var ticking = false;
-    var scrollPage;
-    var scrollLeft;
-    window.updateMap = false;
-
-    window.addEventListener('scroll', handlerScrollWindow);
 
     /*
     *   Отслдеить исчезновение прелоадера
@@ -33,89 +40,28 @@ window.addEventListener('load', function() {
         }
     }
 
-
-    var isTouch;
-    /*
-    *   Инициализация браузера
-    */
-    initBrowser();
-
     /*
     *   Инициализация карты
     */
     map();
 
     /*
-     *   Инициализация формы, если нету аккордеона
+     *   Инициализация формы, если нету аккордеона, позволяет избежать неверного вычисления высоты документа
      */
     if(!document.querySelector('.accordeon')) {
         controlInputs();
     }
 
+
+    /*
+    *   Логика создания отключения аккордеонов для требуемых элементов в мобильной версии
+    */
+    toggleMobileAccordeon();
+
     /*
     *   Открытие попапа для записи
     */
     preparePopupToContact(isShowMap);
-
-    function handlerScrollWindow() {
-        scrollPage = window.pageYOffset || document.documentElement.scrollTop;
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        if (!ticking) {
-            window.requestAnimationFrame(function () {
-                // if (window.innerWidth <= 1210) {
-                //     header.style.left = -scrollLeft + "px";
-                // } else {
-                //     header.style.left = '';
-                // }
-
-                // Старт/пауза видео если не мобильный
-                if(window.innerWidth > breakPointTabletLandscape) {
-                    switchPlayVideoOnScroll();
-                }
-
-                // Старт и подготовка анимаций при скролле
-                if(document.body.classList.contains('finish-load') && isScrollAnim) {
-                    prepareToAnim();
-                    isScrollAnim = scrollAnim('start');
-                }
-
-                // Необходимо скрывать карту
-                if(!isShowMap && !document.body.classList.contains('open-popup')) {
-                    prepareMapScroll(scrollPage);
-                }
-                ticking = false;
-            });
-        }
-        ticking = true;
-    }
-
-    /*
-    *   Подготовка карты к открытию при скролле
-    */
-    function prepareMapScroll(scrollPage) {
-        if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 5) {
-            if(!window.updateMap) {
-                setTimeout(function(){
-                    var popup = document.querySelector('[data-map]');
-
-                    popup.style.display = 'flex';
-                    popup.children[0].style.display = 'flex';
-
-                    myMap();
-
-                    google.maps.event.trigger(map, 'resize');
-
-                },100);
-                window.updateMap = true;
-            }
-        } else {
-            if(window.updateMap) {
-                window.updateMap = false;
-                document.querySelector('[data-map]').style.display = '';
-                document.querySelector('[data-map]').children[0].style.display = '';
-            }
-        }
-    }
 
     /*
     *   Подготовка карты к открытию/закрытию
@@ -208,31 +154,185 @@ window.addEventListener('load', function() {
 
     }
 
-    /*
-    *   Инициализация браузера
-    */
-    function initBrowser() {
-        isTouch = detectTouch();
-        if (isTouch) {
-            document.body.classList.add('touch-device');
-        } else {
-            document.body.classList.remove('touch-device');
-        }
+});
 
-        /*
-         *   Определение touch устройства
-         */
-        function detectTouch() {
-            try {
-                document.createEvent("TouchEvent");
-                return true;
+togglePartText();
+
+function togglePartText() {
+
+    var isCreate = false;
+
+    cutText();
+
+    window.addEventListener('resize', function(){
+        cutText();
+    });
+
+    function cutText() {
+        const elems = document.getElementsByClassName('hide-parent-text');
+        if (window.innerWidth <= window.breakPointMobile) {
+            var i, len;
+
+            if(!isCreate) {
+
+                for (i = 0, len = elems.length; i < len; i++) {
+                    var heightVisible = elems[i].hasAttribute('data-visible') ? elems[i].getAttribute('data-visible') : 400;
+                    elems[i].classList.add('hide-part-text');
+                    elems[i].style.overflowY = 'hidden';
+                    elems[i].style.maxHeight = heightVisible + 'px';
+                    createButton(elems[i]);
+                }
+
+                isCreate = true;
             }
-            catch (e) {
-                return false;
+        } else {
+            if(isCreate) {
+
+                for (i = 0, len = elems.length; i < len; i++) {
+                    elems[i].classList.remove('hide-part-text');
+                    elems[i].style.overflowX = '';
+                    elems[i].style.maxHeight = '';
+                    elems[i].classList.remove('current-open');
+                    elems[i].getElementsByClassName('toggle-text-button')[0].removeEventListener('click', toggleText);
+                    elems[i].getElementsByClassName('toggle-text-button')[0].remove();
+                }
+
+                isCreate = false;
             }
         }
     }
-});
+
+    function createButton(elem) {
+        var button = document.createElement('p');
+        button.classList.add('toggle-text-button');
+        elem.appendChild(button);
+
+        button.addEventListener('click', toggleText);
+    }
+
+    function toggleText() {
+        var parent = this.parentNode;
+        var heightVisible = parent.hasAttribute('data-visible') ? parent.getAttribute('data-visible') : 400;
+        if(parent.classList.contains('current-open')) {
+            parent.style.maxHeight = heightVisible + 'px';
+            parent.classList.remove('current-open');
+        } else {
+            parent.style.maxHeight = parent.scrollHeight + 'px';
+            parent.classList.add('current-open');
+        }
+    }
+}
+
+/*
+*   Инициализация браузера
+*/
+function initBrowser() {
+    isTouch = detectTouch();
+    if (isTouch) {
+        document.body.classList.add('touch-device');
+    } else {
+        document.body.classList.remove('touch-device');
+    }
+
+    /*
+     *   Определение touch устройства
+     */
+    function detectTouch() {
+        try {
+            document.createEvent("TouchEvent");
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    }
+
+    isiPad = navigator.userAgent.match(/[iPad][iPhone]/i) != null;
+}
+
+/*
+*   Обработчк скролла
+*/
+function handlerScrollWindow() {
+    scrollPage = window.pageYOffset || document.documentElement.scrollTop;
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+    if (!ticking) {
+        window.requestAnimationFrame(function () {
+
+            toggleMobileMenu(scrollPage, header);
+
+            // Старт/пауза видео если не мобильный
+            if(window.innerWidth > breakPointTabletLandscape) {
+                switchPlayVideoOnScroll();
+            }
+
+            // Старт и подготовка анимаций при скролле
+            if(document.body.classList.contains('finish-load') && isScrollAnim) {
+                prepareToAnim();
+                isScrollAnim = scrollAnim('start');
+            }
+
+            // Необходимо скрывать карту
+            if(!isShowMap && !document.body.classList.contains('open-popup')) {
+                prepareMapScroll(scrollPage);
+            }
+            ticking = false;
+        });
+    }
+    ticking = true;
+}
+
+/*
+ *   Подготовка карты к открытию при скролле
+ */
+function prepareMapScroll(scrollPage) {
+    if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 100) {
+        if(!window.updateMap) {
+            setTimeout(function(){
+                var popup = document.querySelector('[data-map]');
+
+                popup.style.display = 'flex';
+                popup.children[0].style.display = 'flex';
+
+                myMap();
+
+                google.maps.event.trigger(map, 'resize');
+
+            },100);
+            window.updateMap = true;
+        }
+    } else {
+        if(window.updateMap) {
+            window.updateMap = false;
+            document.querySelector('[data-map]').style.display = '';
+            document.querySelector('[data-map]').children[0].style.display = '';
+        }
+    }
+}
+
+/*
+*   Показывать/скрывать меню в мобильной версии
+*/
+function toggleMobileMenu(scroll, header) {
+
+    if (window.innerWidth <= window.breakPointMobile) {
+        if (scroll >= (window.innerHeight - header.offsetHeight)) {
+            header.classList.add('transition-mobile-menu');
+            header.classList.add('show-mobile-menu');
+        } else {
+            header.classList.add('transition-mobile-menu');
+            header.classList.remove('show-mobile-menu');
+        }
+        header.addEventListener(transitionEnd, finishAnimation);
+    } else {
+        header.classList.remove('show-mobile-menu');
+    }
+
+    function finishAnimation(){
+        header.classList.remove('transition-mobile-menu');
+        header.removeEventListener(transitionEnd, finishAnimation);
+    }
+}
 
 /*
 *   Открытие/закрытие бургер меню в режиме "tablet"
@@ -419,6 +519,51 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
     return accordeons;
 }
 
+
+/*
+ *   Создание аккордеонов когда мобильный вид
+ *   Если обертка "accordeon-mobile" с атрибутом "data-first-open" - открыть первый
+ */
+function toggleMobileAccordeon() {
+
+    var mobileAcc = document.getElementsByClassName('accordeon-mobile');
+
+    var isAccordeonStart = false;
+
+    // var items = cards.getElementsByClassName('acc-item');
+    var accordeons = [];
+    var i, len;
+
+    for(i = 0, len = mobileAcc.length; i < len; i++) {
+        accordeons[i] = new MakeAccordeon(mobileAcc[i], 500);
+    }
+
+    createAccordeon();
+
+    window.addEventListener('resize', createAccordeon);
+
+    function createAccordeon() {
+        if (window.innerWidth <= window.breakPointMobile) {
+            if(!isAccordeonStart) {
+                for (i = 0, len = mobileAcc.length; i < len; i++) {
+                    accordeons[i].accordeonStart();
+                    if(accordeons[i].accordeonWrap.hasAttribute('data-first-open')) {
+                        accordeons[i].button[0].click();
+                    }
+                }
+                isAccordeonStart = true;
+            }
+        } else {
+            if(isAccordeonStart) {
+                for (i = 0, len = mobileAcc.length; i < len; i++) {
+                    accordeons[i].accordeonStop();
+                }
+                isAccordeonStart = false;
+            }
+        }
+    }
+}
+
 /*
  *   Создание одного аккордеона
  *   elem                        - класс обертки аккордеона
@@ -426,6 +571,8 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
 function MakeAccordeon(elem, time, callBack){
 
     const self = this;
+
+    var defaultWidth = window.innerWidth;
 
     this.accordeonWrap = elem;
     this.time = time;
@@ -567,16 +714,24 @@ function MakeAccordeon(elem, time, callBack){
         window.removeEventListener('resize', resizeAccordeon);
     };
 
-    function resizeAccordeon() {
+    function resizeAccordeon(e) {
 
-        var self        = this;
-        var actives     = self.accordeonWrap.querySelectorAll('.active');
+        setTimeout(function(){
+            if(defaultWidth === window.innerWidth) {
+                return false;
+            } else {
+                var self = this;
+                var actives = elem.querySelectorAll('.active');
 
-        for(var i = 0, len = actives.length; i < len; i++) {
-            var hidden = actives[i].nextElementSibling;
-            hidden.style.height = 0;
-            hidden.style.height = hidden.scrollHeight + 'px';
-        }
+                for (var i = 0, len = actives.length; i < len; i++) {
+                    var hidden = actives[i].nextElementSibling;
+                    hidden.style.height = 0;
+                    hidden.style.height = hidden.scrollHeight + 'px';
+                }
+
+                defaultWidth = window.innerWidth;
+            }
+        },150);
     }
 
     var EasingFunctions = {
@@ -965,9 +1120,11 @@ function myMap() {
     var mapDiv = document.getElementById('map');
     var posit = {lat:50.905910, lng:34.792679};
 
+    var zoomValue = (window.innerWidth <= window.breakPointMobile) ? 17 : 18;
+
     var mapOptions = {
         center: posit,
-        zoom: 18,
+        zoom: zoomValue,
         disableDefaultUI: true,
         zoomControl: true,
         // mapTypeControl: true,
@@ -1126,13 +1283,17 @@ function preparePopupToContact(isShowMap) {
 
     for(i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
         buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
-        buttonToOpenPopupContact[i].addEventListener('touchend', handlerOpenPopupContact);
+        if(isiPad) {
+            buttonToOpenPopupContact[i].addEventListener('touchend', handlerOpenPopupContact);
+        }
         buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupContact[i],'[data-contact]'));
     }
 
     for(i = 0, len = buttonToOpenPopupOnlineRecord.length; i < len; i++) {
         buttonToOpenPopupOnlineRecord[i].addEventListener('click', handlerOpenPopupOnlineRecord);
-        buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
+        if(isiPad) {
+            buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
+        }
         buttonToOpenPopupOnlineRecord[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord[i],'[data-online-record]'));
     }
 

@@ -1569,7 +1569,7 @@
     margin-bottom: 50px;
   }
   .b-slider__viewport-wrap {
-    height: 160px;
+    height: 300px;
   }
   .b-slider__viewport-wrap-slide {
     padding: 0;
@@ -1621,7 +1621,8 @@
     display: none;
   }
   .b-form .form {
-    width: 100%;
+    width: calc(100% + 20px);
+    margin: 0 -10px;
     padding: 20px;
   }
 }

@@ -192,6 +192,12 @@
 		.b-title__logo-inner {
 			margin: auto;
 		}
+		.b-title__logo-text {
+			margin-bottom: 5vh;
+		}
+		.b-title__logo-ligature svg {
+			height: 40px;
+		}
 		.b-title__logo-ligature,
 		.b-title__logo-text {
 			font-family : 'Playfair Display', sans-serif;
@@ -247,6 +253,22 @@
 			background-size: auto 100%;
 			z-index: 9998;
 		}
+		
+		@media all and (max-width: 550px) {
+			.b-navigation {
+				transform: translate(0, -100%);
+			}
+			.b-title__logo-ligature,
+			.b-title__logo-text {
+				font-size: 28px;
+			}
+			.b-title__logo-text {
+				margin-bottom: 30px;
+			}
+			.b-title__logo-ligature svg {
+				height: 25px;
+			}
+		}
 	</style>
 	
 	<link rel="stylesheet" href="css/reset-min.css">
@@ -269,42 +291,42 @@
 	</div>
 
 	<nav class="l-navigation b-navigation">
-	<div class="b-navigation__mobile">
-		<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
-		<p class="b-navigation__header-links">
-			<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
-			<a href="tel:+380542700818" class="">(0542) 700-818</a>
-			<button class="btn arrow button-online-record">онлайн-запись</button>
-			<button class="btn burger__button"><span></span></button>
-		</p>
-	</div>
-	<div class="b-navigation__main">
-		<header class="b-navigation__header">
-			<a href="index.html" class="b-navigation__header-logo icon-logo desktop"></a>
-			<a href="index.html" class="b-navigation__header-logo icon-full-logo tablet"></a>
+		<div class="b-navigation__mobile">
+			<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
 			<p class="b-navigation__header-links">
-				<a href="about.html" class="">О центре</a>
-				<a href="spa.html" class="">SPA-комплекс</a>
-				<a href="cosmetology.html" class="">Косметология</a>
-				<a href="#" class="">Бьюти-зона</a>
-				<a href="#" class="">Услуги для мужчин</a>
-				<a href="contact.html" class="">Контакты</a>
 				<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
 				<a href="tel:+380542700818" class="">(0542) 700-818</a>
 				<button class="btn arrow button-online-record">онлайн-запись</button>
+				<button class="btn burger__button"><span></span></button>
 			</p>
-		</header>
-		<div class="b-navigation__side-left">
-			<a href="#" class="icon-inst"></a>
-			<a href="#" class="icon-vk"></a>
-			<a href="#" class="icon-fb"></a>
 		</div>
-		<div class="b-navigation__side-right">
-			<a href="index.html" class="current">RU</a>
-			<a href="index-en.html">EN</a>
+		<div class="b-navigation__main">
+			<header class="b-navigation__header">
+				<a href="index.html" class="b-navigation__header-logo icon-logo desktop"></a>
+				<a href="index.html" class="b-navigation__header-logo icon-full-logo tablet"></a>
+				<p class="b-navigation__header-links">
+					<a href="about.html" class="">О центре</a>
+					<a href="spa.html" class="">SPA-комплекс</a>
+					<a href="cosmetology.html" class="">Косметология</a>
+					<a href="#" class="">Бьюти-зона</a>
+					<a href="#" class="">Услуги для мужчин</a>
+					<a href="contact.html" class="">Контакты</a>
+					<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
+					<a href="tel:+380542700818" class="">(0542) 700-818</a>
+					<button class="btn arrow button-online-record">онлайн-запись</button>
+				</p>
+			</header>
+			<div class="b-navigation__side-left">
+				<a href="#" class="icon-inst"></a>
+				<a href="#" class="icon-vk"></a>
+				<a href="#" class="icon-fb"></a>
+			</div>
+			<div class="b-navigation__side-right">
+				<a href="index.html" class="current">RU</a>
+				<a href="index-en.html">EN</a>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 	
 	<main class="l-content">
 		
@@ -681,10 +703,15 @@
 								<span class="icon-clock">4.5 часа</span>
 								<span class="icon-price">560 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">4.5 часа</span>
+										<span class="icon-price">560 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -718,10 +745,15 @@
 								<span class="icon-clock">4 часа</span>
 								<span class="icon-price">650 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">4 часа</span>
+										<span class="icon-price">650 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -755,10 +787,15 @@
 								<span class="icon-clock">3.5 часа</span>
 								<span class="icon-price">580 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">3.5 часа</span>
+										<span class="icon-price">580 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -792,10 +829,15 @@
 								<span class="icon-clock">4.5 часа</span>
 								<span class="icon-price">490 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">4.5 часа</span>
+										<span class="icon-price">490 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -829,10 +871,15 @@
 								<span class="icon-clock">4 часа</span>
 								<span class="icon-price">720 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">4 часа</span>
+										<span class="icon-price">720 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -866,10 +913,15 @@
 								<span class="icon-clock">4.5 часа</span>
 								<span class="icon-price">670 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">4.5 часа</span>
+										<span class="icon-price">670 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -903,10 +955,15 @@
 								<span class="icon-clock">3.5 часа</span>
 								<span class="icon-price">600 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">3.5 часа</span>
+										<span class="icon-price">600 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -940,10 +997,15 @@
 								<span class="icon-clock">3.5 часа</span>
 								<span class="icon-price">620 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
 								<div class="b-packages__accordeon-description">
+									<p class="details-feature">
+										<span class="icon-clock">3.5 часа</span>
+										<span class="icon-price">620 грн</span>
+									</p>
 									<p class="text">Пакет «Антистресс №1” расслабит вас, а затем наполнит ваше тело новыми силами и легкостью, взбодрит и освежит вас, Вы почувствуете обновление и готовность к победам.</p>
 									<h4>Программа пакета</h4>
 									<ol>
@@ -1108,16 +1170,18 @@
 			<div class="wrap row">
 				<div class="col lg-offset-1 xl-offset-2 lg-10 xl-8">
 					<h2>Массаж и СПА-процедуры в Сумах</h2>
-					<article>
-						<h4>Премиальная гидромассажная ванна Unbescheiden Baden-Baden</h4>
-						<p class="text">«Событие и наслаждение для искушенных» - так говорят производители о гидромассажной ванне
-							Caracala (Каракала) немецкой фирмы Unbescheiden Baden-Baden (Унбешайден Баден Баден) представленной в Спа-центре «Велюр». Она открывает обширные возможности от интенсивного массажа до индивидуальных программ релаксации. Прямой выбор 22 программ, из них 11 массажных программ для индивидуального программирования, хроматерапия, аромотерапия.</p>
-					</article>
-					<article>
-						<h4>Процедура</h4>
-						<p class="text">Основой каждой процедуры (тонизирующая, анти-стресс, омолаживающая, ванна «Клеопатры», гармонизирующая, похудение) служит расслабление мускулатуры в теплой воде. Каждый массажный цикл начинается с рефлекторной зоны стоп и поднимается до области сердца.</p>
-						<p class="text">Начинается массаж с великолепного ощущения расслабления всех мышц и связок. А завершающий интенсивный массаж от зоны стоп и до предплечья массирует все тело по 20 анатомическим зонам, объединенных в 10 массажных групп из 286 дюз.Для любого вида массажа можно задать программу с индивидуальной установкой массажного давления, длительности процедуры, массажа отдельных анатомических зон.</p>
-					</article>
+					<div class="hide-parent-text" data-visible="370">
+						<article>
+							<h4>Премиальная гидромассажная ванна Unbescheiden Baden-Baden</h4>
+							<p class="text">«Событие и наслаждение для искушенных» - так говорят производители о гидромассажной ванне
+								Caracala (Каракала) немецкой фирмы Unbescheiden Baden-Baden (Унбешайден Баден Баден) представленной в Спа-центре «Велюр». Она открывает обширные возможности от интенсивного массажа до индивидуальных программ релаксации. Прямой выбор 22 программ, из них 11 массажных программ для индивидуального программирования, хроматерапия, аромотерапия.</p>
+						</article>
+						<article>
+							<h4>Процедура</h4>
+							<p class="text">Основой каждой процедуры (тонизирующая, анти-стресс, омолаживающая, ванна «Клеопатры», гармонизирующая, похудение) служит расслабление мускулатуры в теплой воде. Каждый массажный цикл начинается с рефлекторной зоны стоп и поднимается до области сердца.</p>
+							<p class="text">Начинается массаж с великолепного ощущения расслабления всех мышц и связок. А завершающий интенсивный массаж от зоны стоп и до предплечья массирует все тело по 20 анатомическим зонам, объединенных в 10 массажных групп из 286 дюз.Для любого вида массажа можно задать программу с индивидуальной установкой массажного давления, длительности процедуры, массажа отдельных анатомических зон.</p>
+						</article>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -1150,85 +1214,35 @@
 	</main>
 
 	<section>
-	<div class="b-popup" data-map>
-		<div class="b-popup__map img-flover__form row row-wrap">
-			<p class="b-popup__button-close button-close"></p>
-			<div class="b-popup__map-left col xs-12 sm-8">
-				<div id="map" class="google-map"></div>
-			</div>
-			<div class="b-popup__map-right col xs-12 sm-4">
-				<div id="pano" class="street-view xs-hidden"></div>
-				<h4>Сумы, ул. Покровская, 16/1</h4>
-				<ul>
-					<li
-							class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
-											</span></li>
-					<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
-					<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="b-popup" data-contact>
-		<div class="b-popup__contact img-flover__form form" >
-			<p class="b-popup__button-close button-close"></p>
-			<p class="icon-ligature-half"></p>
-			<div class="form-wrap">
-				<form action="" name="contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<h4></h4>
-					<span class="input input--akira">
-								<input class="input__field input__field--akira value-input"
-								       type="text"
-								       name="name"
-								       required/>
-								<label class="input__label input__label--akira" for="name">
-									<span class="input__label-content input__label-content--akira text">Имя</span>
-							    </label>
-							</span>
-					<span class="input input--akira">
-								<input class="input__field input__field--akira value-input"
-								       type="tel"
-								       name="phone"
-								       pattern="(\+?\d[- .]*){7,13}"
-								       required/>
-								<label class="input__label input__label--akira" for="phone">
-									<span class="input__label-content input__label-content--akira text">Телефон</span>
-								</label>
-							</span>
-					<input name="services" value="" hidden />
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время"
-					       data-clearAfterSend>
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата"
-					       data-clearAfterSend>
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
-				</form>
-				<div class="form-sent">
-					<p class="img-message-send"></p>
-					<h3>Cпасибо!</h3>
-					<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
-						визита. С нетерпением ждем в «Велюре»!</p>
-					<button class="normal button-close">Закрыть окно</button>
+		<div class="b-popup" data-map>
+			<div class="b-popup__map img-flover__form row row-wrap">
+				<p class="b-popup__button-close button-close"></p>
+				<div class="b-popup__map-left col xs-12 sm-8">
+					<div id="map" class="google-map"></div>
+				</div>
+				<div class="b-popup__map-right col xs-12 sm-4">
+					<div id="pano" class="street-view xs-hidden"></div>
+					<h4>Сумы, ул. Покровская, 16/1</h4>
+					<ul>
+						<li
+								class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+												</span></li>
+						<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+						<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="b-popup" data-online-record>
-		<div class="b-popup__online img-flover__form form">
-			<p class="b-popup__button-close button-close"></p>
-			<p class="icon-ligature-half"></p>
-			<div class="form-wrap">
-				<form action="" name="online-contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
-					<span class="input input--akira">
+		<div class="b-popup" data-contact>
+			<div class="b-popup__contact img-flover__form form" >
+				<p class="b-popup__button-close button-close"></p>
+				<p class="icon-ligature-half"></p>
+				<div class="form-wrap">
+					<form action="" name="contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<h4></h4>
+						<span class="input input--akira">
 									<input class="input__field input__field--akira value-input"
 									       type="text"
 									       name="name"
@@ -1237,7 +1251,7 @@
 										<span class="input__label-content input__label-content--akira text">Имя</span>
 								    </label>
 								</span>
-					<span class="input input--akira">
+						<span class="input input--akira">
 									<input class="input__field input__field--akira value-input"
 									       type="tel"
 									       name="phone"
@@ -1247,48 +1261,99 @@
 										<span class="input__label-content input__label-content--akira text">Телефон</span>
 									</label>
 								</span>
-					<select name="services" data-placeholder="Услуга"
-					        class="input droplist img-arrow forcibly-placeholder value-input" data-nofilter>
-						<!--<option>Услуга</option>-->
-						<option>Услуга 1</option>
-						<option>Услуга 2</option>
-						<option>Услуга 3</option>
-						<option>Услуга 4</option>
-						<option>Услуга 5</option>
-						<option>Услуга 6</option>
-						<option>Услуга 7</option>
-						<option>Услуга 8</option>
-						<option>Услуга 9</option>
-						<option>Услуга 10</option>
-					</select>
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время">
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата">
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
-				</form>
-				<div class="form-sent">
-					<p class="img-message-send"></p>
-					<h3>Cпасибо!</h3>
-					<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
-						визита. С нетерпением ждем в «Велюре»!</p>
-					<button class="normal button-close">Закрыть окно</button>
+						<input name="services" value="" hidden />
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время"
+						       data-clearAfterSend>
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата"
+						       data-clearAfterSend>
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+		<div class="b-popup" data-online-record>
+			<div class="b-popup__online img-flover__form form">
+				<p class="b-popup__button-close button-close"></p>
+				<p class="icon-ligature-half"></p>
+				<div class="form-wrap">
+					<form action="" name="online-contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="text"
+										       name="name"
+										       required/>
+										<label class="input__label input__label--akira" for="name">
+											<span class="input__label-content input__label-content--akira text">Имя</span>
+									    </label>
+									</span>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="tel"
+										       name="phone"
+										       pattern="(\+?\d[- .]*){7,13}"
+										       required/>
+										<label class="input__label input__label--akira" for="phone">
+											<span class="input__label-content input__label-content--akira text">Телефон</span>
+										</label>
+									</span>
+						<select name="services" data-placeholder="Услуга"
+						        class="input droplist img-arrow forcibly-placeholder value-input" data-nofilter>
+							<!--<option>Услуга</option>-->
+							<option>Услуга 1</option>
+							<option>Услуга 2</option>
+							<option>Услуга 3</option>
+							<option>Услуга 4</option>
+							<option>Услуга 5</option>
+							<option>Услуга 6</option>
+							<option>Услуга 7</option>
+							<option>Услуга 8</option>
+							<option>Услуга 9</option>
+							<option>Услуга 10</option>
+						</select>
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время">
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата">
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<footer class="l-footer b-footer">
-	<div class="img-footer__bg start"></div>
+	<div class="b-footer__bg img-footer__bg start"></div>
+	<div class="b-footer__bg-mobile img-footer__bg"></div>
 	<div class="b-footer__front wrap">
-		<div class="b-footer__list row row-wrap">
-			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0">
-				<p class="text bold">О НАС</p>
-				<ul>
+		<div class="b-footer__list row row-wrap accordeon-mobile">
+			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0 acc-item">
+				<p class="text bold acc-button-element">О НАС</p>
+				<ul class="acc-hidden-element">
 					<li><a href="about.html" class="text">О СПА-центре</a></li>
 					<li><a href="#" class="text">Новости</a></li>
 					<li><a href="#" class="text">Мастера</a></li>
@@ -1297,9 +1362,9 @@
 					<li><a href="#" class="text">Награды</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-5 sm-2">
-				<p class="text bold">Услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="spa.html" class="text">СПА-зона</a></li>
 					<li><a href="cosmetology.html" class="text">Косметология</a></li>
 					<li><a href="#" class="text">Эстетическая медицина</a></li>
@@ -1307,9 +1372,9 @@
 					<li><a href="#" class="text">Услуги для мужчин</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2">
-				<p class="text bold">Популярные услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Популярные услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text">Маникюр</a></li>
 					<li><a href="#" class="text">Косметолог</a></li>
 					<li><a href="#" class="text">Талассотерапия</a></li>
@@ -1318,9 +1383,9 @@
 					<li><a href="#" class="text">Яванский Лулур</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4">
-				<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
-				<ul>
+			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4 acc-item">
+				<p class="text bold acc-button-element">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
 					<li><a href="#" class="text">050 353-32-32</a></li>
 					<li><a href="#" class="text">067 456-55-55</a></li>
@@ -1330,8 +1395,10 @@
 			</div>
 		</div>
 		<p class="b-footer__bottom row">
-			<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-			<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+					<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+						Велюр</span>
+			<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+				with love by crisp</a>
 			<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
 								<a href="#" class="icon-vk"></a>
 								<a href="#" class="icon-fb"></a>

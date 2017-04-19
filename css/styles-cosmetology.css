@@ -304,3 +304,16 @@
     background-color: #000;
   }
 }
+@media all and (max-width: 550px) {
+  .b-staffs__list.swiper-wrapper {
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .b-staffs__list-item.col {
+    min-width: auto;
+  }
+}

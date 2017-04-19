@@ -5,25 +5,31 @@
   height: 40px;
 }
 .b-cosmetics {
-  padding: 90px 20px 30px;
+  padding: 90px 10px 30px;
 }
 .b-cosmetics h2 {
+  padding: 0 10px;
   margin-bottom: 1.3em;
   text-align: center;
-  color: #a823a3;
 }
 .b-cosmetics .lead {
+  padding: 0 10px;
   margin-bottom: 4.3em;
   text-align: center;
 }
 .b-cosmetics__logos-item {
   height: 210px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.b-cosmetics__logos-item span {
+  height: 100%;
+  width: 100%;
+  display: block;
   background-position: center;
   background-repeat: no-repeat;
   -webkit-background-size: auto 148px;
   -moz-background-size: auto 148px;
   background-size: auto 148px;
-  border-bottom: 1px solid #ababab;
 }
 .b-form {
   position: relative;
@@ -33,10 +39,6 @@
 .b-form .wrap {
   position: relative;
   z-index: 4;
-}
-.b-form__wrap {
-  -webkit-box-shadow: 0 4px 8px rgba(224,224,224,0.75);
-  box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 }
 .b-form__bg {
   position: absolute;
@@ -150,15 +152,53 @@
 @media all and (max-width: 1150px) {
   .b-cosmetics__logos-item {
     height: 210px;
+  }
+  .b-cosmetics__logos-item span {
     -webkit-background-size: auto 120px;
     -moz-background-size: auto 120px;
     background-size: auto 120px;
   }
 }
-@media all and (max-width: 1024px) {
-  .b-cosmetics h2,
+@media all and (max-width: 550px) {
+  .b-cosmetics {
+    padding: 40px 0 0;
+  }
   .b-cosmetics .lead {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-bottom: 40px;
+  }
+  .b-cosmetics__logos.row.row-wrap {
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .b-cosmetics__logos-item.col {
+    padding: 10px;
+    width: 50%;
+    height: 120px;
+    max-width: 50%;
+    min-width: 50%;
+  }
+  .b-cosmetics__logos-item.col:nth-child(odd) {
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
+  .b-cosmetics__logos-item.col span {
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    background-size: contain;
+  }
+  .b-form {
+    margin-bottom: 10px;
+    padding: 10px 10px 0;
+  }
+  .b-form__bg {
+    display: none;
+  }
+  .b-form .form {
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+    padding: 20px;
   }
 }

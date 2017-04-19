@@ -15,14 +15,15 @@
 
 .b-cosmetics {
 	& {
-		padding: 90px 20px 30px;
+		padding: 90px 10px 30px;
 	}
 	h2 {
+		padding: 0 10px;
 		margin-bottom: 1.3em;
 		text-align: center;
-		color : #A823A3;
 	}
 	.lead {
+		padding: 0 10px;
 		margin-bottom: 4.3em;
 		text-align: center;
 	}
@@ -30,11 +31,18 @@
 		& {
 		}
 		&-item {
-			height: 210px;
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: auto 148px;
-			border-bottom: 1px solid #ABABAB;
+			& {
+				height : 210px;
+				border-bottom : 1px solid rgba(0,0,0,0.1);
+			}
+			span {
+				height: 100%;
+				width: 100%;
+				display: block;
+				background-position : center;
+				background-repeat : no-repeat;
+				background-size : auto 148px;
+			}
 		}
 	}
 }
@@ -50,7 +58,6 @@
 		z-index: 4;
 	}
 	&__wrap {
-		box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 	}
 	&__bg {
 		& {
@@ -176,19 +183,61 @@
 		}
 		&__logos {
 			&-item {
-				height : 210px;
-				background-size : auto 120px;
+				& {
+					height : 210px;
+				}
+				span {
+					background-size : auto 120px;
+				}
 			}
 		}
 	}
 }
 
 @media all and (max-width: 1024px) {
+}
+
+@media all and (max-width: 550px) {
 	.b-cosmetics {
-		h2,
+		& {
+			padding: 40px 0 0;
+		}
 		.lead {
-			margin-left: 20px;
-			margin-right: 20px;
+			margin-bottom: 40px;
+		}
+		&__logos {
+			&.row.row-wrap {
+				flex-direction: row;
+			}
+			&-item.col {
+				& {
+					padding: 10px;
+					width : 50%;
+					height : 120px;
+					max-width : 50%;
+					min-width : 50%;
+				}
+				&:nth-child(odd) {
+					border-right: 1px solid rgba(0,0,0,0.1);
+				}
+				span {
+					background-size : contain;
+				}
+			}
+		}
+	}
+	.b-form {
+		& {
+			margin-bottom: 10px;
+			padding : 10px 10px 0;
+		}
+		&__bg {
+			display: none;
+		}
+		.form {
+			width: calc(100% + 20px);
+			margin : 0 -10px;
+			padding: 20px;
 		}
 	}
 }

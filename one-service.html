@@ -268,6 +268,46 @@
 		}
 		.finish-load .b-title__poster {
 		}
+		@media all and (max-width: 550px) {
+			.b-navigation {
+				transform: translate(0, -100%);
+			}
+			.b-title__logo-ligature,
+			.b-title__logo-text {
+				font-size: 28px;
+			}
+			.b-title__logo-text {
+				margin-bottom: 30px;
+			}
+			.b-title__logo-ligature svg {
+				height: 25px;
+			}
+			.b-title__logo-breadcrumbs {
+				display: none;
+			}
+			.b-title__logo-feature {
+			}
+			.b-title__logo-feature span {
+				min-width: 0 !important;
+				padding-top: 80px;
+				margin: 0 10px;
+			}
+			.b-title__logo-feature span:before {
+				 position: absolute;
+				 top: 0;
+				 left: 0;
+				 width: 100%;
+				 margin: 0 auto;
+				 font-size: 41px;
+				 line-height: 80px;
+		    }
+			.b-title__logo-feature span.icon-all-body:before {
+			    font-size: 65px;
+		    }
+			.b-title__logo-feature.details-feature span:after {
+				display: none !important;
+			}
+		}
 	</style>
 	
 	<link rel="stylesheet" href="css/reset-min.css">
@@ -733,17 +773,19 @@
 								<p class="swiper-pagination"></p>
 							</div>
 							<div class="b-about__detail">
-								<section class="b-about__detail-item">
-									<h4>Премиальная гидромассажная ванна Unbescheiden Baden-Baden</h4>
-									<p class="text">«Событие и наслаждение для искушенных» - так говорят производители о гидромассажной ванне
-										Caracala (Каракала) немецкой фирмы Unbescheiden Baden-Baden (Унбешайден Баден Баден) представленной в Спа-центре «Велюр». Она открывает обширные возможности от интенсивного массажа до индивидуальных программ релаксации. Прямой выбор 22 программ, из них 11 массажных программ для индивидуального программирования, хроматерапия, аромотерапия.</p>
-								</section>
-								<section class="b-about__detail-item">
-									<h4>Процедура</h4>
-									<p class="text">Основой каждой процедуры (тонизирующая, анти-стресс, омолаживающая, ванна «Клеопатры», гармонизирующая, похудение) служит расслабление мускулатуры в теплой воде. Каждый массажный цикл начинается с рефлекторной зоны стоп и поднимается до области сердца.</p>
-									<p class="text">Начинается массаж с великолепного ощущения расслабления всех мышц и связок. А завершающий интенсивный массаж от зоны стоп и до предплечья массирует все тело по 20 анатомическим зонам, объединенных в 10 массажных групп из 286 дюз.Для любого вида массажа можно задать программу
-										с индивидуальной установкой массажного давления, длительности процедуры, массажа отдельных анатомических зон.</p>
-								</section>
+								<div class="hide-parent-text" data-visible="370">
+									<article class="b-about__detail-item">
+										<h4>Премиальная гидромассажная ванна Unbescheiden Baden-Baden</h4>
+										<p class="text">«Событие и наслаждение для искушенных» - так говорят производители о гидромассажной ванне
+											Caracala (Каракала) немецкой фирмы Unbescheiden Baden-Baden (Унбешайден Баден Баден) представленной в Спа-центре «Велюр». Она открывает обширные возможности от интенсивного массажа до индивидуальных программ релаксации. Прямой выбор 22 программ, из них 11 массажных программ для индивидуального программирования, хроматерапия, аромотерапия.</p>
+									</article>
+									<article class="b-about__detail-item">
+										<h4>Процедура</h4>
+										<p class="text">Основой каждой процедуры (тонизирующая, анти-стресс, омолаживающая, ванна «Клеопатры», гармонизирующая, похудение) служит расслабление мускулатуры в теплой воде. Каждый массажный цикл начинается с рефлекторной зоны стоп и поднимается до области сердца.</p>
+										<p class="text">Начинается массаж с великолепного ощущения расслабления всех мышц и связок. А завершающий интенсивный массаж от зоны стоп и до предплечья массирует все тело по 20 анатомическим зонам, объединенных в 10 массажных групп из 286 дюз.Для любого вида массажа можно задать программу
+											с индивидуальной установкой массажного давления, длительности процедуры, массажа отдельных анатомических зон.</p>
+									</article>
+								</div>
 							</div>
 					</div>
 				</section>
@@ -796,7 +838,10 @@
 							<h3>Вопросы и ответы</h3>
 							<div class="b-faq__accordeon accordeon">
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus">Как долго длится процедура?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>Как долго длится процедура?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -810,7 +855,10 @@
 									</div>
 								</div>
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus">Какие  противопоказания включает данная услуга?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>Какие  противопоказания включает данная услуга?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -824,9 +872,10 @@
 									</div>
 								</div>
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus icon-acc-minus">Помогает ли гидромассаж
-										бороться с
-										лишним весом?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>Помогает ли гидромассаж бороться с лишним весом?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -840,8 +889,11 @@
 									</div>
 								</div>
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus icon-acc-minus">Вредно ли часто посещать гидромассажную
-										ванну?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>Вредно ли часто посещать гидромассажную
+											ванну?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -855,9 +907,10 @@
 									</div>
 								</div>
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus icon-acc-minus">Какая температура воды в
-										процессе
-										процедуры?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>Какая температура воды в	процессе процедуры?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -871,7 +924,10 @@
 									</div>
 								</div>
 								<div class="acc-item">
-									<p class="text bold acc-button-element icon-acc-plus icon-acc-minus">С каким комплексом процедур лучше всего совмещать гидромассаж?</p>
+									<div class="text bold acc-button-element icon-acc-plus icon-acc-minus">
+										<p>С каким комплексом процедур лучше всего совмещать гидромассаж?</p>
+										<span></span>
+									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap">
 											<p class="text">Стандартная процедура включает:</p>
@@ -899,6 +955,7 @@
 											<span class="icon-clock">4.5 часа</span>
 											<span class="icon-price">560 грн</span>
 										</p>
+										<span></span>
 									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap two-col">
@@ -939,6 +996,7 @@
 											<span class="icon-clock">4 часа</span>
 											<span class="icon-price">650 грн</span>
 										</p>
+										<span></span>
 									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap two-col">
@@ -973,6 +1031,7 @@
 											<span class="icon-clock">3.5 часа</span>
 											<span class="icon-price">580 грн</span>
 										</p>
+										<span></span>
 									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap two-col">
@@ -1007,6 +1066,7 @@
 											<span class="icon-clock">4.5 часа</span>
 											<span class="icon-price">490 грн</span>
 										</p>
+										<span></span>
 									</div>
 									<div class="acc-hidden-element">
 										<div class="acc-hidden-element__wrap two-col">
@@ -1067,13 +1127,14 @@
 			
 			<div class="b-side">
 				<section class="b-side__bar img-flover__form form">
-					<p class="b-side__bar-open">Записаться на процедуру</p>
-					<p class="icon-ligature-half"></p>
-					<form action="" name="contact">
-						<input name="title" value="Онлайн запись" hidden />
-						<h3>Онлайн-запись</h3>
-						<h4>Гидромассажная ванна</h4>
-						<span class="input input--akira">
+					<div class="b-side__bar-content">
+						<p class="b-side__bar-open">Записаться на процедуру</p>
+						<p class="icon-ligature-half"></p>
+						<form action="" name="contact">
+							<input name="title" value="Онлайн запись" hidden />
+							<h3>Онлайн-запись</h3>
+							<h4>Гидромассажная ванна</h4>
+							<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="text"
 							       name="name"
@@ -1082,7 +1143,7 @@
 								<span class="input__label-content input__label-content--akira text">Имя</span>
 						    </label>
 						</span>
-						<span class="input input--akira">
+							<span class="input input--akira">
 							<input class="input__field input__field--akira value-input"
 							       type="tel"
 							       name="phone"
@@ -1092,21 +1153,22 @@
 								<span class="input__label-content input__label-content--akira text">Телефон</span>
 							</label>
 						</span>
-						<input type="time"
-						        name="time"
-						        class="input img-arrow input-time forcibly-placeholder value-input"
-						        placeholder="Время"
-						        data-clearAfterSend />
-						<input type="date"
-						       name="date"
-						       class="input img-arrow input-date forcibly-placeholder value-input"
-						       placeholder="Дата"
-						       data-clearAfterSend />
-						
-						<button type="button" class="btn btn__big btn__submit">отправить</button>
-						
-						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
-					</form>
+							<input type="time"
+							       name="time"
+							       class="input img-arrow input-time forcibly-placeholder value-input"
+							       placeholder="Время"
+							       data-clearAfterSend />
+							<input type="date"
+							       name="date"
+							       class="input img-arrow input-date forcibly-placeholder value-input"
+							       placeholder="Дата"
+							       data-clearAfterSend />
+							
+							<button type="button" class="btn btn__big btn__submit">отправить</button>
+							
+							<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+						</form>
+					</div>
 				</section>
 			</div>
 			
@@ -1247,13 +1309,15 @@
 		</div>
 	</section>
 
+
 	<footer class="l-footer b-footer">
-	<div class="img-footer__bg start"></div>
+	<div class="b-footer__bg img-footer__bg start"></div>
+	<div class="b-footer__bg-mobile img-footer__bg"></div>
 	<div class="b-footer__front wrap">
-		<div class="b-footer__list row row-wrap">
-			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0">
-				<p class="text bold">О НАС</p>
-				<ul>
+		<div class="b-footer__list row row-wrap accordeon-mobile">
+			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0 acc-item">
+				<p class="text bold acc-button-element">О НАС</p>
+				<ul class="acc-hidden-element">
 					<li><a href="about.html" class="text">О СПА-центре</a></li>
 					<li><a href="#" class="text">Новости</a></li>
 					<li><a href="#" class="text">Мастера</a></li>
@@ -1262,9 +1326,9 @@
 					<li><a href="#" class="text">Награды</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-5 sm-2">
-				<p class="text bold">Услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="spa.html" class="text">СПА-зона</a></li>
 					<li><a href="cosmetology.html" class="text">Косметология</a></li>
 					<li><a href="#" class="text">Эстетическая медицина</a></li>
@@ -1272,9 +1336,9 @@
 					<li><a href="#" class="text">Услуги для мужчин</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2">
-				<p class="text bold">Популярные услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Популярные услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text">Маникюр</a></li>
 					<li><a href="#" class="text">Косметолог</a></li>
 					<li><a href="#" class="text">Талассотерапия</a></li>
@@ -1283,9 +1347,9 @@
 					<li><a href="#" class="text">Яванский Лулур</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4">
-				<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
-				<ul>
+			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4 acc-item">
+				<p class="text bold acc-button-element">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
 					<li><a href="#" class="text">050 353-32-32</a></li>
 					<li><a href="#" class="text">067 456-55-55</a></li>
@@ -1295,8 +1359,10 @@
 			</div>
 		</div>
 		<p class="b-footer__bottom row">
-			<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-			<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+					<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+						Велюр</span>
+			<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+				with love by crisp</a>
 			<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
 								<a href="#" class="icon-vk"></a>
 								<a href="#" class="icon-fb"></a>
