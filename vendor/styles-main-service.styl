@@ -31,6 +31,22 @@
 		margin-bottom: 100px;
 		color : #40363E;
 	}
+	&__accordeon-description {
+		.btn + a {
+			& {
+				margin-left : 2.7em;
+				font-family: 'Raleway', sans-serif;
+				font-weight : bold;
+				font-size : 0.65rem;
+				letter-spacing : 0.05em;
+				text-transform : uppercase;
+				color : #A823A3;
+			}
+			&:hover {
+				color: #bc23b7;
+			}
+		}
+	}
 }
 
 .b-staffs {
@@ -47,8 +63,8 @@
 	}
 	&__title {
 		& {
-			padding: 65px 0 13%;
 			background: url("../img/velur-bg.jpg") center;
+			padding: 65px 0 13%;
 		}
 		h2,
 		.lead {
@@ -151,6 +167,12 @@
 }
 
 
+@media all and (min-width: 1300px) {
+	.b-staffs__title {
+		padding : 65px 0 150px;
+	}
+}
+
 @media all and (max-width: 1024px) {
 }
 
@@ -232,6 +254,20 @@
 		.lead {
 			margin-bottom: 40px;
 		}
+		&__accordeon-description {
+			.btn + a {
+				display: block;
+				height: 40px;
+				line-height: 40px;
+				font-size: 12px;
+				margin-left: 0;
+				margin-top: 10px;
+				text-align: center;
+			}
+		}
+	}
+	.b-packages__accordeon .acc-hidden-element .b-packages__accordeon-description {
+		padding: 30px 20px 10px;
 	}
 	.b-staffs {
 		& {

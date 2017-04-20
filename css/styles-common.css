@@ -1371,38 +1371,38 @@ video::-webkit-media-controls-panel {
   counter-reset: counter-recomendation;
   width: 100%;
 }
-.item-table tr {
+.item-table .item-table-row {
   counter-increment: counter-recomendation;
+  font-size: 0.8rem;
+  padding: 10px 20px;
 }
-.item-table tr:nth-child(odd) {
+.item-table .item-table-row:nth-child(odd) {
   background-color: rgba(224,224,224,0.3);
 }
-.item-table tr:nth-child(even) {
+.item-table .item-table-row:nth-child(even) {
   background-color: transparent;
 }
-.item-table tr:before {
+.item-table .item-table-row:before {
   content: counter(counter-recomendation);
   display: table-cell;
-  padding: 20px;
+  padding-right: 20px;
   vertical-align: middle;
   text-align: right;
   font-weight: bold;
   color: #a823a3;
 }
-.item-table tr .name {
-  width: 57%;
+.item-table .item-table-row .name-container {
+  padding-right: 20px;
+  margin: 0 auto 0 0;
+  max-width: 67%;
 }
-.item-table tr .price {
-  padding: 20px 5px;
+.item-table .item-table-row .price {
+  padding-right: 20px;
   text-align: center;
-  line-height: 0;
   color: #000;
-  min-width: 90px;
 }
-.item-table tr .button-record {
-  padding: 20px 20px 20px 10px;
+.item-table .item-table-row .button-record {
   text-transform: uppercase;
-  line-height: 0;
 }
 .wrap-error {
   position: relative;
@@ -2267,6 +2267,51 @@ video::-webkit-media-controls-panel {
   .accordeon .acc-item .acc-hidden-element__wrap.two-col .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #a823a3;
   }
+  .start-acc.accordeon-mobile .acc-item,
+  .start-acc.accordeon-tablet .acc-item {
+    margin: 0 -10px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .start-acc.accordeon-mobile .acc-item:last-child,
+  .start-acc.accordeon-tablet .acc-item:last-child {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .start-acc.accordeon-mobile .acc-item .acc-button-element h3,
+  .start-acc.accordeon-tablet .acc-item .acc-button-element h3 {
+    display: inline-block;
+    width: calc(100% - 10px);
+    padding-left: 15px;
+    padding-right: 10px;
+  }
+  .start-acc.accordeon-mobile .acc-item .acc-button-element span,
+  .start-acc.accordeon-tablet .acc-item .acc-button-element span {
+    position: relative;
+    width: 0;
+  }
+  .start-acc.accordeon-mobile .acc-item .acc-button-element span:after,
+  .start-acc.accordeon-tablet .acc-item .acc-button-element span:after {
+    position: absolute;
+    top: calc(50% - 3px);
+    left: -10px;
+    color: #ccc;
+    font-size: 6px;
+    font-family: 'icon-velur' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+/* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 10px;
+    content: "\e917";
+  }
+  .start-acc.accordeon-mobile .acc-item .acc-button-element.active span:after,
+  .start-acc.accordeon-tablet .acc-item .acc-button-element.active span:after {
+    content: "\e918";
+  }
   .b-popup__button-close.button-close {
     right: 0;
     background-color: transparent;
@@ -2477,6 +2522,52 @@ video::-webkit-media-controls-panel {
     margin-top: 90px;
     width: 100%;
     color: #a823a3;
+  }
+  .item-table {
+    counter-reset: counter-recomendation;
+    width: 100%;
+  }
+  .item-table .item-table-row {
+    padding: 10px;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+  .item-table .item-table-row:before {
+    content: counter(counter-recomendation);
+    display: table-cell;
+    padding-right: 10px;
+    vertical-align: middle;
+    text-align: right;
+    font-weight: bold;
+    color: #a823a3;
+  }
+  .item-table .item-table-row .name-container {
+    padding-right: 10px;
+    margin: 0 auto 0 0;
+    max-width: 67%;
+  }
+  .item-table .item-table-row .price {
+    padding-right: 0;
+    text-align: center;
+  }
+  .item-table .item-table-row .record {
+    padding-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+  .item-table .item-table-row .button-record {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background: #fff;
+    text-transform: uppercase;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
   }
   .accordeon .acc-item {
     border-bottom: 1px solid #e5e5e5;

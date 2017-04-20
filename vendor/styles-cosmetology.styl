@@ -1,18 +1,5 @@
 @import 'nib'
 
-.b-title {
-	&__logo {
-		&-text {
-			margin-bottom: 5vh;
-		}
-		&-ligature{
-			svg {
-				height: 40px;
-			}
-		}
-	}
-}
-
 .b-procedures {
 	& {
 		padding-top: 80px;
@@ -27,15 +14,12 @@
 		margin-bottom: 90px;
 		color : #40363E;
 	}
-	article {
-		padding: 0 20px;
-	}
 
 }
 
 .b-packages {
 	& {
-		padding: 100px 10px 0;
+		padding: 100px 0 0;
 	}
 	h2,
 	.lead {
@@ -51,7 +35,7 @@
 		.btn + a {
 			& {
 				margin-left : 2.7em;
-				font-family : 'Raleway', sans-serif;
+				font-family: 'Raleway', sans-serif;
 				font-weight : bold;
 				font-size : 0.65rem;
 				letter-spacing : 0.05em;
@@ -130,108 +114,8 @@
 	}
 }
 
-
 .b-reviews {
-	padding : 90px 20px 0;
-}
-
-.b-certificate {
-	& {
-		margin-top: 105px;
-		background: url("../img/certificate-bg.jpg") no-repeat;
-	}
-	.wrap {
-		& {
-			padding : 106px 0 0;
-		}
-	}
-	h2 {
-		padding: 0 20px;
-		margin-bottom: 1.25em;
-		color: #000000;
-		text-align: center;
-	}
-	.lead {
-		padding: 0 20px;
-		margin-bottom: 4.1em;
-		text-align: center;
-	}
-	.row {
-		& {
-			position : relative;
-		}
-		&:before {
-			position :absolute;
-			display: block;
-			content: '';
-			bottom: -155px;
-			left: 0;
-			height: 461px;
-			width: 66%;
-			max-width: 900px;
-			background: url("../img/certificate.png") no-repeat right bottom;
-			background-size: 900px 461px;
-		}
-	}
-	&__form {
-		& {
-			position: relative;
-			margin-left: 50%;
-			padding: 0 20px 40px;
-			width: 380px;
-			flex: 0 0 380px;
-			z-index: 1;
-		}
-		label {
-			position: relative;
-			display: block;
-			height: 50px;
-			margin-bottom: 20px;
-		}
-		.select {
-			& {
-				margin-top : 0;
-				height: 50px;
-			}
-			.form-control {
-				& {
-					padding-left : 20px;
-					padding-right : 30px;
-					text-align : left;
-					height : 50px;
-					background-color : #FFFFFF;
-					border-radius : 4px;
-				}
-				&:before {
-					margin-right: 0;
-				}
-			}
-		}
-		.wrap-error span.error {
-			top : -50px;
-			left: 5px;
-		}
-		&-input {
-			border: none;
-			outline: none;
-			width: 100%;
-			padding-left : 20px;
-			padding-right : 30px;
-			text-align : left;
-			font-size: 16px;
-			height : 50px;
-			background-color : #FFFFFF;
-			border-radius : 4px;
-		}
-		.input-checkbox {
-			margin-top: 30px;
-			padding-top: 0;
-		}
-
-		.btn {
-			width: 100%;
-		}
-	}
+	padding: 90px 20px 0;
 }
 
 
@@ -246,9 +130,6 @@
 		margin-bottom: 1.4em;
 	}
 	article {
-		& {
-
-		}
 		&:not(:last-child) {
 			margin-bottom: 40px;
 		}
@@ -272,8 +153,7 @@
 .b-procedures,
 .b-packages,
 .b-staffs,
-.b-certificate,
-.b-massage {
+.b-certificate {
 	h2,
 	.lead,
 	article {
@@ -288,16 +168,6 @@
 
 
 @media all and (max-width: 1024px) {
-	.b-certificate {
-		& {
-			margin-top : 105px;
-		}
-		.wrap {
-			& {
-				padding : 106px 0 0;
-			}
-		}
-	}
 }
 
 @media all and (max-width: 768px) {
@@ -309,22 +179,24 @@
 		overflow: hidden;
 	}
 	.b-staffs__list {
-		justify-content: flex-start;
-	}
-	.b-staffs__list-item.col {
-		flex: 0 0 auto;
-		max-width: 100%;
-	}
-	.b-staffs__list-item img {
-		position: static;
-		margin-top: 20px;
-		max-height: 200px;
-	}
-	.b-staffs__list-item .staff-img-wrap {
-		display: block;
-		margin: 0 auto;
-		padding-top: 0;
-		max-width: 200px;
+		& {
+			justify-content : flex-start;
+		}
+		&-item.col {
+			flex: 0 0 auto;
+			max-width: 100%;
+		}
+		&-item img {
+			position: static;
+			margin-top: 20px;
+			max-height: 200px;
+		}
+		&-item .staff-img-wrap {
+			display: block;
+			margin: 0 auto;
+			padding-top: 0;
+			max-width: 200px;
+		}
 	}
 	.b-staffs__slider .swiper-pagination {
 		& {
@@ -346,10 +218,53 @@
 			}
 		}
 	}
+	.b-massage {
+		& {
+		}
+		.col {
+			margin: 0;
+		}
+	}
 }
 
 @media all and (max-width: 550px) {
+	.b-procedures {
+		& {
+			padding-top : 40px;
+		}
+		.lead {
+			margin-bottom: 40px;
+		}
+	}
+	.b-packages {
+		& {
+			padding: 40px 0 0;
+		}
+		h2,
+		.lead {
+			margin: 0 auto;
+			text-align: center;
+		}
+		.lead {
+			margin-bottom: 40px;
+		}
+		&__accordeon-description {
+
+			.btn + a {
+				display: block;
+				height: 40px;
+				line-height: 40px;
+				font-size: 12px;
+				margin-left: 0;
+				margin-top: 10px;
+				text-align: center;
+			}
+		}
+	}
 	.b-staffs {
+		& {
+			padding-top: 40px;
+		}
 		&__list.swiper-wrapper {
 			flex-direction : row;
 		}
@@ -357,4 +272,35 @@
 			min-width: auto;
 		}
 	}
+	.b-massage {
+		& {
+			padding-top: 40px;
+		}
+		.col {
+			margin: 0 -10px;
+		}
+		h2 {
+			text-align: center;
+			margin-bottom: 1.4em;
+		}
+		article {
+			&:not(:last-child) {
+				margin-bottom: 40px;
+			}
+			h4 {
+				text-align: center;
+				margin-bottom: 0.7em;
+			}
+			p.text:not(:last-child) {
+				margin-bottom: 1em;
+			}
+		}
+	}
+
+	.b-also {
+		& {
+			padding: 40px 0 10px;
+		}
+	}
+
 }

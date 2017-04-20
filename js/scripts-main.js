@@ -73,34 +73,6 @@ function createSwipeOnReclame(){
         }
     }
 
-    // function changeSize(){
-    //     if(window.innerWidth <= window.breakPointTabletPortrait) {
-    //         if(!isSwipeStart) {
-    //             swipeSlideCircle = new Swiper('.b-programs__circles-right', {
-    //                 slidesPerView: 3,
-    //                 lazyLoading: false,
-    //                 centeredSlides: false,
-    //                 pagination: paginElemClass,
-    //                 setWrapperSize: true,
-    //                 breakpoints: {
-    //                     768: {
-    //                         slidesPerView: 3
-    //                     },
-    //                     550: {
-    //                         slidesPerView: 1,
-    //                         centeredSlides: true
-    //                     }
-    //                 }
-    //             });
-    //             isSwipeStart = true;
-    //         }
-    //     } else {
-    //         if(isSwipeStart) {
-    //             swipeSlideCircle.destroy(false,true);
-    //             isSwipeStart = false;
-    //         }
-    //     }
-    // }
 }
 
 /*
@@ -185,15 +157,21 @@ function openCircle() {
         necessaryTable;
 
     for(var i = 0, len = circles.length; i < len; i++) {
-        circles[i].addEventListener('click',handlerClickCircle);
+
+        if(window.isiPad && window.innerWidth <= window.breakPointTabletPortrait) {
+            circles[i].addEventListener('touchend', handlerClickCircle);
+            circles[i].click();
+        } else {
+            circles[i].addEventListener('click',handlerClickCircle);
+        }
         circles[i].addEventListener('mouseenter',handlerPrepareToAnim);
     }
 
     function handlerPrepareToAnim(e) {
         // временно
-        necessaryTable = document.querySelector('[data-table=well]');
-        // currentRecommendation = this.getAttribute('data-recommendation');
-        // necessaryTable = document.querySelector('[data-table='+ currentRecommendation +']');
+        // necessaryTable = document.querySelector('[data-table=well]');
+        currentRecommendation = this.getAttribute('data-recommendation');
+        necessaryTable = document.querySelector('[data-table='+ currentRecommendation +']');
 
         willChangeSwitch(this, 'opacity');
         willChangeSwitch(this.querySelector('.circles-bg'), 'transform');
@@ -224,10 +202,11 @@ function openCircle() {
 
     }
 
-    function handlerClickCircle(){
+    function handlerClickCircle(e){
+
         currentCircle = this;
-        // currentRecommendation = this.getAttribute('data-recommendation');
-        // necessaryTable = document.querySelector('[data-table='+ currentRecommendation +']');
+        currentRecommendation = this.getAttribute('data-recommendation');
+        necessaryTable = document.querySelector('[data-table='+ currentRecommendation +']');
 
         currentCircle.querySelector('.circles-bg').style.transform = 'scale(1.5)';
         currentCircle.style.opacity = '0';
@@ -285,7 +264,9 @@ function openCircle() {
         currentCircle.querySelector('.circles-bg').style.transform = '';
         currentCircle.querySelector('.circles-bg').style.opacity = '';
 
-        necessaryTable.style.display = '';
+        if(necessaryTable) {
+            necessaryTable.style.display = '';
+        }
 
         parent.classList.remove('close-table');
 

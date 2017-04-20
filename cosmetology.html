@@ -192,12 +192,23 @@
 		.b-title__logo-inner {
 			margin: auto;
 		}
+		.b-title__logo-text {
+			margin-bottom: 5vh;
+		}
+		.b-title__logo-ligature svg {
+			height: 40px;
+		}
 		.b-title__logo-ligature,
 		.b-title__logo-text {
 			font-family : 'Playfair Display', sans-serif;
 			color: #FFFFFF;
 			font-size: 60px;
 			text-align: center;
+		}
+		.anim-title-item {
+			opacity: 0;
+			-webkit-transform: translate(0, 50px);
+			transform: translate(0, 50px);
 		}
 		.b-title__logo-ligature,
 		.b-title__logo-text {
@@ -249,6 +260,21 @@
 			background-size: auto 100%;
 			z-index: 9998;
 		}
+		@media all and (max-width: 550px) {
+			.b-navigation {
+				transform: translate(0, -100%);
+			}
+			.b-title__logo-ligature,
+			.b-title__logo-text {
+				font-size: 28px;
+			}
+			.b-title__logo-text {
+				margin-bottom: 30px;
+			}
+			.b-title__logo-ligature svg {
+				height: 25px;
+			}
+		}
 	</style>
 	
 	<link rel="stylesheet" href="css/reset-min.css">
@@ -258,7 +284,7 @@
 	<link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
 	<link rel="stylesheet" href="css/styles-common.css">
 	<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
-	<link rel="preload" href="css/styles-cosmetology.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/styles-main-service.css" as="style" onload="this.rel='stylesheet'">
 
 </head>
 
@@ -353,7 +379,7 @@
                     isFinishNotLoadVideo = false;
 
 //                const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
-
+	            
                 disableScroll();
 
                 // Если видео не загрузилось на протяжении 2с, не ожидать
@@ -714,6 +740,7 @@
 							<p class="details-feature">
 								<span class="icon-price">560 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -754,6 +781,7 @@
 							<p class="details-feature">
 								<span class="icon-price">650 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -794,6 +822,7 @@
 							<p class="details-feature">
 								<span class="icon-price">580 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -834,6 +863,7 @@
 							<p class="details-feature">
 								<span class="icon-price">490 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -874,6 +904,7 @@
 							<p class="details-feature">
 								<span class="icon-price">720 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -914,6 +945,7 @@
 							<p class="details-feature">
 								<span class="icon-price">670 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -954,6 +986,7 @@
 							<p class="details-feature">
 								<span class="icon-price">600 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -994,6 +1027,7 @@
 							<p class="details-feature">
 								<span class="icon-price">620 грн</span>
 							</p>
+							<span></span>
 						</div>
 						<div class="acc-hidden-element">
 							<div class="acc-hidden-element__wrap two-col">
@@ -1144,19 +1178,21 @@
 			<div class="wrap row">
 				<div class="col lg-offset-1 xl-offset-2 lg-10 xl-8">
 					<h2>Косметлогия и комплексные уходы в Сумах</h2>
-					<article>
-						<h4>Комбинированная установка для комплексного омоложения Limphobioni Starvac</h4>
-						<p class="text">В Спа-центре представлена к которая эффективно восстанавливает клеточную структуру, через лимфатическую стимуляцию, уменьшает и разглаживает морщины, стимулирует синтез эластина и коллагена (видимый эффект омоложения), выводит токсины и повышает иммунитет кожи – уменьшение пигментных пятен, угрей, мешков под глазами уменьшение капилляров и сосудистых звездочек - в этом вам поможет косметолог салона "Велюр" Сумы.</p>
-					</article>
-					<article>
-						<h4>Selvert Thermal</h4>
-						<p class="text">Selvert Thermal (Швейцария) – профессиональная гипоаллергенная косметическая
-							марка - высокотехнологичный, качественный и безопасный продукт, работающий на уровне клеточной терапии. Препараты Селверт Термал – это альянс высоких технологий и природных компонентов – термальной воды, морской соли, грязи, водоросли, торфа.</p>
-					</article>
-					<article>
-						<h4>Klapp</h4>
-						<p class="text">Профессиональная косметика производства Германии считается косметикой высоких технологий, так как действующие компоненты косметических средств представлены в виде наночастиц. Это позволяет воздействовать не только на межклеточное пространство, укрепляя межклеточные связи (принцип действия всех лифтинговых кремов), но и проникать через клеточную мембрану вглубь клетки, осуществляя целый комплекс позитивных изменений, способствующих восстановлению всех функций кожи.</p>
-					</article>
+					<div class="hide-parent-text" data-visible="370">
+						<article>
+							<h4>Комбинированная установка для комплексного омоложения Limphobioni Starvac</h4>
+							<p class="text">В Спа-центре представлена к которая эффективно восстанавливает клеточную структуру, через лимфатическую стимуляцию, уменьшает и разглаживает морщины, стимулирует синтез эластина и коллагена (видимый эффект омоложения), выводит токсины и повышает иммунитет кожи – уменьшение пигментных пятен, угрей, мешков под глазами уменьшение капилляров и сосудистых звездочек - в этом вам поможет косметолог салона "Велюр" Сумы.</p>
+						</article>
+						<article>
+							<h4>Selvert Thermal</h4>
+							<p class="text">Selvert Thermal (Швейцария) – профессиональная гипоаллергенная косметическая
+								марка - высокотехнологичный, качественный и безопасный продукт, работающий на уровне клеточной терапии. Препараты Селверт Термал – это альянс высоких технологий и природных компонентов – термальной воды, морской соли, грязи, водоросли, торфа.</p>
+						</article>
+						<article>
+							<h4>Klapp</h4>
+							<p class="text">Профессиональная косметика производства Германии считается косметикой высоких технологий, так как действующие компоненты косметических средств представлены в виде наночастиц. Это позволяет воздействовать не только на межклеточное пространство, укрепляя межклеточные связи (принцип действия всех лифтинговых кремов), но и проникать через клеточную мембрану вглубь клетки, осуществляя целый комплекс позитивных изменений, способствующих восстановлению всех функций кожи.</p>
+						</article>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -1322,12 +1358,13 @@
 	</section>
 
 	<footer class="l-footer b-footer">
-	<div class="img-footer__bg start"></div>
+	<div class="b-footer__bg img-footer__bg start"></div>
+	<div class="b-footer__bg-mobile img-footer__bg"></div>
 	<div class="b-footer__front wrap">
-		<div class="b-footer__list row row-wrap">
-			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0">
-				<p class="text bold">О НАС</p>
-				<ul>
+		<div class="b-footer__list row row-wrap accordeon-mobile">
+			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0 acc-item">
+				<p class="text bold acc-button-element">О НАС</p>
+				<ul class="acc-hidden-element">
 					<li><a href="about.html" class="text">О СПА-центре</a></li>
 					<li><a href="#" class="text">Новости</a></li>
 					<li><a href="#" class="text">Мастера</a></li>
@@ -1336,9 +1373,9 @@
 					<li><a href="#" class="text">Награды</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-5 sm-2">
-				<p class="text bold">Услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="spa.html" class="text">СПА-зона</a></li>
 					<li><a href="cosmetology.html" class="text">Косметология</a></li>
 					<li><a href="#" class="text">Эстетическая медицина</a></li>
@@ -1346,9 +1383,9 @@
 					<li><a href="#" class="text">Услуги для мужчин</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2">
-				<p class="text bold">Популярные услуги</p>
-				<ul>
+			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Популярные услуги</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text">Маникюр</a></li>
 					<li><a href="#" class="text">Косметолог</a></li>
 					<li><a href="#" class="text">Талассотерапия</a></li>
@@ -1357,9 +1394,9 @@
 					<li><a href="#" class="text">Яванский Лулур</a></li>
 				</ul>
 			</div>
-			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4">
-				<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
-				<ul>
+			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4 acc-item">
+				<p class="text bold acc-button-element">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+				<ul class="acc-hidden-element">
 					<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
 					<li><a href="#" class="text">050 353-32-32</a></li>
 					<li><a href="#" class="text">067 456-55-55</a></li>
@@ -1369,8 +1406,10 @@
 			</div>
 		</div>
 		<p class="b-footer__bottom row">
-			<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-			<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+					<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+						Велюр</span>
+			<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+				with love by crisp</a>
 			<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
 								<a href="#" class="icon-vk"></a>
 								<a href="#" class="icon-fb"></a>

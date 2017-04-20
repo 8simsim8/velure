@@ -21,7 +21,6 @@
 	}
 }
 
-
 .b-article {
 	& {
 	}
@@ -46,6 +45,7 @@
 			margin-bottom: 1rem;
 		}
 		figcaption {
+			line-height: 1.5em;
 		}
 	}
 	&__note {
@@ -180,6 +180,98 @@
 				position:relative;
 				z-index: 4;
 			}
+		}
+	}
+}
+
+@media all and (max-width: 550px) {
+	.b-title {
+		&__logo {
+			&-text {
+				margin-bottom : 5vh;
+			}
+			&-date {
+				margin-bottom : 30px;
+				text-align : center;
+				color : #A823A3;
+			}
+			&-heading {
+				text-align: center;
+				color: #000000;
+				margin-bottom: 1em;
+			}
+			&-lead {
+				text-align: center;
+			}
+		}
+	}
+	.b-article {
+		&__note {
+			padding-top: 10px;
+		}
+		&__header-img {
+			margin-top: 40px;
+			width: 100%;
+		}
+		&__content-img {
+			& {
+				margin : 20px 0 5px;
+				width : 100%;
+			}
+			img {
+				height : auto;
+				width: calc(100% + 20px);
+				margin: 0 -10px;
+			}
+			figcaption {
+			}
+		}
+	}
+
+	.b-socials {
+		& {
+			padding: 40px 0 20px;
+		}
+		&__item {
+			& {
+				position: relative;
+				padding : 25px;
+				width : 50px;
+			}
+			&:before {
+				line-height: 50px;
+				height: 50px;
+				width: 50px;
+			}
+		}
+		.icon-vk {
+			& {
+				font-size: 14px;
+			}
+		}
+		.icon-ok {
+			& {
+				font-size: 25px;
+			}
+		}
+		.icon-fb {
+			& {
+				font-size: 25px;
+			}
+		}
+	}
+
+	.b-form {
+		& {
+			padding : 30px 10px;
+		}
+		&__bg {
+			display: none;
+		}
+		.form {
+			width: calc(100% + 20px);
+			margin : 0 -10px;
+			padding: 20px;
 		}
 	}
 }

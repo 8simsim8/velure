@@ -1,8 +1,7 @@
 window.breakPointTabletLandscape = 1024;
 window.breakPointTabletPortrait = 768;
 window.breakPointMobile = 550;
-
-var isiPad;
+window.isiPad;
 var isTouch;
 /*
  *   Инициализация браузера
@@ -247,7 +246,7 @@ function initBrowser() {
         }
     }
 
-    isiPad = navigator.userAgent.match(/iPad|iPhone/i) != null;
+    window.isiPad = navigator.userAgent.match(/iPad|iPhone/i) != null;
 }
 
 /*
@@ -521,21 +520,28 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
 
 
 /*
- *   Создание аккордеонов когда мобильный вид
+ *   Создание аккордеонов когда ширина меньше 768px
  *   Если обертка "accordeon-mobile" с атрибутом "data-first-open" - открыть первый
  */
 function toggleMobileAccordeon() {
 
     var mobileAcc = document.getElementsByClassName('accordeon-mobile');
+    var tabletAcc = document.getElementsByClassName('accordeon-tablet');
 
-    var isAccordeonStart = false;
+    var isAccordeonMobileStart = false;
+    var isAccordeonTabletStart = false;
 
     // var items = cards.getElementsByClassName('acc-item');
-    var accordeons = [];
+    var accordeonsMobile = [];
+    var accordeonsTablet = [];
     var i, len;
 
     for(i = 0, len = mobileAcc.length; i < len; i++) {
-        accordeons[i] = new MakeAccordeon(mobileAcc[i], 500);
+        accordeonsMobile[i] = new MakeAccordeon(mobileAcc[i], 500);
+    }
+
+    for(i = 0, len = tabletAcc.length; i < len; i++) {
+        accordeonsTablet[i] = new MakeAccordeon(tabletAcc[i], 500);
     }
 
     createAccordeon();
@@ -543,22 +549,42 @@ function toggleMobileAccordeon() {
     window.addEventListener('resize', createAccordeon);
 
     function createAccordeon() {
-        if (window.innerWidth <= window.breakPointMobile) {
-            if(!isAccordeonStart) {
-                for (i = 0, len = mobileAcc.length; i < len; i++) {
-                    accordeons[i].accordeonStart();
-                    if(accordeons[i].accordeonWrap.hasAttribute('data-first-open')) {
-                        accordeons[i].button[0].click();
+
+        if (window.innerWidth <= window.breakPointTabletPortrait) {
+            if(!isAccordeonTabletStart) {
+                for (i = 0, len = tabletAcc.length; i < len; i++) {
+                    accordeonsTablet[i].accordeonStart();
+                    if(accordeonsTablet[i].accordeonWrap.hasAttribute('data-first-open')) {
+                        accordeonsTablet[i].button[0].click();
                     }
                 }
-                isAccordeonStart = true;
+                isAccordeonTabletStart = true;
             }
         } else {
-            if(isAccordeonStart) {
-                for (i = 0, len = mobileAcc.length; i < len; i++) {
-                    accordeons[i].accordeonStop();
+            if(isAccordeonTabletStart) {
+                for (i = 0, len = tabletAcc.length; i < len; i++) {
+                    accordeonsTablet[i].accordeonStop();
                 }
-                isAccordeonStart = false;
+                isAccordeonTabletStart = false;
+            }
+        }
+
+        if (window.innerWidth <= window.breakPointMobile) {
+            if(!isAccordeonMobileStart) {
+                for (i = 0, len = mobileAcc.length; i < len; i++) {
+                    accordeonsMobile[i].accordeonStart();
+                    if(accordeonsMobile[i].accordeonWrap.hasAttribute('data-first-open')) {
+                        accordeonsMobile[i].button[0].click();
+                    }
+                }
+                isAccordeonMobileStart = true;
+            }
+        } else {
+            if(isAccordeonMobileStart) {
+                for (i = 0, len = mobileAcc.length; i < len; i++) {
+                    accordeonsMobile[i].accordeonStop();
+                }
+                isAccordeonMobileStart = false;
             }
         }
     }
@@ -594,6 +620,8 @@ function MakeAccordeon(elem, time, callBack){
         }
 
         window.addEventListener('resize', resizeAccordeon.bind(self));
+
+        this.accordeonWrap.classList.add('start-acc');
 
         if(typeof callBack === 'function') {
             callBack();
@@ -710,6 +738,8 @@ function MakeAccordeon(elem, time, callBack){
         if(this.accordeonWrap.querySelector(".active")) {
             this.accordeonWrap.querySelector(".active").classList.remove('active');
         }
+
+        this.accordeonWrap.classList.remove('start-acc');
 
         window.removeEventListener('resize', resizeAccordeon);
     };
@@ -1283,7 +1313,7 @@ function preparePopupToContact(isShowMap) {
 
     for(i = 0, len = buttonToOpenPopupContact.length; i < len; i++) {
         buttonToOpenPopupContact[i].addEventListener('click', handlerOpenPopupContact);
-        if(isiPad) {
+        if(window.isiPad) {
             buttonToOpenPopupContact[i].addEventListener('touchend', handlerOpenPopupContact);
         }
         buttonToOpenPopupContact[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupContact[i],'[data-contact]'));
@@ -1291,7 +1321,7 @@ function preparePopupToContact(isShowMap) {
 
     for(i = 0, len = buttonToOpenPopupOnlineRecord.length; i < len; i++) {
         buttonToOpenPopupOnlineRecord[i].addEventListener('click', handlerOpenPopupOnlineRecord);
-        if(isiPad) {
+        if(window.isiPad) {
             buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
         }
         buttonToOpenPopupOnlineRecord[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord[i],'[data-online-record]'));
@@ -1307,11 +1337,11 @@ function preparePopupToContact(isShowMap) {
         var valueService;
 
         node = self;
-        while(node.nodeName != 'TR' && node.parentNode) {
-          node = node.parentNode;
+        while(!node.classList.contains('item-table-row') && node.parentNode.parentNode) {
+            node = node.parentNode;
         }
 
-        if(node.nodeName != 'TR') {
+        if(!node.classList.contains('item-table-row')) {
             node = self;
             while(!node.classList.contains('acc-item') && node.parentNode) {
                 node = node.parentNode;
@@ -1354,7 +1384,7 @@ function preparePopupToContact(isShowMap) {
 
         function closePopup(e) {
             var target = e.target;
-            if(target == popup) {
+            if(target === popup) {
                 popup.removeEventListener('click', closePopup);
                 handlerClosePopup(e);
             }

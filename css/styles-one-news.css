@@ -33,6 +33,9 @@
   width: 100%;
   margin-bottom: 1rem;
 }
+.b-article__content-img figcaption {
+  line-height: 1.5em;
+}
 .b-article__note {
   padding-top: 2rem;
 }
@@ -131,4 +134,71 @@
 .b-form__row-block-wrap {
   position: relative;
   z-index: 4;
+}
+@media all and (max-width: 550px) {
+  .b-title__logo-text {
+    margin-bottom: 5vh;
+  }
+  .b-title__logo-date {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #a823a3;
+  }
+  .b-title__logo-heading {
+    text-align: center;
+    color: #000;
+    margin-bottom: 1em;
+  }
+  .b-title__logo-lead {
+    text-align: center;
+  }
+  .b-article__note {
+    padding-top: 10px;
+  }
+  .b-article__header-img {
+    margin-top: 40px;
+    width: 100%;
+  }
+  .b-article__content-img {
+    margin: 20px 0 5px;
+    width: 100%;
+  }
+  .b-article__content-img img {
+    height: auto;
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+  }
+  .b-socials {
+    padding: 40px 0 20px;
+  }
+  .b-socials__item {
+    position: relative;
+    padding: 25px;
+    width: 50px;
+  }
+  .b-socials__item:before {
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+  }
+  .b-socials .icon-vk {
+    font-size: 14px;
+  }
+  .b-socials .icon-ok {
+    font-size: 25px;
+  }
+  .b-socials .icon-fb {
+    font-size: 25px;
+  }
+  .b-form {
+    padding: 30px 10px;
+  }
+  .b-form__bg {
+    display: none;
+  }
+  .b-form .form {
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+    padding: 20px;
+  }
 }

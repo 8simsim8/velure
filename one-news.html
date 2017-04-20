@@ -113,7 +113,7 @@
 	
 	</script>
 	
-	<style>
+ 	<style>
 		body.no-scroll {
 			overflow-y: hidden;
 		}
@@ -213,6 +213,17 @@
 			-webkit-transform: translate(0, 0);
 			transform: translate(0, 0);
 		}
+	    
+	    @media all and (max-width: 550px) {
+		    .b-title__logo {
+			    height: auto;
+			    padding: 8vh 20px 0;
+		    }
+		    .b-article__header-img {
+			    margin-top: 40px !important;
+			    width : 100% !important;
+		    }
+	    }
 	</style>
 	
 	<link rel="stylesheet" href="css/reset-min.css">
@@ -813,12 +824,13 @@
 	</section>
 	
 	<footer class="l-footer b-footer">
-		<div class="img-footer__bg start"></div>
+		<div class="b-footer__bg img-footer__bg start"></div>
+		<div class="b-footer__bg-mobile img-footer__bg"></div>
 		<div class="b-footer__front wrap">
-			<div class="b-footer__list row row-wrap">
-				<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0">
-					<p class="text bold">О НАС</p>
-					<ul>
+			<div class="b-footer__list row row-wrap accordeon-mobile">
+				<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0 acc-item">
+					<p class="text bold acc-button-element">О НАС</p>
+					<ul class="acc-hidden-element">
 						<li><a href="about.html" class="text">О СПА-центре</a></li>
 						<li><a href="#" class="text">Новости</a></li>
 						<li><a href="#" class="text">Мастера</a></li>
@@ -827,9 +839,9 @@
 						<li><a href="#" class="text">Награды</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item col xs-5 sm-2">
-					<p class="text bold">Услуги</p>
-					<ul>
+				<div class="b-footer__list-item col xs-5 sm-2 acc-item">
+					<p class="text bold acc-button-element">Услуги</p>
+					<ul class="acc-hidden-element">
 						<li><a href="spa.html" class="text">СПА-зона</a></li>
 						<li><a href="cosmetology.html" class="text">Косметология</a></li>
 						<li><a href="#" class="text">Эстетическая медицина</a></li>
@@ -837,9 +849,9 @@
 						<li><a href="#" class="text">Услуги для мужчин</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2">
-					<p class="text bold">Популярные услуги</p>
-					<ul>
+				<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2 acc-item">
+					<p class="text bold acc-button-element">Популярные услуги</p>
+					<ul class="acc-hidden-element">
 						<li><a href="#" class="text">Маникюр</a></li>
 						<li><a href="#" class="text">Косметолог</a></li>
 						<li><a href="#" class="text">Талассотерапия</a></li>
@@ -848,9 +860,9 @@
 						<li><a href="#" class="text">Яванский Лулур</a></li>
 					</ul>
 				</div>
-				<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4">
-					<p class="text bold">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
-					<ul>
+				<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4 acc-item">
+					<p class="text bold acc-button-element">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+					<ul class="acc-hidden-element">
 						<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
 						<li><a href="#" class="text">050 353-32-32</a></li>
 						<li><a href="#" class="text">067 456-55-55</a></li>
@@ -860,8 +872,10 @@
 				</div>
 			</div>
 			<p class="b-footer__bottom row">
-				<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-				<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+					<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+						Велюр</span>
+				<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+					with love by crisp</a>
 				<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
 								<a href="#" class="icon-vk"></a>
 								<a href="#" class="icon-fb"></a>

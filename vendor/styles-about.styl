@@ -17,6 +17,7 @@
 		& {
 			margin: 0;
 			margin-top: 100px;
+			width: 100%;
 		}
 		.date {
 			//color: #FFFFFF;
@@ -346,6 +347,123 @@
 	}
 }
 
-@media all and (max-width: 660px) {
+@media all and (max-width: 550px) {
+	.b-news {
+		.img-link .img-link__text {
+			margin-top : 0;
+			width : 100%;
+		}
+		.btn {
+			padding: 5px;
+			height: auto;
+			margin-top: 10px;
+		}
+	}
+	.b-feature {
+		& {
+			padding : 30px 0 0;
+		}
+		h2 {
+		}
+		.lead {
+			padding: 0 20px;
+		}
+		&__tile {
+			padding-top: 40px;
+		}
+		&__item {
+			& {
+			}
+			&-img {
+				& {
+					height: 200px;
+				}
+				&-block {
+					height: 100%;
+				}
+			}
+			&-note {
+				& {
+					background-color : #F6F4E9;
+				}
+				&-inner {
+					& {
+						height: auto;
+						padding: 30px 20px;
+					}
+				}
+
+			}
+		}
+	}
+
+	.b-rewards {
+		& {
+			padding: 40px 0 0;
+		}
+		h2 {
+			margin-bottom: 1.18em;
+			padding: 0 20px;
+			text-align : center;
+			color : #000000;
+		}
+		.lead {
+			padding: 0 20px;
+			text-align: center;
+			color: #4d344a;
+		}
+		&__container {
+			padding-top: 100px;
+			text-align: center;
+		}
+		&__item {
+			& {
+				display : inline-block;
+				margin : 20px;
+				font-size : 0;
+				border : 15px solid #CECECE;
+				border-image : url('../img/rewards/f1-1.png') 15 repeat;
+				box-shadow : 12px 10px 25px rgba(0, 0, 0, 0.1);
+			}
+			img {
+				display: block;
+			}
+		}
+	}
+
+	.b-reviews {
+		padding-bottom: 40px;
+	}
+
+	.b-achievements {
+		& {
+			padding: 40px 10px 40px;
+		}
+		&__item:nth-last-of-type(1)  {
+			padding-bottom: 20px;
+		}
+		.hide-part-text:before {
+			background: linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+		}
+		.hide-part-text:after {
+			background-color: #f5f5f5;
+		}
+	}
+
+	.b-form {
+		& {
+			margin: 0;
+			padding : 30px 10px;
+		}
+		&__bg {
+			display: none;
+		}
+		.form {
+			width: calc(100% + 20px);
+			margin : 0 -10px;
+			padding: 20px;
+		}
+	}
+
 
 }

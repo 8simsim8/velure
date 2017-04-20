@@ -408,6 +408,7 @@
                 const nav = document.getElementsByClassName('l-navigation')[0];
                 const poster = document.getElementsByClassName('b-title__poster')[0];
 
+                const videoWrap = document.getElementsByClassName('video-wrapp')[0];
                 const video = document.getElementsByTagName('video')[0];
                 const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
                 const titleImg = document.getElementsByClassName('b-title__img')[0];
@@ -421,6 +422,10 @@
 
 //                const svgAnim = document.querySelector('.preloader svg').querySelector('[class]');
 
+                if(window.innerWidth <= 550) {
+                    videoWrap.style.height = window.innerHeight + 'px';
+                }
+	            
                 disableScroll();
 
                 transitionForFeatures(featureItem, 0.5, 0.2);
@@ -792,45 +797,45 @@
 				
 				<section class="b-prices">
 					<div class="wrap">
-							<h3>Услуги и цены</h3>
-							<table class="item-table" data-table="well">
-								<tr>
-									<td class="text name">Хамам</td>
-									<td class="button-text price">223 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">Массаж в четыре руки</td>
-									<td class="button-text price">210 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">Расслабляющий комплекс</td>
-									<td class="button-text price">125 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">Тонизирующая ванная</td>
-									<td class="button-text price">115 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">СПА-комплекс  «Антистресс»</td>
-									<td class="button-text price">223 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">Массаж расслабляющий</td>
-									<td class="button-text price">210 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-								<tr>
-									<td class="text name">Расслабляющий комплекс</td>
-									<td class="button-text price">125 грн</td>
-									<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-								</tr>
-							</table>
+						<h3>Услуги и цены</h3>
+						<div class="item-table">
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Хамам</p>
+								<p class="button-text price">223 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Массаж в четыре руки</p>
+								<p class="button-text price">210 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Расслабляющий комплекс</p>
+								<p class="button-text price">125 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Тонизирующая ванная</p>
+								<p class="button-text price">115 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">СПА-комплекс  «Антистресс»</p>
+								<p class="button-text price">223 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Массаж расслабляющий</p>
+								<p class="button-text price">210 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
+							<div class="item-table-row row row-wrap row-baseline">
+								<p class="name-container text name">Расслабляющий комплекс</p>
+								<p class="button-text price">125 грн</p>
+								<p	class="record"><a href="#" class="button-record button-text">Записаться</a></p>
+							</div>
 						</div>
+					</div>
 				</section>
 				
 				<section class="b-faq">

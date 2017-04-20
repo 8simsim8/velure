@@ -11,6 +11,7 @@
 .b-news .img-link .img-link__text {
   margin: 0;
   margin-top: 100px;
+  width: 100%;
 }
 .b-news .btn {
   margin-top: 50px;
@@ -301,5 +302,102 @@
   }
   .b-slider .swiper-controls-prev {
     left: 20px;
+  }
+}
+@media all and (max-width: 550px) {
+  .b-news .img-link .img-link__text {
+    margin-top: 0;
+    width: 100%;
+  }
+  .b-news .btn {
+    padding: 5px;
+    height: auto;
+    margin-top: 10px;
+  }
+  .b-feature {
+    padding: 30px 0 0;
+  }
+  .b-feature .lead {
+    padding: 0 20px;
+  }
+  .b-feature__tile {
+    padding-top: 40px;
+  }
+  .b-feature__item-img {
+    height: 200px;
+  }
+  .b-feature__item-img-block {
+    height: 100%;
+  }
+  .b-feature__item-note {
+    background-color: #f6f4e9;
+  }
+  .b-feature__item-note-inner {
+    height: auto;
+    padding: 30px 20px;
+  }
+  .b-rewards {
+    padding: 40px 0 0;
+  }
+  .b-rewards h2 {
+    margin-bottom: 1.18em;
+    padding: 0 20px;
+    text-align: center;
+    color: #000;
+  }
+  .b-rewards .lead {
+    padding: 0 20px;
+    text-align: center;
+    color: #4d344a;
+  }
+  .b-rewards__container {
+    padding-top: 100px;
+    text-align: center;
+  }
+  .b-rewards__item {
+    display: inline-block;
+    margin: 20px;
+    font-size: 0;
+    border: 15px solid #cecece;
+    -webkit-border-image: url("../img/rewards/f1-1.png") 15 repeat;
+    -moz-border-image: url("../img/rewards/f1-1.png") 15 repeat;
+    -o-border-image: url("../img/rewards/f1-1.png") 15 repeat;
+    border-image: url("../img/rewards/f1-1.png") 15 repeat;
+    -webkit-box-shadow: 12px 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 12px 10px 25px rgba(0,0,0,0.1);
+  }
+  .b-rewards__item img {
+    display: block;
+  }
+  .b-reviews {
+    padding-bottom: 40px;
+  }
+  .b-achievements {
+    padding: 40px 10px 40px;
+  }
+  .b-achievements__item:nth-last-of-type(1) {
+    padding-bottom: 20px;
+  }
+  .b-achievements .hide-part-text:before {
+    background: -webkit-linear-gradient(270deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+    background: -moz-linear-gradient(270deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+    background: -o-linear-gradient(270deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+    background: -ms-linear-gradient(270deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+    background: linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(245,245,245,0.13) 13.47%, #f5f5f5 100%);
+  }
+  .b-achievements .hide-part-text:after {
+    background-color: #f5f5f5;
+  }
+  .b-form {
+    margin: 0;
+    padding: 30px 10px;
+  }
+  .b-form__bg {
+    display: none;
+  }
+  .b-form .form {
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+    padding: 20px;
   }
 }

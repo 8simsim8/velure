@@ -117,16 +117,16 @@
 		<style>
 			body.no-scroll {
 				overflow-y: hidden;
-				}
-				body.no-scroll::-webkit-scrollbar {
-					 background-color: rgba(255,255,255,0.95);
-				 }
-				body.no-scroll::-webkit-scrollbar-track {
-					 background-color: rgba(255,255,255,0.95);
-				 }
-				body.no-scroll::-webkit-scrollbar-thumb {
-					 background-color: rgba(255,255,255,0.95);
-				 }
+			}
+			body.no-scroll::-webkit-scrollbar {
+				background-color: rgba(255,255,255,0.95);
+			}
+			body.no-scroll::-webkit-scrollbar-track {
+				background-color: rgba(255,255,255,0.95);
+			}
+			body.no-scroll::-webkit-scrollbar-thumb {
+				background-color: rgba(255,255,255,0.95);
+			}
 			.preloader {
 				position: fixed;
 				top: 0;
@@ -137,198 +137,212 @@
 				transition: opacity 0.5s ease;
 				z-index: 10000;
 			}
-				.finish-load .preloader {
-					opacity: 0;
-					pointer-events: none;
-				}
-				.preloader__bg {
-					height: 100%;
-					width: 100%;
-					background-color: #FFFFFF;
-					-webkit-transition: opacity 0.5s ease;
-					transition: opacity 0.5s ease;
-				}
-				.preloader p {
-					position: absolute;
-					top: 0;
-					left: 0;
-					display: -webkit-flex;
-					display: flex;
-					width: 100%;
-					height: 100%;
-				}
-					.preloader p svg {
-						margin: auto;
-						height: 18vh;
-					}
+			.finish-load .preloader {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.preloader__bg {
+				height: 100%;
+				width: 100%;
+				background-color: #FFFFFF;
+				-webkit-transition: opacity 0.5s ease;
+				transition: opacity 0.5s ease;
+			}
+			.preloader p {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: -webkit-flex;
+				display: flex;
+				width: 100%;
+				height: 100%;
+			}
+			.preloader p svg {
+				margin: auto;
+				height: 18vh;
+			}
 			.video-wrapp {
 				position: relative;
 				width: 100%;
 				overflow: hidden;
 			}
-				.b-title__video {
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-					-webkit-transition: height 0.5s ease,
-										width 0.5s ease;
-					transition: height 0.5s ease,
-								width 0.5s ease;
+			.b-title__video {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				-webkit-transition: height 0.5s ease,
+				width 0.5s ease;
+				transition: height 0.5s ease,
+				width 0.5s ease;
+			}
+			.b-title__logo {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: -webkit-flex;
+				display: flex;
+				height: 100%;
+				width: 100%;
+				background-color: rgba(0,0,0,0.5);
+				z-index: 9998;
+			}
+			.b-title__logo-inner {
+				margin: auto;
+			}
+			.b-title__logo-img,
+			.b-title__logo-text {
+				text-align: center;
+				opacity: 0;
+				-webkit-transform: translate(0, 50px);
+				transform: translate(0, 50px);
+			}
+			.b-title__logo-img {
+			}
+			.transition .b-title__logo-img {
+				-webkit-transition: -webkit-transform 0.8s ease 0.5s,
+				opacity 0.8s ease 0.5s;
+				transition: transform 0.8s ease 0.5s,
+				opacity 0.8s ease 0.5s;
+			}
+			.finish-load .transition .b-title__logo-img,
+			.finish-load .transition .b-title__logo-text {
+				opacity: 1;
+				-webkit-transform: translate(0, 0);
+				transform: translate(0, 0);
+			}
+			.b-title__logo-img svg {
+				height: 18vh;
+			}
+			.b-title__logo-text {
+			}
+			.transition .b-title__logo-text {
+				-webkit-transition: -webkit-transform 0.8s ease 0.7s,
+				opacity 0.8s ease 0.7s;
+				transition: transform 0.8s ease 0.7s,
+				opacity 0.8s ease 0.7s;
+			}
+			.b-title__logo-text svg {
+				height: 13vh;
+			}
+			.center-wrap {
+				position: absolute;
+				opacity: 0;
+				left: 0;
+				padding: 0 20px;
+				width: 100%;
+				bottom: 14vh;
+				text-align: center;
+				pointer-events: none;
+				-webkit-transition: opacity 0.2s ease 1.3s;
+				transition: opacity 0.2s ease 1.3s;
+				z-index: 9999;
+			}
+			.finish-load .center-wrap {
+				opacity: 1;
+				pointer-events: auto;
+			}
+			.btn-play {
+				padding-left: 35px;
+				padding-right: 50px;
+				color: #FFFFFF;
+				border: 1px solid #FFFFFF;
+			}
+			.btn-play:hover {
+				background-color: #FFFFFF;
+				color: #5A009D;
+				border: 1px solid #FFFFFF;
+			}
+			.btn-play:before {
+				display: inline-block;
+				margin-right: 20px;
+				width: 9px;
+				height: 12px;
+				content:'';
+				background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.9 11.5'><path fill='%23FFF' d='M.2 11.5c-.2.1.5-.1 0-.4V.3C-.3 0 0-.1.2 0L5 2.8l4.7 2.7c.2.1.2.4 0 .6L5 8.8.2 11.5z'/></svg>");
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			.btn-play:hover:before {
+				background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.9 11.5'><path fill='%235A009D' d='M.2 11.5c-.2.1.5-.1 0-.4V.3C-.3 0 0-.1.2 0L5 2.8l4.7 2.7c.2.1.2.4 0 .6L5 8.8.2 11.5z'/></svg>");
+			}
+			.b-title__poster {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height : 100%;
+				width: 100%;
+				background-image: url('video/poster-main.jpg');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			.hidden.b-title__poster {
+				display:none;
+			}
+			.video-close {
+				position: absolute;
+				top: 30px;
+				right: 30px;
+				height: 50px;
+				width: 50px;
+				-webkit-border-radius : 50%;
+				-moz-border-radius    : 50%;
+				border-radius         : 50%;
+				background-color: rgba(255,255,255,0.2);
+				z-index: 100002;
+			}
+			.video-close:after,
+			.video-close:before {
+				position: absolute;
+				left: 12px;
+				top: 23px;
+				content: '';
+				display: block;
+				width: 28px;
+				border-top: 2px solid rgba(255,255,255,1);
+				-webkit-transition: border 0.2s ease;
+				-moz-transition: border 0.2s ease;
+				-o-transition: border 0.2s ease;
+				-ms-transition: border 0.2s ease;
+				transition: border 0.2s ease;
+			}
+			.video-close:after {
+				-webkit-transform-origin: 50% 50%;
+				-moz-transform-origin: 50% 50%;
+				-o-transform-origin: 50% 50%;
+				-ms-transform-origin: 50% 50%;
+				transform-origin: 50% 50%;
+				-webkit-transform: rotate(45deg);
+				-moz-transform: rotate(45deg);
+				-o-transform: rotate(45deg);
+				-ms-transform: rotate(45deg);
+				transform: rotate(45deg);
+			}
+			.video-close:before {
+				-webkit-transform-origin: 50% 50%;
+				-moz-transform-origin: 50% 50%;
+				-o-transform-origin: 50% 50%;
+				-ms-transform-origin: 50% 50%;
+				transform-origin: 50% 50%;
+				-webkit-transform: rotate(-45deg);
+				-moz-transform: rotate(-45deg);
+				-o-transform: rotate(-45deg);
+				-ms-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+			}
+			
+			.b-footer__bottom {
+				padding-top: 30px !important;
+				padding-bottom: 30px !important;
+				height: auto !important;
+			}
+			
+			@media all and (max-width: 550px) {
+				.b-navigation {
+					transform: translate(0, -100%);
 				}
-				.b-title__logo {
-					position: absolute;
-					top: 0;
-					left: 0;
-					display: -webkit-flex;
-					display: flex;
-					height: 100%;
-					width: 100%;
-					background-color: rgba(0,0,0,0.5);
-					z-index: 9998;
-				}
-					.b-title__logo-inner {
-						margin: auto;
-					}
-						.b-title__logo-img,
-						.b-title__logo-text {
-							text-align: center;
-							opacity: 0;
-							-webkit-transform: translate(0, 50px);
-							transform: translate(0, 50px);
-						}
-						.b-title__logo-img {
-						}
-							.transition .b-title__logo-img {
-								-webkit-transition: -webkit-transform 0.8s ease 0.5s,
-											opacity 0.8s ease 0.5s;
-								transition: transform 0.8s ease 0.5s,
-											opacity 0.8s ease 0.5s;
-							}
-							.finish-load .transition .b-title__logo-img,
-							.finish-load .transition .b-title__logo-text {
-								opacity: 1;
-								-webkit-transform: translate(0, 0);
-								transform: translate(0, 0);
-							}
-							.b-title__logo-img svg {
-								height: 18vh;
-							}
-						.b-title__logo-text {
-						}
-							.transition .b-title__logo-text {
-								-webkit-transition: -webkit-transform 0.8s ease 0.7s,
-											opacity 0.8s ease 0.7s;
-								transition: transform 0.8s ease 0.7s,
-											opacity 0.8s ease 0.7s;
-							}
-							.b-title__logo-text svg {
-								height: 13vh;
-							}
-				.center-wrap {
-					position: absolute;
-					opacity: 0;
-					left: 0;
-					width: 100%;
-					bottom: 14vh;
-					text-align: center;
-					pointer-events: none;
-					-webkit-transition: opacity 0.2s ease 1.3s;
-					transition: opacity 0.2s ease 1.3s;
-					z-index: 9999;
-				}
-					.finish-load .center-wrap {
-						opacity: 1;
-						pointer-events: auto;
-					}
-					.btn-play {
-						padding-left: 35px;
-						padding-right: 50px;
-						color: #FFFFFF;
-						border: 1px solid #FFFFFF;
-					}
-						.btn-play:hover {
-							background-color: #FFFFFF;
-							color: #5A009D;
-							border: 1px solid #FFFFFF;
-						}
-						.btn-play:before {
-							display: inline-block;
-							margin-right: 20px;
-							width: 9px;
-							height: 12px;
-							content:'';
-							background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.9 11.5'><path fill='%23FFF' d='M.2 11.5c-.2.1.5-.1 0-.4V.3C-.3 0 0-.1.2 0L5 2.8l4.7 2.7c.2.1.2.4 0 .6L5 8.8.2 11.5z'/></svg>");
-							background-repeat: no-repeat;
-							background-position: center;
-						}
-							.btn-play:hover:before {
-								background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.9 11.5'><path fill='%235A009D' d='M.2 11.5c-.2.1.5-.1 0-.4V.3C-.3 0 0-.1.2 0L5 2.8l4.7 2.7c.2.1.2.4 0 .6L5 8.8.2 11.5z'/></svg>");
-							}
-				.b-title__poster {
-					position: absolute;
-					top: 0;
-					left: 0;
-					height : 100%;
-					width: 100%;
-					background-image: url('video/poster-main.jpg');
-					background-repeat: no-repeat;
-					background-size: cover;
-				}
-					.hidden.b-title__poster {
-						display:none;
-					}
-				.video-close {
-					position: absolute;
-					top: 30px;
-					right: 30px;
-					height: 50px;
-					width: 50px;
-					-webkit-border-radius : 50%;
-					-moz-border-radius    : 50%;
-					border-radius         : 50%;
-					background-color: rgba(255,255,255,0.2);
-					z-index: 100002;
-				}
-					.video-close:after,
-					.video-close:before {
-						position: absolute;
-						left: 12px;
-						top: 23px;
-						content: '';
-						display: block;
-						width: 28px;
-						border-top: 2px solid rgba(255,255,255,1);
-						-webkit-transition: border 0.2s ease;
-						-moz-transition: border 0.2s ease;
-						-o-transition: border 0.2s ease;
-						-ms-transition: border 0.2s ease;
-						transition: border 0.2s ease;
-					}
-					.video-close:after {
-						-webkit-transform-origin: 50% 50%;
-						-moz-transform-origin: 50% 50%;
-						-o-transform-origin: 50% 50%;
-						-ms-transform-origin: 50% 50%;
-						transform-origin: 50% 50%;
-						-webkit-transform: rotate(45deg);
-						-moz-transform: rotate(45deg);
-						-o-transform: rotate(45deg);
-						-ms-transform: rotate(45deg);
-						transform: rotate(45deg);
-					}
-					.video-close:before {
-						-webkit-transform-origin: 50% 50%;
-						-moz-transform-origin: 50% 50%;
-						-o-transform-origin: 50% 50%;
-						-ms-transform-origin: 50% 50%;
-						transform-origin: 50% 50%;
-						-webkit-transform: rotate(-45deg);
-						-moz-transform: rotate(-45deg);
-						-o-transform: rotate(-45deg);
-						-ms-transform: rotate(-45deg);
-						transform: rotate(-45deg);
-					}
-
+				
+			}
+		
 		</style>
 		
 		<link rel="stylesheet" href="css/reset-min.css">
@@ -422,16 +436,17 @@
 				handlerStart();
 
                 function handlerStart() {
-                    var nav = document.getElementsByClassName('l-navigation')[0];
+                    const nav = document.getElementsByClassName('l-navigation')[0];
 //                    var poster = document.getElementsByClassName('b-title__poster')[0];
 
-                    var preloader = document.getElementsByClassName('preloader')[0];
+                    const preloader = document.getElementsByClassName('preloader')[0];
 
                     var isFinishNotLoadVideo = false;
 
-                    var video = document.getElementsByTagName('video')[0];
-                    var buttonPlay = document.getElementById('play');
-                    var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+                    const videoWrap = document.getElementsByClassName('video-wrapp')[0];
+                    const video = document.getElementsByTagName('video')[0];
+                    const buttonPlay = document.getElementById('play');
+                    const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
 
                     var isFullScreen = false,
                         isSupportFullScreen = true;
@@ -440,6 +455,10 @@
                         isFinishLoadPoster = false,
 //                        isFinishLoadPoster = true,
                         isFinishLoadVideo = false;
+
+                    if(window.innerWidth <= 550) {
+                        videoWrap.style.height = window.innerHeight + 'px';
+                    }
                     
                     var timeOutVideoLoad = setTimeout(function(){
                         willChangeSwitch(preloader, 'opacity');
@@ -838,30 +857,51 @@
 					</div>
 				</div>
 				<div class="b-programs__cards">
-					<div class="wrap row row-wrap">
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/spa-complex-card.png');"><span></span></p>
-							<h3>SPA-complex</h3>
-							<p class="normal">Welcome to the world of beauty, health and harmony Feel the courage and
-							   strength.</p>
+					<div class="wrap row row-wrap accordeon-tablet" data-first-open>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>SPA-complex</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/spa-complex-card.png');"><span></span></p>
+								<p class="normal">Welcome to the world of beauty, health and harmony Feel the courage and
+									strength.</p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/cosmetology-card.png');"><span></span></p>
-							<h3>Cosmetology</h3>
-							<p class="normal">Get young, healthy and beautiful skin with the help of newest world technologies</p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>Cosmetology</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/cosmetology-card.png');"><span></span></p>
+								<p class="normal">Get young, healthy and beautiful skin with the help of newest world technologies</p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/beauty-zone-card.png');"><span></span></p>
-							<h3>Beauty zone</h3>
-							<p class="normal">Being beautiful is always easy, together with our team of professional beauty artists</p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>Beauty zone</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/beauty-zone-card.png');"><span></span></p>
+								<p class="normal">Being beautiful is always easy, together with our team of professional beauty artists</p>
+							</div>
 						</div>
-						<div class="b-programs__cards-item col xs-12 sm-6 lg-3">
-							<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/man-services-card.png');"><span></span></p>
-							<h3>For men</h3>
-							<p class="normal">Rejuvenation, healing and maintaining the beauty of your skin on advanced world technologies</p>
+						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
+							<div class="acc-button-element">
+								<h3>For men</h3>
+								<span></span>
+							</div>
+							<div class="acc-hidden-element">
+								<p class="b-programs__cards-item-img" style="background-image: url('img/title-services/man-services-card.png');"><span></span></p>
+								<<p class="normal">Rejuvenation, healing and maintaining the beauty of your skin on advanced world technologies</p>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 			</section>
 			
 			<section class="b-parallax">
@@ -1065,16 +1105,19 @@
 		</section>
 	
 		<footer class="l-footer b-footer">
-			<div class="img-footer__bg start"></div>
-			<div class="b-footer__front wrap" style="padding-top:30px;">
+			<div class="b-footer__bg img-footer__bg start"></div>
+			<div class="b-footer__bg-mobile img-footer__bg"></div>
+			<div class="b-footer__front wrap">
 				<p class="b-footer__bottom row">
-					<span class="col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр Велюр</span>
-					<a href="http://crisp-studio.com" class="col sm-offset-2 sm-2">Сrafted with love by crisp</a>
+						<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+							Велюр</span>
+					<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+						with love by crisp</a>
 					<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
-								<a href="#" class="icon-vk"></a>
-								<a href="#" class="icon-fb"></a>
-								<a href="#" class="icon-inst"></a>
-							</span>
+									<a href="#" class="icon-vk"></a>
+									<a href="#" class="icon-fb"></a>
+									<a href="#" class="icon-inst"></a>
+								</span>
 				</p>
 			</div>
 		</footer>

@@ -46,8 +46,8 @@
   text-align: center;
 }
 .b-staffs__title {
-  padding: 65px 0 13%;
   background: url("../img/velur-bg.jpg") center;
+  padding: 65px 0 13%;
 }
 .b-staffs__title h2,
 .b-staffs__title .lead {
@@ -137,6 +137,11 @@
 .b-staffs__reviews.wrap {
   padding: 0 20px;
 }
+@media all and (min-width: 1300px) {
+  .b-staffs__title {
+    padding: 65px 0 150px;
+  }
+}
 @media all and (max-width: 768px) {
   .b-staffs__title {
     padding-bottom: 60px;
@@ -220,6 +225,9 @@
     margin-left: 0;
     margin-top: 10px;
     text-align: center;
+  }
+  .b-packages__accordeon .acc-hidden-element .b-packages__accordeon-description {
+    padding: 30px 20px 10px;
   }
   .b-staffs {
     padding-top: 40px;

@@ -438,17 +438,17 @@
 				handlerStart();
 
                 function handlerStart() {
-                    var nav = document.getElementsByClassName('l-navigation')[0];
+                    const  nav = document.getElementsByClassName('l-navigation')[0];
 //                    var poster = document.getElementsByClassName('b-title__poster')[0];
 
-                    var preloader = document.getElementsByClassName('preloader')[0];
+                    const  preloader = document.getElementsByClassName('preloader')[0];
 
                     var isFinishNotLoadVideo = false;
 
-                    var videoWrap = document.getElementsByClassName('video-wrapp')[0];
-                    var video = document.getElementsByTagName('video')[0];
-                    var buttonPlay = document.getElementById('play');
-                    var titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+                    const  videoWrap = document.getElementsByClassName('video-wrapp')[0];
+                    const  video = document.getElementsByTagName('video')[0];
+                    const  buttonPlay = document.getElementById('play');
+                    const  titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
 
                     if(window.innerWidth <= 550) {
                         videoWrap.style.height = window.innerHeight + 'px';
@@ -894,9 +894,7 @@
 				<div class="wrap">
 					<h2>Велюр — островок спокойствия и расслабления в самом центре города</h2>
 					<div class="b-programs__shadow icon-big-logo start"></div>
-					<div class="row">
-						<p class="col lg-offset-1 lg-10 normal">Мы собрали вместе лучшие мировые технологии по уходу за лицом и телом, медицинской косметологии и SPA-процедур. Атмосфера роскоши и релакса позволит забыть о повседневой рутине, отдохнуть и отвлечься от ежедневных забот.</p>
-					</div>
+					<p class="normal">Мы собрали вместе лучшие мировые технологии по уходу за лицом и телом, медицинской косметологии и SPA-процедур. Атмосфера роскоши и релакса позволит забыть о повседневой рутине, отдохнуть и отвлечься от ежедневных забот.</p>
 				</div>
 				<div class="b-programs__circles start">
 					<div class="wrap row row-wrap">
@@ -966,87 +964,104 @@
 								<p class="tables-button-close button-close"></p>
 								<h3>Наши рекомендации</h3>
 								<div class="tables-wrap-collection">
-									<table class="item-table" data-table="well">
-										<tr>
-											<td><a href="one-service.html" class="text name">Хамам</a></td>
-											<td class="button-text price">223 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td><a href="one-service.html" class="text name">Массаж в четыре руки</a></td>
-											<td class="button-text price">210 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td><a href="one-service.html" class="text name">Расслабляющий комплекс</a></td>
-											<td class="button-text price">125 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Тонизирующая ванная</td>
-											<td class="button-text price">115 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">СПА-комплекс  «Антистресс»</td>
-											<td class="button-text price">223 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Массаж расслабляющий</td>
-											<td class="button-text price">210 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Расслабляющий комплекс</td>
-											<td class="button-text price">125 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-									</table>
-									<table class="item-table" data-table="slim">
-										<tr>
-											<td class="text name">Slim</td>
-											<td class="button-text price">223 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Массаж в четыре руки</td>
-											<td class="button-text price">210 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Расслабляющий комплекс</td>
-											<td class="button-text price">125 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Тонизирующая ванная</td>
-											<td class="button-text price">115 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">СПА-комплекс  «Антистресс»</td>
-											<td class="button-text price">223 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Массаж расслабляющий</td>
-											<td class="button-text price">210 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-										<tr>
-											<td class="text name">Расслабляющий комплекс</td>
-											<td class="button-text price">125 грн</td>
-											<td	class="record"><a href="#" class="button-record button-text">Записаться</a></td>
-										</tr>
-									</table>
+									<div class="item-table" data-table="well">
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container"><a href="one-service.html" class="text name">
+												Хамам</a></p>
+											<p class="button-text price">223 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container"><a href="one-service.html" class="text name">Массаж в четыре
+												руки</a></p>
+											<p class="button-text price">210 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container"><a href="one-service.html" class="text name">Расслабляющий
+												комплекс</a></p>
+											<p class="button-text price">125 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Тонизирующая ванная</p>
+											<p class="button-text price">115 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">СПА-комплекс  «Антистресс»</p>
+											<p class="button-text price">223 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Массаж расслабляющий</p>
+											<p class="button-text price">210 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Расслабляющий комплекс</p>
+											<p class="button-text price">125 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+									</div>
+									<div class="item-table" data-table="slim">
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Slim</p>
+											<p class="button-text price">223 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Массаж в четыре руки</p>
+											<p class="button-text price">210 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Расслабляющий комплекс</p>
+											<p class="button-text price">125 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Тонизирующая ванная</p>
+											<p class="button-text price">115 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">СПА-комплекс  «Антистресс»</p>
+											<p class="button-text price">223 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Массаж расслабляющий</p>
+											<p class="button-text price">210 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+										<div class="item-table-row row row-wrap row-baseline">
+											<p class="name-container text name">Расслабляющий комплекс</p>
+											<p class="button-text price">125 грн</p>
+											<p	class="record"><a href="#" class="button-record button-text">
+												Записаться</a></p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="b-programs__cards">
-					<div class="wrap row row-wrap accordeon-mobile" data-first-open>
+					<div class="wrap row row-wrap accordeon-tablet" data-first-open>
 						<div class="b-programs__cards-item col xs-12 sm-6 lg-3 acc-item">
 							<div class="acc-button-element">
 								<h3>SPA-комплекс</h3>

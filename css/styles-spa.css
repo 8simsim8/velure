@@ -178,6 +178,9 @@
   .b-staffs__slider .swiper-pagination-bullet-active {
     background-color: #000;
   }
+  .b-massage .col {
+    margin: 0;
+  }
 }
 @media all and (max-width: 550px) {
   .b-procedures {
@@ -192,12 +195,13 @@
   .b-packages h2,
   .b-packages .lead {
     margin: 0 auto;
-    max-width: 930px;
     text-align: center;
   }
   .b-packages .lead {
-    margin-bottom: 100px;
-    color: #40363e;
+    margin-bottom: 40px;
+  }
+  .b-staffs {
+    padding-top: 40px;
   }
   .b-staffs__list.swiper-wrapper {
     -webkit-box-orient: horizontal;

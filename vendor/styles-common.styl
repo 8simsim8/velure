@@ -1344,14 +1344,18 @@ video {
 	}
 }
 
+
+// Стиль таблиц
 .item-table {
 	& {
 		counter-reset : counter-recomendation;
 		width : 100%;
 	}
-	tr {
+	.item-table-row {
 		& {
 			counter-increment : counter-recomendation;
+			font-size: 0.8rem;
+			padding: 10px 20px;
 		}
 		&:nth-child(odd) {
 			background-color : rgba(224, 224, 224, 0.3);
@@ -1362,26 +1366,25 @@ video {
 		&:before {
 			content : counter(counter-recomendation);
 			display : table-cell;
-			padding : 20px;
+			padding-right: 20px;
 			vertical-align : middle;
 			text-align : right;
 			font-weight : bold;
 			color : #A823A3;
 		}
-		.name {
-			width : 57%;
+
+		.name-container {
+			padding-right: 20px;
+			margin: 0 auto 0 0;
+			max-width: 67%;
 		}
 		.price {
-			padding : 20px 5px;
+			padding-right: 20px;
 			text-align: center;
-			line-height : 0;
 			color : #000000;
-			min-width: 90px;
 		}
 		.button-record {
-			padding : 20px 20px 20px 10px;
 			text-transform: uppercase;
-			line-height : 0;
 		}
 	}
 }
@@ -2426,6 +2429,59 @@ video {
 		}
 	}
 
+
+	.start-acc.accordeon-mobile,
+	.start-acc.accordeon-tablet {
+		.acc-item {
+			& {
+				margin : 0 -10px;
+				border-top : 1px solid rgba(0,0,0,0.1);
+			}
+			&:last-child {
+				border-bottom : 1px solid rgba(0,0,0,0.1);
+			}
+			.acc-button-element {
+				& {
+				}
+				h3 {
+					display : inline-block;
+					width : calc(100% - 10px);
+					padding-left : 15px;
+					padding-right : 10px;
+				}
+				span {
+					position : relative;
+					width : 0;
+				}
+				span:after {
+					position : absolute;
+					top : calc(50% - 3px);
+					left : -10px;
+					color : #CCCCCC;
+					font-size : 6px;
+					font-family : 'icon-velur' !important;
+					speak : none;
+					font-style : normal;
+					font-weight : normal;
+					font-variant : normal;
+					text-transform : none;
+					line-height : 1;
+
+					/* Better Font Rendering =========== */
+					-webkit-font-smoothing : antialiased;
+					-moz-osx-font-smoothing : grayscale;
+					width : 10px;
+					content : "\e917";
+				}
+				&.active {
+					span:after {
+						content : "\e918";
+					}
+				}
+			}
+		}
+	}
+
 	.b-popup__button-close.button-close {
 		& {
 			right: 0;
@@ -2684,6 +2740,55 @@ video {
 				}
 			}
 		}
+
+	// Стиль таблиц
+	.item-table {
+		& {
+			counter-reset : counter-recomendation;
+			width : 100%;
+		}
+		.item-table-row {
+			& {
+				padding: 10px;
+				flex-direction: row;
+			}
+			&:before {
+				content : counter(counter-recomendation);
+				display : table-cell;
+				padding-right: 10px;
+				vertical-align : middle;
+				text-align : right;
+				font-weight : bold;
+				color : #A823A3;
+			}
+
+			.name-container {
+				padding-right: 10px;
+				margin: 0 auto 0 0;
+				max-width: 67%;
+			}
+			.price {
+				padding-right: 0;
+				text-align: center;
+			}
+			.record {
+				padding-top: 10px;
+				width: 100%;
+				text-align: center;
+			}
+			.button-record {
+				display: block;
+				width: 100%;
+				height: 50px;
+				line-height: @height;
+				background: #FFFFFF;
+				text-transform: uppercase;
+				border: 1px solid #e5e5e5;
+				border-radius: 4px;
+			}
+		}
+	}
+
 
 	.accordeon {
 		& {
