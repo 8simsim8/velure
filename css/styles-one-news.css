@@ -136,6 +136,9 @@
   z-index: 4;
 }
 @media all and (max-width: 550px) {
+  .b-title {
+    background-position: left bottom, center center;
+  }
   .b-title__logo-text {
     margin-bottom: 5vh;
   }

@@ -166,6 +166,19 @@
 			width: 100%;
 			overflow: hidden;
 		}
+		.video-wrapp {
+			height: 100%;
+			margin-bottom: 0;
+		}
+		.b-title__logo-text {
+			 margin-bottom: 5vh;
+		 }
+		.b-title__logo-ligature {
+			margin-bottom: 50px;
+		}
+		.b-title__logo-ligature svg {
+			height: 40px;
+		}
 		.b-title {
 			position: relative;
 		}
@@ -201,6 +214,10 @@
 			margin: 0 auto;
 			width: 100%;
 			max-width: 700px;
+		}
+		.b-title__logo-address h3,
+		.b-title__logo-address a {
+			color: #FFFFFF;
 		}
 		.b-title__logo-ligature,
 		.b-title__logo-text,
@@ -267,7 +284,7 @@
 		.finish-load .b-title__logo-ligature,
 		.finish-load .b-title__logo-text,
 		.finish-load .b-title__logo-address,
-		.finish-load .b-title__logo-social a{
+		.finish-load .b-title__logo-social a {
 			opacity: 1;
 			-webkit-transform: translate(0, 0);
 			transform: translate(0, 0);
@@ -290,6 +307,17 @@
 			.b-navigation {
 				transform: translate(0, -100%);
 			}
+			.b-title__logo {
+				padding-bottom: 50px;
+			}
+			.b-title__logo-inner {
+				margin: 0 auto;
+				height: 100%;
+				display: -webkit-flex;
+				display: flex;
+				flex-direction: column;
+				-webkit-flex-direction: column;
+			}
 			.b-title__logo-ligature,
 			.b-title__logo-text {
 				font-size: 28px;
@@ -299,6 +327,21 @@
 			}
 			.b-title__logo-ligature svg {
 				height: 25px;
+			}
+			.b-title__logo-address h3 {
+				font-size: 20px !important;
+			}
+			.b-title__logo-address.address_bottom {
+				display: flex;
+				flex-direction: column;
+			}
+			.b-title__logo-address a {
+				text-align: center;
+				margin-top: 20px;
+				width: 100%;
+			}
+			.b-title__logo-social {
+				display: none !important;
 			}
 		}
 	</style>
@@ -383,9 +426,11 @@
 							<p class="b-title__logo-address address_bottom">
 								<span><a href="tel:+380503533232" class="text">050 353-32-32</a><span>Vodafone</span></span>
 								<span><a href="tel:+380973533232" class="text">097 353-32-32</a><span>Kyivstar</span></span>
-								<a href="tel:+380542333232" class="text">0542 33-32-32</a>
+								<span><a href="tel:+380542333232" class="text">0542 33-32-32</a><span>
 							</p>
 						</div>
+						
+						<!--<h3 class="b-title__logo-address-mobile">Сумы, ул. Покровская, 16/1</h3>-->
 						
 						<p class="wrap b-title__logo-social">
 							<a href="#" class="icon-vk"></a>
@@ -411,6 +456,7 @@
                 const video = document.getElementsByTagName('video')[0];
                 const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
 
+                const  videoWrap = document.getElementsByClassName('video-wrapp')[0];
                 var timeOutVideoLoad;
                 var isFinishLoaderOneCicle = false,
                     isFinishLoadPoster = false,
@@ -421,6 +467,10 @@
 
                 disableScroll();
 //
+                if(window.innerWidth <= 550) {
+                    videoWrap.style.height = window.innerHeight + 'px';
+                }
+	            
 //                // Если видео не загрузилось на протяжении 3с, не ожидать
 //                timeOutVideoLoad = setTimeout(function(){
 //                    willChangeSwitch(preloader, 'opacity');
@@ -709,6 +759,14 @@
 		
 		</script>
 		
+		<section class="b-contacts__mobile">
+			<p class="wrap b-contacts__mobile-social">
+				<a href="#" class="icon-vk"></a>
+				<a href="#" class="icon-fb"></a>
+				<a href="#" class="icon-inst"></a>
+			</p>
+		</section>
+		
 		<section class="b-form">
 			<div class="wrap">
 				<div class="b-form__wrap form img-flover__form">
@@ -779,137 +837,87 @@
 	</main>
 
 	<section>
-	<div class="b-popup" data-map>
-		<div class="b-popup__map img-flover__form row row-wrap">
-			<p class="b-popup__button-close button-close"></p>
-			<div class="b-popup__map-left col xs-12 sm-8">
-				<div id="map" class="google-map"></div>
-			</div>
-			<div class="b-popup__map-right col xs-12 sm-4">
-				<div id="pano" class="street-view xs-hidden"></div>
-				<h4>Сумы, ул. Покровская, 16/1</h4>
-				<ul>
-					<li
-							class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
-											</span></li>
-					<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
-					<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="b-popup" data-contact>
-		<div class="b-popup__contact img-flover__form form" >
-			<p class="b-popup__button-close button-close"></p>
-			<p class="icon-ligature-half"></p>
-			<div class="form-wrap">
-				<form action="" name="contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<h4></h4>
-					<span class="input input--akira">
-								<input class="input__field input__field--akira value-input"
-								       type="text"
-								       name="name"
-								       required/>
-								<label class="input__label input__label--akira" for="name">
-									<span class="input__label-content input__label-content--akira text">Имя</span>
-							    </label>
-							</span>
-					<span class="input input--akira">
-								<input class="input__field input__field--akira value-input"
-								       type="tel"
-								       name="phone"
-								       pattern="(\+?\d[- .]*){7,13}"
-								       required/>
-								<label class="input__label input__label--akira" for="phone">
-									<span class="input__label-content input__label-content--akira text">Телефон</span>
-								</label>
-							</span>
-					<input name="services" value="" hidden />
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время"
-					       data-clearAfterSend>
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата"
-					       data-clearAfterSend>
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
-				</form>
-				<div class="form-sent">
-					<p class="img-message-send"></p>
-					<h3>Cпасибо!</h3>
-					<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
-						визита. С нетерпением ждем в «Велюре»!</p>
-					<button class="normal button-close">Закрыть окно</button>
+		<div class="b-popup" data-map>
+			<div class="b-popup__map img-flover__form row row-wrap">
+				<p class="b-popup__button-close button-close"></p>
+				<div class="b-popup__map-left col xs-12 sm-8">
+					<div id="map" class="google-map"></div>
+				</div>
+				<div class="b-popup__map-right col xs-12 sm-4">
+					<div id="pano" class="street-view xs-hidden"></div>
+					<h4>Сумы, ул. Покровская, 16/1</h4>
+					<ul>
+						<li
+								class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+												</span></li>
+						<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+						<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="b-popup" data-online-record>
-		<div class="b-popup__online img-flover__form form">
-			<p class="b-popup__button-close button-close"></p>
-			<p class="icon-ligature-half"></p>
-			<div class="form-wrap">
-				<form action="" name="online-contact">
-					<input name="title" value="Онлайн запись" hidden />
-					<h3>Онлайн-запись</h3>
-					<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
-					<span class="input input--akira">
-									<input class="input__field input__field--akira value-input"
-									       type="text"
-									       name="name"
-									       required/>
-									<label class="input__label input__label--akira" for="name">
-										<span class="input__label-content input__label-content--akira text">Имя</span>
-								    </label>
-								</span>
-					<span class="input input--akira">
-									<input class="input__field input__field--akira value-input"
-									       type="tel"
-									       name="phone"
-									       pattern="(\+?\d[- .]*){7,13}"
-									       required/>
-									<label class="input__label input__label--akira" for="phone">
-										<span class="input__label-content input__label-content--akira text">Телефон</span>
-									</label>
-								</span>
-					<select name="services" data-placeholder="Услуга"
-					        class="input droplist img-arrow forcibly-placeholder value-input" data-nofilter>
-						<!--<option>Услуга</option>-->
-						<option>Услуга 1</option>
-						<option>Услуга 2</option>
-						<option>Услуга 3</option>
-						<option>Услуга 4</option>
-						<option>Услуга 5</option>
-						<option>Услуга 6</option>
-						<option>Услуга 7</option>
-						<option>Услуга 8</option>
-						<option>Услуга 9</option>
-						<option>Услуга 10</option>
-					</select>
-					<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
-					       placeholder="Время">
-					<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
-					       placeholder="Дата">
-					
-					<button type="button" class="btn btn__big btn__submit">отправить</button>
-					
-					<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
-				</form>
-				<div class="form-sent">
-					<p class="img-message-send"></p>
-					<h3>Cпасибо!</h3>
-					<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
-						визита. С нетерпением ждем в «Велюре»!</p>
-					<button class="normal button-close">Закрыть окно</button>
+		<div class="b-popup" data-online-record>
+			<div class="b-popup__online img-flover__form form">
+				<p class="b-popup__button-close button-close"></p>
+				<p class="icon-ligature-half"></p>
+				<div class="form-wrap">
+					<form action="" name="online-contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="text"
+										       name="name"
+										       required/>
+										<label class="input__label input__label--akira" for="name">
+											<span class="input__label-content input__label-content--akira text">Имя</span>
+									    </label>
+									</span>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="tel"
+										       name="phone"
+										       pattern="(\+?\d[- .]*){7,13}"
+										       required/>
+										<label class="input__label input__label--akira" for="phone">
+											<span class="input__label-content input__label-content--akira text">Телефон</span>
+										</label>
+									</span>
+						<select name="services" data-placeholder="Услуга"
+						        class="input droplist img-arrow forcibly-placeholder value-input" data-nofilter>
+							<!--<option>Услуга</option>-->
+							<option>Услуга 1</option>
+							<option>Услуга 2</option>
+							<option>Услуга 3</option>
+							<option>Услуга 4</option>
+							<option>Услуга 5</option>
+							<option>Услуга 6</option>
+							<option>Услуга 7</option>
+							<option>Услуга 8</option>
+							<option>Услуга 9</option>
+							<option>Услуга 10</option>
+						</select>
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время">
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата">
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
 	<footer class="l-footer b-footer">
 	<div class="b-footer__bg img-footer__bg start"></div>

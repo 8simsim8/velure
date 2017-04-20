@@ -6,17 +6,6 @@
 		margin-bottom: 0;
 	}
 	&__logo {
-		&-text {
-			margin-bottom: 5vh;
-		}
-		&-ligature {
-			& {
-				margin-bottom: 50px;
-			}
-			svg {
-				height: 40px;
-			}
-		}
 		&-address {
 			& {
 				display : flex;
@@ -103,6 +92,47 @@
 }
 
 
+.b-contacts__mobile {
+	& {
+		display : none;
+		padding: 0 20px;
+	}
+	&-social {
+		& {
+			display: flex;
+			justify-content: space-around;
+			padding-top : 40px;
+			text-align : center;
+		}
+		a {
+			display: flex;
+			width: 40px;
+			height: @width;
+			margin: 0 20px;
+			color: #FFFFFF;
+			background-color: rgba(168, 35, 163, 0.9);
+			border-radius: 50%;
+			transition: background 0.2s ease;
+		}
+		a:before {
+			margin: auto;
+		}
+		a:hover {
+			background-color: rgba(168, 35, 163, 1);
+		}
+
+		.icon-vk:before {
+			font-size: 15px;
+		}
+		.icon-fb:before {
+			font-size: 22px;
+		}
+		.icon-inst:before {
+			font-size: 22px;
+		}
+	}
+}
+
 .b-form {
 	& {
 		position: relative;
@@ -115,7 +145,6 @@
 		z-index: 4;
 	}
 	&__wrap {
-		box-shadow: 0 4px 8px rgba(224,224,224,0.75);
 	}
 	&__bg {
 		& {
@@ -138,6 +167,7 @@
 	display: flex;
 }
 
+
 @media all and (max-width: 1024px) {
 	.b-title {
 		&__logo {
@@ -157,6 +187,53 @@
 	.b-form {
 		& {
 			//margin-top : -60px;
+		}
+	}
+
+}
+
+@media all and (max-width: 550px) {
+
+	.b-title__logo-address.address_top,
+	.b-title__logo-address.address_bottom {
+		& {
+			border : none;
+		}
+	}
+	.b-title__logo-address {
+		& > span {
+			padding: 5px 0;
+			width: 100%;
+			text-align: center;
+		}
+		&.address_top {
+			& {
+				flex-wrap: wrap;
+			}
+			h3 {
+				width: 100%;
+				text-align: center;
+			}
+		}
+	}
+
+	.b-contacts__mobile {
+		display: block;
+	}
+
+
+	.b-form {
+		& {
+			margin: 0;
+			padding : 30px 10px;
+		}
+		&__bg {
+			display: none;
+		}
+		.form {
+			width: calc(100% + 20px);
+			margin : 0 -10px;
+			padding: 20px;
 		}
 	}
 
