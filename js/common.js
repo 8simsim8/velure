@@ -247,7 +247,7 @@ function initBrowser() {
         }
     }
 
-    isiPad = navigator.userAgent.match(/[iPad][iPhone]/i) != null;
+    isiPad = navigator.userAgent.match(/iPad|iPhone/i) != null;
 }
 
 /*
@@ -283,8 +283,8 @@ function handlerScrollWindow() {
 }
 
 /*
- *   Подготовка карты к открытию при скролле
- */
+*   Подготовка карты к открытию при скролле
+*/
 function prepareMapScroll(scrollPage) {
     if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 100) {
         if(!window.updateMap) {
