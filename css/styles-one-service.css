@@ -5,6 +5,13 @@
   width: calc(100% - 370px);
   padding: 0 10px;
 }
+.b-static h2,
+.b-static h3,
+.b-static h4,
+.b-static .lead,
+.b-static .text {
+  margin-left: 0;
+}
 .b-title__logo-breadcrumbs {
   margin-bottom: 6vh;
 }

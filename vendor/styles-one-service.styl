@@ -5,8 +5,17 @@
 }
 
 .b-static {
-	width: calc(100% - 370px);
-	padding: 0 10px;
+	& {
+		width : calc(100% - 370px);
+		padding : 0 10px;
+	}
+	h2,
+	h3,
+	h4,
+	.lead,
+	.text {
+		margin-left: 0;
+	}
 }
 
 .b-title {

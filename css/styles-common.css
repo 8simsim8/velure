@@ -1404,6 +1404,48 @@ video::-webkit-media-controls-panel {
 .item-table .item-table-row .button-record {
   text-transform: uppercase;
 }
+.paginator {
+  padding-top: 60px;
+  text-align: center;
+}
+.paginator .item-pagin {
+  display: inline-block;
+  margin: 0 6px;
+  height: 50px;
+  width: 40px;
+  color: #ababab;
+  background-color: transparent;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 4px;
+  border: 1px solid #ababab;
+}
+.paginator .item-pagin__next,
+.paginator .item-pagin__prev {
+  display: none;
+  width: 32px;
+}
+.paginator .item-pagin__next.active-item-pagin-control,
+.paginator .item-pagin__prev.active-item-pagin-control {
+  display: inline-block;
+}
+.paginator .item-pagin__next {
+  margin-left: 40px;
+}
+.paginator .item-pagin__prev {
+  margin-right: 40px;
+}
+.paginator .item-pagin:hover,
+.paginator .item-pagin.active-item-pagin {
+  background: #a823a3;
+  color: #fff;
+  border: 1px solid #a823a3;
+}
+.paginator .item-pagin:focus {
+  background: #a0219b;
+  color: #fff;
+  border: 1px solid #a0219b;
+}
 .wrap-error {
   position: relative;
   pointer-events: none;
@@ -2965,5 +3007,46 @@ video::-webkit-media-controls-panel {
     text-align: center;
     font-size: 14px;
     color: #5e4f5c;
+  }
+  .paginator {
+    text-align: center;
+  }
+  .paginator .item-pagin {
+    display: inline-block;
+    margin: 0 3px;
+    height: 50px;
+    width: 32px;
+    color: #ababab;
+    background-color: transparent;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 4px;
+    border: 1px solid #ababab;
+  }
+  .paginator .item-pagin__next,
+  .paginator .item-pagin__prev {
+    display: none;
+    width: 32px;
+  }
+  .paginator .item-pagin__next.active-item-pagin-control,
+  .paginator .item-pagin__prev.active-item-pagin-control {
+    display: inline-block;
+  }
+  .paginator .item-pagin__next {
+    margin-left: 0;
+  }
+  .paginator .item-pagin__prev {
+    margin-right: 0;
+  }
+  .paginator .item-pagin:hover,
+  .paginator .item-pagin.active-item-pagin {
+    background: #a823a3;
+    color: #fff;
+    border: 1px solid #a823a3;
+  }
+  .paginator .item-pagin:focus {
+    background: #a0219b;
+    color: #fff;
+    border: 1px solid #a0219b;
   }
 }

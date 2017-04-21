@@ -360,7 +360,7 @@ function switchPlayVideoOnScroll() {
                     if (video.played) {
                         video.pause();
                     }
-                }, waitTime);
+                }, waitTime*2);
                 window.isVideoPlay = false;
             }
         } else {
