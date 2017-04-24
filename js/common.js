@@ -306,11 +306,15 @@ function handlerScrollWindow() {
 */
 function prepareMapScroll(scrollPage) {
     if((document.body.offsetHeight - scrollPage) <= window.innerHeight + 100) {
+
         if(!window.updateMap) {
+
             setTimeout(function(){
                 var popup = document.querySelector('[data-map]');
 
+                popup.style.display = '-webkit-flex';
                 popup.style.display = 'flex';
+                popup.children[0].style.display = '-webkit-flex';
                 popup.children[0].style.display = 'flex';
 
                 myMap();
@@ -1425,6 +1429,7 @@ function preparePopupToContact(isShowMap) {
         popup.classList.add('open');
 
         popup.style.display = 'flex';
+        popup.style.display = '-webkit-flex';
 
         popup.addEventListener('click', closePopup);
 
@@ -1455,6 +1460,7 @@ function preparePopupToContact(isShowMap) {
 
         var popup = document.querySelector(attr);
         popup.style.display = 'flex';
+        popup.style.display = '-webkit-flex';
 
         willChangeSwitch(popup, 'opacity');
 
