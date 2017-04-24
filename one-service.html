@@ -196,10 +196,10 @@
 			font-size: 60px;
 			text-align: center;
 		}
-		.b-title__logo-breadcrumbs,
-		.b-title__logo-ligature,
-		.b-title__logo-text,
-		.b-title__logo-note {
+		.b-title__logo-img_mobile {
+			display: none;
+		}
+		.anim-title-item {
 			opacity: 0;
 			-webkit-transform: translate(0, 50px);
 			transform: translate(0, 50px);
@@ -214,6 +214,7 @@
 			transition: transform 0.8s ease 0.9s,
 						opacity 0.8s ease 0.9s;
 		}
+		.transition .b-title__logo-img_mobile,
 		.transition .b-title__logo-breadcrumbs {
 			-webkit-transition: -webkit-transform 0.8s ease 0.5s,
 						opacity 0.8s ease 0.5s;
@@ -232,10 +233,7 @@
 			transition: transform 0.8s ease 1.1s,
 						opacity 0.8s ease 1.1s;
 		}
-		.finish-load .transition .b-title__logo-breadcrumbs,
-		.finish-load .transition .b-title__logo-ligature,
-		.finish-load .transition .b-title__logo-text,
-		.finish-load .transition .b-title__logo-note {
+		.finish-load .transition .anim-title-item {
 			opacity: 1;
 			-webkit-transform: translate(0, 0);
 			transform: translate(0, 0);
@@ -270,8 +268,26 @@
 		.finish-load .b-title__poster {
 		}
 		@media all and (max-width: 550px) {
-			.b-navigation {
-				transform: translate(0, -100%);
+			.b-navigation__mobile {
+				background: transparent;
+			}
+			.b-navigation__mobile .button-online-record,
+			.b-navigation__header-logo {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.b-title__logo {
+				padding-top: 10vh;
+			}
+			.b-title__logo-inner {
+				margin: 0 auto;
+			}
+			.b-title__logo-img_mobile {
+				display: block;
+				margin-bottom: 30px;
+				text-align: center;
+				font-size: 40px;
+				color: #FFF;
 			}
 			.b-title__logo-ligature,
 			.b-title__logo-text {
@@ -371,13 +387,90 @@
 		
 		<section class="b-title">
 			<div class="video-wrapp">
-				<!--<video class="b-title__video" loop="loop" preload poster="video/poster-main.jpg">-->
-					<!--<source src="video/velur.mp4" type="video/mp4" />-->
-					<!--<source src="video/velur.webm" type="video/webm" />-->
-					<!--<source src="video/velur.ogg" type="video/ogg" />-->
+				<!---->
+				<!--<video class="b-title__video"-->
+				       <!--id="my-video"-->
+				       <!--loop="loop"-->
+				       <!--preload=""-->
+				       <!--data-name-video="video/velur"-->
+				       <!--poster="video/poster-main.jpg">-->
+					<!--<source src="" type="video/mp4" />-->
+					<!--<source src="" type="video/webm" />-->
+					<!--<source src="" type="video/ogg" />-->
 				<!--</video>-->
+				
+				<script>
+                    const video = document.getElementsByTagName('video')[0];
+
+                    if(video) {
+                        createVideo(video);
+                    }
+
+                    function createVideo(video) {
+                        var scrVideo = video.getAttribute('data-name-video');
+
+                        var isMobile = {
+                            Android: function() {
+                                return navigator.userAgent.match(/Android/i) ? true : false;
+                            },
+                            BlackBerry: function() {
+                                return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+                            },
+                            iOS: function() {
+                                return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+                            },
+                            Opera: function() {
+                                return navigator.userAgent.match(/Opera Mini/i) ? true : false;
+                            },
+                            Windows: function() {
+                                return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i) ? true : false;
+                            },
+                            any: function() {
+                                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                            }
+                        }
+
+
+                        var device = isMobile.any();
+
+                        if(device) {
+                            if (window.innerWidth <= 1024 && window.innerWidth > 780) {
+                                // Планшет
+                                changeSourceVideo(scrVideo, 1024);
+                            } else if (window.innerWidth <= 780) {
+                                // Мобайл
+                                changeSourceVideo(scrVideo, 780);
+                            } else {
+                                changeSourceVideo(scrVideo, '');
+                            }
+                        } else {
+                            changeSourceVideo(scrVideo, '');
+                        }
+
+                        function changeSourceVideo(src,width) {
+                            var source = video.querySelectorAll('source');
+
+                            if(width) {
+                                width = '-' + width;
+                            }
+
+                            for(var i = 0, len = source.length; i < len; i++) {
+                                scrVideo = source[i].getAttribute('type');
+                                var temp = scrVideo.split('/');
+                                scrVideo = '' + src + width + '.' + temp[1] + '';
+                                source[i].setAttribute('src', scrVideo);
+
+                            }
+
+                            video.load();
+                        }
+
+                    }
+				</script>
+				
 				<div class="b-title__logo">
 					<div class="b-title__logo-inner">
+						<p class="b-title__logo-img_mobile icon-logo anim-title-item"></p>
 						<p class="b-title__logo-breadcrumbs breadcrumbs text anim-title-item">
 							<a href="index.html">Главная</a>
 							<a href="spa.html">SPA-комплекс</a>

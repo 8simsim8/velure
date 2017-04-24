@@ -56,6 +56,11 @@
   z-index: 4;
 }
 @media all and (max-width: 550px) {
+  .b-navigation .burger__button:before,
+  .b-navigation .burger__button:after,
+  .b-navigation .burger__button span {
+    background: #000;
+  }
   .b-title {
     background-position: left bottom, center center;
   }

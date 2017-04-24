@@ -422,7 +422,7 @@ body:not(.open-popup) .flatpickr-calendar {
 }
 @media all and (max-height: 710px) {
   .b-title__logo {
-    padding: 70px 0 0 0;
+    padding: 20px 0 0 0;
   }
   .b-title__logo-breadcrumbs {
     margin-bottom: 4vh;
@@ -454,8 +454,22 @@ body:not(.open-popup) .flatpickr-calendar {
   }
 }
 @media all and (max-width: 550px) {
+  .b-side__bar-open {
+    -webkit-transform: translate(0, 40px);
+    -moz-transform: translate(0, 40px);
+    -o-transform: translate(0, 40px);
+    -ms-transform: translate(0, 40px);
+    transform: translate(0, 40px);
+  }
   .l-content {
     margin-bottom: 10px;
+  }
+  .show-mobile-menu + .l-content .b-side__bar-open {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   .b-title__logo-feature span {
     min-width: 0 !important;

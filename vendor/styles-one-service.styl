@@ -478,7 +478,7 @@ body:not(.open-popup) {
 	.b-title {
 		&__logo {
 			& {
-				padding: 70px 0 0 0;
+				padding: 20px 0 0 0;
 			}
 			&-breadcrumbs {
 				& {
@@ -519,8 +519,14 @@ body:not(.open-popup) {
 }
 
 @media all and (max-width: 550px) {
+	.b-side__bar-open {
+		transform: translate(0, 40px);
+	}
 	.l-content {
 		margin-bottom: 10px;
+	}
+	.show-mobile-menu + .l-content .b-side__bar-open {
+		transform: translate(0, 0);
 	}
 	.b-title {
 		&__logo {}

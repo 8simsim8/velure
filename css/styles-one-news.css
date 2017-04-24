@@ -89,8 +89,8 @@
   position: relative;
   margin: 0 15px;
   display: inline-block;
-  padding: 20px;
-  width: 40px;
+  padding: 30px;
+  width: 60px;
   border-radius: 50%;
   text-align: center;
   color: #fff;
@@ -100,27 +100,27 @@
   top: 0;
   left: 0;
   display: inline-block;
-  line-height: 40px;
-  height: 40px;
-  width: 40px;
+  line-height: 60px;
+  height: 60px;
+  width: 60px;
   text-align: center;
 }
 .b-socials .icon-vk {
-  font-size: 8px;
+  font-size: 12px;
   background-color: #477aa8;
 }
 .b-socials .icon-vk:hover {
   background-color: #406e97;
 }
 .b-socials .icon-ok {
-  font-size: 15px;
+  font-size: 19px;
   background-color: #f58220;
 }
 .b-socials .icon-ok:hover {
   background-color: #ef740b;
 }
 .b-socials .icon-fb {
-  font-size: 15px;
+  font-size: 19px;
   background-color: #517cbe;
 }
 .b-socials .icon-fb:hover {
@@ -136,6 +136,11 @@
   z-index: 4;
 }
 @media all and (max-width: 550px) {
+  .b-navigation .burger__button:before,
+  .b-navigation .burger__button:after,
+  .b-navigation .burger__button span {
+    background: #000;
+  }
   .b-title {
     background-position: left bottom, center center;
   }

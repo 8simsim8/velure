@@ -13,6 +13,8 @@ window.addEventListener('load', function(){
 
 });
 
+swipeForRewards();
+
 function parallaxBg(elementsParalax) {
     var scrollPage,
         arrayElems = elementsParalax,
@@ -76,6 +78,60 @@ function parallaxBg(elementsParalax) {
         scrollPage = window.pageYOffset || document.documentElement.scrollTop;
         koefScroll = calcParallax(arrayElems);
         handlerParallax(scrollPage, koefScroll, arrayElems);
+    }
+
+}
+
+/*
+ *   Создание свайпа для наград
+ */
+function swipeForRewards() {
+
+    var slider;
+    var isSliderCreate = false;
+
+    const slidersElem = document.getElementsByClassName('b-rewards__viewport')[0];
+
+    resizeWindow();
+
+    window.addEventListener('resize', resizeWindow);
+
+    function resizeWindow() {
+
+        if (window.innerWidth <= window.breakPointTabletLandscape) {
+            if (!isSliderCreate) {
+
+                slider = makeSlider(slidersElem);
+                isSliderCreate = true;
+
+            }
+        } else {
+            if (isSliderCreate) {
+
+                slider.destroy(false, true);
+                isSliderCreate = false;
+
+            }
+        }
+    }
+
+    function makeSlider(wrapClass){
+
+        var swipeSlide,
+            paginElemClass =    wrapClass.querySelector('.swiper-pagination') || null;
+
+        swipeSlide = new Swiper(wrapClass, {
+            slidesPerView: 'auto',
+            pagination: paginElemClass,
+            paginationClickable: true,
+            setWrapperSize: true,
+            centeredSlides: true,
+            breakpoints: {
+
+            }
+        });
+
+        return swipeSlide;
     }
 
 }

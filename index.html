@@ -189,23 +189,25 @@
 					.b-title__logo-inner {
 						margin: auto;
 					}
+					.anim-title-item {
+						opacity: 0;
+						-webkit-transform: translate(0, 50px);
+						transform: translate(0, 50px);
+					}
 						.b-title__logo-img,
 						.b-title__logo-text {
 							text-align: center;
-							opacity: 0;
-							-webkit-transform: translate(0, 50px);
-							transform: translate(0, 50px);
 						}
 						.b-title__logo-img {
 						}
+							.transition .b-title__logo-img_mobile,
 							.transition .b-title__logo-img {
 								-webkit-transition: -webkit-transform 0.8s ease 0.5s,
 											opacity 0.8s ease 0.5s;
 								transition: transform 0.8s ease 0.5s,
 											opacity 0.8s ease 0.5s;
 							}
-							.finish-load .transition .b-title__logo-img,
-							.finish-load .transition .b-title__logo-text {
+							.finish-load .transition .anim-title-item{
 								opacity: 1;
 								-webkit-transform: translate(0, 0);
 								transform: translate(0, 0);
@@ -271,7 +273,6 @@
 					left: 0;
 					height : 100%;
 					width: 100%;
-					background-image: url('video/poster-main.jpg');
 					background-repeat: no-repeat;
 					background-size: cover;
 				}
@@ -331,10 +332,17 @@
 					}
 
 			@media all and (max-width: 550px) {
-				.b-navigation {
-					transform: translate(0, -100%);
+				.b-navigation__mobile {
+					background: transparent;
 				}
-				
+				.b-navigation__mobile .button-online-record,
+				.b-navigation__header-logo {
+					opacity: 0;
+					pointer-events: none;
+				}
+				.b-title__logo-inner {
+					margin: 5vh auto;
+				}
 			}
 			
 		</style>
@@ -410,11 +418,91 @@
 			
 			<section class="b-title">
 				<div class="video-wrapp">
-					<video class="b-title__video" id="my-video" loop="loop" preload="" poster="video/poster-main.jpg">
-						<source src="video/velur.mp4" type="video/mp4" />
-						<source src="video/velur.webm" type="video/webm" />
-						<source src="video/velur.ogg" type="video/ogg" />
+
+					<video class="b-title__video"
+					       id="my-video"
+					       loop="loop"
+					       preload=""
+					       data-name-video="video/velur"
+					       poster="video/poster-main.jpg">
+						<source src="" type="video/mp4" />
+						<source src="" type="video/webm" />
+						<source src="" type="video/ogg" />
+						<!--<source src="video/velur.mp4" type="video/mp4" />-->
+						<!--<source src="video/velur.webm" type="video/webm" />-->
+						<!--<source src="video/velur.ogg" type="video/ogg" />-->
 					</video>
+					
+					<script>
+                        const video = document.getElementsByTagName('video')[0];
+
+                        if(video) {
+                            createVideo(video);
+                        }
+
+                        function createVideo(video) {
+                            var scrVideo = video.getAttribute('data-name-video');
+
+                            var isMobile = {
+                                Android: function() {
+                                    return navigator.userAgent.match(/Android/i) ? true : false;
+                                },
+                                BlackBerry: function() {
+                                    return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+                                },
+                                iOS: function() {
+                                    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+                                },
+                                Opera: function() {
+                                    return navigator.userAgent.match(/Opera Mini/i) ? true : false;
+                                },
+                                Windows: function() {
+                                    return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i) ? true : false;
+                                },
+                                any: function() {
+                                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                                }
+                            }
+
+	                        window.isiOS = isMobile.iOS();
+                            
+                            var device = isMobile.any();
+                            
+                            if(device) {
+                                if (window.innerWidth <= 1024 && window.innerWidth > 780) {
+                                    // Планшет
+                                    changeSourceVideo(scrVideo, 1024);
+                                } else if (window.innerWidth <= 780) {
+                                    // Мобайл
+                                    changeSourceVideo(scrVideo, 780);
+                                } else {
+                                    changeSourceVideo(scrVideo, '');
+                                }
+                            } else {
+                                changeSourceVideo(scrVideo, '');
+                            }
+
+                            function changeSourceVideo(src,width) {
+                                var source = video.querySelectorAll('source');
+
+                                if(width) {
+                                    width = '-' + width;
+                                }
+                                
+                                for(var i = 0, len = source.length; i < len; i++) {
+                                    scrVideo = source[i].getAttribute('type');
+                                    var temp = scrVideo.split('/');
+                                    scrVideo = '' + src + width + '.' + temp[1] + '';
+                                    source[i].setAttribute('src', scrVideo);
+
+                                }
+                                
+                                video.load();
+                            }
+	                        
+                        }
+					</script>
+					
 					<div class="b-title__logo">
 						<div class="b-title__logo-inner">
 							<p class="b-title__logo-img anim-title-item">
@@ -428,7 +516,7 @@
 						                               id="play">
 							Видео-тур</button></p>
 					</div>
-					<!--<div class="b-title__poster"></div>-->
+					<div class="b-title__poster" style="background-image: url('video/poster-main.jpg');"></div>
 				</div>
 			</section>
 			
@@ -440,14 +528,19 @@
                 function handlerStart() {
                     const  nav = document.getElementsByClassName('l-navigation')[0];
                     const  preloader = document.getElementsByClassName('preloader')[0];
+                    const poster = document.querySelector('.b-title__poster');
 
                     var isFinishNotLoadVideo = false;
-
+	                
                     const  videoWrap = document.getElementsByClassName('video-wrapp')[0];
                     const  video = document.getElementsByTagName('video')[0];
                     const  buttonPlay = document.getElementById('play');
                     const  titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
-
+                    
+                    if(!window.isiOS) {
+                        poster.remove();
+                    }
+                    
                     if(window.innerWidth <= 550) {
                         videoWrap.style.height = window.innerHeight + 'px';
                     }
@@ -574,6 +667,7 @@
                         video.currentTime = 0;
                         titleLogo.parentNode.style.opacity = '0';
                         nav.style.opacity = '0';
+                        
                         buttonPlay.style.opacity = '0';
                         video.style.opacity = '0';
 
@@ -588,7 +682,15 @@
                         } else {
                             video.style.opacity = '1';
                             titleLogo.parentNode.style.pointerEvents = 'none';
+
+                            nav.style.pointerEvents = 'none';
+                            nav.querySelector('.b-navigation__mobile').style.pointerEvents = 'none';
+                            nav.querySelector('.burger__button').style.pointerEvents = 'none';
+                            
                             buttonPlay.style.pointerEvents = 'none';
+                            if(poster) {
+                                poster.style.opacity = '0';
+                            }
                             
                             var close = document.createElement('div');
                             close.classList.add('video-close');
@@ -601,7 +703,7 @@
                             video.controls = true;
 
                             close.addEventListener('click',closeVideo);
-                            close.addEventListener('touchend',closeVideo);
+//                            close.addEventListener('touchend',closeVideo);
                             
                             function closeVideo() {
                                 video.controls = false;
@@ -609,9 +711,16 @@
                                 video.muted = true;
 
                                 video.pause();
-                                video.style.opacity = '1';
+                                video.style.opacity = '';
+                                nav.style.pointerEvents = '';
+                                nav.querySelector('.b-navigation__mobile').style.pointerEvents = '';
+                                nav.querySelector('.burger__button').style.pointerEvents = '';
                                 titleLogo.parentNode.style.pointerEvents = '';
 
+                                if(poster) {
+                                    poster.style.opacity = '';
+                                }
+                                
                                 video.currentTime = 0;
                                 titleLogo.parentNode.style.opacity = '';
                                 nav.style.opacity = '';

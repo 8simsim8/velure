@@ -846,4 +846,18 @@ textarea:focus:-ms-input-placeholder {
     height: 50px;
     line-height: 25px;
   }
+  a {
+    color: #a823a3;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+  }
+  a:hover {
+    color: #a823a3;
+  }
+  a:active {
+    color: #a823a3;
+  }
 }

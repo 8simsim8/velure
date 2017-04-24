@@ -159,8 +159,8 @@ function openCircle() {
     for(var i = 0, len = circles.length; i < len; i++) {
 
         if(window.isiPad && window.innerWidth <= window.breakPointTabletPortrait) {
-            circles[i].addEventListener('touchend', handlerClickCircle);
-            circles[i].click();
+            // circles[i].addEventListener('touchend', handlerClickCircle);
+            circles[i].addEventListener('click',handlerClickCircle);
         } else {
             circles[i].addEventListener('click',handlerClickCircle);
         }

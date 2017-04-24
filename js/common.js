@@ -1,7 +1,9 @@
 window.breakPointTabletLandscape = 1024;
 window.breakPointTabletPortrait = 768;
 window.breakPointMobile = 550;
+
 window.isiPad;
+
 var isTouch;
 /*
  *   Инициализация браузера
@@ -9,6 +11,16 @@ var isTouch;
 initBrowser();
 
 const header = document.getElementsByClassName('l-navigation')[0];
+
+// Решение проблемы на touch iOS
+const linkMenu = document.querySelectorAll('.b-navigation__main .b-navigation__header-links a');
+if(window.isiOS) {
+    for (var i = 0, len = linkMenu.length; i < len; i++) {
+        linkMenu[i].addEventListener('touchend', function(){
+            this.click();
+        });
+    }
+}
 
 var isScrollAnim = true;
 
@@ -18,6 +30,8 @@ var ticking = false;
 var scrollPage;
 var scrollLeft;
 window.updateMap = false;
+
+handlerScrollWindow();
 
 window.addEventListener('scroll', handlerScrollWindow);
 
@@ -45,11 +59,9 @@ window.addEventListener('load', function() {
     map();
 
     /*
-     *   Инициализация формы, если нету аккордеона, позволяет избежать неверного вычисления высоты документа
+     *   Инициализация формы
      */
-    if(!document.querySelector('.accordeon')) {
-        controlInputs();
-    }
+     controlInputs();
 
 
     /*
@@ -68,6 +80,14 @@ window.addEventListener('load', function() {
     function map() {
 
         var buttonMap = document.getElementsByClassName('show-map');
+
+        if(window.isiPad) {
+            var buttonMapTitle = document.querySelector('.b-title__logo .show-map');
+            if(buttonMapTitle) {
+                buttonMapTitle.addEventListener('touchend', handlerShowMap);
+            }
+
+        }
 
         // Нету необходимости скрывать карту
         if(!window.updateMap && isShowMap) {
@@ -315,7 +335,7 @@ function prepareMapScroll(scrollPage) {
 function toggleMobileMenu(scroll, header) {
 
     if (window.innerWidth <= window.breakPointMobile) {
-        if (scroll >= (window.innerHeight - header.offsetHeight)) {
+        if (scroll >= (window.innerHeight/2)) {
             header.classList.add('transition-mobile-menu');
             header.classList.add('show-mobile-menu');
         } else {
@@ -506,13 +526,6 @@ function createAccordeons(classNameAccordeonContainer, isFirstOpen){
             accordeons[i].button[0].click();
         }
 
-    }
-
-    /*
-     *   Инициализация формы
-     */
-    if(document.querySelector('.accordeon')) {
-        controlInputs();
     }
 
     return accordeons;
@@ -836,6 +849,7 @@ function makeSlider(wrapClass, delayAutoplay){
 function controlInputs() {
 
     var i, len;
+    var datePick;
 
     animTextInput('input__field');
 
@@ -846,7 +860,7 @@ function controlInputs() {
     createDroplists('droplist');
 
     if(window.innerWidth > breakPointMobile) {
-        const datePick = createDate('input-date');
+        datePick = createDate('input-date');
     } else {
         var date = document.getElementsByClassName('input-date');
 
@@ -860,6 +874,14 @@ function controlInputs() {
             });
         }
     }
+
+
+    window.addEventListener('resize',function(){
+        for(var i = 0, len = datePick.length; i < len; i++) {
+            datePick[i].destroy();
+        }
+        datePick = createDate('input-date');
+    });
 
     var forms = document.getElementsByTagName('form');
 
@@ -1274,8 +1296,10 @@ function loaderAnimation() {
 */
 function swipeForStaffs() {
     // Sliders staffs
-    var staffs = null;
+    var staffs;
     var isSliderCreate = false;
+
+    const slidersElem = document.getElementsByClassName('b-staffs__slider')[0];
 
     resizeWindow();
 
@@ -1286,18 +1310,43 @@ function swipeForStaffs() {
         if (window.innerWidth <= window.breakPointTabletPortrait) {
             // Sliders staffs
             if (!isSliderCreate) {
-                staffs = createSliders('b-staffs__slider');
+                staffs = makeSliderForStaff(slidersElem);
                 isSliderCreate = true;
             }
         } else {
             if (isSliderCreate) {
-                for (var i = 0, len = staffs.length; i < len; i++) {
-                    staffs[i].destroy(false, true);
-                }
+                staffs.destroy(false, true);
                 isSliderCreate = false;
             }
         }
     }
+
+    function makeSliderForStaff(wrapClass){
+
+        var swipeSlide,
+            paginElemClass =    wrapClass.querySelector('.swiper-pagination') || null;
+
+        swipeSlide = new Swiper(wrapClass, {
+            spaceBetween: 0,
+            slidesPerView: 3,
+            pagination: paginElemClass,
+            paginationClickable: true,
+            setWrapperSize: true,
+            loop: true,
+            centeredSlides: true,
+            breakpoints: {
+                768: {
+                    slidesPerView: 3
+                },
+                550: {
+                    slidesPerView: 1,
+                }
+            }
+        });
+
+        return swipeSlide;
+    }
+
 }
 
 /*
@@ -1322,7 +1371,7 @@ function preparePopupToContact(isShowMap) {
     for(i = 0, len = buttonToOpenPopupOnlineRecord.length; i < len; i++) {
         buttonToOpenPopupOnlineRecord[i].addEventListener('click', handlerOpenPopupOnlineRecord);
         if(window.isiPad) {
-            buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
+            // buttonToOpenPopupOnlineRecord[i].addEventListener('touchend', handlerOpenPopupOnlineRecord);
         }
         buttonToOpenPopupOnlineRecord[i].addEventListener('mouseenter', prepareOpenWrapPopup.bind(buttonToOpenPopupOnlineRecord[i],'[data-online-record]'));
     }
