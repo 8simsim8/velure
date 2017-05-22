@@ -14,6 +14,8 @@ window.addEventListener("load", function load(event){
 
     function blockInstagram(isMobileUserAgent) {
 
+        var model;
+
         // window.addEventListener('resize',cutBlocks);
 
         var feed = new Instafeed({
@@ -39,6 +41,7 @@ window.addEventListener("load", function load(event){
             // ' text' +
             // ' bold">VelurSpaSumy</span><span' +
             // ' class="insta-date-create">{{model.data_create}}</span></p></a>'
+
             // template: '<a href="instagram://user?username={{model.user.username}}" class="item-insta col xs-6 sm-3' +
             // ' lg-3"><p class="insta__wrap-img"><img src="{{image}}"/></p><p class="insta-header"><span' +
             // ' class="insta-logo' +
@@ -46,6 +49,7 @@ window.addEventListener("load", function load(event){
             // ' text' +
             // ' bold">VelurSpaSumy</span><span' +
             // ' class="insta-date-create">{{model.data_create}}</span></p></a>'
+
             template: '<a href={{model.instaLink}} class="item-insta col xs-6 sm-3' +
             ' lg-3"><p class="insta__wrap-img"><img src="{{image}}"/></p><p class="insta-header"><span' +
             ' class="insta-logo' +
@@ -53,6 +57,7 @@ window.addEventListener("load", function load(event){
             ' text' +
             ' bold">VelurSpaSumy</span><span' +
             ' class="insta-date-create">{{model.data_create}}</span></p></a>'
+
         });
 
         feed.run();

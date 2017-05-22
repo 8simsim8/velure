@@ -681,6 +681,7 @@ video {
 		font-size: 0;
 		overflow: hidden;
 		border-radius : 4px;
+		z-index: 1;
 	}
 	.img-link__img {
 		& {
@@ -698,10 +699,10 @@ video {
 		&:after{
 			position : absolute;
 			display: block;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			right: 0;
+			top: -1px;
+			left: -1px;
+			bottom: -1px;
+			right: -1px;
 			content: '';
 			background-color: #000000;
 			opacity: 0.4;

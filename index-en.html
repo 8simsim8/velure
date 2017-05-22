@@ -881,21 +881,21 @@
 
                     var waitTime = 200;
 
-                    setTimeout(function () {
+//                    setTimeout(function () {
                         // Resume play if the element if is paused.
                         if (video.paused) {
                             video.muted = true;
                             video.play();
                         }
-                    }, waitTime);
+//                    }, waitTime);
 
-                    setTimeout(function () {
+//                    setTimeout(function () {
                         // Resume play if the element if is paused.
                         if (video.played) {
                             video.muted = muted;
                             video.pause();
                         }
-                    }, waitTime*2);
+//                    }, waitTime*2);
 
                     video.currentTime = 0;
 

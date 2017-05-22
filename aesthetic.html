@@ -1,0 +1,1167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Velur SPA</title>
+	<meta http-equiv="Cache-Control" content="max-age=7200, must-revalidate" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport"
+	      content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-rim-auto-match" content="none">
+	<!--Favicons-->
+	<link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="favicons/manifest.json">
+	<link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+	<script>
+        (function(w){
+            "use strict";
+            var loadCSS = function( href, before, media ){
+                var doc = w.document;
+                var ss = doc.createElement( "link" );
+                var ref;
+                if( before ){
+                    ref = before;
+                }
+                else {
+                    var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+                    ref = refs[ refs.length - 1];
+                }
+                var sheets = doc.styleSheets;
+                ss.rel = "stylesheet";
+                ss.href = href;
+                ss.media = "only x";
+                function ready( cb ){
+                    if( doc.body ){
+                        return cb();
+                    }
+                    setTimeout(function(){
+                        ready( cb );
+                    });
+                }
+                ready( function(){
+                    ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+                });
+                var onloadcssdefined = function( cb ){
+                    var resolvedHref = ss.href;
+                    var i = sheets.length;
+                    while( i-- ){
+                        if( sheets[ i ].href === resolvedHref ){
+                            return cb();
+                        }
+                    }
+                    setTimeout(function() {
+                        onloadcssdefined( cb );
+                    });
+                };
+
+                function loadCB(){
+                    if( ss.addEventListener ){
+                        ss.removeEventListener( "load", loadCB );
+                    }
+                    ss.media = media || "all";
+                }
+                if( ss.addEventListener ){
+                    ss.addEventListener( "load", loadCB);
+                }
+                ss.onloadcssdefined = onloadcssdefined;
+                onloadcssdefined( loadCB );
+                return ss;
+            };
+            if( typeof exports !== "undefined" ){
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }( typeof global !== "undefined" ? global : this ));
+        (function( w ){
+            if( !w.loadCSS ){
+                return;
+            }
+            var rp = loadCSS.relpreload = {};
+            rp.support = function(){
+                try {
+                    return w.document.createElement("link").relList.supports( "preload" );
+                } catch (e) {}
+            };
+            rp.poly = function(){
+                var links = w.document.getElementsByTagName( "link" );
+                for( var i = 0; i < links.length; i++ ){
+                    var link = links[ i ];
+                    if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+                        w.loadCSS( link.href, link );
+                        link.rel = null;
+                    }
+                }
+            };
+            if( !rp.support() ){
+                rp.poly();
+                var run = w.setInterval( rp.poly, 300 );
+                if( w.addEventListener ){
+                    w.addEventListener( "load", function(){
+                        w.clearInterval( run );
+                    } )
+                }
+            }
+        }( this ));
+	
+	</script>
+	
+	<style>
+		body.no-scroll {
+			overflow-y: hidden;
+		}
+		body.no-scroll::-webkit-scrollbar {
+			background-color: rgba(255,255,255,0.95);
+		}
+		body.no-scroll::-webkit-scrollbar-track {
+			background-color: rgba(255,255,255,0.95);
+		}
+		body.no-scroll::-webkit-scrollbar-thumb {
+			background-color: rgba(255,255,255,0.95);
+		}
+		.preloader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			-webkit-transition: opacity 0.5s ease;
+			transition: opacity 0.5s ease;
+			z-index: 10000;
+		}
+		.finish-load .preloader {
+			pointer-events: none;
+			opacity: 0;
+		}
+		.preloader__bg {
+			height: 100%;
+			width: 100%;
+			background-color: #FFFFFF;
+			-webkit-transition: opacity 0.5s ease;
+			transition: opacity 0.5s ease;
+		}
+		.preloader p {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: -webkit-flex;
+			display: flex;
+			width: 100%;
+			height: 100%;
+		}
+		.preloader p svg {
+			margin: auto;
+			height: 18vh;
+		}
+		.video-wrapp {
+			position: relative;
+			width: 100%;
+			overflow: hidden;
+		}
+		.b-title {
+			position: relative;
+		}
+		.b-title__video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			-webkit-transition: all 0.5s ease;
+			transition: all 0.5s ease;
+		}
+		.b-title__logo {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			padding-top: 20vh;
+			padding-bottom: 33vh;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 9998;
+		}
+		.b-title__logo-inner {
+			margin: auto;
+		}
+		.b-title__logo-img_mobile {
+			display: none;
+		}
+		.b-title__logo-text {
+			margin-bottom: 5vh;
+		}
+		.b-title__logo-ligature svg {
+			height: 40px;
+		}
+		.b-title__logo-ligature,
+		.b-title__logo-text {
+			font-family : 'Playfair Display', sans-serif;
+			color: #FFFFFF;
+			font-size: 60px;
+			text-align: center;
+		}
+		.anim-title-item {
+			opacity: 0;
+			-webkit-transform: translate(0, 50px);
+			transform: translate(0, 50px);
+		}
+		.b-title__logo-img_mobile {
+			-webkit-transition: -webkit-transform 0.8s ease 0.5s,
+			opacity 0.8s ease 0.5s;
+			transition: transform 0.8s ease 0.5s,
+			opacity 0.8s ease 0.5s;
+		}
+		.b-title__logo-ligature {
+			-webkit-transition: -webkit-transform 0.8s ease 0.9s,
+						opacity 0.8s ease 0.9s;
+			transition: transform 0.8s ease 0.9s,
+						opacity 0.8s ease 0.9s;
+		}
+		.b-title__logo-text {
+			-webkit-transition: -webkit-transform 0.8s ease 0.7s,
+						opacity 0.8s ease 0.7s;
+			transition: transform 0.8s ease 0.7s,
+						opacity 0.8s ease 0.7s;
+		}
+		
+		.finish-load .anim-title-item {
+			opacity: 1;
+			-webkit-transform: translate(0, 0);
+			transform: translate(0, 0);
+		}
+		.b-title__poster {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height : 100%;
+			width: 100%;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			transform-origin: center;
+			transition: transform 0.7s ease,
+			opacity 0.4s ease;
+		}
+		body:not(.finish-load) .b-title__poster {
+			opacity: 0;
+			transform: scale(1.5);
+		}
+		.b-title__img {
+			position: absolute;
+			bottom: -18vh;
+			left: 0;
+			height: 65vh;
+			max-height: 680px;
+			width: 100%;
+			background: url('img/title-services/aesthmed-title.png') no-repeat center bottom;
+			background-size: auto 100%;
+			z-index: 9998;
+		}
+		@media all and (max-width: 550px) {
+			.b-navigation__mobile {
+				background: transparent;
+			}
+			.b-navigation__mobile .button-online-record,
+			.b-navigation__header-logo {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.b-title__logo {
+				padding-top: 10vh;
+			}
+			.b-title__logo-inner {
+				margin: 0 auto;
+			}
+			.b-title__logo-img_mobile {
+				display: block;
+				margin-bottom: 30px;
+				text-align: center;
+				font-size: 40px;
+				color: #FFF;
+			}
+			.b-title__logo-ligature,
+			.b-title__logo-text {
+				font-size: 28px;
+			}
+			.b-title__logo-text {
+				margin-bottom: 30px;
+			}
+			.b-title__logo-ligature svg {
+				height: 25px;
+			}
+		}
+	</style>
+	
+	<link rel="stylesheet" href="css/reset-min.css">
+	<link rel="stylesheet" href="css/gird-column.css">
+	<link rel="preload" href="css/select.min.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/slider-style.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/flatpickr.min.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="stylesheet" href="css/styles-common.css">
+	<link rel="preload" href="css/validation.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="css/styles-aesthetic.css" as="style" onload="this.rel='stylesheet'">
+
+</head>
+
+<body class="no-scroll">
+<!--<body class="finish-load">-->
+
+	<!--<div class="preloader" hidden>-->
+		<div class="preloader">
+		<div class="preloader__bg"></div>
+	</div>
+
+	<nav class="l-navigation b-navigation">
+	<div class="b-navigation__mobile">
+		<a href="index.html" class="b-navigation__header-logo icon-logo"></a>
+		<p class="b-navigation__header-links">
+			<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
+			<a href="tel:+380542700818" class="">(0542) 700-818</a>
+			<button class="btn arrow button-online-record">онлайн-запись</button>
+			<button class="btn burger__button"><span></span></button>
+		</p>
+	</div>
+	<div class="b-navigation__main">
+		<header class="b-navigation__header">
+			<a href="index.html" class="b-navigation__header-logo icon-logo desktop"></a>
+			<a href="index.html" class="b-navigation__header-logo icon-full-logo tablet"></a>
+			<p class="b-navigation__header-links">
+				<a href="about.html" class="">О центре</a>
+				<a href="spa.html" class="">SPA-комплекс</a>
+				<a href="cosmetology.html" class="">Косметология</a>
+				<a href="#" class="">Бьюти-зона</a>
+				<a href="#" class="">Услуги для мужчин</a>
+				<a href="contact.html" class="">Контакты</a>
+				<a href="tel:+380501002233" class="icon-phone">(050) 100-22-33</a>
+				<a href="tel:+380542700818" class="">(0542) 700-818</a>
+				<button class="btn arrow button-online-record">онлайн-запись</button>
+			</p>
+		</header>
+		<div class="b-navigation__side-left">
+			<a href="#" class="icon-inst"></a>
+			<a href="#" class="icon-vk"></a>
+			<a href="#" class="icon-fb"></a>
+		</div>
+		<div class="b-navigation__side-right">
+			<a href="index.html" class="current">RU</a>
+			<a href="index-en.html">EN</a>
+		</div>
+	</div>
+</nav>
+	
+	<main class="l-content">
+		
+		<section class="b-title">
+			<div class="video-wrapp">
+				
+				<!--<video class="b-title__video"-->
+				       <!--id="my-video"-->
+				       <!--loop="loop"-->
+				       <!--preload=""-->
+				       <!--data-name-video="video/velur"-->
+				       <!--poster="video/poster-main.jpg">-->
+					<!--<source src="" type="video/mp4" />-->
+					<!--<source src="" type="video/webm" />-->
+					<!--<source src="" type="video/ogg" />-->
+				<!--</video>-->
+				
+				<script>
+                    const video = document.getElementsByTagName('video')[0];
+
+                    if(video) {
+                        createVideo(video);
+                    }
+
+                    function createVideo(video) {
+                        var scrVideo = video.getAttribute('data-name-video');
+
+                        var isMobile = {
+                            Android: function() {
+                                return navigator.userAgent.match(/Android/i) ? true : false;
+                            },
+                            BlackBerry: function() {
+                                return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+                            },
+                            iOS: function() {
+                                return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+                            },
+                            Opera: function() {
+                                return navigator.userAgent.match(/Opera Mini/i) ? true : false;
+                            },
+                            Windows: function() {
+                                return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i) ? true : false;
+                            },
+                            any: function() {
+                                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                            }
+                        }
+
+
+                        var device = isMobile.any();
+
+                        if(device) {
+                            if (window.innerWidth <= 1024 && window.innerWidth > 780) {
+                                // Планшет
+                                changeSourceVideo(scrVideo, 1024);
+                            } else if (window.innerWidth <= 780) {
+                                // Мобайл
+                                changeSourceVideo(scrVideo, 780);
+                            } else {
+                                changeSourceVideo(scrVideo, '');
+                            }
+                        } else {
+                            changeSourceVideo(scrVideo, '');
+                        }
+
+                        function changeSourceVideo(src,width) {
+                            var source = video.querySelectorAll('source');
+
+                            if(width) {
+                                width = '-' + width;
+                            }
+
+                            for(var i = 0, len = source.length; i < len; i++) {
+                                scrVideo = source[i].getAttribute('type');
+                                var temp = scrVideo.split('/');
+                                scrVideo = '' + src + width + '.' + temp[1] + '';
+                                source[i].setAttribute('src', scrVideo);
+
+                            }
+
+                            video.load();
+                        }
+
+                    }
+				</script>
+				<div class="b-title__logo">
+					<div class="b-title__logo-inner">
+						<p class="b-title__logo-img_mobile icon-logo anim-title-item"></p>
+						<p class="b-title__logo-text anim-title-item">Эстетическая медицина</p>
+						<p class="b-title__logo-ligature anim-title-item">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143.5 38"><path fill="#FFF" d="M84.6 38c-5-2.1-10.3-4.5-15.9-7.1l-.3-.1c-.6-.3-1.3-.6-1.9-.8-.6-.3-1.2-.5-1.8-.8H64.4c-.7.2-1.2.4-1.7.6-.8.3-1.5.5-2.4.8-10.7 3.4-19.8 5.5-26.9 6.5-2.9.4-5.2.6-7.1.6-2.2 0-4.4-.1-6.4-.4-3.7-.5-7-1.4-10-2.7-1.3-.6-2.5-1.2-3.6-2-1.9-1.3-3.6-2.7-4.7-4.3-1-1.4-1.6-2.6-1.6-3.6v-.2C0 22.6 0 20 2.2 18c.6-.6 1.3-1.1 2.2-1.5 1.9-1 4.5-1.6 7.9-2 1.3-.2 3-.3 5.2-.3h.4l.1-.4c.4-2.8 2.5-5.4 5.8-7.3 1.8-1.1 4-2 6.3-2.6 1.2-.3 2.4-.5 3.7-.7 1.3-.2 2.6-.2 3.9-.2 5 0 11.8 1.5 19.6 4.3 3.6 1.3 7.4 2.9 12.4 5.2l.1.1h.2c4.1-1.3 7.9-2.8 11.7-4.2 4.7-1.8 9.2-3.5 13.8-4.8 7.4-2 15.1-3.4 19.6-3.4h1.4c1.5 0 2.9.1 4.3.4 2.3.3 3.9.8 5.2 1.5 2 1.1 3.4 3 4 5.6l.1.3h.3c3.3.4 5.7 1 7.5 2 3.5 1.8 5.4 4.8 5.7 8.7.1 2-.6 4-2 5.8-.7.8-1.4 1.6-2.4 2.4-.9.7-2 1.4-3.1 2-4.1 2.2-9.2 3.6-13.5 3.6h-.8c-2.1-.1-5-.6-8.7-1.5-3.5-.9-7.4-2.1-11.5-3.5-4.4-1.5-9.2-3.5-14.7-6H86.6l-3.2 1.1c-3.4 1.2-9.6 3.4-16.7 5.8l-1.2.4s2.9 1.3 3.3 1.5l1.2.6c5.3 2.4 10.3 4.7 15 6.7l-.4.4zM17.3 14.7c-2 .1-3.6.2-4.9.3-3.2.4-5.8 1.1-7.7 2-.8.4-1.5.9-2.1 1.4-1 .9-1.6 1.9-1.8 3.1-.2.9-.2 1.8-.2 2.7v.3c0 .7.4 1.9 1.4 3.3.5.7 1.2 1.4 1.9 2.1.7.7 1.6 1.4 2.7 2.1 2.3 1.5 5 2.7 8 3.5 1.7.5 3.5.8 5.4 1.1 2.1.3 4.2.4 6.3.4 7.6 0 16.9-2.2 28.3-6.8 1.6-.6 2.5-1 3.5-1.5.5-.2 1-.4 1.6-.7l1-.5-1-.5c-1-.4-1.9-.9-2.9-1.3l-6-2.7-.6-.2-2.1.6c-1.9.6-3.8 1.1-5.5 1.5-4.1 1-7 1.5-8.8 1.5-1.9 0-3.8-.3-5.7-.9-1.8-.6-3.6-1.5-5.1-2.5-1.6-1.1-2.9-2.4-3.7-3.7-.8-1.2-1.3-2.6-1.4-4.1v-.5h-.6zm106.5-4.4c-4.8.2-13.6 2.8-20.1 5-5.6 1.8-9.9 3.4-13.4 4.7l-2.8 1 1.1.5c4.4 1.9 8.8 3.7 13.2 5.2 4.1 1.4 8 2.6 11.5 3.5 3.6.9 6.5 1.4 8.5 1.5h.8c1.9 0 4-.3 6.1-.8 2.5-.6 4.9-1.5 7.1-2.7 1.1-.6 2.1-1.3 3-2 .9-.7 1.7-1.5 2.3-2.3.7-.8 1.1-1.7 1.5-2.6.3-1 .5-1.9.4-2.8-.1-1.9-.7-3.4-1.8-4.6-1-1.1-2.3-1.9-4.1-2.5-1.6-.5-3.5-.8-6.4-1h-.5v1.7c-.2 1-.4 1.9-.8 2.8-.4.9-.8 1.8-1.4 2.6-.5.8-1.1 1.5-1.8 2.3-.7.7-1.4 1.4-2.2 2-.8.6-1.6 1.1-2.5 1.5-.9.4-1.8.8-2.7 1-.9.2-1.8.4-2.7.4h-.5c-1.5 0-2.9-.2-4.2-.5-1.3-.3-2.4-.9-3.3-1.6-.9-.6-1.5-1.3-2-2.1-.4-.7-.6-1.5-.6-2.1.1-1.3.9-2 1.5-2.2h1.2c1.4 0 2.6 1.2 2.6 2.6 0 1.2-.9 2.3-2.2 2.5l-1.2.2 1 .7c.9.6 1.9 1.1 3.1 1.4 1.3.3 2.6.5 4.1.5h.5c.8 0 1.7-.2 2.6-.4.9-.2 1.7-.6 2.5-1 1.6-.8 3.1-2 4.5-3.4.7-.8 1.3-1.5 1.8-2.2 1.1-1.6 1.8-3.4 2.1-5.1 0-.3.1-.5.1-.8v-.9l-1.5-.1c-1.1-.1-2.3-.1-3.5-.1h-.5c-.2.2-.3.2-.4.2zM73.4 15c-5.3 2.1-11.9 4.4-18.3 6.4-.5.2-.9.3-1.4.4-.4.1-.8.2-1.3.4l-1.3.4 1.3.5c2.3 1 4.7 2 6.9 3l2.1.9h.1c5.8-2.2 10.8-4.2 16.1-6.4l4-1.6-1-.5-1.2-.6c-.5-.2-1-.4-1.4-.7-.9-.5-1.8-.9-2.7-1.4-.6-.3-1.1-.5-1.7-.8h-.2zm-55-.3v.5c.2 2.6 2 5.3 4.8 7.3 3 2.1 6.9 3.3 10.5 3.3.6 0 1.7-.2 2.9-.5l1.5-.3c1.4-.3 2.7-.7 4.1-1.2.8-.3 1.8-.6 2.7-1 .6-.2 1.1-.4 1.6-.6l1.2-.5s-2.2-.9-2.7-1c-1-.4-2.1-.8-3.1-1.2-9.3-3.3-16.8-4.9-22.9-4.9l-.6.1zm.8-.6c2.3 0 4.5.2 6.6.5 4.8.7 10.1 2.2 16.5 4.4 1.8.6 3.6 1.4 5.4 2.1l.9.4h.1c.8-.3 1.5-.6 2.2-.8 1.1-.4 2.3-.8 3.4-1.3 4.5-1.8 7.9-3.4 11.3-5l3.5-1.6-1-.5C60.4 8.6 52.9 6 46.6 4.6c-1.9-.4-3.4-.7-4.7-.9-1.4-.2-2.8-.3-4.2-.3-2.6 0-5.1.3-7.5.9-2.3.6-4.3 1.4-6.2 2.5-1 .6-1.7 1.1-2.4 1.7-1.6 1.4-2.7 3.1-3.1 4.9l-.1.6.8.1zM115.9.6c-4.9.1-14.8 3.5-20.3 5.5-8.2 3-16.2 6.4-19.2 7.8-.1 0-.3.1-.5.2s-.4.1-.5.2l-1 .4.9.5c.4.2.9.5 1.4.7.6.3 1.2.6 1.7.9.7.4 1.6.8 2.4 1.2.6.3 1.1.5 1.7.8l.1.1h.2c13.5-4.8 28-9.7 43.1-11.2.5 0 1.1.1 1.6.2.4 0 .8.1 1.1.1l.8.1-.3-.7c-.7-2.1-2.2-3.6-4.5-4.8-1-.5-2.3-.9-3.9-1.2-1.7-.6-3.2-.7-4.8-.8z"/></svg>
+						</p>
+					</div>
+				</div>
+				<div class="b-title__poster" style="background-image: url('img/aesthetic-title-poster.jpg');"
+				data-title-poster></div>
+			</div>
+			<div class="b-title__img"></div>
+		</section>
+		
+		<script>
+            window.transitionEnd = whichTransitionEvent();
+            
+            handlerStart();
+
+            function handlerStart(){
+
+                const preloader = document.getElementsByClassName('preloader')[0];
+                const poster = document.getElementsByClassName('b-title__poster')[0];
+
+                const video = document.getElementsByTagName('video')[0];
+                const titleLogo = document.getElementsByClassName('b-title__logo-inner')[0];
+
+                var timeOutLoad;
+                var isFinishLoadPoster = false,
+                    isFinishLoadVideo = false,
+                    isFinishNotLoadVideo = false;
+
+                disableScroll();
+
+                // Если видео не загрузилось на протяжении 2с, не ожидать
+                timeOutLoad = setTimeout(function(){
+                    willChangeSwitch(preloader, 'opacity');
+                    isFinishNotLoadVideo = true;
+
+                    titleLogo.classList.add('transition');
+                    document.body.classList.add('finish-load');
+                    document.body.classList.remove('no-scroll');
+                    enableScroll();
+                }, 2000);
+                
+                if(video) {
+                    checkPosterVideo(video);
+
+                    //*** 2 После загрузки видео убрать прелоадер ***//
+                    canPlay(video, videoLoad);
+                } else {
+                    //*** 1 По загрузке показать poster и прозрачность прелоадеру ***//
+                    checkLoadBg(poster);
+                }
+
+                //*** 3 Окончание анимации стартового текста, удалить preloader
+                const animLogo = document.querySelectorAll(".anim-title-item");
+                animLogo[animLogo.length - 1].addEventListener(transitionEnd, handlerAnimLogo);
+
+                function handlerAnimLogo(){
+                    willChangeSwitch(titleLogo.querySelectorAll(".anim-title-item"), 'auto');
+
+                    deletePreloader(preloader);
+
+                    this.removeEventListener(transitionEnd, handlerAnimLogo);
+                }
+
+                function checkLoadBg(el) {
+
+                    willChangeSwitch(preloader, 'opacity');
+
+                    var image = document.createElement('img');
+                    image.src = getBgUrl(el);
+                    image.addEventListener('load', loadImg);
+
+                    function loadImg() {
+                        image.remove();
+                        image.removeEventListener('load', loadImg);
+                        preloader.addEventListener(transitionEnd, removeWillChange);
+                        if(el.hasAttribute('data-title-poster')) {
+                            isFinishLoadPoster = true;
+                        }
+                        loadPosters();
+                    }
+
+
+                    function getBgUrl(el) {
+                        var  bg = "";
+                        if (el.currentStyle) { // IE
+                            bg = el.currentStyle.backgroundImage;
+                        } else if (document.defaultView && document.defaultView.getComputedStyle) { // Firefox
+                            bg = document.defaultView.getComputedStyle(el, "").backgroundImage;
+                        } else { // try and get inline style
+                            bg = el.style.backgroundImage;
+                        }
+                        return bg.replace(/url\(['"]?(.*?)['"]?\)/i, "$1");
+                    }
+                }
+
+                function loadPosters(){
+
+                    if(isFinishLoadPoster || isFinishNotLoadVideo) {
+
+                        clearTimeout(timeOutLoad);
+
+                        willChangeSwitch(titleLogo.querySelectorAll(".anim-title-item"),
+                            'opacity, transition');
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                    }
+                }
+
+                function checkPosterVideo(video) {
+                    if(video.hasAttribute('poster')) {
+                        var poster = video.getAttribute('poster');
+                        var image = new Image();
+                        image.src = poster;
+                        image.addEventListener('load', handlerLoadPoster);
+                    }
+
+                    function handlerLoadPoster() {
+                        this.removeEventListener('load', handlerLoadPoster);
+                        this.remove();
+                        isFinishLoadPoster = true;
+                        if(isFinishLoadVideo) {
+                            videoLoad();
+                        } else {
+                            setTimeout(function(){
+                                willChangeSwitch(titleLogo.querySelectorAll(".anim-title-item"),
+                                    'opacity, transition');
+                                titleLogo.classList.add('transition');
+                                document.body.classList.add('finish-load');
+                                document.body.classList.remove('no-scroll');
+                                enableScroll();
+                            },200);
+                        }
+                    }
+                }
+
+                function videoLoad() {
+                    isFinishLoadVideo = true;
+                    clearTimeout(timeOutLoad);
+                    if(!isFinishLoadPoster) {
+
+                        // Если видео загрузилось быстро и постер не успел загрузиться
+                        willChangeSwitch(preloader, 'opacity');
+                        willChangeSwitch(titleLogo.querySelectorAll(".anim-title-item"),
+                                'opacity, transition');
+                        document.body.classList.add('load-poster');
+//                        poster.classList.add('hidden');
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('load-poster');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        if(window.innerWidth > 1024) {
+                            startPlayBg();
+                        }
+                                            }
+                    if(isFinishLoadPoster) {
+                        titleLogo.classList.add('transition');
+                        document.body.classList.add('finish-load');
+                        document.body.classList.remove('no-scroll');
+                        enableScroll();
+                        if(window.innerWidth > 1024) {
+                            startPlayBg();
+                        }
+                    }
+                }
+                
+                function deletePreloader(preloader) {
+                    removeWillChange.call(preloader);
+                    setTimeout(function(){
+                        preloader.remove();
+                    },200);
+                }
+                
+                function startPlayBg() {
+                    video.currentTime = 0;
+                    video.muted = true;
+                    video.controls = false;
+                    
+                    setTimeout(function(){
+                        video.play();
+                    },1000);
+                    
+                    window.isVideoPlay = true;
+                }
+
+                //*** Work with property will-change ***//
+                function willChangeSwitch(elem, prop) {
+                    if(elem.length) {
+                        for(var  i=0; i < elem.length; i++) {
+                            elem[i].style.willChange = prop;
+                        }
+                    } else {
+                        elem.style.willChange = prop;
+                    }
+                }
+
+                //*** Delete composition layer ***//
+                function removeWillChange(e){
+                    willChangeSwitch(this, 'auto');
+                    this.removeEventListener(transitionEnd, removeWillChange);
+                }
+
+                // *** Disable scroll ***//
+                // left: 37, up: 38, right: 39, down: 40,
+                // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+                const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+                function preventDefault(e) {
+                    e = e || window.event;
+                    if (e.preventDefault)
+                        e.preventDefault();
+                    e.returnValue = false;
+                }
+
+                function preventDefaultForScrollKeys(e) {
+                    if (keys[e.keyCode]) {
+                        preventDefault(e);
+                        return false;
+                    }
+                }
+
+                function disableScroll() {
+                    if (window.addEventListener) // older FF
+                        window.addEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onwheel = preventDefault; // modern standard
+                    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+                    window.ontouchmove  = preventDefault; // mobile
+                    document.onkeydown  = preventDefaultForScrollKeys;
+                }
+
+                function enableScroll() {
+                    if (window.removeEventListener)
+                        window.removeEventListener('DOMMouseScroll', preventDefault, false);
+                    window.onmousewheel = document.onmousewheel = null;
+                    window.onwheel = null;
+                    window.ontouchmove = null;
+                    document.onkeydown = null;
+                }
+                // *** /Disable scroll ***
+            }
+
+            function whichTransitionEvent(){
+                var  t;
+                var  el = document.createElement('fakeelement');
+                var  resTransitionEnd;
+
+                var  transitionsEnd = {
+                    'OTransition':'oTransitionEnd',
+                    'MozTransition':'transitionend',
+                    'WebkitTransition':'webkitTransitionEnd',
+                    'transition':'transitionend'
+                };
+
+                for(t in transitionsEnd){
+                    if( el.style[t] !== undefined ){
+                        resTransitionEnd = transitionsEnd[t];
+                    }
+                }
+
+                return resTransitionEnd;
+            }
+
+            function canPlay(video, callback) {
+                var i = 0,
+                    muted = video.muted,
+                    onCanPlay = function () {
+                        video.removeEventListener ( "canplaythrough", onCanPlay );
+                        callback( null );
+                    };
+
+                //firefox canplay events fix
+
+                var waitTime = 200;
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.paused) {
+                        video.muted = true;
+                        video.play();
+                    }
+                }, waitTime);
+
+                setTimeout(function () {
+                    // Resume play if the element if is paused.
+                    if (video.played) {
+                        video.muted = muted;
+                        video.pause();
+                    }
+                }, waitTime*2);
+
+                video.currentTime = 0;
+
+                if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
+                    onCanPlay();
+                }
+
+                else if ( "oncanplaythrough" in video ) {
+                    return video.addEventListener ( "canplaythrough", onCanPlay );
+                }
+                else {
+                    (function waitCanPlay() {
+
+                        if ( video.readyState === video.HAVE_ENOUGH_DATA ) {
+                            return callback( null );
+                        }
+
+                        else if ( ++i === 15 ) {
+                            return callback ( "Failed download video" );
+                        }
+
+                        setTimeout( waitCanPlay, 300 );
+                    } () );
+                }
+            }
+		
+		</script>
+		
+		<section class="b-methodics">
+			<div class="wrap">
+				<p class="icon-ligature"></p>
+				<h2>Комплексные методики</h2>
+				<p class="lead">В спа-центре «Велюр» все программы восстановления проводится опытным специалистом-дерматокосметологом, с тщательным подбором препаратов и интенсивности процедур по результатам индивидуального обследования.</p>
+				<div class="b-methodics__links img-link-inner">
+					<div class="b-methodics__links-col m-methodics__links-col_left">
+						<a href="one-service.html"
+						   class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+							<span class="img-link__img" style="background-image:
+							url('img/services/aptos.jpg');"></span>
+							</p>
+							<h4 class="img-link__text">Эстетическая коррекция нитями Aptos&#174;</h4>
+						</a>
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+							<span class="img-link__img"
+							      style="background-image:	url('img/services/modeling-face.jpg');"></span></p>
+							<h4 class="img-link__text">Объемное моделирование лица</h4>
+						</a>
+					</div>
+					<div class="b-methodics__links-col m-methodics__links-col_center">
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img" style="background-image: url('img/services/hyperhidrosis.jpg');"></span></p>
+							<h4 class="img-link__text">Лечение гиперидоза</h4>
+						</a>
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img"
+								      style="background-image:	url('img/services/trichology.jpg');"></span></p>
+							<h4 class="img-link__text">Трихология</h4>
+						</a>
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img" style="background-image: url('img/services/intimate-plastic.jpg');"></span></p>
+							<h4 class="img-link__text">Интимная контурная пластика</h4>
+						</a>
+					</div>
+					<div class="b-methodics__links-col m-methodics__links-col_right">
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img" style="background-image:
+								url('img/services/problem-skin.jpg');"></span></p>
+							<h4 class="img-link__text">Лечение проблемной кожи</h4>
+						</a>
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img"
+								      style="background-image: url('img/services/youth.jpg');"></span></p>
+							<h4 class="img-link__text">Методики омоложения</h4>
+						</a>
+						<a href="one-service.html" class="b-methodics__links-item img-link">
+							<p class="img-link__bg">
+								<span class="img-link__img"
+								      style="background-image: url('img/services/for-body.jpg');"></span></p>
+							<h4 class="img-link__text">Процедуры для тела</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="b-reviews img-footer__bg-1">
+			<div class="wrap">
+				<p class="icon-ligature"></p>
+				<h2>Отзывы клиентов</h2>
+				<div class="swiper-container" data-autoSlide='false'>
+					<div class="swiper-wrapper">
+						<div class="b-reviews__item swiper-slide">
+							<img src="img/temp/avatar.jpg" class="b-reviews__item-img" />
+							<p class="b-reviews__item-name name text bold">ЕКАТЕРИНА К. <span
+									class="b-reviews__item-city city">Сумы
+							</span></p>
+							<h4 class="b-reviews__item-note note">«Интерьер и ремонт — хороши! Цены — очень приятные.
+								Больше всего понравилась
+								жемчужная ванная, полчаса булькалась. Скрабы, обвертывания, массаж — все на уровне! Очень приветливый и внимательный персонал. Были в четвером с подругами, всем очень понравилось, решили стать постоянными клиентам СПА-центра. Рекомендую всем, не пожалеете.»</h4>
+						</div>
+						<div class="b-reviews__item swiper-slide">
+							<img src="img/temp/avatar.jpg" class="b-reviews__item-img" />
+							<p class="b-reviews__item-name name text bold">ЕКАТЕРИНА К. <span
+									class="b-staffs__reviews-city city">Сумы
+							</span></p>
+							<h4 class="b-reviews__item-note note">«Интерьер и ремонт — хороши! Цены — очень приятные.
+								Больше всего понравилась
+								жемчужная ванная, полчаса булькалась. Скрабы, обвертывания, массаж — все на уровне! Очень приветливый и внимательный персонал. Были в четвером с подругами, всем очень понравилось, решили стать постоянными клиентам СПА-центра. Рекомендую всем, не пожалеете.»</h4>
+						</div>
+					</div>
+					<div class="swiper-controls swiper-controls-prev icon-btn-left"></div>
+					<div class="swiper-controls swiper-controls-next icon-btn-right"></div>
+					<p class="swiper-pagination"></p>
+				</div>
+			</div>
+		</section>
+		
+		<section class="b-certificate">
+			<div class="wrap">
+				<h2>Подарочные сертификаты «Велюр»</h2>
+				<p class="lead">В нашей SPA-зоне работают первоклассные специалисты, которые постоянно совешенствуются для того, чтобы вы получили максимум пользы от наших услуг</p>
+				<div class="row">
+					<form action="" class="b-certificate__form col xs-offset-6 xs-5 xl-4" name="buy-certificate">
+						<div class="b-certificate__form-wrap">
+							<input name="title" value="Покупка сертификата" hidden />
+							<label for="">
+								<select name="par" title="select-par" data-placeholder="Выберите номинал"
+								        class="droplist img-arrow forcibly-placeholder" required>
+									<!--<option>Выберите номинал</option>-->
+									<option>100 грн</option>
+									<option>500 грн</option>
+									<option>700 грн</option>
+									<option>800 грн</option>
+									<option>1000 грн</option>
+									<option>1200 грн</option>
+									<option>1500 грн</option>
+								</select>
+							</label>
+							
+							<label>
+								<input class="b-certificate__form-input"
+								       type="tel"
+								       name="phone"
+								       pattern="(\+?\d[- .]*){7,13}"
+								       placeholder="Ваш телефон"
+								       required/>
+							</label>
+							
+							<label class="input input-checkbox">
+								<input type="checkbox" name="delivery"
+								       value="Необходима доставка в руки"
+								       class="">
+								<span class="text">Доставка в руки (+40 грн)</span>
+							</label>
+							
+							<button type="button" class="btn btn__big btn__submit">Купить сертификат</button>
+						</div>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="b-massage">
+			<div class="wrap row">
+				<div class="col lg-offset-1 xl-offset-2 lg-10 xl-8">
+					<h2>Эстетическая медицина в Сумах</h2>
+					<div class="hide-parent-text" data-visible="370">
+						<article>
+							<h4>Гиалуроновая кислота</h4>
+							<p class="text">Гиалуроновая и янтарная кислоты – это естественные компоненты кожи, вырабатываемые организмом самостоятельно. Однако с возрастом выработка этих компонентов снижается, в результате чего кожа теряет тонус. При редермализации в коже восполняется недостаток естественных гиалуроновой и янтарной кислот, оказывается мощное оздоровительное действие: восстановительный и антиоксидантный эффекты, блокировка свободных радикалов, усиление микроциркуляции в коже, усиление синтеза коллагена и эластана.</p>
+						</article>
+						<article>
+							<h4>Векторный лифтинг и редермализация</h4>
+							<p class="text">Векторный лифтинг на основе гиалуроновой кислоты формирует особый биокаркас внутри дермы, который подтягивает и поддерживает кожу. В результате контуры лица подтягиваются, кожа сияет и разглаживается.</p>
+							<p class="text">Гиалуроновая кислота не вызывает аллергии, отторжения или каких-либо осложнений, не проникает в соседние участки и впоследствии медленно рассасывается в тканях, что делает процедуру векторного лифтинга совершенно безопасной.</p>
+							<p class="text">В спа-центре «Велюр» программы векторного лифтинга назначает врач-дерматокосметолог высокой квалификации, учитывая индивидуальные особенности каждого пациента. Векторный лифтинг в спа-центре «Велюр» подарит Вам здоровую, подтянутую кожу всего за несколько сеансов, без хирургического вмешательства</p>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="b-also">
+			<div class="wrap">
+				<div class="b-also-services__links img-link-inner row row-wrap">
+					<a href="cosmetology.html" class="b-other-services__links-item img-link col sm-4">
+						<p class="img-link__bg">
+							<span class="img-link__img"
+							      style="background-image:	url('img/title-services/cosmetology-img.jpg');"></span></p>
+						<h4 class="img-link__text">Косметология</h4>
+					</a>
+					<a href="#" class="b-other-services__links-item img-link col sm-4">
+						<p class="img-link__bg">
+							<span class="img-link__img" style="background-image:
+					url('img/title-services/beauty-zone-img.jpg');"></span></p>
+						<h4 class="img-link__text">Бьюти-зона</h4>
+					</a>
+					<a href="#" class="b-other-services__links-item img-link col sm-4">
+						<p class="img-link__bg">
+							<span class="img-link__img"
+							      style="background-image:	url('img/title-services/man-services-img.jpg');"></span></p>
+						<h4 class="img-link__text">Услуги для мужчин</h4>
+					</a>
+				</div>
+			</div>
+		</section>
+	
+	</main>
+
+	<section>
+		<div class="b-popup" data-map>
+			<div class="b-popup__map img-flover__form row row-wrap">
+				<p class="b-popup__button-close button-close"></p>
+				<div class="b-popup__map-left col xs-12 sm-8">
+					<div id="map" class="google-map"></div>
+				</div>
+				<div class="b-popup__map-right col xs-12 sm-4">
+					<div id="pano" class="street-view xs-hidden"></div>
+					<h4>Сумы, ул. Покровская, 16/1</h4>
+					<ul>
+						<li
+								class="text"><a href="tel:+380503533232">050 353-32-32</a><span>Vodafone
+												</span></li>
+						<li class="text"><a href="tel:+380973533232">097 353-32-32</a><span>Kyivstar</span></li>
+						<li class="text"><a href="tel:+380542333232">0542 33-32-32</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="b-popup" data-contact>
+			<div class="b-popup__contact img-flover__form form" >
+				<p class="b-popup__button-close button-close"></p>
+				<p class="icon-ligature-half"></p>
+				<div class="form-wrap">
+					<form action="" name="contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<h4></h4>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="text"
+									       name="name"
+									       required/>
+									<label class="input__label input__label--akira" for="name">
+										<span class="input__label-content input__label-content--akira text">Имя</span>
+								    </label>
+								</span>
+						<span class="input input--akira">
+									<input class="input__field input__field--akira value-input"
+									       type="tel"
+									       name="phone"
+									       pattern="(\+?\d[- .]*){7,13}"
+									       required/>
+									<label class="input__label input__label--akira" for="phone">
+										<span class="input__label-content input__label-content--akira text">Телефон</span>
+									</label>
+								</span>
+						<input name="services" value="" hidden />
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время"
+						       data-clearAfterSend>
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата"
+						       data-clearAfterSend>
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b-popup" data-online-record>
+			<div class="b-popup__online img-flover__form form">
+				<p class="b-popup__button-close button-close"></p>
+				<p class="icon-ligature-half"></p>
+				<div class="form-wrap">
+					<form action="" name="online-contact">
+						<input name="title" value="Онлайн запись" hidden />
+						<h3>Онлайн-запись</h3>
+						<p class="normal">После заявки администратор свяжется с вами и согласует детали</p>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="text"
+										       name="name"
+										       required/>
+										<label class="input__label input__label--akira" for="name">
+											<span class="input__label-content input__label-content--akira text">Имя</span>
+									    </label>
+									</span>
+						<span class="input input--akira">
+										<input class="input__field input__field--akira value-input"
+										       type="tel"
+										       name="phone"
+										       pattern="(\+?\d[- .]*){7,13}"
+										       required/>
+										<label class="input__label input__label--akira" for="phone">
+											<span class="input__label-content input__label-content--akira text">Телефон</span>
+										</label>
+									</span>
+						<select name="services" data-placeholder="Услуга"
+						        class="input droplist img-arrow forcibly-placeholder value-input" data-nofilter>
+							<!--<option>Услуга</option>-->
+							<option>Услуга 1</option>
+							<option>Услуга 2</option>
+							<option>Услуга 3</option>
+							<option>Услуга 4</option>
+							<option>Услуга 5</option>
+							<option>Услуга 6</option>
+							<option>Услуга 7</option>
+							<option>Услуга 8</option>
+							<option>Услуга 9</option>
+							<option>Услуга 10</option>
+						</select>
+						<input type="time" name="time" class="input img-arrow input-time forcibly-placeholder value-input"
+						       placeholder="Время">
+						<input type="date" name="date" class="input img-arrow input-date forcibly-placeholder value-input"
+						       placeholder="Дата">
+						
+						<button type="button" class="btn btn__big btn__submit">отправить</button>
+						
+						<p class="normal text">или звоните <a href="tel:+380501112233" class="normal text">(050) 111-22-33</a></p>
+					</form>
+					<div class="form-sent">
+						<p class="img-message-send"></p>
+						<h3>Cпасибо!</h3>
+						<p class="normal">Наш администратор свяжется с вами в ближайшее время и согласует детали
+							визита. С нетерпением ждем в «Велюре»!</p>
+						<button class="normal button-close">Закрыть окно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer class="l-footer b-footer">
+	<div class="b-footer__bg img-footer__bg start"></div>
+	<div class="b-footer__bg-mobile img-footer__bg"></div>
+	<div class="b-footer__front wrap">
+		<div class="b-footer__list row row-wrap accordeon-mobile">
+			<div class="b-footer__list-item col xs-offset-1 xs-5 sm-2 xl-offset-0 acc-item">
+				<p class="text bold acc-button-element">О НАС</p>
+				<ul class="acc-hidden-element">
+					<li><a href="about.html" class="text">О СПА-центре</a></li>
+					<li><a href="#" class="text">Новости</a></li>
+					<li><a href="#" class="text">Мастера</a></li>
+					<li><a href="#" class="text">Галерея</a></li>
+					<li><a href="#" class="text">Сертификаты</a></li>
+					<li><a href="#" class="text">Награды</a></li>
+				</ul>
+			</div>
+			<div class="b-footer__list-item col xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Услуги</p>
+				<ul class="acc-hidden-element">
+					<li><a href="spa.html" class="text">СПА-зона</a></li>
+					<li><a href="cosmetology.html" class="text">Косметология</a></li>
+					<li><a href="#" class="text">Эстетическая медицина</a></li>
+					<li><a href="#" class="text">Бьюти зона</a></li>
+					<li><a href="#" class="text">Услуги для мужчин</a></li>
+				</ul>
+			</div>
+			<div class="b-footer__list-item col xs-offset-1 sm-offset-0 xs-5 sm-2 acc-item">
+				<p class="text bold acc-button-element">Популярные услуги</p>
+				<ul class="acc-hidden-element">
+					<li><a href="#" class="text">Маникюр</a></li>
+					<li><a href="#" class="text">Косметолог</a></li>
+					<li><a href="#" class="text">Талассотерапия</a></li>
+					<li><a href="#" class="text">Гидромассажная ванна</a></li>
+					<li><a href="#" class="text">Хаммам</a></li>
+					<li><a href="#" class="text">Яванский Лулур</a></li>
+				</ul>
+			</div>
+			<div class="b-footer__list-item col ms-offset-1 xs-5 sm-5 xl-offset-2 md-4 acc-item">
+				<p class="text bold acc-button-element">КОНТАКТНАЯ ИНФОРМАЦИЯ</p>
+				<ul class="acc-hidden-element">
+					<li><a href="#" class="text" id="address">Сумы, ул. Октябрьская (Покровская), 16/1</a></li>
+					<li><a href="#" class="text">050 353-32-32</a></li>
+					<li><a href="#" class="text">067 456-55-55</a></li>
+					<li><a href="#" class="text">(0542) 700-818, 700-817</a></li>
+					<li class="wrap__show-map"><a href="#" class="text show-map">Показать на карте</a></li>
+				</ul>
+			</div>
+		</div>
+		<p class="b-footer__bottom row">
+					<span class="b-footer__bottom-copyright col col sm-offset-1 sm-2 xl-offset-0">&#169; 2016 СПА-центр
+						Велюр</span>
+			<a href="http://crisp-studio.com" class="b-footer__bottom-dev col sm-offset-2 sm-2">Сrafted
+				with love by crisp</a>
+			<span class="b-footer__bottom-social col col sm-5 md-offset-1 xl-offset-2 md-4">
+								<a href="#" class="icon-vk"></a>
+								<a href="#" class="icon-fb"></a>
+								<a href="#" class="icon-inst"></a>
+							</span>
+		</p>
+	</div>
+</footer>
+
+	<script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.append,Element.prototype.after"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/flatpickr.min.js"></script>
+	<script src="js/ru.js"></script>
+	<script src="js/select.js"></script>
+	<script src="js/validation.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/scripts-main-service.js"></script>
+	<script
+			async
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPqf2EIjG13v-uPB3JMowSFbPJ7UY5SPE&callback=myMap"></script>
+</body>
+</html>

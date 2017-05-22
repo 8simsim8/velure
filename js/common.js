@@ -854,6 +854,7 @@ function controlInputs() {
 
     var i, len;
     var datePick;
+    var isCreateDatePick = false;
 
     animTextInput('input__field');
 
@@ -865,6 +866,7 @@ function controlInputs() {
 
     if(window.innerWidth > breakPointMobile) {
         datePick = createDate('input-date');
+        isCreateDatePick = true;
     } else {
         var date = document.getElementsByClassName('input-date');
 
@@ -881,10 +883,14 @@ function controlInputs() {
 
 
     window.addEventListener('resize',function(){
-        for(var i = 0, len = datePick.length; i < len; i++) {
-            datePick[i].destroy();
+        if(isCreateDatePick) {
+            for (var i = 0, len = datePick.length; i < len; i++) {
+                datePick[i].destroy();
+                isCreateDatePick = false;
+            }
         }
         datePick = createDate('input-date');
+        isCreateDatePick = true;
     });
 
     var forms = document.getElementsByTagName('form');
@@ -1305,9 +1311,11 @@ function swipeForStaffs() {
 
     const slidersElem = document.getElementsByClassName('b-staffs__slider')[0];
 
-    resizeWindow();
+    if(slidersElem) {
+        resizeWindow();
 
-    window.addEventListener('resize', resizeWindow);
+        window.addEventListener('resize', resizeWindow);
+    }
 
     function resizeWindow() {
 

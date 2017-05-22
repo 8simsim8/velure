@@ -731,6 +731,7 @@ video::-webkit-media-controls-panel {
   font-size: 0;
   overflow: hidden;
   border-radius: 4px;
+  z-index: 1;
 }
 [class*="services__links-item"] .img-link__img,
 .img-link .img-link__img {
@@ -755,10 +756,10 @@ video::-webkit-media-controls-panel {
 .img-link .img-link__img:after {
   position: absolute;
   display: block;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  top: -1px;
+  left: -1px;
+  bottom: -1px;
+  right: -1px;
   content: '';
   background-color: #000;
   opacity: 0.4;
